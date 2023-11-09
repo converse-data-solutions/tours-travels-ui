@@ -78,10 +78,10 @@ export default function RootLayout({
   const Blink = () => {
     return <div className="notification-circle"></div>;
   };
-  // const token: any = localStorage.getItem("accessToken");
-  useEffect(()=>{
-    const token:any=localStorage.getItem("accessToken");
-  })
+  const token: any = localStorage.getItem("accessToken");
+  // useEffect(()=>{
+  //   const token:any=localStorage.getItem("accessToken");
+  // })
   const decoded: any = jwtDecode(token);
 
   console.log(decoded);
