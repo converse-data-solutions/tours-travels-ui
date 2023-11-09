@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 const SignInAndSignOut = () => {
-  const storedAccessToken =localStorage.getItem("accessToken");
+  const storedAccessToken = localStorage.getItem("accessToken");
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!storedAccessToken 
   );

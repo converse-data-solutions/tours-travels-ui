@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +7,8 @@ import FormInput from "./Forminput";
 import RadioButton from "./RadioButton";
 import TextArea from "./TextArea";
 import SelectInput from "./SelectedInput";
-import { commonConfiguration } from "../../../common"
+import apiConfiguration from "../../../config";
 import { useRouter } from "next/router";
-
 
 interface UserdataType {
   email: string;
@@ -30,15 +29,12 @@ interface UserdataType {
 interface AddUserProps {
   isEditMode: boolean;
   initialUserData?: UserdataType;
-  isHeadpart:boolean
+  isHeadpart: boolean;
 }
 
-const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
-  
-  
-   const { id } = useParams<{ id: string }>();
+const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
+  const { id } = useParams<{ id: string }>();
   const [successMessage, setSuccessMessage] = useState("");
-  
 
   let [userData, setUserData] = useState<UserdataType>(
     initialUserData || {
@@ -54,7 +50,7 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
       file_name: "",
       default_currency: "",
       default_language: "",
-      role_id: ""
+      role_id: "",
     }
   );
   let [file, setFile] = useState<File | string>();
@@ -99,20 +95,16 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
   useEffect(() => {
     if (isEditMode && id) {
       const token = localStorage.getItem("accessToken");
-      fetch(
-        `${commonConfiguration.externalservice.backendUrl}/user/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      fetch(`${apiConfiguration.externalservice.backendUrl}/user/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then(async (response) => {
           if (response.status === 200) {
             return response.json();
-            
           } else {
             throw new Error(`Error fetching user data: ${response.status}`);
           }
@@ -143,7 +135,7 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
           const { file_name, ...userDataWithoutFilename } = userData;
           const token = localStorage.getItem("accessToken");
           const response = await fetch(
-            `${commonConfiguration.externalservice.backendUrl}/user/${id}`,
+            `${apiConfiguration.externalservice.backendUrl}/user/${id}`,
             {
               method: "PUT",
               headers: {
@@ -164,7 +156,7 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
               formData.append("file", file);
 
               const uploadImageResponse = await fetch(
-                `${commonConfiguration.externalservice.backendUrl}/user/upload/${id}`,
+                `${apiConfiguration.externalservice.backendUrl}/user/upload/${id}`,
                 {
                   method: "POST",
                   body: formData,
@@ -190,7 +182,7 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
       } else {
         try {
           const response = await fetch(
-            `${commonConfiguration.externalservice.backendUrl}/user/create`,
+            `${apiConfiguration.externalservice.backendUrl}/user/create`,
             {
               method: "POST",
               headers: {
@@ -209,7 +201,7 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
             }
 
             const uploadImageResponse = await fetch(
-              `${commonConfiguration.externalservice.backendUrl}/user/upload/${newUser.data.id}`,
+              `${apiConfiguration.externalservice.backendUrl}/user/upload/${newUser.data.id}`,
               {
                 method: "POST",
 
@@ -291,29 +283,29 @@ const AddUser = ({ isEditMode, initialUserData,isHeadpart}: AddUserProps) => {
 
   return (
     <div className="bg-[#f9fafb] px-3 md:px-6">
-      {isHeadpart&&
-      
-      <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
-        <div className="flex-row text-center">
-          <h2 className="text-gray-500 md:pt-5 lg:pt-5">
-            <span className="text-[rgb(2,158,157)] ">Dashboard</span> /{" "}
-            <span className="text-[rgb(2,158,157)">User Management</span> /{" "}
-           <span > {isEditMode ? "Update User" : "Add User"}</span>
-          </h2>
+      {isHeadpart && (
+        <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
+          <div className="flex-row text-center">
+            <h2 className="text-gray-500 md:pt-5 lg:pt-5">
+              <span className="text-[rgb(2,158,157)] ">Dashboard</span> /{" "}
+              <span className="text-[rgb(2,158,157)">User Management</span> /{" "}
+              <span> {isEditMode ? "Update User" : "Add User"}</span>
+            </h2>
+          </div>
+          <div className="flex-row mt-3 text-center lg:mr-1">
+            <button
+              className="bg-[hsl(180,82%,35%)] text-white py-[10px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
+              onClick={handleInput}
+            >
+              <span className=" text-[20px] pr-1  ">
+                {" "}
+                <FontAwesomeIcon icon={faArrowLeft} className="text-[20px] " />
+              </span>{" "}
+              <span className="text-[15px]">Back To List</span>
+            </button>
+          </div>
         </div>
-        <div className="flex-row mt-3 text-center lg:mr-1">
-          <button
-            className="bg-[hsl(180,82%,35%)] text-white py-[10px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
-            onClick={handleInput}
-          >
-            <span className=" text-[20px] pr-1  ">
-              {" "}
-              <FontAwesomeIcon icon={faArrowLeft} className="text-[20px] " />
-            </span>{" "}
-            <span className="text-[15px]">Back To List</span>
-          </button>
-        </div>
-      </div>    }
+      )}
 
       <form
         className="  formshadow pl-[20px] bg-[#ffffff] border-[1px] border-gray-100 shadow-lg rounded-lg pb-[18px] mb-12 mt-4 pr-6 "

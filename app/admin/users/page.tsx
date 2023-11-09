@@ -13,7 +13,7 @@ import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "../../components/TableSearchBox";
 import PaginationBar from "../../components/PaginationBar";
 import ShowEntriesDropdown from "../../EntriesDropDown";
-import { commonConfiguration } from '../../common';
+import apiConfiguration from '../../config';
 import Image from "next/image";
 
 interface UserData {
@@ -45,7 +45,7 @@ interface UserData {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
-    fetch(`${commonConfiguration.externalservice.backendUrl}/user/get`, {
+    fetch(`${apiConfiguration.externalservice.backendUrl}/user/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ interface UserData {
       if (window.confirm("Are you sure you want to delete this user?")) {
         const token = localStorage.getItem("accessToken");
         fetch(
-          `${commonConfiguration.externalservice.backendUrl}/user/${userid}`,
+          `${apiConfiguration.externalservice.backendUrl}/user/${userid}`,
           {
             method: "DELETE",
             headers: {

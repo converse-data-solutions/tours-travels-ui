@@ -16,6 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
     "@types/jwt-decode": "^3.1.0",
@@ -26,7 +27,6 @@
     "react": "^18",
     "react-dom": "^18",
     "react-particles": "^2.12.2",
-    "react-tsparticles": "^2.12.2",
     "swiper": "^11.0.3",
     "tsparticles": "^2.12.0"
   },

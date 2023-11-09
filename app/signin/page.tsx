@@ -1,7 +1,7 @@
-'use client'
+"use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import FormInput from "./FormInput";
-import { commonConfiguration } from "../common";
+import apiConfiguration from "../config";
 
 const SignInForm: React.FC = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -58,7 +58,7 @@ const SignInForm: React.FC = () => {
   const signIn = async () => {
     try {
       const response = await fetch(
-        `${commonConfiguration.externalservice.backendUrl}/user/signin`,
+        `${apiConfiguration.externalservice.backendUrl}/user/signin`,
         {
           method: "POST",
           headers: {
@@ -93,7 +93,7 @@ const SignInForm: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${commonConfiguration.externalservice.backendUrl}/user/create`,
+        `${apiConfiguration.externalservice.backendUrl}/user/create`,
         {
           method: "POST",
           headers: {
@@ -198,7 +198,7 @@ const SignInForm: React.FC = () => {
         If you don't have an account?{" "}
         <button
           className="text-blue-600 px-2"
-           onClick={() => setIsSignUp(!isSignUp)}
+          onClick={() => setIsSignUp(!isSignUp)}
         >
           {" "}
           {isSignUp ? "Sign In" : "Sign Up"}

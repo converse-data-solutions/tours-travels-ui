@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { commonConfiguration } from "../../../../common";
+import apiConfiguration from "../../../../config";
 import { jwtDecode } from "jwt-decode";
 import AddUser from "../../adduser/AddUser";
 import Link from "next/link";
@@ -46,7 +46,7 @@ const ProfileEditingPage = () => {
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `${commonConfiguration.externalservice.backendUrl}/user/${decoded.userId}`,
+        `${apiConfiguration.externalservice.backendUrl}/user/${decoded.userId}`,
         {
           method: "GET",
           headers: {
@@ -77,7 +77,7 @@ const ProfileEditingPage = () => {
     {
       const token = localStorage.getItem("accessToken");
       fetch(
-        `${commonConfiguration.externalservice.backendUrl}/user/${decoded.userId}}`,
+        `${apiConfiguration.externalservice.backendUrl}/user/${decoded.userId}}`,
         {
           method: "GET",
           headers: {
@@ -158,7 +158,7 @@ const ProfileEditingPage = () => {
 
         <div className=" w-full lg:w-7/12  rounded-lg shadow-md">
           <div className=" bg-white">
-            <AddUser isEditMode={true} isHeadpart={false}/>
+            <AddUser isEditMode={true} isHeadpart={false} />
           </div>
         </div>
       </div>
