@@ -18,7 +18,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   type = "text",
   placeholder,
-  required
+  required,
 }) => {
   return (
     <div className="flex flex-col w-full">

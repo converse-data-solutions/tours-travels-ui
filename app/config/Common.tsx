@@ -1,5 +1,5 @@
 export const commonConfiguration = {
   externalservice: {
-    backendUrl: "http://localhost:5000"
-  }
+    backendUrl: "http://localhost:5000",
+  },
 };

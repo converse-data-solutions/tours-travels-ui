@@ -1,10 +1,11 @@
+import React from "react";
+import AddUser from "./AddUser";
 
-import React from 'react'
-import AddUser from './AddUser';
-
- const AddUserPage = () => {
+const AddUserPage = () => {
   return (
-    <div><AddUser isEditMode={false}  isHeadpart={true}/></div>
-  )
-}
+    <div>
+      <AddUser isEditMode={false} isHeadpart={true} />
+    </div>
+  );
+};
 export default AddUserPage;

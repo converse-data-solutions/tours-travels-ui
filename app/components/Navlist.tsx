@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import {
@@ -7,7 +7,6 @@ import {
   ExpandLess as ExpandLessIcon,
   WorkOutline as WorkOutlineIcon,
 } from "@mui/icons-material";
-
 
 const NavListDetails = () => {
   const [isListVisible, setIsListVisible] = useState(false);

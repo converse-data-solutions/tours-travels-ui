@@ -1,17 +1,18 @@
-'use client'
-import React, { useState } from "react";
-const SignInAndSignOut = () => {
-  const storedAccessToken = localStorage.getItem("accessToken");
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!storedAccessToken 
-  );
-  const SignIn = () => {
-    
+"use client";
+import React, { useState, useEffect } from "react";
 
-    if(storedAccessToken === null){
-      window.location.replace('/signin')
-    } 
-    
+const SignInAndSignOut = () => {
+  useEffect(() => {
+    const storedAccessToken = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!storedAccessToken);
+  }, []);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const SignIn = () => {
+    if (!isLoggedIn) {
+      window.location.replace("/signin");
+    }
   };
 
   const SignOut = () => {

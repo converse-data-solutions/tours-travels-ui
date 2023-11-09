@@ -1,28 +1,15 @@
 "use client";
-
 import { Inter } from "next/font/google";
-
-import React, { useState, ReactNode, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import logo from "../../public/travelin img.png";
 import Image from "next/image";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
 import { Avatar } from "@mui/material";
-
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-
-import img from "../public/k icon (copy).jpg";
-
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
 import { Squash as Hamburger, Twirl } from "hamburger-react";
-
 import NavListDetails from "../components/Navlist";
-
 import NavlistIcons from "../components/NavListIcons";
 import SignInAndSignOut from "../SignInAndSignOut";
 import { jwtDecode } from "jwt-decode";
@@ -91,7 +78,10 @@ export default function RootLayout({
   const Blink = () => {
     return <div className="notification-circle"></div>;
   };
-  const token: any = localStorage.getItem("accessToken");
+  // const token: any = localStorage.getItem("accessToken");
+  useEffect(()=>{
+    const token:any=localStorage.getItem("accessToken");
+  })
   const decoded: any = jwtDecode(token);
 
   console.log(decoded);

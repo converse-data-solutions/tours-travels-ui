@@ -1,4 +1,4 @@
-import React,{ChangeEvent} from "react";
+import React, { ChangeEvent } from "react";
 
 interface TextAreaProps {
   label: string;
@@ -7,7 +7,12 @@ interface TextAreaProps {
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const TextArea: React.FC<TextAreaProps> = ({ label, name, value, onChange }) => {
+const TextArea: React.FC<TextAreaProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <div className="flex flex-col w-full mb-2">
       <label>{label}</label>

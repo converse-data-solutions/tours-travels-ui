@@ -9,11 +9,10 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-import travelinImage from "../../public/travelin img.png"
+import travelinImage from "../../public/travelin img.png";
 
 import SignInAndSignOut from "../SignInAndSignOut";
 import Image from "next/image";
-import Link from "next/link";
 
 export const HomeDropDown = () => {
   const [isPageDetailsVisible, setIsPageDetailsVisible] = useState(false);
@@ -148,7 +147,7 @@ export const HomeDropDown = () => {
               <button>
                 BLOG <FontAwesomeIcon icon={faPlus} />
               </button>
-              <button onClick={()=>window.location.replace("/search")}>
+              <button onClick={() => window.location.replace("/search")}>
                 <FontAwesomeIcon
                   icon={faMagnifyingGlass}
                   className="  text-[#7987a1;] md:inbuttonne-block"

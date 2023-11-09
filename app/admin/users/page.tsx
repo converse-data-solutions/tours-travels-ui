@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -12,8 +12,8 @@ import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "../../components/TableSearchBox";
 import PaginationBar from "../../components/PaginationBar";
-import ShowEntriesDropdown from "../../EntriesDropDown";
-import apiConfiguration from '../../config';
+import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
+import apiConfiguration from "../../config";
 import Image from "next/image";
 
 interface UserData {
@@ -35,12 +35,11 @@ interface UserData {
   default_currency: string | any;
   default_language: string;
 }
- const Userlistpage = () => {
+const Userlistpage = () => {
   const [entries, setEntries] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -82,16 +81,13 @@ interface UserData {
     } else {
       if (window.confirm("Are you sure you want to delete this user?")) {
         const token = localStorage.getItem("accessToken");
-        fetch(
-          `${apiConfiguration.externalservice.backendUrl}/user/${userid}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+        fetch(`${apiConfiguration.externalservice.backendUrl}/user/${userid}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
           .then(async (response) => {
             if (response.status === 200) {
               const usertoken = await response.json();
@@ -135,7 +131,7 @@ interface UserData {
         window.location.reload();
       }
     } else {
-      window.location.replace("/admin/users/adduser/"+id)
+      window.location.replace("/admin/users/adduser/" + id);
     }
   }
 
@@ -151,7 +147,7 @@ interface UserData {
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5">
             <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp; /
-            &nbsp;<span > User Mangement</span>
+            &nbsp;<span> User Mangement</span>
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
@@ -216,13 +212,11 @@ interface UserData {
                     <td>{list.id}</td>
                     <td>
                       <Image
-                         src={list.file_name}
-                        
+                        src={list.file_name}
                         className="rounded-md h-10 w-10"
                         alt={`img`}
-                         height={30}
-                         width={50}
-                         
+                        height={30}
+                        width={50}
                       />
                     </td>
                     <td>{list.email}</td>

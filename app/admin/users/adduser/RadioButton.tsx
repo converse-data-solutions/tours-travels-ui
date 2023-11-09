@@ -1,6 +1,5 @@
 import React from "react";
 
-
 interface RadioButtonProps {
   label: string;
   name: string;
@@ -9,7 +8,13 @@ interface RadioButtonProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RadioButton: React.FC<RadioButtonProps> = ({ label, name, value, checked, onChange }) => {
+const RadioButton: React.FC<RadioButtonProps> = ({
+  label,
+  name,
+  value,
+  checked,
+  onChange,
+}) => {
   return (
     <label className="flex justify-center gap-1 md:gap-2 mb-1">
       <input

@@ -2,12 +2,15 @@ import React from "react";
 
 interface SearchBarProps {
   searchQuery: string;
-  placeholder:string;
+  placeholder: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  
 }
 
-const TableSearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery ,placeholder}) => {
+const TableSearchBar: React.FC<SearchBarProps> = ({
+  searchQuery,
+  setSearchQuery,
+  placeholder,
+}) => {
   return (
     <input
       type="text"

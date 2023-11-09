@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import travelinImage from "../../public/travelin img.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,10 +7,8 @@ import {
   faChevronDown,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-
 import SignInAndSignOut from "../SignInAndSignOut";
 import Image from "next/image";
-import Link from "next/link";
 
 export const LargeScreenDropdown = () => {
   const [isPageDetailsVisible, setIsPageDetailsVisible] = useState(false);
@@ -18,7 +16,6 @@ export const LargeScreenDropdown = () => {
   const [istourGridVisible, setIsTourGridVisible] = useState(false);
   const [istourSingleVisible, setIsTourSingleVisible] = useState(false);
   const [ispageHover, setIsPageHover] = useState(false);
-  const [isdropDown, setIsDropDown] = useState(false);
   const pageListHover = () => {
     setIsPageDetailsVisible(!isPageDetailsVisible);
   };
@@ -98,7 +95,7 @@ export const LargeScreenDropdown = () => {
                     icon={faMagnifyingGlass}
                     className="  text-[#7987a1;] md:inline-block"
                     style={{ height: "16px", width: "16px" }}
-                    onClick={()=>window.location.replace("/search")}
+                    onClick={() => window.location.replace("/search")}
                   />
                 </li>
               </div>
@@ -189,7 +186,7 @@ export const LargeScreenDropdown = () => {
           </div>
         </div>
         <div>
-          <button className="bg-[hsl(180,82%,35%)] px-5 py-3 border rounded-lg hover:bg-yellow-400 sm:text-sm lg:text-lg text-white" >
+          <button className="bg-[hsl(180,82%,35%)] px-5 py-3 border rounded-lg hover:bg-yellow-400 sm:text-sm lg:text-lg text-white">
             <SignInAndSignOut />
           </button>
         </div>

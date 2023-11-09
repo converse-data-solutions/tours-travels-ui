@@ -26,7 +26,11 @@ const SelectInput: React.FC<SelectInputProps> = ({
         onChange={onChange}
       >
         {options.map((option) => (
-          <option key={option} value={option} className="hover:bg-green-600 cursor-pointer p-2">
+          <option
+            key={option}
+            value={option}
+            className="hover:bg-green-600 cursor-pointer p-2"
+          >
             {option}
           </option>
         ))}
@@ -36,4 +40,3 @@ const SelectInput: React.FC<SelectInputProps> = ({
 };
 
 export default SelectInput;
-
