@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { useParams } from "next/navigation";
 import FormInput from "@/app/signin/FormInput";
 import RadioButton from "@/app/components/Radiobutton";
 import TextArea from "@/app/components/TextArea";
@@ -10,6 +10,8 @@ import SelectInput from "@/app/components/SelectedInput";
 import apiConfiguration from "@/app/config";
 import 'draft-js/dist/Draft.css';
 import DraftEditing from "./DraftEditing";
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { ClassNames } from "@emotion/react";
 
 // import { countries, states } from 'country-list';
 
@@ -21,6 +23,8 @@ interface PackageDataType {
   start_date: Date|string;
   file_name: File | any;
   destination: string;
+  country: string;
+  state:string;
   price:string;
   no_of_person: string;
   days_and_night: string;
@@ -33,7 +37,7 @@ interface AddUserProps {
 }
 
 const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
-  const id = 2;
+  const { id } = useParams<{ id: string }>();
   const [successMessage, setSuccessMessage] = useState("");
 
   let [packageData, setPackageData] = useState<PackageDataType>(
@@ -42,6 +46,8 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       start_date: "",
       file_name: "",
       destination: "",
+      country: "",
+      state:"",
       price: "",
       no_of_person: "",
       days_and_night: "",
@@ -339,7 +345,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               id="file-input"
               onChange={handleImageChange}
               alt=""
-              required
+              
             />
             <label htmlFor="file-input" className=" bg-black custom-file-input-button2  ">
               Choose File
@@ -370,14 +376,29 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               required={true}
             />
 
-            <FormInput
-              label="Destination"
-              name="destination"
-              value={packageData.destination}
-              onChange={handleChange}
-              
-              required={true}
-            />
+ <div className="lg:w-full">
+            <label>Country</label><br/>
+          <CountryDropdown
+            value={packageData.country}
+            onChange={(val: any) => {
+              setPackageData({ ...packageData, country: val });
+             
+            }}
+            // className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+            
+          />
+      </div>
+<div className="lg:w-full">
+          <label>State</label>
+         <RegionDropdown
+            country={packageData.country}
+            value={packageData.state}
+            onChange={(val) => setPackageData({ ...packageData, state: val })}
+            
+              //  className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+          />
+          
+        </div>
           </div>
           <div className="lg:flex gap-6 mb-2">
             <FormInput
@@ -425,7 +446,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         /></span>
         </div>
 
-        {/* <div><CountrySelect/></div> */}
+       
         
 
         <div className="flex justify-center pt-3">

@@ -13,8 +13,9 @@ import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "@/app/components/TableSearchBox";
 import PaginationBar from "@/app/components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
-import { commonConfiguration } from "@/app/config/Common";
 
+import Image from "next/image";
+import apiConfiguration from "@/app/config";
 
 interface UserData {
   id: number;
@@ -24,7 +25,8 @@ interface UserData {
   description: string;
   no_of_person: number;
   days_and_night: string;
-  destination: string;
+  country: string;
+  state:string;
   price: string | number;
   published: number;
 }
@@ -37,7 +39,7 @@ interface UserData {
   useEffect(() => {
     // const token = localStorage.getItem("accessToken");
 
-    fetch(`${commonConfiguration.externalservice.backendUrl}/package/get`, {
+    fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -73,8 +75,18 @@ interface UserData {
     //   }
     // } else {
     if (window.confirm("Are you sure you want to delete this user?")) {
+      if (localStorage.getItem("accessToken") === null) {
+        const userConfirmed = window.confirm(
+          "You are not signed in to your account. Do you want to sign in your account?"
+        );
+        if (userConfirmed) {
+          window.location.replace("/signin");
+        } else {
+          return;
+        }
+      } else {
       // const token = localStorage.getItem("accessToken");
-      fetch(`${commonConfiguration.externalservice.backendUrl}/package/${id}`, {
+      fetch(`${apiConfiguration.externalservice.backendUrl}/package/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -96,13 +108,13 @@ interface UserData {
           console.error("Error deleting user data:", error);
         });
     }
-    // }
+     }
   }
   function handleInput(event: any) {
     window.location.replace("/addpackage");
   }
 
-  function handleEditAction(userid: number) {
+  function handleEditAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
         "You are not signed in to your account. Do you want to sign in your account?"
@@ -113,7 +125,7 @@ interface UserData {
         window.location.reload();
       }
     } else {
-      window.location.replace(`/edituser/${userid}`);
+      window.location.replace(`/admin/package/addpackage/${id}`);
     }
   }
 
@@ -182,7 +194,8 @@ interface UserData {
                 <th>START DATE</th>
                 <th>IMAGE</th>
                 <th>TITLE</th>
-                <th>DESTINATION</th>
+                <th>COUNTRY</th>
+                <th>STATE</th>
                 <th>DESCRIPTION</th>
                 <th>PRICE</th>
                 <th>NO.OF PERSON</th>
@@ -199,16 +212,19 @@ interface UserData {
                     <td>{list.id}</td>
                     <td>{list.start_date}</td>
                     <td>
-                      <img
-                        src={list.file_name}
-                        className="rounded-md h-10 w-10"
+                    <Image
+                         src={list.file_name}
+                         className="h-20 w-10"
                         alt={`img`}
+                        height={30}
+                        width={50}
                       />
                     </td>
 
                     <td>{list.title}</td>
 
-                    <td>{list.destination}</td>
+                    <td>{list.country}</td>
+                    <td>{list.id}</td>
                     <td
                       dangerouslySetInnerHTML={{ __html: list.description }}
                     ></td>
@@ -229,7 +245,7 @@ interface UserData {
 
                     <td>
                       <span className="flex gap-2 text-[#029e9d] justify-center">
-                        <Link href={"edituser/" + list.id}>
+                        <Link href={"/admin/package/addpackage/" + list.id}>
                           <FontAwesomeIcon
                             icon={faPenToSquare}
                             className="text-xl"

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,8 @@ const Userlistpage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem("accessToken");
 
     fetch(`${apiConfiguration.externalservice.backendUrl}/user/get`, {
       method: "GET",
@@ -66,13 +67,17 @@ const Userlistpage = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
+    }
   }, [searchQuery]);
 
   function handleDeleteAction(userid: number) {
-    if (localStorage.getItem("accessToken") === null) {
-      const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
-      );
+    if (typeof window !== 'undefined') {
+      const accessToken = localStorage.getItem("accessToken");
+  
+      if (accessToken === null) {
+        const userConfirmed = window.confirm(
+          "You are not signed in to your account. Do you want to sign in your account?"
+        );
       if (userConfirmed) {
         window.location.replace("/signin");
       } else {
@@ -105,7 +110,9 @@ const Userlistpage = () => {
       }
     }
   }
+  }
   function handleInput(event: any) {
+    if (typeof window !== 'undefined') {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
         "You are not signed in to your account. Do you want to sign in your account?"
@@ -119,8 +126,9 @@ const Userlistpage = () => {
       window.location.replace("/admin/users/adduser");
     }
   }
-
+  }
   function handleEditAction(id: number) {
+    if (typeof window !== 'undefined') {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
         "You are not signed in to your account. Do you want to sign in your account?"
@@ -134,7 +142,7 @@ const Userlistpage = () => {
       window.location.replace("/admin/users/adduser/" + id);
     }
   }
-
+  }
   const filteredData = data.filter((item) =>
     item.email.toLowerCase().startsWith(searchQuery.toLowerCase())
   );
