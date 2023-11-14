@@ -13,10 +13,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import logo from "../../public/logo-white.png";
 import backgroundimage from "../../public/shape8.png";
-import img1 from "../../public/cascade-boat-clean-china-natural-rural (3rd copy).jpg";
-import img2 from "../../public/istockphoto-1458782106-1024x1024 (another copy).jpg";
-import img3 from "../../public/istockphoto-157373207-1024x1024 (3rd copy).jpg";
-import img4 from "../../public/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass.jpg";
+import img1 from "../../public/beautiful-green-field-scenery-free-photo.webp"
+import img2 from "../../public/4f7af96819b05591c4ce89017ccb40db.png";
+import img3 from "../../public/images.jpeg";
+
 import {
   faCcDiscover,
   faCcMastercard,
@@ -112,15 +112,6 @@ const FooterPart = () => {
                 <div className="image-box img-radius ">
                   <Image
                     className="image img-radius  bg-[#17233E]"
-                    src={img4}
-                    alt=""
-                  />
-                </div>{" "}
-              </SwiperSlide>
-              <SwiperSlide className="flex justify-center img-radius ">
-                <div className="image-box img-radius ">
-                  <Image
-                    className="image img-radius  bg-[#17233E]"
                     src={img1}
                     alt=""
                   />
@@ -138,7 +129,7 @@ const FooterPart = () => {
               <SwiperSlide className="flex justify-center img-radius ">
                 <div className="image-box img-radius ">
                   <Image
-                    className="image img-radius ] bg-[#17233E]"
+                    className="image img-radius  bg-[#17233E]"
                     src={img3}
                     alt=""
                   />
@@ -147,8 +138,8 @@ const FooterPart = () => {
               <SwiperSlide className="flex justify-center img-radius ">
                 <div className="image-box img-radius ">
                   <Image
-                    className="image img-radius  bg-[#17233E]"
-                    src={img4}
+                    className="image img-radius ] bg-[#17233E]"
+                    src={img1}
                     alt=""
                   />
                 </div>{" "}
@@ -157,7 +148,16 @@ const FooterPart = () => {
                 <div className="image-box img-radius ">
                   <Image
                     className="image img-radius  bg-[#17233E]"
-                    src={img1}
+                    src={img2}
+                    alt=""
+                  />
+                </div>{" "}
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center img-radius ">
+                <div className="image-box img-radius ">
+                  <Image
+                    className="image img-radius  bg-[#17233E]"
+                    src={img3}
                     alt=""
                   />
                 </div>{" "}

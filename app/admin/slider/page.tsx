@@ -1,10 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
@@ -12,7 +7,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
-import img1 from "../../../public/cascade-boat-clean-china-natural-rural (3rd copy).jpg";
+import img1 from "../../../public/beautiful-green-field-scenery-free-photo.webp";
 import apiConfiguration from "@/app/config";
 interface UserData {
   id: number;
