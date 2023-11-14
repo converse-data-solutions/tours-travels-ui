@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -10,42 +10,38 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
-import TableSearchBar from "../../components/TableSearchBox";
-import PaginationBar from "../../components/PaginationBar";
+import TableSearchBar from "@/app/components/TableSearchBox";
+import PaginationBar from "@/app/components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
-import apiConfiguration from "../../config";
 import Image from "next/image";
+import apiConfiguration from "@/app/config";
 
 interface UserData {
   id: number;
-  email: string;
-  password: string;
-  image: any;
-  mobile_number: string | number;
-  role: any;
-  role_id: number;
-  first_name: string;
-  last_name: string;
+  title: string;
+  start_date: string;
+  file_name: any;
+  description: string;
+  no_of_person: number;
+  days_and_night: string;
   country: string;
-  gender: string;
-  address: string;
-  social_media_link: string;
-  user_status: any;
-  file_name: string;
-  default_currency: string | any;
-  default_language: string;
+  state: string;
+  price: string | number;
+  published: number | boolean;
 }
-const Userlistpage = () => {
+const AllPackageLists = () => {
   const [entries, setEntries] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      return;
+    }
 
-    fetch(`${apiConfiguration.externalservice.backendUrl}/user/get`, {
+    fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -67,52 +63,57 @@ const Userlistpage = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-    }
   }, [searchQuery]);
 
-  function handleDeleteAction(userid: number) {
-    if (typeof window !== 'undefined') {
-      const accessToken = localStorage.getItem("accessToken");
-  
-      if (accessToken === null) {
+  const handleTogglePublished = async (id: number) => {
+    try {
+      if (localStorage.getItem("accessToken") === null) {
         const userConfirmed = window.confirm(
           "You are not signed in to your account. Do you want to sign in your account?"
         );
-      if (userConfirmed) {
-        window.location.replace("/signin");
+        if (userConfirmed) {
+          window.location.replace("/signin");
+        } else {
+          return;
+        }
       } else {
-        return;
-      }
-    } else {
-      if (window.confirm("Are you sure you want to delete this user?")) {
         const token = localStorage.getItem("accessToken");
-        fetch(`${apiConfiguration.externalservice.backendUrl}/user/${userid}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then(async (response) => {
-            if (response.status === 200) {
-              const usertoken = await response.json();
-              setData(data.filter((user) => user.id !== user.id));
 
-              alert(`The data of userid ${userid}  successfully deleted.`);
-              window.location.reload();
-            } else {
-              console.error(`Failed to delete user with ID ${userid}.`);
-            }
-          })
-          .catch((error) => {
-            console.error("Error deleting user data:", error);
-          });
+        if (!token) {
+          return;
+        }
+
+        const updatedData = data.map((item) =>
+          item.id === id ? { ...item, published: item.published ? 0 : 1 } : item
+        );
+        setData(updatedData);
+
+        const response = await fetch(
+          `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              published: updatedData.find((item) => item.id === id)?.published,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          console.error(
+            `Failed to update published status for package with ID ${id}.`
+          );
+        }
       }
+    } catch (error) {
+      console.error("Error toggling published status:", error);
     }
-  }
-  }
-  function handleInput(event: any) {
-    if (typeof window !== 'undefined') {
+  };
+
+  function handleDeleteAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
         "You are not signed in to your account. Do you want to sign in your account?"
@@ -123,12 +124,54 @@ const Userlistpage = () => {
         return;
       }
     } else {
-      window.location.replace("/admin/users/adduser");
+      if (window.confirm("Are you sure you want to delete this user?")) {
+        if (localStorage.getItem("accessToken") === null) {
+          const userConfirmed = window.confirm(
+            "You are not signed in to your account. Do you want to sign in your account?"
+          );
+          if (userConfirmed) {
+            window.location.replace("/signin");
+          } else {
+            return;
+          }
+        } else {
+          const token = localStorage.getItem("accessToken");
+          if (!token) {
+            return;
+          }
+          fetch(
+            `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+            .then(async (response) => {
+              if (response.status === 200) {
+                const usertoken = await response.json();
+                setData(data.filter((user) => user.id !== user.id));
+
+                alert(`The data of userid ${id}  successfully deleted.`);
+                window.location.reload();
+              } else {
+                console.error(`Failed to delete user with ID ${id}.`);
+              }
+            })
+            .catch((error) => {
+              console.error("Error deleting user data:", error);
+            });
+        }
+      }
     }
   }
+  function handleInput(event: any) {
+    window.location.replace("/admin/package/addpackage");
   }
+
   function handleEditAction(id: number) {
-    if (typeof window !== 'undefined') {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
         "You are not signed in to your account. Do you want to sign in your account?"
@@ -139,12 +182,12 @@ const Userlistpage = () => {
         window.location.reload();
       }
     } else {
-      window.location.replace("/admin/users/adduser/" + id);
+      window.location.replace(`/admin/package/addpackage/${id}`);
     }
   }
-  }
+
   const filteredData = data.filter((item) =>
-    item.email.toLowerCase().startsWith(searchQuery.toLowerCase())
+    item.title.toLowerCase().startsWith(searchQuery.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
@@ -155,7 +198,7 @@ const Userlistpage = () => {
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5">
             <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp; /
-            &nbsp;<span> User Mangement</span>
+            &nbsp; Package
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
@@ -163,7 +206,7 @@ const Userlistpage = () => {
             className="bg-[hsl(180,82%,35%)]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400 "
             onClick={handleInput}
           >
-            <FontAwesomeIcon icon={faPlus} className="text-xl" /> Add user
+            <FontAwesomeIcon icon={faPlus} className="text-xl" /> Add Packages
           </button>
         </div>
       </div>
@@ -173,17 +216,26 @@ const Userlistpage = () => {
         <div className="">
           <h5 className="flex justify-center md:justify-start   w-full p-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px] md:py-0 font-semibold  text-[#424040]   xl:pt-3">
             {" "}
-            User Management Lists{" "}
+            Package Lists{" "}
           </h5>
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-6 lg:w-2/3 text-[16px]">
+        <div className="flex flex-col md:flex-row md:gap-6 lg:w-2/3 ">
           <TableSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            placeholder="search by user email"
+            placeholder="Search by slider title"
           />
+
           <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
+          <div className=" ">
+            <select className="border-[1px] border-gray-200  px-4 py-3 mb-2 rounded-lg outline-none w-full md:w-56 bg-white text-base">
+              <option selected>Category</option>
+              <option>One</option>
+              <option>Two</option>
+              <option>Three</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -196,20 +248,17 @@ const Userlistpage = () => {
             <TableHead className="text-gray-800 ">
               <TableRow className="table-head">
                 <th>ID</th>
+                <th>START DATE</th>
                 <th>IMAGE</th>
-                <th>EMAIL</th>
-                <th>MOBILE</th>
-                <th>ROLE</th>
-                <th>F.NAME</th>
-                <th>L.NAME</th>
+                <th>TITLE</th>
                 <th>COUNTRY</th>
-                <th>GENDER</th>
-                <th>ADDRESS</th>
-                <th>SOCIALMEDIA </th>
-                <th>STATUS</th>
-                <th>CURRENCY</th>
-                <th>LANGUAGE</th>
-                <th>ACTIONS</th>
+                <th>STATE</th>
+                <th>DESCRIPTION</th>
+                <th>PRICE</th>
+                <th>NO.OF PERSON</th>
+                <th>DAY & NIGHT</th>
+                <th>PUBLISHED</th>
+                <th>ACTION </th>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -218,41 +267,46 @@ const Userlistpage = () => {
                 .map((list) => (
                   <tr key={list.id}>
                     <td>{list.id}</td>
+                    <td>{list.start_date}</td>
                     <td>
                       <Image
                         src={list.file_name}
-                        className="rounded-md h-10 w-10"
+                        className="h-20 w-10"
                         alt={`img`}
                         height={30}
                         width={50}
                       />
                     </td>
-                    <td>{list.email}</td>
-                    <td>{list.mobile_number}</td>
-                    <td>
-                      {list.role_id === 1
-                        ? "Admin"
-                        : list.role_id === 2
-                        ? "User"
-                        : list.role_id === 3
-                        ? "HR"
-                        : ""}
-                    </td>
-                    <td>{list.first_name}</td>
-                    <td>{list.last_name}</td>
+
+                    <td>{list.title}</td>
+
                     <td>{list.country}</td>
-                    <td>{list.gender}</td>
-                    <td>{list.address}</td>
-                    <td>{list.social_media_link}</td>
+                    <td>{list.state}</td>
+                    <td
+                      dangerouslySetInnerHTML={{ __html: list.description }}
+                    ></td>
+                    <td>{list.price}</td>
+                    <td>{list.no_of_person}</td>
+                    <td>{list.days_and_night}</td>
                     <td>
-                      {list.user_status[0] === 0x01 ? "Inactive" : "Active"}
+                      {" "}
+                      <label
+                        className={`switch ${
+                          list.published ? "published-on" : "published-off"
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={Boolean(list.published)}
+                          onChange={() => handleTogglePublished(list.id)}
+                        />
+                        <span className="slider round"></span>
+                      </label>
                     </td>
 
-                    <td>{list.default_currency}</td>
-                    <td>{list.default_language}</td>
                     <td>
                       <span className="flex gap-2 text-[#029e9d] justify-center">
-                        <Link href={"/admin/users/adduser/" + list.id}>
+                        <Link href={"/admin/package/addpackage/" + list.id}>
                           <FontAwesomeIcon
                             icon={faPenToSquare}
                             className="text-xl"
@@ -282,4 +336,4 @@ const Userlistpage = () => {
     </div>
   );
 };
-export default Userlistpage;
+export default AllPackageLists;

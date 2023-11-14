@@ -95,6 +95,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   useEffect(() => {
     if (isEditMode && id) {
       const token = localStorage.getItem("accessToken");
+      if(!token){
+       return;
+      }
       fetch(`${apiConfiguration.externalservice.backendUrl}/user/${id}`, {
         method: "GET",
         headers: {
@@ -134,6 +137,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         try {
           const { file_name, ...userDataWithoutFilename } = userData;
           const token = localStorage.getItem("accessToken");
+          if(!token){
+           return;
+          }
           const response = await fetch(
             `${apiConfiguration.externalservice.backendUrl}/user/${id}`,
             {
