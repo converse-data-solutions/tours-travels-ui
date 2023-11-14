@@ -13,7 +13,6 @@ import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "@/app/components/TableSearchBox";
 import PaginationBar from "@/app/components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
-
 import Image from "next/image";
 import apiConfiguration from "@/app/config";
 
@@ -68,7 +67,6 @@ const AllPackageLists = () => {
 
   const handleTogglePublished = async (id: number) => {
     try {
-      
       if (localStorage.getItem("accessToken") === null) {
         const userConfirmed = window.confirm(
           "You are not signed in to your account. Do you want to sign in your account?"
