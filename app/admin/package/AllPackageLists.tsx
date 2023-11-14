@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -26,24 +26,27 @@ interface UserData {
   no_of_person: number;
   days_and_night: string;
   country: string;
-  state:string;
+  state: string;
   price: string | number;
-  published: number;
+  published: number | boolean;
 }
- const AllPackageLists = () => {
+const AllPackageLists = () => {
   const [entries, setEntries] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      return;
+    }
 
     fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
@@ -63,18 +66,9 @@ interface UserData {
       });
   }, [searchQuery]);
 
-  function handleDeleteAction(id: number) {
-    // if (localStorage.getItem("accessToken") === null) {
-    //   const userConfirmed = window.confirm(
-    //     "You are not signed in to your account. Do you want to sign in your account?"
-    //   );
-    //   if (userConfirmed) {
-    //     window.location.replace("/signin");
-    //   } else {
-    //     return;
-    //   }
-    // } else {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+  const handleTogglePublished = async (id: number) => {
+    try {
+      
       if (localStorage.getItem("accessToken") === null) {
         const userConfirmed = window.confirm(
           "You are not signed in to your account. Do you want to sign in your account?"
@@ -85,33 +79,98 @@ interface UserData {
           return;
         }
       } else {
-      // const token = localStorage.getItem("accessToken");
-      fetch(`${apiConfiguration.externalservice.backendUrl}/package/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(async (response) => {
-          if (response.status === 200) {
-            const usertoken = await response.json();
-            setData(data.filter((user) => user.id !== user.id));
+        const token = localStorage.getItem("accessToken");
 
-            alert(`The data of userid ${id}  successfully deleted.`);
-            window.location.reload();
-          } else {
-            console.error(`Failed to delete user with ID ${id}.`);
+        if (!token) {
+          return;
+        }
+
+        const updatedData = data.map((item) =>
+          item.id === id ? { ...item, published: item.published ? 0 : 1 } : item
+        );
+        setData(updatedData);
+
+        const response = await fetch(
+          `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              published: updatedData.find((item) => item.id === id)?.published,
+            }),
           }
-        })
-        .catch((error) => {
-          console.error("Error deleting user data:", error);
-        });
+        );
+
+        if (!response.ok) {
+          console.error(
+            `Failed to update published status for package with ID ${id}.`
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error toggling published status:", error);
     }
-     }
+  };
+
+  function handleDeleteAction(id: number) {
+    if (localStorage.getItem("accessToken") === null) {
+      const userConfirmed = window.confirm(
+        "You are not signed in to your account. Do you want to sign in your account?"
+      );
+      if (userConfirmed) {
+        window.location.replace("/signin");
+      } else {
+        return;
+      }
+    } else {
+      if (window.confirm("Are you sure you want to delete this user?")) {
+        if (localStorage.getItem("accessToken") === null) {
+          const userConfirmed = window.confirm(
+            "You are not signed in to your account. Do you want to sign in your account?"
+          );
+          if (userConfirmed) {
+            window.location.replace("/signin");
+          } else {
+            return;
+          }
+        } else {
+          const token = localStorage.getItem("accessToken");
+          if (!token) {
+            return;
+          }
+          fetch(
+            `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+            .then(async (response) => {
+              if (response.status === 200) {
+                const usertoken = await response.json();
+                setData(data.filter((user) => user.id !== user.id));
+
+                alert(`The data of userid ${id}  successfully deleted.`);
+                window.location.reload();
+              } else {
+                console.error(`Failed to delete user with ID ${id}.`);
+              }
+            })
+            .catch((error) => {
+              console.error("Error deleting user data:", error);
+            });
+        }
+      }
+    }
   }
   function handleInput(event: any) {
-    window.location.replace("/addpackage");
+    window.location.replace("/admin/package/addpackage");
   }
 
   function handleEditAction(id: number) {
@@ -212,9 +271,9 @@ interface UserData {
                     <td>{list.id}</td>
                     <td>{list.start_date}</td>
                     <td>
-                    <Image
-                         src={list.file_name}
-                         className="h-20 w-10"
+                      <Image
+                        src={list.file_name}
+                        className="h-20 w-10"
                         alt={`img`}
                         height={30}
                         width={50}
@@ -224,7 +283,7 @@ interface UserData {
                     <td>{list.title}</td>
 
                     <td>{list.country}</td>
-                    <td>{list.id}</td>
+                    <td>{list.state}</td>
                     <td
                       dangerouslySetInnerHTML={{ __html: list.description }}
                     ></td>
@@ -238,7 +297,11 @@ interface UserData {
                           list.published ? "published-on" : "published-off"
                         }`}
                       >
-                        <input type="checkbox" checked />
+                        <input
+                          type="checkbox"
+                          checked={Boolean(list.published)}
+                          onChange={() => handleTogglePublished(list.id)}
+                        />
                         <span className="slider round"></span>
                       </label>
                     </td>

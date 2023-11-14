@@ -1,35 +1,32 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import FormInput from "@/app/signin/FormInput";
-import RadioButton from "@/app/components/Radiobutton";
-import TextArea from "@/app/components/TextArea";
-import SelectInput from "@/app/components/SelectedInput";
+
 import apiConfiguration from "@/app/config";
-import 'draft-js/dist/Draft.css';
+import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { ClassNames } from "@emotion/react";
-
-// import { countries, states } from 'country-list';
+import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 
 
-// import "react-country-state-city/dist/react-country-state-city.css";
+
 
 interface PackageDataType {
   title: string;
-  start_date: Date|string;
+  start_date: Date | string;
   file_name: File | any;
   destination: string;
   country: string;
-  state:string;
-  price:string;
+  state: string;
+  price: string;
   no_of_person: string;
   days_and_night: string;
   description: string;
-  
 }
 interface AddUserProps {
   isEditMode: boolean;
@@ -47,71 +44,33 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       file_name: "",
       destination: "",
       country: "",
-      state:"",
+      state: "",
       price: "",
       no_of_person: "",
       days_and_night: "",
-      description: ""
-      
+      description: "",
     }
   );
-  const [editorState, setEditorState] = useState();
+
   let [file, setFile] = useState<File | string>();
-  // const [errors, setErrors] = useState({
-  //   first_name: "",
-  //   last_name: "",
-  //   email: "",
-  //   password: "",
-  //   mobile_number: "",
-  // });
-
-  // const validateInput = (fieldName: string, value: string) => {
-  //   let errorMessage = "";
-
-  //   const nameRegex = /^[A-Za-z]+$/;
-
-  //   if (fieldName === "title") {
-  //     if (value.trim() === "") {
-  //       errorMessage = "First Name is required";
-  //     } else if (!nameRegex.test(value)) {
-  //       errorMessage = "First Name can only contain alphabetic characters";
-  //     }
-  //   } else if (fieldName === "") {
-  //     if (value.length < 6) {
-  //       errorMessage = "Password must be at least 6 characters long";
-  //     } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-  //       errorMessage = "Password must contain at least one special character";
-  //     } else if (!/\d/.test(value)) {
-  //       errorMessage = "Password must contain at least one number";
-  //     }
-  //   } else if (fieldName === "mobile_number" && /^[6-9]\d{9}$/.test(value)) {
-  //   } else {
-  //     errorMessage = "Invalid Mobile Number, ";
-  //   }
-
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [fieldName]: errorMessage,
-  //   }));
-  // };
+  
 
   useEffect(() => {
     if (isEditMode && id) {
-      // const token = localStorage.getItem("accessToken");
-      fetch(
-        `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+       const token = localStorage.getItem("accessToken");
+       if(!token){
+        return;
+       }
+      fetch(`${apiConfiguration.externalservice.backendUrl}/package/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+           Authorization: `Bearer ${token}`,
+        },
+      })
         .then(async (response) => {
           if (response.status === 200) {
             return response.json();
-            
           } else {
             throw new Error(`Error fetching user data: ${response.status}`);
           }
@@ -130,122 +89,117 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Object.keys(userData).forEach((fieldName) => {
-    //   validateInput(fieldName, userData[fieldName]);
-    // });
-
-    // const hasErrors = Object.values(errors).some((error) => error !== "");
-
-    // if (!hasErrors) {
-      if (isEditMode && id) {
-        try {
-          const { file_name, ...userDataWithoutFilename } = packageData;
-          // const token = localStorage.getItem("accessToken");
-          const response = await fetch(
-            `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                // Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(userDataWithoutFilename),
-            }
-          );
-
-          if (response.status === 200) {
-            const newPackage = await response.json();
-            console.log(newPackage);
-            console.log("User updated successfully");
-
-            if (file) {
-              const formData = new FormData();
-              formData.append("file", file);
-
-              const uploadImageResponse = await fetch(
-                `${apiConfiguration.externalservice.backendUrl}/package/upload/${id}`,
-                {
-                  method: "POST",
-                  body: formData,
-                }
-              );
-
-              if (uploadImageResponse.status === 201) {
-                console.log("Image uploaded successfully");
-              } else {
-                console.error(
-                  "Error uploading image:",
-                  uploadImageResponse.status
-                );
-              }
-            }
-            window.location.reload();
-          } else {
-            console.error("Error updating user:", response.status);
+    
+    if (isEditMode && id) {
+      try {
+        const { file_name, ...userDataWithoutFilename } = packageData;
+         const token = localStorage.getItem("accessToken");
+         if(!token){
+          return;
+         }
+        const response = await fetch(
+          `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(userDataWithoutFilename),
           }
-        } catch (error) {
-          console.error("Error submitting data:", error);
-        }
-      } else {
-        try {
-          const { file_name, ...userDataWithoutFilename } = packageData;
-          console.log(userDataWithoutFilename);
-          const response = await fetch(
-            `${apiConfiguration.externalservice.backendUrl}/package/create`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(userDataWithoutFilename),
-            }
-          );
+        );
 
-          if (response.status === 200) {
-            console.log("Package added successfully");
-            const newPackage = await response.json();
-            console.log(newPackage)
+        if (response.status === 200) {
+          const newPackage = await response.json();
+          console.log(newPackage);
+          console.log("User updated successfully");
+
+          if (file) {
             const formData = new FormData();
-            if (file instanceof File) {
-              formData.append("file", file);
-            }
+            formData.append("file", file);
 
             const uploadImageResponse = await fetch(
-              `${apiConfiguration.externalservice.backendUrl}/package/upload/${newPackage.data.id}`,
+              `${apiConfiguration.externalservice.backendUrl}/package/upload/${id}`,
               {
                 method: "POST",
-
                 body: formData,
               }
             );
 
             if (uploadImageResponse.status === 201) {
-              setSuccessMessage("User added successfully!");
               console.log("Image uploaded successfully");
-              setTimeout(() => {
-                setSuccessMessage("");
-              }, 5000);
-              window.location.reload();
             } else {
               console.error(
                 "Error uploading image:",
                 uploadImageResponse.status
               );
             }
-          } else {
-            console.error("Error adding user:", response.status);
           }
-        } catch (error) {
-          console.error("Error submitting data:", error);
+          window.location.reload();
+        } else {
+          console.error("Error updating user:", response.status);
         }
+      } catch (error) {
+        console.error("Error submitting data:", error);
       }
+    } else {
+      try {
+        const { file_name, ...userDataWithoutFilename } = packageData;
+        console.log(userDataWithoutFilename);
+        const response = await fetch(
+          `${apiConfiguration.externalservice.backendUrl}/package/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userDataWithoutFilename),
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("Package added successfully");
+          const newPackage = await response.json();
+          console.log(newPackage);
+          const formData = new FormData();
+          if (file instanceof File) {
+            formData.append("file", file);
+          }
+
+          const uploadImageResponse = await fetch(
+            `${apiConfiguration.externalservice.backendUrl}/package/upload/${newPackage.data.id}`,
+            {
+              method: "POST",
+
+              body: formData,
+            }
+          );
+
+          if (uploadImageResponse.status === 201) {
+            setSuccessMessage("User added successfully!");
+            console.log("Image uploaded successfully");
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 5000);
+            window.location.reload();
+          } else {
+            console.error("Error uploading image:", uploadImageResponse.status);
+          }
+        } else {
+          console.error("Error adding user:", response.status);
+        }
+      } catch (error) {
+        console.error("Error submitting data:", error);
+      }
+    }
     // }
   };
 
-  const handleEditorChange = (content:any) => {
+  const handleEditorChange = (value: any) => {
+    
     setPackageData({
       ...packageData,
-      description: content,
+      description: value,
     });
   };
   function handleInput(event: any) {
@@ -260,7 +214,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         return;
       }
     } else {
-      window.location.replace("/user");
+      window.location.replace("/admin/package");
     }
   }
 
@@ -290,21 +244,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     }
   };
 
-  const handleradioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    if (event.target.type === "radio") {
-      setPackageData({ ...packageData, [name]: value });
-    }
-  };
-
   return (
     <div className="bg-[#f9fafb] px-3 md:px-6">
       <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
         <div className="flex-row text-center">
           <h2 className="text-gray-500 md:pt-5 lg:pt-5">
             <span className="text-[rgb(2,158,157)]">Dashboard</span> /{" "}
-            
             {isEditMode ? "Update Package" : " Add Package"}
           </h2>
         </div>
@@ -327,45 +272,49 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        
-        
-
         {isEditMode && (
-          <img src={packageData.file_name} className="h-20 w-40"></img>
+          <img
+            src={packageData.file_name}
+            className="h-20 w-40 rounded-lg"
+          ></img>
         )}
         <div className="grid  lg:grid-cols-2 gap-6">
-        <div className="file-input-container col-span-1">
-        <label>Upload Images</label>
-          <span>
+          <div className="file-input-container col-span-1">
+            <label>Upload Images</label>
+            <span>
+              <input
+                type="file"
+                className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full  mt-2  custom-file-input grid"
+                name="file"
+                accept="image/*"
+                id="file-input"
+                onChange={handleImageChange}
+                alt=""
+              />
+              <label
+                htmlFor="file-input"
+                className=" bg-black custom-file-input-button2  "
+              >
+                Choose File
+              </label>
+            </span>
+          </div>
+          <div>
+            <label>Date</label>
             <input
-              type="file"
-              className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full  mt-2  custom-file-input grid"
-              name="file"
-              accept="image/*"
-              id="file-input"
-              onChange={handleImageChange}
-              alt=""
-              
+              type="date"
+              className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5"
+              name="start_date"
+              value={
+                packageData.start_date instanceof Date
+                  ? packageData.start_date.toISOString().split("T")[0]
+                  : packageData.start_date
+              }
+              onChange={handleChange}
             />
-            <label htmlFor="file-input" className=" bg-black custom-file-input-button2  ">
-              Choose File
-            </label>
-          </span>
-        </div>
-        <div>
-          <label>Date</label>
-          <input
-  type="date"
-  className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5"
-  name="start_date"
-  value={packageData.start_date instanceof Date ? packageData.start_date.toISOString().split('T')[0] : packageData.start_date}
-  onChange={handleChange}
-/>
-        </div>
+          </div>
         </div>
         <div className="w-full grid grid-cols-1">
-          
-
           <div className="lg:flex gap-6 mb-2">
             <FormInput
               label="Title"
@@ -376,31 +325,33 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               required={true}
             />
 
- <div className="lg:w-full">
-            <label>Country</label><br/>
-          <CountryDropdown
-            value={packageData.country}
-            onChange={(val: any) => {
-              setPackageData({ ...packageData, country: val });
-             
-            }}
-            // className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
-            
-          />
-      </div>
-<div className="lg:w-full">
-          <label>State</label>
-         <RegionDropdown
-            country={packageData.country}
-            value={packageData.state}
-            onChange={(val) => setPackageData({ ...packageData, state: val })}
-            
-              //  className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
-          />
-          
-        </div>
+            <div className="lg:w-full">
+              <label>Country</label>
+              <br />
+              <CountryDropdown
+                classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+
+                value={packageData.country}
+                onChange={(val: any) => {
+                  setPackageData({ ...packageData, country: val });
+                }}
+              />
+            </div>
           </div>
+
           <div className="lg:flex gap-6 mb-2">
+            <div className="lg:w-full">
+              <label>State</label>
+              <RegionDropdown
+                country={packageData.country}
+                value={packageData.state}
+                onChange={(val) =>
+                  setPackageData({ ...packageData, state: val })
+                }
+                classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+              />
+            </div>
+
             <FormInput
               label="Price"
               type="text"
@@ -409,45 +360,39 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               onChange={handleChange}
               required={true}
             />
-
+          </div>
+          <div className="lg:flex gap-6 mb-2">
             <FormInput
               label="No.Of Person"
               name="no_of_person"
               type="number"
               value={packageData.no_of_person}
               onChange={handleChange}
-              
               required={true}
             />
-          </div>
-          <div className="lg:flex gap-6 mb-2">
-          <FormInput
+
+            <FormInput
               label="No. of day & Night"
               name="days_and_night"
               type="text"
               value={packageData.days_and_night}
               onChange={handleChange}
-              
               required={true}
             />
           </div>
-
-          
-          
         </div>
         <div className="">
           <label>Description</label>
-          <span className="mt-2"><DraftEditing 
-          name="description"
-          value={packageData.description}
-          onEditorChange={handleEditorChange}
-          
-          
-        /></span>
+          <br></br>
+          <span className="mt-3 ">
+            <DraftEditing
+              name="description"
+              value={packageData.description}
+              onEditorChange={handleEditorChange}
+               customValue={initialPackageData ? initialPackageData.description : ''}
+            />
+          </span>
         </div>
-
-       
-        
 
         <div className="flex justify-center pt-3">
           <button

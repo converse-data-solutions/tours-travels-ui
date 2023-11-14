@@ -11,8 +11,10 @@ import {
 const NavListDetails = () => {
   const [isListVisible, setIsListVisible] = useState(false);
   const [isCareerVisible, setIsCareerVisible] = useState(false);
+  const [isPackageVisible,setPackageVisible]=useState(false);
   const [listButtonColor, setListButtonColor] = useState("black");
   const [careerButtonColor, setCareerButtonColor] = useState("black");
+  const [packageButtonColor,setPackageButtonColor]=useState("black")
 
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
@@ -24,10 +26,14 @@ const NavListDetails = () => {
 
     setCareerButtonColor(isCareerVisible ? "#232323" : "#20B2AA");
   };
+  const togglePackageVisibility=()=>{
+    setPackageVisible(!isPackageVisible);
+    setPackageButtonColor(isPackageVisible ? "#232323" : "#20B2AA");
+  }
 
   return (
     <div>
-      <div className="mt-4 border-b-[1px] border-dashed border-gray-200 px-5 justify-between bg-white">
+      <div className="mt-4 border-b-[1px] border-dashed border-gray-200 px-3 justify-between bg-white">
         <button
           className="flex items-center py-[10px] w-full nav-button"
           style={{ color: listButtonColor }}
@@ -58,7 +64,7 @@ const NavListDetails = () => {
         )}
       </div>
 
-      <div className="border-b-[1px] border-dashed border-gray-200 px-5 justify-between top-5 bg-white ">
+      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white ">
         <button
           className="nav-button flex items-center py-[10px] justify-between w-full"
           style={{ color: careerButtonColor }}
@@ -82,6 +88,34 @@ const NavListDetails = () => {
             <li>All Job vacancies</li>
             <li>Add Job Vacancy</li>
             <li>All Candidate List</li>
+          </ul>
+        )}
+      </div>
+
+      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white ">
+        <button
+          className="nav-button flex items-center py-[10px] justify-between w-full"
+          style={{ color: packageButtonColor }}
+          onClick={togglePackageVisibility}
+        >
+          <span className="flex gap-3 items-center w-full">
+            <span>
+              <PersonOutlineIcon  className="min-w-[25px] text-center" />
+            </span>
+            <div className="w-full flex justify-between">
+              <span className="font-medium">Package Management</span>
+              <span>
+                {isPackageVisible ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </span>
+            </div>
+          </span>
+        </button>
+
+        {isPackageVisible && (
+          <ul className="bullet-list">
+            <li><Link href="/admin/package">All Package Lists</Link></li>
+            <li><Link href="/admin/package/addpackage">Add Package</Link></li>
+           
           </ul>
         )}
       </div>

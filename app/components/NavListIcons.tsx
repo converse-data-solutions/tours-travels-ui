@@ -7,6 +7,8 @@ const NavlistIcons = () => {
 
   const [careerButtonColor, setCareerButtonColor] = useState("black");
 
+  const [packageButtonColor,setPackageButtonColor]=useState("black")
+
   const toggleListVisibility = () => {
     setListButtonColor((prevColor) =>
       prevColor === "#232323" ? "#20B2AA" : "#232323"
@@ -18,6 +20,15 @@ const NavlistIcons = () => {
       prevColor === "#232323" ? "#20B2AA" : "#232323"
     );
   };
+
+  const togglePackageVisibility=()=>{
+    
+    setPackageButtonColor((prevColor) =>
+    prevColor === "#232323" ? "#20B2AA" : "#232323"
+  );
+  }
+
+
   return (
     <>
       <div className="pt-[25px] border-b-[1px] border-dashed border-gray-200">
@@ -43,6 +54,20 @@ const NavlistIcons = () => {
           <span className="flex gap-3 items-center w-full">
             <span className="min-w-[25px] text-center ">
               <WorkOutlineIcon />
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <div className=" border-b-[1px] border-dashed border-gray-200">
+        <button
+          className=" px-[20px] flex items-center py-[10px] w-full  nav-button"
+          style={{ color: packageButtonColor }}
+          onClick={togglePackageVisibility}
+        >
+          <span className="flex gap-3 items-center w-full">
+            <span className="min-w-[25px] text-center">
+              <PersonOutlineIcon />
             </span>
           </span>
         </button>
