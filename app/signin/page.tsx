@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import FormInput from "./FormInput";
-import apiConfiguration from "../config";
 
 const SignInForm: React.FC = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -10,7 +9,7 @@ const SignInForm: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const errorMessage = validateInput(name, value);
@@ -58,7 +57,7 @@ const SignInForm: React.FC = () => {
   const signIn = async () => {
     try {
       const response = await fetch(
-        `${apiConfiguration.externalservice.backendUrl}/user/signin`,
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/signin`,
         {
           method: "POST",
           headers: {
@@ -93,7 +92,7 @@ const SignInForm: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${apiConfiguration.externalservice.backendUrl}/user/create`,
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/create`,
         {
           method: "POST",
           headers: {

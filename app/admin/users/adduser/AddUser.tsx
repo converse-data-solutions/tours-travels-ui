@@ -7,8 +7,6 @@ import FormInput from "./Forminput";
 import RadioButton from "./RadioButton";
 import TextArea from "./TextArea";
 import SelectInput from "./SelectedInput";
-import apiConfiguration from "../../../config";
-
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
 
@@ -100,7 +98,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       if (!token) {
         return;
       }
-      fetch(`${apiConfiguration.externalservice.backendUrl}/user/${id}`, {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +141,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             return;
           }
           const response = await fetch(
-            `${apiConfiguration.externalservice.backendUrl}/user/${id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${id}`,
             {
               method: "PUT",
               headers: {
@@ -164,7 +162,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               formData.append("file", file);
 
               const uploadImageResponse = await fetch(
-                `${apiConfiguration.externalservice.backendUrl}/user/upload/${id}`,
+                `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/upload/${id}`,
                 {
                   method: "POST",
                   body: formData,
@@ -191,7 +189,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       } else {
         try {
           const response = await fetch(
-            `${apiConfiguration.externalservice.backendUrl}/user/create`,
+            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/create`,
             {
               method: "POST",
               headers: {
@@ -210,7 +208,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             }
 
             const uploadImageResponse = await fetch(
-              `${apiConfiguration.externalservice.backendUrl}/user/upload/${newUser.data.id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/upload/${newUser.data.id}`,
               {
                 method: "POST",
 

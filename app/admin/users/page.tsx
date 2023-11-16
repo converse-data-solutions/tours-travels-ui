@@ -13,7 +13,6 @@ import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "../../components/TableSearchBox";
 import PaginationBar from "../../components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
-import apiConfiguration from "../../config";
 import Image from "next/image";
 import AlternateImg from "../../../public/alternative.png";
 
@@ -46,7 +45,7 @@ const Userlistpage = () => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("accessToken");
 
-      fetch(`${apiConfiguration.externalservice.backendUrl}/user/get`, {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/get`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +87,7 @@ const Userlistpage = () => {
         if (window.confirm("Are you sure you want to delete this user?")) {
           const token = localStorage.getItem("accessToken");
           fetch(
-            `${apiConfiguration.externalservice.backendUrl}/user/${userid}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${userid}`,
             {
               method: "DELETE",
               headers: {

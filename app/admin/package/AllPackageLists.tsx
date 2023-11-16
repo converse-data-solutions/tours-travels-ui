@@ -14,7 +14,7 @@ import TableSearchBar from "@/app/components/TableSearchBox";
 import PaginationBar from "@/app/components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
 import Image from "next/image";
-import apiConfiguration from "@/app/config";
+
 import AlternateImg from "../../../public/alternative.png";
 
 interface UserData {
@@ -42,7 +42,7 @@ const AllPackageLists = () => {
       return;
     }
 
-    fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const AllPackageLists = () => {
         setData(updatedData);
 
         const response = await fetch(
-          `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
           {
             method: "PUT",
             headers: {
@@ -143,7 +143,7 @@ const AllPackageLists = () => {
             return;
           }
           fetch(
-            `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
             {
               method: "DELETE",
               headers: {

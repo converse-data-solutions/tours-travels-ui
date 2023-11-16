@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import FormInput from "@/app/signin/FormInput";
-
-import apiConfiguration from "@/app/config";
 import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
@@ -56,7 +54,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       if (!token) {
         return;
       }
-      fetch(`${apiConfiguration.externalservice.backendUrl}/package/${id}`, {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +90,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           return;
         }
         const response = await fetch(
-          `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
           {
             method: "PUT",
             headers: {
@@ -113,7 +111,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             formData.append("file", file);
 
             const uploadImageResponse = await fetch(
-              `${apiConfiguration.externalservice.backendUrl}/package/upload/${id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/upload/${id}`,
               {
                 method: "POST",
                 body: formData,
@@ -138,7 +136,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         const { file_name, ...userDataWithoutFilename } = packageData;
         console.log(userDataWithoutFilename);
         const response = await fetch(
-          `${apiConfiguration.externalservice.backendUrl}/package/create`,
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/create`,
           {
             method: "POST",
             headers: {
@@ -158,7 +156,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           }
 
           const uploadImageResponse = await fetch(
-            `${apiConfiguration.externalservice.backendUrl}/package/upload/${newPackage.data.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/upload/${newPackage.data.id}`,
             {
               method: "POST",
 
