@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import apiConfiguration from "../../../../config";
 import { jwtDecode } from "jwt-decode";
 import AddUser from "../../adduser/AddUser";
 import Link from "next/link";
@@ -48,7 +47,7 @@ const ProfileEditingPage = () => {
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `${apiConfiguration.externalservice.backendUrl}/user/${decoded.userId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${decoded.userId}`,
         {
           method: "GET",
           headers: {
@@ -79,7 +78,7 @@ const ProfileEditingPage = () => {
     {
       const token = localStorage.getItem("accessToken");
       fetch(
-        `${apiConfiguration.externalservice.backendUrl}/user/${decoded.userId}}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${decoded.userId}}`,
         {
           method: "GET",
           headers: {

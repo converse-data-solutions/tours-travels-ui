@@ -11,7 +11,6 @@ import img1 from "../../public/beautiful-green-field-scenery-free-photo.webp";
 import img2 from "../../public/images.jpeg";
 import img3 from "../../public/4f7af96819b05591c4ce89017ccb40db.png";
 import alternativeImg from "../../public/alternative.png";
-import apiConfiguration from "../config";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 interface UserData {
@@ -50,7 +49,7 @@ export default function PackageSlider() {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
-    fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -97,19 +96,22 @@ export default function PackageSlider() {
           <SwiperSlide className="h-[50vh]  bg-orange-500">
             <div>
               <Image src={img2} alt="img" className="h-[50vh] w-full" />
+              <div className="text-black z-10"><h1> heading</h1></div>
             </div>
           </SwiperSlide>
           <SwiperSlide className="h-[50vh]  bg-orange-500">
             <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full" />
+              <Image src={img2} alt="img" className="h-[50vh] w-full " />
+              <div className="text-black z-10 text-lg"><h1> heading</h1></div>
             </div>
           </SwiperSlide>
           <SwiperSlide className="h-[50vh]  bg-orange-500">
             <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full" />
+              <Image src={img2} alt="img" className="h-[50vh] w-full " />
+              <div className="text-black z-10"><h1> heading</h1></div>
             </div>
           </SwiperSlide>
-          <SwiperSlide className="h-[50vh]  bg-orange-500">
+          <SwiperSlide className="h-[50vh]  bg-orange-500 ">
             <div>
               <Image src={img2} alt="img" className="h-[50vh] w-full" />
             </div>

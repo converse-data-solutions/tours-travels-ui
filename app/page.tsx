@@ -1,13 +1,13 @@
 import FooterPart from "./components/FooterPart";
 import { HomePage } from "./components/HomePage";
 
-import apiConfiguration from "./config";
+
 import PackageSlider from "./slider/page";
 
 const Page = () => {
-  {
-    console.log(apiConfiguration.externalservice);
-  }
+  
+    
+  
   return (
     <>
       <div>

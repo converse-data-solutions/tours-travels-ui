@@ -14,7 +14,7 @@ import NavlistIcons from "../components/NavListIcons";
 import SignInAndSignOut from "../SignInAndSignOut";
 import { jwtDecode } from "jwt-decode";
 import UserDetailsForm from "../components/UserDetails";
-import apiConfiguration from "../config";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -94,7 +94,7 @@ export default function RootLayout({
   useEffect(() => {
     const fetchData = () => {
       fetch(
-        `${apiConfiguration.externalservice.backendUrl}/user/${decoded.userId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${decoded.userId}`,
         {
           method: "GET",
           headers: {

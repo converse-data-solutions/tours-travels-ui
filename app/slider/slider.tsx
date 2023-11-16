@@ -6,9 +6,7 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-
 import img1 from "../../../public/beautiful-green-field-scenery-free-photo.webp";
-import apiConfiguration from "@/app/config";
 interface UserData {
   id: number;
   title: string;
@@ -49,7 +47,7 @@ const FooterPart = () => {
   // useEffect(() => {
   //   // const token = localStorage.getItem("accessToken");
 
-  //   fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
+  //   fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/get`, {
   //     method: "GET",
   //     headers: {
   //       "Content-Type": "application/json",
