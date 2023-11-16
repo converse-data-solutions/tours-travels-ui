@@ -1,12 +1,11 @@
-import React from 'react'
-import AllPackageLists from './AllPackageLists'
+import React from "react";
+import AllPackageLists from "./AllPackageLists";
 
- const AllPackagePage = () => {
+const AllPackagePage = () => {
   return (
     <>
-    <AllPackageLists/>
-    
+      <AllPackageLists />
     </>
-  )
-}
+  );
+};
 export default AllPackagePage;

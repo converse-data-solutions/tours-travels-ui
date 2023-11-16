@@ -11,10 +11,10 @@ import {
 const NavListDetails = () => {
   const [isListVisible, setIsListVisible] = useState(false);
   const [isCareerVisible, setIsCareerVisible] = useState(false);
-  const [isPackageVisible,setPackageVisible]=useState(false);
+  const [isPackageVisible, setPackageVisible] = useState(false);
   const [listButtonColor, setListButtonColor] = useState("black");
   const [careerButtonColor, setCareerButtonColor] = useState("black");
-  const [packageButtonColor,setPackageButtonColor]=useState("black")
+  const [packageButtonColor, setPackageButtonColor] = useState("black");
 
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
@@ -26,10 +26,10 @@ const NavListDetails = () => {
 
     setCareerButtonColor(isCareerVisible ? "#232323" : "#20B2AA");
   };
-  const togglePackageVisibility=()=>{
+  const togglePackageVisibility = () => {
     setPackageVisible(!isPackageVisible);
     setPackageButtonColor(isPackageVisible ? "#232323" : "#20B2AA");
-  }
+  };
 
   return (
     <div>
@@ -100,7 +100,7 @@ const NavListDetails = () => {
         >
           <span className="flex gap-3 items-center w-full">
             <span>
-              <PersonOutlineIcon  className="min-w-[25px] text-center" />
+              <PersonOutlineIcon className="min-w-[25px] text-center" />
             </span>
             <div className="w-full flex justify-between">
               <span className="font-medium">Package Management</span>
@@ -113,9 +113,12 @@ const NavListDetails = () => {
 
         {isPackageVisible && (
           <ul className="bullet-list">
-            <li><Link href="/admin/package">All Package Lists</Link></li>
-            <li><Link href="/admin/package/addpackage">Add Package</Link></li>
-           
+            <li>
+              <Link href="/admin/package">All Package Lists</Link>
+            </li>
+            <li>
+              <Link href="/admin/package/addpackage">Add Package</Link>
+            </li>
           </ul>
         )}
       </div>

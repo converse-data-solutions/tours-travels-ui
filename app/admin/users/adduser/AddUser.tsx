@@ -10,8 +10,7 @@ import SelectInput from "./SelectedInput";
 import apiConfiguration from "../../../config";
 
 import Image from "next/image";
-import AlternateImg from '../../../../public/alternative.png'
-
+import AlternateImg from "../../../../public/alternative.png";
 
 interface UserdataType {
   email: string;
@@ -54,7 +53,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       default_currency: "",
       default_language: "",
       role_id: "",
-    }
+    },
   );
   let [file, setFile] = useState<File | string>();
   const [errors, setErrors] = useState({
@@ -98,8 +97,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   useEffect(() => {
     if (isEditMode && id) {
       const token = localStorage.getItem("accessToken");
-      if(!token){
-       return;
+      if (!token) {
+        return;
       }
       fetch(`${apiConfiguration.externalservice.backendUrl}/user/${id}`, {
         method: "GET",
@@ -140,8 +139,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         try {
           const { file_name, ...userDataWithoutFilename } = userData;
           const token = localStorage.getItem("accessToken");
-          if(!token){
-           return;
+          if (!token) {
+            return;
           }
           const response = await fetch(
             `${apiConfiguration.externalservice.backendUrl}/user/${id}`,
@@ -152,7 +151,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
                 Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify(userDataWithoutFilename),
-            }
+            },
           );
 
           if (response.status === 200) {
@@ -169,7 +168,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
                 {
                   method: "POST",
                   body: formData,
-                }
+                },
               );
 
               if (uploadImageResponse.status === 201) {
@@ -177,9 +176,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               } else {
                 console.error(
                   "Error uploading image:",
-                  uploadImageResponse.status
+                  uploadImageResponse.status,
                 );
-                window.location.reload()
+                window.location.reload();
               }
             }
             window.location.reload();
@@ -199,7 +198,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(userData),
-            }
+            },
           );
 
           if (response.status === 200) {
@@ -216,7 +215,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
                 method: "POST",
 
                 body: formData,
-              }
+              },
             );
 
             if (uploadImageResponse.status === 201) {
@@ -229,10 +228,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             } else {
               console.error(
                 "Error uploading image:",
-                uploadImageResponse.status
+                uploadImageResponse.status,
               );
               setSuccessMessage("User added successfully!");
-             
+
               setTimeout(() => {
                 setSuccessMessage("");
               }, 5000);
@@ -250,7 +249,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   function handleInput(event: any) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
+        "You are not signed in to your account. Do you want to sign in your account?",
       );
 
       if (userConfirmed) {
@@ -278,7 +277,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   };
 
   const handleTextareaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
 
@@ -335,32 +334,32 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         <label>Upload Category Icon</label>
         <br />
         {isEditMode ? (
-  userData.file_name !== null && userData.file_name !== undefined ? (
-    <Image
-      src={userData.file_name}
-      className="h-20 w-20"
-      height={20}
-      width={20}
-      alt="img"
-    />
-  ) : (
-    <Image
-      src={AlternateImg}
-      className="h-20 w-20"
-      height={20}
-      width={20}
-      alt="img"
-    />
-  )
-) : (
-  <Image
-    src={AlternateImg}
-    className="h-20 w-20"
-    height={20}
-    width={20}
-    alt="img"
-  />
-)}
+          userData.file_name !== null && userData.file_name !== undefined ? (
+            <Image
+              src={userData.file_name}
+              className="h-20 w-20"
+              height={20}
+              width={20}
+              alt="img"
+            />
+          ) : (
+            <Image
+              src={AlternateImg}
+              className="h-20 w-20"
+              height={20}
+              width={20}
+              alt="img"
+            />
+          )
+        ) : (
+          <Image
+            src={AlternateImg}
+            className="h-20 w-20"
+            height={20}
+            width={20}
+            alt="img"
+          />
+        )}
 
         <div className="file-input-container">
           <span>

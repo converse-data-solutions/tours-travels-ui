@@ -14,7 +14,7 @@ const Page = () => {
         <HomePage />
       </div>
       <div className="flex justify-center  h-[50vh]">
-       <PackageSlider/>
+        <PackageSlider />
       </div>
       <footer>
         <FooterPart />

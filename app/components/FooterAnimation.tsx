@@ -13,10 +13,8 @@ const AnimationPart = () => {
   }, []);
 
   const particlesLoaded = useCallback(
-    async (container: Container | undefined) => {
-      
-    },
-    []
+    async (container: Container | undefined) => {},
+    [],
   );
 
   useEffect(() => {

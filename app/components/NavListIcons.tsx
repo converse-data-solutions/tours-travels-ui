@@ -7,27 +7,25 @@ const NavlistIcons = () => {
 
   const [careerButtonColor, setCareerButtonColor] = useState("black");
 
-  const [packageButtonColor,setPackageButtonColor]=useState("black")
+  const [packageButtonColor, setPackageButtonColor] = useState("black");
 
   const toggleListVisibility = () => {
     setListButtonColor((prevColor) =>
-      prevColor === "#232323" ? "#20B2AA" : "#232323"
+      prevColor === "#232323" ? "#20B2AA" : "#232323",
     );
   };
 
   const toggleCareerVisibility = () => {
     setCareerButtonColor((prevColor) =>
-      prevColor === "#232323" ? "#20B2AA" : "#232323"
+      prevColor === "#232323" ? "#20B2AA" : "#232323",
     );
   };
 
-  const togglePackageVisibility=()=>{
-    
+  const togglePackageVisibility = () => {
     setPackageButtonColor((prevColor) =>
-    prevColor === "#232323" ? "#20B2AA" : "#232323"
-  );
-  }
-
+      prevColor === "#232323" ? "#20B2AA" : "#232323",
+    );
+  };
 
   return (
     <>

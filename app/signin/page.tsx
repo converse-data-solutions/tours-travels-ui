@@ -65,7 +65,7 @@ const SignInForm: React.FC = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-        }
+        },
       );
 
       if (response.status === 200) {
@@ -101,7 +101,7 @@ const SignInForm: React.FC = () => {
             Authourization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
-        }
+        },
       );
 
       if (response.status === 200) {

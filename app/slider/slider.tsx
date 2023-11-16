@@ -29,7 +29,7 @@ const FooterPart = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState<UserData[]>([]);
   const filteredData = data.filter((item) =>
-    item.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+    item.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
 
   useEffect(() => {
@@ -93,20 +93,12 @@ const FooterPart = () => {
       >
         <SwiperSlide className="flex justify-center img-radius  ">
           <div className="image-box img-radius ">
-            <Image
-              className="image img-radius  "
-              src={img1}
-              alt=""
-            />
+            <Image className="image img-radius  " src={img1} alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide className="flex justify-center img-radius  ">
           <div className="image-box img-radius ">
-            <Image
-              className="image img-radius   "
-              src={img1}
-              alt=""
-            />
+            <Image className="image img-radius   " src={img1} alt="" />
           </div>
         </SwiperSlide>
       </Swiper>
