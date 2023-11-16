@@ -1,9 +1,11 @@
-import React from 'react'
-import AddPackage from './AddPackage';
+import React from "react";
+import AddPackage from "./AddPackage";
 
- const AddPackagePage = () => {
+const AddPackagePage = () => {
   return (
-    <div><AddPackage isEditMode={false}/></div>
-  )
-}
+    <div>
+      <AddPackage isEditMode={false} />
+    </div>
+  );
+};
 export default AddPackagePage;

@@ -79,10 +79,12 @@ export default function RootLayout({
     return <div className="notification-circle"></div>;
   };
 
-   
-   const token:any = typeof window !== 'undefined' ? localStorage.getItem("accessToken") : undefined;
- 
-  if(!token){
+  const token: any =
+    typeof window !== "undefined"
+      ? localStorage.getItem("accessToken")
+      : undefined;
+
+  if (!token) {
     return;
   }
 
@@ -99,7 +101,7 @@ export default function RootLayout({
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       )
         .then((response) => {
           if (response.status === 200) {

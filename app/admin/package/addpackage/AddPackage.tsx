@@ -1,10 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import FormInput from "@/app/signin/FormInput";
 
@@ -12,9 +9,8 @@ import apiConfiguration from "@/app/config";
 import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-
-
-
+import Image from "next/image";
+import AlternateImg from "../../../../public/alternative.png";
 
 interface PackageDataType {
   title: string;
@@ -49,23 +45,22 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       no_of_person: "",
       days_and_night: "",
       description: "",
-    }
+    },
   );
 
   let [file, setFile] = useState<File | string>();
-  
 
   useEffect(() => {
     if (isEditMode && id) {
-       const token = localStorage.getItem("accessToken");
-       if(!token){
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
         return;
-       }
+      }
       fetch(`${apiConfiguration.externalservice.backendUrl}/package/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-           Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then(async (response) => {
@@ -89,14 +84,13 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    
     if (isEditMode && id) {
       try {
         const { file_name, ...userDataWithoutFilename } = packageData;
-         const token = localStorage.getItem("accessToken");
-         if(!token){
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
           return;
-         }
+        }
         const response = await fetch(
           `${apiConfiguration.externalservice.backendUrl}/package/${id}`,
           {
@@ -106,7 +100,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(userDataWithoutFilename),
-          }
+          },
         );
 
         if (response.status === 200) {
@@ -123,16 +117,13 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               {
                 method: "POST",
                 body: formData,
-              }
+              },
             );
 
             if (uploadImageResponse.status === 201) {
               console.log("Image uploaded successfully");
             } else {
-              console.error(
-                "Error uploading image:",
-                uploadImageResponse.status
-              );
+              window.location.reload();
             }
           }
           window.location.reload();
@@ -154,7 +145,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(userDataWithoutFilename),
-          }
+          },
         );
 
         if (response.status === 200) {
@@ -172,7 +163,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               method: "POST",
 
               body: formData,
-            }
+            },
           );
 
           if (uploadImageResponse.status === 201) {
@@ -184,6 +175,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             window.location.reload();
           } else {
             console.error("Error uploading image:", uploadImageResponse.status);
+            window.location.reload();
           }
         } else {
           console.error("Error adding user:", response.status);
@@ -192,11 +184,9 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         console.error("Error submitting data:", error);
       }
     }
-    // }
   };
 
   const handleEditorChange = (value: any) => {
-    
     setPackageData({
       ...packageData,
       description: value,
@@ -205,7 +195,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   function handleInput(event: any) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
+        "You are not signed in to your account. Do you want to sign in your account?",
       );
 
       if (userConfirmed) {
@@ -233,7 +223,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   };
 
   const handleTextareaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
 
@@ -272,12 +262,27 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {isEditMode && (
-          <img
-            src={packageData.file_name}
-            className="h-20 w-40 rounded-lg"
-          ></img>
-        )}
+        {isEditMode ? (
+          packageData.file_name !== null &&
+          packageData.file_name !== undefined ? (
+            <Image
+              src={packageData.file_name}
+              className="h-20 w-20"
+              height={20}
+              width={20}
+              alt="img"
+            />
+          ) : (
+            <Image
+              src={AlternateImg}
+              className="h-20 w-20"
+              height={20}
+              width={20}
+              alt="img"
+            />
+          )
+        ) : null}
+
         <div className="grid  lg:grid-cols-2 gap-6">
           <div className="file-input-container col-span-1">
             <label>Upload Images</label>
@@ -330,7 +335,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               <br />
               <CountryDropdown
                 classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
-
                 value={packageData.country}
                 onChange={(val: any) => {
                   setPackageData({ ...packageData, country: val });
@@ -389,7 +393,9 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               name="description"
               value={packageData.description}
               onEditorChange={handleEditorChange}
-               customValue={initialPackageData ? initialPackageData.description : ''}
+              customValue={
+                initialPackageData ? initialPackageData.description : ""
+              }
             />
           </span>
         </div>

@@ -29,49 +29,49 @@ const FooterPart = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState<UserData[]>([]);
   const filteredData = data.filter((item) =>
-    item.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+    item.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
 
   useEffect(() => {
     let screenWidth = window.innerWidth;
 
     if (screenWidth <= 425) {
-      setWindowWidth(2);
+      setWindowWidth(1);
     } else if (screenWidth <= 768) {
-      setWindowWidth(3);
+      setWindowWidth(2);
     } else if (screenWidth <= 1024) {
-      setWindowWidth(4);
+      setWindowWidth(3);
     } else {
-      setWindowWidth(8);
+      setWindowWidth(3);
     }
   }, []);
 
-  useEffect(() => {
-    // const token = localStorage.getItem("accessToken");
+  // useEffect(() => {
+  //   // const token = localStorage.getItem("accessToken");
 
-    fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((responseData) => {
-        const userDataArray = responseData.data;
-        console.log(userDataArray);
+  //   fetch(`${apiConfiguration.externalservice.backendUrl}/package/get`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       // Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((responseData) => {
+  //       const userDataArray = responseData.data;
+  //       console.log(userDataArray);
 
-        setData(userDataArray);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, [searchQuery]);
+  //       setData(userDataArray);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching user data:", error);
+  //     });
+  // }, [searchQuery]);
 
   return (
     <div>
@@ -93,20 +93,12 @@ const FooterPart = () => {
       >
         <SwiperSlide className="flex justify-center img-radius  ">
           <div className="image-box img-radius ">
-            <Image
-              className="image img-radius  "
-              src={img1}
-              alt=""
-            />
+            <Image className="image img-radius  " src={img1} alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide className="flex justify-center img-radius  ">
           <div className="image-box img-radius ">
-            <Image
-              className="image img-radius   "
-              src={img1}
-              alt=""
-            />
+            <Image className="image img-radius   " src={img1} alt="" />
           </div>
         </SwiperSlide>
       </Swiper>

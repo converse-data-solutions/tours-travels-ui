@@ -2,6 +2,7 @@ import FooterPart from "./components/FooterPart";
 import { HomePage } from "./components/HomePage";
 
 import apiConfiguration from "./config";
+import PackageSlider from "./slider/page";
 
 const Page = () => {
   {
@@ -12,8 +13,8 @@ const Page = () => {
       <div>
         <HomePage />
       </div>
-      <div className="flex justify-center p-10 h-[50vh]">
-        Home page contents here...
+      <div className="flex justify-center  h-[50vh]">
+        <PackageSlider />
       </div>
       <footer>
         <FooterPart />

@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import logo from "../../public/logo-white.png";
 import backgroundimage from "../../public/shape8.png";
-import img1 from "../../public/beautiful-green-field-scenery-free-photo.webp"
+import img1 from "../../public/beautiful-green-field-scenery-free-photo.webp";
 import img2 from "../../public/4f7af96819b05591c4ce89017ccb40db.png";
 import img3 from "../../public/images.jpeg";
 

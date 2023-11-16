@@ -4,6 +4,8 @@ import apiConfiguration from "../../../../config";
 import { jwtDecode } from "jwt-decode";
 import AddUser from "../../adduser/AddUser";
 import Link from "next/link";
+import Image from "next/image";
+import AlternateImg from "../../../../../public/alternative.png";
 
 type UserData = {
   email: string;
@@ -53,7 +55,7 @@ const ProfileEditingPage = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       )
         .then((response) => {
           if (response.status == 200) {
@@ -84,7 +86,7 @@ const ProfileEditingPage = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
         .then(async (response) => {
           if (response.status === 200) {
@@ -107,11 +109,23 @@ const ProfileEditingPage = () => {
   return (
     <div className=" rounded-lg bg-white flex-col justify-center w-full px-5 py-2 shadow-md">
       <div className="flex justify-start py-5 px-10 gap-10 w-full h-[7vh] rounded-lg shadow-md  sticky z-10 bg-white">
-        <img
-          className="h-10 w-10 rounded-full"
-          src={userData.file_name}
-          alt="img"
-        />
+        {userData.file_name === null || userData.file_name === undefined ? (
+          <Image
+            src={AlternateImg}
+            className="rounded-md h-10 w-10"
+            alt={"img"}
+            height={30}
+            width={50}
+          />
+        ) : (
+          <Image
+            src={userData.file_name}
+            className="rounded-md h-10 w-10"
+            alt="img"
+            height={30}
+            width={50}
+          />
+        )}
         <br></br>
         <div>{userData.first_name}</div>
         <div>{userData.email}</div>

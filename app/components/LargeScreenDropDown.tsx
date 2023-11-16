@@ -51,7 +51,7 @@ export const LargeScreenDropdown = () => {
     tourList: any,
     tourGrid: any,
     tourSingle: any,
-    pageHover: any
+    pageHover: any,
   ) => {
     setIsPageDetailsVisible(pageDetails);
     setIsTourListVisible(tourList);

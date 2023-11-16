@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
@@ -9,17 +8,19 @@ interface DraftEditingProps {
   onEditorChange: (initialValue: string) => void;
 }
 
-export default function DraftEditing({value, onEditorChange }: DraftEditingProps) {
+export default function DraftEditing({
+  value,
+  onEditorChange,
+}: DraftEditingProps) {
   const handleEditorChange = (content: any, editor: any) => {
     console.log("Content was updated:", content);
-     onEditorChange(content)
+    onEditorChange(content);
   };
 
   return (
-    
     <Editor
-       apiKey={"azqt4vmow77bdh7mzzwm60rxbt26j893pjd86wik5qa1069g"}
-       value={value}
+      apiKey={"azqt4vmow77bdh7mzzwm60rxbt26j893pjd86wik5qa1069g"}
+      value={value}
       init={{
         height: 300,
         menubar: true,
@@ -32,7 +33,6 @@ export default function DraftEditing({value, onEditorChange }: DraftEditingProps
           "undo redo | formatselect | bold italic underline strikethrough bullist numlist | help",
       }}
       onEditorChange={handleEditorChange}
-      
     />
   );
 }

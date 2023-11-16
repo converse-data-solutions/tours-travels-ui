@@ -15,6 +15,7 @@ import PaginationBar from "@/app/components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
 import Image from "next/image";
 import apiConfiguration from "@/app/config";
+import AlternateImg from "../../../public/alternative.png";
 
 interface UserData {
   id: number;
@@ -69,7 +70,7 @@ const AllPackageLists = () => {
     try {
       if (localStorage.getItem("accessToken") === null) {
         const userConfirmed = window.confirm(
-          "You are not signed in to your account. Do you want to sign in your account?"
+          "You are not signed in to your account. Do you want to sign in your account?",
         );
         if (userConfirmed) {
           window.location.replace("/signin");
@@ -84,7 +85,9 @@ const AllPackageLists = () => {
         }
 
         const updatedData = data.map((item) =>
-          item.id === id ? { ...item, published: item.published ? 0 : 1 } : item
+          item.id === id
+            ? { ...item, published: item.published ? 0 : 1 }
+            : item,
         );
         setData(updatedData);
 
@@ -99,12 +102,12 @@ const AllPackageLists = () => {
             body: JSON.stringify({
               published: updatedData.find((item) => item.id === id)?.published,
             }),
-          }
+          },
         );
 
         if (!response.ok) {
           console.error(
-            `Failed to update published status for package with ID ${id}.`
+            `Failed to update published status for package with ID ${id}.`,
           );
         }
       }
@@ -116,7 +119,7 @@ const AllPackageLists = () => {
   function handleDeleteAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
+        "You are not signed in to your account. Do you want to sign in your account?",
       );
       if (userConfirmed) {
         window.location.replace("/signin");
@@ -127,7 +130,7 @@ const AllPackageLists = () => {
       if (window.confirm("Are you sure you want to delete this user?")) {
         if (localStorage.getItem("accessToken") === null) {
           const userConfirmed = window.confirm(
-            "You are not signed in to your account. Do you want to sign in your account?"
+            "You are not signed in to your account. Do you want to sign in your account?",
           );
           if (userConfirmed) {
             window.location.replace("/signin");
@@ -147,7 +150,7 @@ const AllPackageLists = () => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-            }
+            },
           )
             .then(async (response) => {
               if (response.status === 200) {
@@ -174,7 +177,7 @@ const AllPackageLists = () => {
   function handleEditAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
+        "You are not signed in to your account. Do you want to sign in your account?",
       );
       if (userConfirmed) {
         window.location.replace("/signin");
@@ -187,7 +190,7 @@ const AllPackageLists = () => {
   }
 
   const filteredData = data.filter((item) =>
-    item.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+    item.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
@@ -269,13 +272,24 @@ const AllPackageLists = () => {
                     <td>{list.id}</td>
                     <td>{list.start_date}</td>
                     <td>
-                      <Image
-                        src={list.file_name}
-                        className="h-20 w-10"
-                        alt={`img`}
-                        height={30}
-                        width={50}
-                      />
+                      {list.file_name === null ||
+                      list.file_name === undefined ? (
+                        <Image
+                          src={AlternateImg}
+                          className="rounded-md h-10 w-10"
+                          alt={"img"}
+                          height={30}
+                          width={50}
+                        />
+                      ) : (
+                        <Image
+                          src={list.file_name}
+                          className="rounded-md h-10 w-10"
+                          alt="img"
+                          height={30}
+                          width={50}
+                        />
+                      )}
                     </td>
 
                     <td>{list.title}</td>

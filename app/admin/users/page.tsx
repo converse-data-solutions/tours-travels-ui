@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ import PaginationBar from "../../components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
 import apiConfiguration from "../../config";
 import Image from "next/image";
+import AlternateImg from "../../../public/alternative.png";
 
 interface UserData {
   id: number;
@@ -42,109 +43,112 @@ const Userlistpage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const token = localStorage.getItem("accessToken");
 
-    fetch(`${apiConfiguration.externalservice.backendUrl}/user/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
+      fetch(`${apiConfiguration.externalservice.backendUrl}/user/get`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then((responseData) => {
-        const userDataArray = responseData.data;
-        console.log(userDataArray);
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((responseData) => {
+          const userDataArray = responseData.data;
+          console.log(userDataArray);
 
-        setData(userDataArray);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
+          setData(userDataArray);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
     }
   }, [searchQuery]);
 
   function handleDeleteAction(userid: number) {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const accessToken = localStorage.getItem("accessToken");
-  
+
       if (accessToken === null) {
         const userConfirmed = window.confirm(
-          "You are not signed in to your account. Do you want to sign in your account?"
+          "You are not signed in to your account. Do you want to sign in your account?",
         );
-      if (userConfirmed) {
-        window.location.replace("/signin");
+        if (userConfirmed) {
+          window.location.replace("/signin");
+        } else {
+          return;
+        }
       } else {
-        return;
-      }
-    } else {
-      if (window.confirm("Are you sure you want to delete this user?")) {
-        const token = localStorage.getItem("accessToken");
-        fetch(`${apiConfiguration.externalservice.backendUrl}/user/${userid}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then(async (response) => {
-            if (response.status === 200) {
-              const usertoken = await response.json();
-              setData(data.filter((user) => user.id !== user.id));
+        if (window.confirm("Are you sure you want to delete this user?")) {
+          const token = localStorage.getItem("accessToken");
+          fetch(
+            `${apiConfiguration.externalservice.backendUrl}/user/${userid}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          )
+            .then(async (response) => {
+              if (response.status === 200) {
+                const usertoken = await response.json();
+                setData(data.filter((user) => user.id !== user.id));
 
-              alert(`The data of userid ${userid}  successfully deleted.`);
-              window.location.reload();
-            } else {
-              console.error(`Failed to delete user with ID ${userid}.`);
-            }
-          })
-          .catch((error) => {
-            console.error("Error deleting user data:", error);
-          });
+                alert(`The data of userid ${userid}  successfully deleted.`);
+                window.location.reload();
+              } else {
+                console.error(`Failed to delete user with ID ${userid}.`);
+              }
+            })
+            .catch((error) => {
+              console.error("Error deleting user data:", error);
+            });
+        }
       }
     }
-  }
   }
   function handleInput(event: any) {
-    if (typeof window !== 'undefined') {
-    if (localStorage.getItem("accessToken") === null) {
-      const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
-      );
-      if (userConfirmed) {
-        window.location.replace("/signin");
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("accessToken") === null) {
+        const userConfirmed = window.confirm(
+          "You are not signed in to your account. Do you want to sign in your account?",
+        );
+        if (userConfirmed) {
+          window.location.replace("/signin");
+        } else {
+          return;
+        }
       } else {
-        return;
+        window.location.replace("/admin/users/adduser");
       }
-    } else {
-      window.location.replace("/admin/users/adduser");
     }
-  }
   }
   function handleEditAction(id: number) {
-    if (typeof window !== 'undefined') {
-    if (localStorage.getItem("accessToken") === null) {
-      const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
-      );
-      if (userConfirmed) {
-        window.location.replace("/signin");
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("accessToken") === null) {
+        const userConfirmed = window.confirm(
+          "You are not signed in to your account. Do you want to sign in your account?",
+        );
+        if (userConfirmed) {
+          window.location.replace("/signin");
+        } else {
+          window.location.reload();
+        }
       } else {
-        window.location.reload();
+        window.location.replace("/admin/users/adduser/" + id);
       }
-    } else {
-      window.location.replace("/admin/users/adduser/" + id);
     }
   }
-  }
   const filteredData = data.filter((item) =>
-    item.email.toLowerCase().startsWith(searchQuery.toLowerCase())
+    item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
@@ -219,13 +223,24 @@ const Userlistpage = () => {
                   <tr key={list.id}>
                     <td>{list.id}</td>
                     <td>
-                      <Image
-                        src={list.file_name}
-                        className="rounded-md h-10 w-10"
-                        alt={`img`}
-                        height={30}
-                        width={50}
-                      />
+                      {list.file_name === null ||
+                      list.file_name === undefined ? (
+                        <Image
+                          src={AlternateImg}
+                          className="rounded-md h-10 w-10"
+                          alt={"img"}
+                          height={30}
+                          width={50}
+                        />
+                      ) : (
+                        <Image
+                          src={list.file_name}
+                          className="rounded-md h-10 w-10"
+                          alt="img"
+                          height={30}
+                          width={50}
+                        />
+                      )}
                     </td>
                     <td>{list.email}</td>
                     <td>{list.mobile_number}</td>
@@ -233,10 +248,10 @@ const Userlistpage = () => {
                       {list.role_id === 1
                         ? "Admin"
                         : list.role_id === 2
-                        ? "User"
-                        : list.role_id === 3
-                        ? "HR"
-                        : ""}
+                          ? "User"
+                          : list.role_id === 3
+                            ? "HR"
+                            : ""}
                     </td>
                     <td>{list.first_name}</td>
                     <td>{list.last_name}</td>
