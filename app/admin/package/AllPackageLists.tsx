@@ -15,6 +15,7 @@ import PaginationBar from "@/app/components/PaginationBar";
 import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
 import Image from "next/image";
 import apiConfiguration from "@/app/config";
+import AlternateImg from "../../../public/alternative.png"
 
 interface UserData {
   id: number;
@@ -191,6 +192,7 @@ const AllPackageLists = () => {
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
+ 
 
   return (
     <div className="px-4 lg:px-6">
@@ -269,13 +271,23 @@ const AllPackageLists = () => {
                     <td>{list.id}</td>
                     <td>{list.start_date}</td>
                     <td>
-                      <Image
-                        src={list.file_name}
-                        className="h-20 w-10"
-                        alt={`img`}
-                        height={30}
-                        width={50}
-                      />
+                    {list.file_name === null ||list.file_name===undefined ? (
+    <Image
+      src={AlternateImg} 
+      className="rounded-md h-10 w-10"
+      alt={'img'}
+      height={30}
+      width={50}
+    />
+  ) : (
+    <Image
+      src={list.file_name}
+      className="rounded-md h-10 w-10"
+      alt="img"
+      height={30}
+      width={50}
+    />
+  )}
                     </td>
 
                     <td>{list.title}</td>

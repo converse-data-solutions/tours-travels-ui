@@ -8,6 +8,8 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faRepeat, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { jwtDecode } from "jwt-decode";
+import Image from "next/image";
+import AlternateImg from "../../public/alternative.png"
 
 type UserData = {
   first_name: string;
@@ -64,10 +66,23 @@ const UserDetailsForm = () => {
         <div className=" rounded-lg bg-white flex-col justify-center w-60 py-2">
           <div className="px-10  pb-4 flex-col justify-center">
             <div className="flex justify-center">
-              <img
-                className="h-24 w-24 rounded-full  "
-                src={userData.file_name}
-              />
+            {userData.file_name === null ||userData.file_name===undefined ? (
+    <Image
+      src={AlternateImg} 
+      className="rounded-md h-10 w-10"
+      alt={'img'}
+      height={30}
+      width={50}
+    />
+  ) : (
+    <Image
+      src={userData.file_name}
+      className="rounded-md h-10 w-10"
+      alt='img'
+      height={30}
+      width={50}
+    />
+  )}
             </div>
             <br></br>
             <div className="flex justify-center text-2xl font-bold">

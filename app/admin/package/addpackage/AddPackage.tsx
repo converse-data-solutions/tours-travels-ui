@@ -12,6 +12,8 @@ import apiConfiguration from "@/app/config";
 import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
+import Image from "next/image";
+import AlternateImg from "../../../../public/alternative.png"
 
 
 
@@ -129,10 +131,9 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             if (uploadImageResponse.status === 201) {
               console.log("Image uploaded successfully");
             } else {
-              console.error(
-                "Error uploading image:",
-                uploadImageResponse.status
-              );
+              
+                window.location.reload()
+                
             }
           }
           window.location.reload();
@@ -184,6 +185,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             window.location.reload();
           } else {
             console.error("Error uploading image:", uploadImageResponse.status);
+            window.location.reload()
           }
         } else {
           console.error("Error adding user:", response.status);
@@ -192,7 +194,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         console.error("Error submitting data:", error);
       }
     }
-    // }
+    
   };
 
   const handleEditorChange = (value: any) => {
@@ -272,12 +274,26 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {isEditMode && (
-          <img
-            src={packageData.file_name}
-            className="h-20 w-40 rounded-lg"
-          ></img>
-        )}
+        {isEditMode ? (
+  packageData.file_name !== null && packageData.file_name !== undefined ? (
+    <Image
+      src={packageData.file_name}
+      className="h-20 w-20"
+      height={20}
+      width={20}
+      alt="img"
+    />
+  ) : (
+    <Image
+      src={AlternateImg}
+      className="h-20 w-20"
+      height={20}
+      width={20}
+      alt="img"
+    />
+  )
+) : null}
+
         <div className="grid  lg:grid-cols-2 gap-6">
           <div className="file-input-container col-span-1">
             <label>Upload Images</label>
