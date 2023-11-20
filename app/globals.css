@@ -570,10 +570,44 @@ body {
 .swiper-button-next:hover {
   background-color: #212a3a;
   color: white;
-  size: 1px;
+  font-size: small;
 }
-.swiper-button-prev:after,
-.swiper-rtl .swiper-button-next:after {
+.swiper-button-prev:after
+ {
   content: "prev";
   font-size: 2px;
+}
+
+
+.imageHover:hover{
+  transform: scale(110%); 
+
+}
+
+.bgimgcolor {
+  filter:brightness(50%)
+}
+.packageimage{
+  filter:brightness(100%)
+}
+#container1 {
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 2vh;
+}
+
+.name1 {
+  font-size: 24px;
+  font-weight: 600;
+
+  margin-top: 16px;
+}
+.BooknowImagePart{
+  background-image: url(../public/booknowpageimg.jpg);
+  background-repeat: no-repeat;
+  width:auto;
+  background-size: cover;
+  z-index: -1;
+  filter: brightness(50%);
+  
 }

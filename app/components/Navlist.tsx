@@ -8,6 +8,7 @@ import {
   WorkOutline as WorkOutlineIcon,
 } from "@mui/icons-material";
 
+
 const NavListDetails = () => {
   const [isListVisible, setIsListVisible] = useState(false);
   const [isCareerVisible, setIsCareerVisible] = useState(false);
@@ -33,11 +34,13 @@ const NavListDetails = () => {
 
   return (
     <div>
-      <div className="mt-4 border-b-[1px] border-dashed border-gray-200 px-3 justify-between bg-white">
+      <div className="mt-4 border-b-[1px] border-dashed border-gray-200 px-3 justify-between bg-white ">
         <button
-          className="flex items-center py-[10px] w-full nav-button"
+          className="flex items-center py-[10px] w-full nav-button "
           style={{ color: listButtonColor }}
           onClick={toggleListVisibility}
+          
+          
         >
           <span className="flex gap-3 items-center w-full">
             <span className="min-w-[25px] text-center">
@@ -64,11 +67,14 @@ const NavListDetails = () => {
         )}
       </div>
 
-      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white ">
+      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white  "  onMouseOver={()=>setCareerButtonColor("hsl(180,82%,35%)")}>
         <button
           className="nav-button flex items-center py-[10px] justify-between w-full"
           style={{ color: careerButtonColor }}
           onClick={toggleCareerVisibility}
+         
+          
+          
         >
           <span className="flex gap-3 items-center w-full">
             <span>
@@ -97,6 +103,9 @@ const NavListDetails = () => {
           className="nav-button flex items-center py-[10px] justify-between w-full"
           style={{ color: packageButtonColor }}
           onClick={togglePackageVisibility}
+          onMouseOver={()=>setPackageButtonColor("hsl(180,82%,35%)")}
+          onMouseLeave={()=>setPackageButtonColor("black")}
+          
         >
           <span className="flex gap-3 items-center w-full">
             <span>
