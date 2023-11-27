@@ -1,11 +1,11 @@
 // ReusableSelect.jsx
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import * as React from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-const ReusableSelect = (props:any) => {
+const ReusableSelect = (props: any) => {
   const {
     label,
     id,
@@ -19,11 +19,12 @@ const ReusableSelect = (props:any) => {
     borderColor,
     ariaLabel,
     placeholder,
+    required,
   } = props;
 
   return (
     <div>
-      <FormControl sx={{ minWidth: 200 }}>
+      <FormControl sx={{ minWidth: "100%" }}>
         {label && <InputLabel id={`${id}-label`}>{label}</InputLabel>}
         <Select
           labelId={`${id}-label`}
@@ -31,25 +32,26 @@ const ReusableSelect = (props:any) => {
           value={value}
           onChange={onChange}
           displayEmpty={displayEmpty}
-          inputProps={{ 'aria-label': ariaLabel }} 
+          inputProps={{ "aria-label": ariaLabel }}
+          required
           sx={{
-            width: width || '100%',
-            height: height || '50px',
-            borderRadius: borderRadius || '11px',
-            '&:before': {
-              borderColor: borderColor || '#dee2e6',
+            width: width || "100%",
+            height: height || "50px",
+            borderRadius: borderRadius || "11px",
+            "&:before": {
+              borderColor: borderColor || "#dee2e6",
             },
-            '&:after': {
-              borderColor: borderColor || '#dee2e6',
+            "&:after": {
+              borderColor: borderColor || "#dee2e6",
             },
           }}
         >
           {displayEmpty && (
             <MenuItem value="" disabled>
-              {placeholder || 'Select'} {/* Set the placeholder value here */}
+              {placeholder}
             </MenuItem>
           )}
-          {options.map((option:any) => (
+          {options.map((option: any) => (
             <MenuItem
               key={option.value}
               value={option.value}

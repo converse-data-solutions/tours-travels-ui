@@ -1,22 +1,19 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import BooknowPageimg from "../../public/booknowpageimg.jpg";
-import backgroundImg from "../../public/shape8.png";
-import SelectLabels from "./SelectDropDown";
-import FormInput from "../admin/users/adduser/Forminput";
+import backgroundImg from "../../../public/shape8.png";
+import FormInput from "../../admin/users/adduser/Forminput";
 import { useState, useEffect } from "react";
-import ReusableSelect from "./SelectDropDown";
+import ReusableSelect from "../SelectDropDown";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import TextArea from "../admin/users/adduser/TextArea";
+import TextArea from "../../admin/users/adduser/TextArea";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGrinWink, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import CreditCard from "../../public/CreditCard.png";
+import CreditCard from "../../../public/CreditCard.png";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faMap } from "@fortawesome/free-regular-svg-icons";
-import image from "../../public/beautiful-green-field-scenery-free-photo.webp";
+import image from "../../../public/beautiful-green-field-scenery-free-photo.webp";
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import { useRouter } from "next/router";
+import { jwtDecode } from "jwt-decode";
 
 interface UserDataType {
   first_name: string;
@@ -34,13 +31,39 @@ interface UserDataType {
   card_number: string;
   expiry_date: string;
   cvv: string;
-  package_id: string;
-  user_id: number;
+  terms_and_conditions: number;
+  total_persons: number;
 }
-interface HomePageContentProps {
-  id: boolean;
+
+interface UserData {
+  id: number;
+  title: string;
+  start_date: string;
+  file_name: any;
+  description: string;
+  no_of_person: number;
+  days_and_night: string;
+  country: string;
+  state: string;
+  price: number;
+  published: number;
+  superior_twin_price: number;
+  booking_fees: number;
 }
-const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
+
+const token: any =
+  typeof window !== "undefined"
+    ? localStorage.getItem("accessToken")
+    : undefined;
+
+if (!token) {
+  window.location.replace("/");
+}
+
+const decoded: any = jwtDecode(token);
+const id: number = decoded.userId;
+
+const HomePageContent = ({ params }: { params: { id: number } }) => {
   const [bookNowData, setBookNowData] = useState<UserDataType>({
     first_name: "",
     last_name: "",
@@ -57,13 +80,80 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
     card_number: "",
     expiry_date: "",
     cvv: "",
-    package_id: "",
-    user_id: 0,
+    terms_and_conditions: 0,
+    total_persons: 1,
   });
+  const [data, setData] = useState<UserData>();
+
+  const [errors, setErrors] = useState({
+    first_name: "",
+
+    email: "",
+
+    mobile_number: "",
+  });
+
+  const validateInput = (fieldName: string, value: string) => {
+    let errorMessage = "";
+
+    const nameRegex = /^[A-Za-z]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (fieldName === "first_name") {
+      if (value.trim() === "") {
+        errorMessage = "First Name is required";
+      } else if (!nameRegex.test(value)) {
+        errorMessage = "First Name can only contain alphabetic characters";
+      }
+    } else if (fieldName === "email") {
+      if (value.trim() === "") {
+        errorMessage = "Email is required";
+      } else if (!emailRegex.test(value)) {
+        errorMessage = "Invalid email format";
+      } else if (!value.includes("@")) {
+        errorMessage = "Email must contain '@'";
+      }
+    } else if (fieldName === "mobile_number") {
+      if (value.trim() === "") {
+        errorMessage = "Mobile Number is required";
+      } else if (!/^[0-9]+$/.test(value)) {
+        errorMessage = "Mobile Number must contain only numeric characters";
+      } else if (!/^[6-9]\d{9}$/.test(value)) {
+        errorMessage = "Invalid Mobile Number";
+      }
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: errorMessage,
+    }));
+  };
+
   useEffect(() => {
-    const id = bookNowData.package_id;
-    console.log(id);
-  }, [bookNowData.package_id]);
+    const token = localStorage.getItem("accessToken");
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${params.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        const packageData = responseData.data;
+
+        setData(packageData);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -72,6 +162,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
   const titleOptions = [
     { value: "Mr.", label: "Mr." },
     { value: "Mrs.", label: "Mrs." },
+    { value: "Miss.", label: "Miss." },
   ];
   const GenderOptions = [
     { value: "Male", label: "Male" },
@@ -106,30 +197,131 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
       title: selectedTitle,
     }));
   };
+  const handleNoOfPersonsChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { name, value } = event.target;
+
+    setBookNowData({
+      ...bookNowData,
+      [name]: value,
+    });
+  };
+
+  const handleTermsAndConditionsChange = (newValue: number) => {
+    console.log("Terms and Conditions changed:", newValue);
+
+    setBookNowData({
+      ...bookNowData,
+      terms_and_conditions: newValue,
+    });
+  };
+  const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setBookNowData({ ...bookNowData, [name]: new Date(value) });
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/booking/create`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bookNowData),
-        },
-      );
 
-      if (response.status === 200) {
-        console.log("booking successfully");
-      } else {
-        console.log("booking got error");
+    setErrors({
+      first_name: "",
+      email: "",
+      mobile_number: "",
+    });
+
+    const requiredFields: (keyof UserDataType)[] = [
+      "first_name",
+      "email",
+      "mobile_number",
+    ];
+    const missingFields = requiredFields.filter(
+      (fieldName) => !bookNowData[fieldName],
+    );
+
+    if (missingFields.length > 0) {
+      missingFields.forEach((fieldName) => {
+        validateInput(fieldName, "");
+      });
+      return;
+    }
+
+    Object.keys(bookNowData).forEach((fieldName) => {
+      const key = fieldName as keyof UserDataType;
+      const value = bookNowData[key];
+
+      validateInput(
+        key,
+        value instanceof Date ? value.toISOString() : String(value),
+      );
+    });
+
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+
+    if (!hasErrors) {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/booking/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...bookNowData,
+              package_id: params.id,
+              user_id: id,
+            }),
+          },
+        );
+
+        if (response.status === 200) {
+          console.log("Booking successful");
+          window.location.reload();
+        } else {
+          console.log("Booking encountered an error");
+        }
+      } catch (error) {
+        console.error("Error occurred during booking", error);
       }
-    } catch (error) {
-      console.error("error occured on booking", error);
     }
   };
+
+  const calculateTotalPackagePrice = () => {
+    if (data) {
+      const price: number = Number(data.price) || 0;
+      const noOfPersons: number = Number(bookNowData.total_persons) || 0;
+      const TotalPrice = price * noOfPersons;
+
+      const totalPackageAmount = document.getElementById("totalPackagePrice");
+      if (totalPackageAmount) {
+        totalPackageAmount.innerText = `$${TotalPrice}`;
+      }
+    }
+  };
+  useEffect(() => {
+    calculateTotalPackagePrice();
+  }, [data, bookNowData.total_persons]);
+
+  const calculateTotalAmount = () => {
+    if (data) {
+      const noOfPersons: number = Number(bookNowData.total_persons) || 0;
+      const price: number = Number(data.price) || 0;
+      const taxfees: number = Math.ceil((Number(data?.price) * 18) / 100);
+
+      const calculatedTotal = noOfPersons * price + noOfPersons * taxfees;
+
+      const totalAmountElement = document.getElementById("totalAmount");
+      if (totalAmountElement) {
+        totalAmountElement.innerText = `$${calculatedTotal}`;
+      }
+    }
+  };
+
+  useEffect(() => {
+    calculateTotalAmount();
+  }, [data, bookNowData.total_persons]);
 
   return (
     <div className=" ">
@@ -140,21 +332,21 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
           alt="img"
           height={1000}
           width={1000}
-          className="   lg:h-full lg:w-[33.33%] rotate-180 bg-transparent"
+          className="   lg:h-full lg:w-[33.34%]  rotate-180 bg-transparent"
         />
         <Image
           src={backgroundImg}
           alt="img"
           height={100}
           width={1000}
-          className="hidden h-full w-[33.33%] rotate-180 bg-transparent lg:inline-block"
+          className="hidden h-full w-[33.40%]  rotate-180 bg-transparent lg:inline-block"
         />
         <Image
           src={backgroundImg}
           alt="img"
           height={100}
           width={1000}
-          className="hidden h-full w-[33.33%] rotate-180 bg-transparent lg:inline-block"
+          className="hidden h-full w-[33.40%]  rotate-180 bg-transparent lg:inline-block"
         />
       </div>
       <div className="absolute top-[30%] ld:top-[25%] flex justify-center w-full">
@@ -170,7 +362,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
         </div>
       </div>
 
-      <div className="flex bg-white z-10 relative top-[-200px] pl-5 pr-3 lg:pl-[300px]    flex-col lg:flex-row">
+      <div className="flex bg-white z-10 relative top-[-200px] pl-5 pr-3 lg:pl-[50px] 2xl:px-[40vh]    flex-col lg:flex-row">
         <div className="bg-white w-full lg:w-8/12 pt-20">
           <div className="text-3xl font-semibold pb-5">
             {" "}
@@ -181,7 +373,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
             Let Us Know Who You Are
           </div>
           <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <div className="flex gap-6 justify-around pr-2 flex-col  lg:flex-row">
+            <div className="flex gap-6 justify-around pr-2 flex-col  md:flex-row">
               <div className="flex flex-col">
                 <div className="pb-2">Title</div>
                 <ReusableSelect
@@ -196,6 +388,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   borderColor="#dee2e6"
                   ariaLabel=""
                   placeholder="Select"
+                  required={true}
                 />
               </div>
 
@@ -203,6 +396,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                 <FormInput
                   label="First Name*"
                   name="first_name"
+                  error={errors.first_name}
                   value={bookNowData.first_name}
                   onChange={handleChange}
                   required={true}
@@ -225,17 +419,19 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   label="Email"
                   type="email"
                   name="email"
+                  error={errors.email}
                   value={bookNowData.email}
                   onChange={handleChange}
-                  required
+                  required={true}
                 />
                 <div className="w-full">
                   <FormInput
                     label="Phone "
                     name="mobile_number"
+                    error={errors.mobile_number}
                     value={bookNowData.mobile_number}
                     onChange={handleChange}
-                    required
+                    required={true}
                   />
                 </div>
               </div>
@@ -255,6 +451,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                     borderColor="#dee2e6"
                     ariaLabel="Title Select"
                     placeholder=" Select Gender"
+                    required={true}
                   />
                 </div>
 
@@ -263,13 +460,13 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   <input
                     type="date"
                     className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5"
-                    name="start_date"
+                    name="date_of_birth"
                     value={
                       bookNowData.date_of_birth instanceof Date
                         ? bookNowData.date_of_birth.toISOString().split("T")[0]
                         : bookNowData.date_of_birth
                     }
-                    onChange={handleChange}
+                    onChange={handleTimeChange}
                   />
                 </div>
               </div>
@@ -312,6 +509,17 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   name="address_2"
                   value={bookNowData.address_2}
                   onChange={handleTextareaChange}
+                />
+              </div>
+              <div className="mr-2">
+                <label>No Of Person</label>
+                <input
+                  type="number"
+                  value={bookNowData.total_persons}
+                  onChange={handleChange}
+                  name="total_persons"
+                  required
+                  className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 mb-1 "
                 />
               </div>
             </div>
@@ -359,7 +567,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
             </div>
 
             <div>
-              <div className="mt-6  w-full  flex flex-col lg:flex-row pb-5 lg:gap-3">
+              <div className="mt-6  w-full  flex flex-col md:flex-row pb-5 md:gap-3">
                 <div className="flex flex-col  w-full">
                   <div className="flex  flex-col  w-full">
                     <FormInput
@@ -369,33 +577,39 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                       onChange={handleChange}
                       required
                     />
-                    <FormInput
-                      label="Card Number"
-                      name="card_number"
-                      value={bookNowData.card_number}
-                      onChange={handleChange}
-                      required
-                    />
+                    <span className="mt-2 md:mt-0">
+                      <FormInput
+                        label="Expiry Date"
+                        name="expiry_date"
+                        value={bookNowData.expiry_date}
+                        onChange={handleChange}
+                        placeholder="DD/MM/YYYY"
+                        required
+                      />
+                    </span>
                   </div>
                 </div>
 
-                <div className="flex flex-col   mt-4 lg:mt-0 pr-2 pb-10 w-full  ">
+                <div className="flex flex-col   mt-4 md:mt-0 pr-2 pb-10 w-full  ">
                   <FormInput
-                    label="Expiry Date"
-                    name="expiry_date"
-                    value={bookNowData.expiry_date}
+                    label="Card Number"
+                    name="card_number"
+                    value={bookNowData.card_number}
                     onChange={handleChange}
-                    placeholder="DD/MM/YYYY"
                     required
+                    placeholder="**** **** **** ****"
                   />
-                  <FormInput
-                    label="CVV/CVC"
-                    name="cvv"
-                    value={bookNowData.cvv}
-                    onChange={handleChange}
-                    placeholder="Enter CVV/CVC"
-                    required
-                  />
+
+                  <span className="mt-2 md:mt-0">
+                    <FormInput
+                      label="CVV/CVC"
+                      name="cvv"
+                      value={bookNowData.cvv}
+                      onChange={handleChange}
+                      placeholder="Enter CVV/CVC"
+                      required
+                    />
+                  </span>
                 </div>
                 <div className=""></div>
                 <Image
@@ -403,18 +617,25 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   alt="img"
                   height={100}
                   width={1000}
-                  className="w-full  lg:w-[28vh] lg:h-[17vh] xl:h-[20vh] "
+                  className="w-full  lg:w-[28vh] md:h-[19vh] md:w-[26vh] md:pt-8  lg:h-[20vh] xl:pt-6 xl:h-[21vh] xl:w-[260px]"
                 />
               </div>
 
               <hr className="border-dashed "></hr>
-              <div className=" flex flex-col lg:flex-row lg:justify-between">
+              <div className=" flex flex-col xl:flex-row xl:justify-between">
                 <div className="flex items-center pt-5  ">
                   <input
                     type="checkbox"
                     id="termsAndConditions"
                     className="h-4 w-4 text-[#028B8A] border-gray-400 rounded focus:ring-[#028B8A] focus:border-[#028B8A] transition duration-300 ease-in-out"
+                    checked={bookNowData.terms_and_conditions === 1}
+                    onChange={() =>
+                      handleTermsAndConditionsChange(
+                        bookNowData.terms_and_conditions === 0 ? 1 : 0,
+                      )
+                    }
                   />
+
                   <span>
                     <label className="pl-2  text-[17px] lg:text-lg text-gray-500">
                       By continuing, you agree to the
@@ -441,24 +662,24 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
           </form>
         </div>
 
-        <div className="bg-white lg:w-4/12 lg:ml-6  lg:mr-[310px]">
+        <div className="bg-white xl:w-4/12 lg:ml-6 lg:pr-[30px] :mr-[310px]">
           {" "}
           <div className=" lg:mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-3">Your Booking Details</h2>
 
-            <div className="flex items-center flex-col lg:flex-row lg:w-4/12 ">
-              <div className=" w-full flex-shrink-0 lg:mr-4">
+            <div className="flex items-center flex-col md:flex-row lg:w-4/12 xl:w-5/12 md:gap-4">
+              <div className=" w-full flex-shrink-0 lg:mr-4 md:w-4/12 lg:w-8/12">
                 <Image
                   src={image}
                   alt="Card Image"
                   width={1000}
                   height={100}
-                  className="h-[60vh] w-full  lg:h-[110px] lg:w-[110px] rounded-lg "
+                  className="h-[20vh] w-full md:h-[110px] rounded-lg "
                 />
               </div>
 
-              <div className=" flex flex-col">
-                <div className="flex space-x-1 mt-3">
+              <div className=" flex flex-col justify-start w-full md:w-8/12">
+                <div className="flex  mt-3">
                   {Array.from({ length: rating }, (_, index) => (
                     <FontAwesomeIcon
                       key={index}
@@ -469,18 +690,18 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   200 Reviews
                 </div>
                 <div className="text-gray-700 hover:text-[#028B8A] text-[16px]">
-                  Adriatic Adventure–Zagreb To Athens
+                  {data?.title}
                 </div>
 
                 <div className="text-lg font-semibold text-[#028B8A] ">
-                  <FontAwesomeIcon icon={faMapMarkerAlt} /> Croatia
+                  <FontAwesomeIcon icon={faMapMarkerAlt} /> {data?.country},
+                  {data?.state}
                 </div>
               </div>
             </div>
 
             <hr className="border border-dashed my-4"></hr>
             <div className="flex   flex-col lg:flex-row lg:gap-6">
-              {/* Button Type 1 */}
               <div className="bg-[#ededef] text-gray-400 px-4  py-2 rounded-md mb-2 w-full pb-3">
                 <div className=" text-gray-500 text-[16px]">Check In</div>
                 <div className="text-black font-bold text-[16px]">
@@ -503,7 +724,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                 Total Length of Stay:
               </div>
               <div className="text-black font-bold text-[16px]">
-                8 Days | 7 Nights
+                {data?.days_and_night}
               </div>
               <div className="text-[#028B8A] text-[16px] underline">
                 travelling on different dates?
@@ -537,37 +758,40 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                 <TableRow>
                   <TableCell style={{ border: "solid 1px #d3d3d3" }}>
                     {" "}
-                    Superior Twin{" "}
+                    Package Price{" "}
                   </TableCell>{" "}
-                  <TableCell>$500.00</TableCell>
+                  <TableCell>${Number(data?.price)}</TableCell>
                 </TableRow>
                 <TableRow style={{ backgroundColor: "white" }}>
                   <TableCell style={{ border: "solid 1px #d3d3d3" }}>
                     {" "}
                     Number of Travellers{" "}
                   </TableCell>{" "}
-                  <TableCell>3</TableCell>
+                  <TableCell>{bookNowData.total_persons}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell style={{ border: "solid 1px #d3d3d3" }}>
                     Tax & fee{" "}
                   </TableCell>{" "}
-                  <TableCell>$50.00</TableCell>
+                  <TableCell>
+                    ${Math.ceil((Number(data?.price) * 18) / 100)}
+                  </TableCell>
                 </TableRow>
                 <TableRow style={{ backgroundColor: "white" }}>
                   <TableCell style={{ border: "solid 1px #d3d3d3" }}>
                     {" "}
                     Booking Fee{" "}
                   </TableCell>{" "}
-                  <TableCell>Free</TableCell>
+                  <TableCell>{data?.booking_fees}</TableCell>
                 </TableRow>
-                <TableRow>
+                <TableRow style={{ backgroundColor: "white" }}>
                   <TableCell style={{ border: "solid 1px #d3d3d3" }}>
                     {" "}
-                    Total{" "}
+                    Total package price{" "}
                   </TableCell>{" "}
-                  <TableCell>$550.00</TableCell>
+                  <TableCell id="totalPackagePrice"></TableCell>
                 </TableRow>
+
                 <TableRow>
                   <TableCell
                     className="font-bold text-white bg-[#363333]"
@@ -575,9 +799,10 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   >
                     Amount{" "}
                   </TableCell>{" "}
-                  <TableCell className="font-bold text-white  bg-[#363333]">
-                    $550.00
-                  </TableCell>
+                  <TableCell
+                    className="font-bold text-white  bg-[#363333]"
+                    id="totalAmount"
+                  ></TableCell>
                 </TableRow>
               </table>
             </div>
@@ -593,7 +818,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
             </div>
             <div className="flex flex-row justify-between">
               <div className="text-gray-500">Before you stay you'll pay</div>
-              <div className="text-gray-500">$40.00</div>
+              <div className="text-gray-500">$40</div>
             </div>
           </div>
           <div className="rounded-lg p-5 shadow-md mb-10">

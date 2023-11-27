@@ -1,10 +1,12 @@
-import React from 'react'
-import AllBookingLists from './AllBookingLists'
+import React from "react";
+import AllBookingLists from "./AllBookingLists";
 
 const page = () => {
   return (
-    <div><AllBookingLists/></div>
-  )
-}
+    <div>
+      <AllBookingLists />
+    </div>
+  );
+};
 
-export default page
+export default page;

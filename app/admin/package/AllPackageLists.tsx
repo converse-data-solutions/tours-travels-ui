@@ -142,16 +142,13 @@ const AllPackageLists = () => {
           if (!token) {
             return;
           }
-          fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
-            {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
-          )
+          })
             .then(async (response) => {
               if (response.status === 200) {
                 const usertoken = await response.json();
@@ -260,6 +257,7 @@ const AllPackageLists = () => {
                 <th>PRICE</th>
                 <th>NO.OF PERSON</th>
                 <th>DAY & NIGHT</th>
+
                 <th>PUBLISHED</th>
                 <th>ACTION </th>
               </TableRow>
@@ -299,9 +297,10 @@ const AllPackageLists = () => {
                     <td
                       dangerouslySetInnerHTML={{ __html: list.description }}
                     ></td>
-                    <td>{list.price}</td>
+                    <td>${list.price}</td>
                     <td>{list.no_of_person}</td>
                     <td>{list.days_and_night}</td>
+
                     <td>
                       {" "}
                       <label

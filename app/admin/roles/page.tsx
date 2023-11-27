@@ -1,10 +1,12 @@
-import React from 'react'
-import UserRoleManagement from './RoleManagement'
+import React from "react";
+import UserRoleManagement from "./RoleManagement";
 
 const RoleManagementPage = () => {
   return (
-    <div><UserRoleManagement/></div>
-  )
-}
+    <div>
+      <UserRoleManagement />
+    </div>
+  );
+};
 
-export default RoleManagementPage
+export default RoleManagementPage;

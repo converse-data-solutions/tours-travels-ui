@@ -15,7 +15,6 @@ import SignInAndSignOut from "../SignInAndSignOut";
 import { jwtDecode } from "jwt-decode";
 import UserDetailsForm from "../components/UserDetails";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 type UserData = {

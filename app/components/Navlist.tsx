@@ -7,15 +7,18 @@ import {
   ExpandLess as ExpandLessIcon,
   WorkOutline as WorkOutlineIcon,
 } from "@mui/icons-material";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableList } from "@fortawesome/free-solid-svg-icons";
 
 const NavListDetails = () => {
   const [isListVisible, setIsListVisible] = useState(false);
   const [isCareerVisible, setIsCareerVisible] = useState(false);
   const [isPackageVisible, setPackageVisible] = useState(false);
+  const [isBookingVisible, setBookingVisible] = useState(false);
   const [listButtonColor, setListButtonColor] = useState("black");
   const [careerButtonColor, setCareerButtonColor] = useState("black");
   const [packageButtonColor, setPackageButtonColor] = useState("black");
+  const [bookingButtonColor, setBookingButtonColor] = useState("black");
 
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
@@ -31,6 +34,10 @@ const NavListDetails = () => {
     setPackageVisible(!isPackageVisible);
     setPackageButtonColor(isPackageVisible ? "#232323" : "#20B2AA");
   };
+  const toggleBookingVisibility = () => {
+    setBookingVisible(!isBookingVisible);
+    setBookingButtonColor(isBookingVisible ? "#232323" : "#20B2AA");
+  };
 
   return (
     <div>
@@ -39,10 +46,8 @@ const NavListDetails = () => {
           className="flex items-center py-[10px] w-full nav-button "
           style={{ color: listButtonColor }}
           onClick={toggleListVisibility}
-          
-          
         >
-          <span className="flex gap-3 items-center w-full">
+          <span className="flex gap-3 items-center w-full hover:text-[#20B2AA]">
             <span className="min-w-[25px] text-center">
               <PersonOutlineIcon />
             </span>
@@ -67,16 +72,13 @@ const NavListDetails = () => {
         )}
       </div>
 
-      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white  "  onMouseOver={()=>setCareerButtonColor("hsl(180,82%,35%)")}>
+      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white  ">
         <button
           className="nav-button flex items-center py-[10px] justify-between w-full"
           style={{ color: careerButtonColor }}
           onClick={toggleCareerVisibility}
-         
-          
-          
         >
-          <span className="flex gap-3 items-center w-full">
+          <span className="flex gap-3 items-center w-full hover:text-[#20B2AA] ">
             <span>
               <WorkOutlineIcon className="min-w-[25px] text-center" />
             </span>
@@ -103,11 +105,8 @@ const NavListDetails = () => {
           className="nav-button flex items-center py-[10px] justify-between w-full"
           style={{ color: packageButtonColor }}
           onClick={togglePackageVisibility}
-          onMouseOver={()=>setPackageButtonColor("hsl(180,82%,35%)")}
-          onMouseLeave={()=>setPackageButtonColor("black")}
-          
         >
-          <span className="flex gap-3 items-center w-full">
+          <span className="flex gap-3 items-center w-full hover:text-[#20B2AA]">
             <span>
               <PersonOutlineIcon className="min-w-[25px] text-center" />
             </span>
@@ -127,6 +126,38 @@ const NavListDetails = () => {
             </li>
             <li>
               <Link href="/admin/package/addpackage">Add Package</Link>
+            </li>
+          </ul>
+        )}
+      </div>
+
+      <div className="border-b-[1px] border-dashed border-gray-200 px-3 justify-between top-5 bg-white ">
+        <button
+          className="nav-button flex items-center py-[10px] justify-between w-full"
+          style={{ color: bookingButtonColor }}
+          onClick={toggleBookingVisibility}
+        >
+          <span className="flex gap-3 items-center w-full hover:text-[#20B2AA]">
+            <span>
+              {/* <PersonOutlineIcon className="min-w-[25px] text-center" /> */}
+              <FontAwesomeIcon
+                icon={faTableList}
+                className="text-center text-[19px] min-w-[25px]"
+              />
+            </span>
+            <div className="w-full flex justify-between">
+              <span className="font-medium">Booking Section</span>
+              <span>
+                {isBookingVisible ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </span>
+            </div>
+          </span>
+        </button>
+
+        {isBookingVisible && (
+          <ul className="bullet-list">
+            <li>
+              <Link href="/admin/bookingsection">All Booking List</Link>
             </li>
           </ul>
         )}

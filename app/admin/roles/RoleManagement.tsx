@@ -20,14 +20,13 @@ import AlternateImg from "../../../public/alternative.png";
 interface UserData {
   id: number;
   name: string;
-  contact_no:string;
+  contact_no: string;
   destination: string;
-  city:string;
+  city: string;
   booking_date: string;
   no_of_person: number;
   packages: string;
   published: string;
-  
 }
 const UserRoleManagement = () => {
   const [entries, setEntries] = useState(10);
@@ -88,7 +87,6 @@ const UserRoleManagement = () => {
             ? { ...item, published: item.published ? 0 : 1 }
             : item,
         );
-        
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
@@ -141,16 +139,13 @@ const UserRoleManagement = () => {
           if (!token) {
             return;
           }
-          fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
-            {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
-          )
+          })
             .then(async (response) => {
               if (response.status === 200) {
                 const usertoken = await response.json();
@@ -188,7 +183,6 @@ const UserRoleManagement = () => {
     }
   }
 
-  
   const totalPages = Math.ceil(data.length / entries);
 
   return (
@@ -196,7 +190,8 @@ const UserRoleManagement = () => {
       <div className=" pt-6 md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5">
-            <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp; <span className="text-[rgb(2,158,157)]">&nbsp;/ Setting</span> /
+            <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp;{" "}
+            <span className="text-[rgb(2,158,157)]">&nbsp;/ Setting</span> /
             &nbsp;Role Management
           </h2>
         </div>
@@ -226,11 +221,7 @@ const UserRoleManagement = () => {
             placeholder="Search by role title"
           />
 
-        
-
-
           <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-          
         </div>
       </div>
 
@@ -246,18 +237,12 @@ const UserRoleManagement = () => {
                 <th>ROLE NAME</th>
                 <th>PERMISSION</th>
                 <th>ACTION</th>
-                
               </TableRow>
             </TableHead>
             <TableBody>
-            
-                
-                  <tr >
-                    <td></td>
-                    
-                    
-                  </tr>
-                
+              <tr>
+                <td></td>
+              </tr>
             </TableBody>
           </Table>
         </TableContainer>

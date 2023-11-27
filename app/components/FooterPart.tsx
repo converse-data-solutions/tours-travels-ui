@@ -176,7 +176,7 @@ const FooterPart = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#17233E] h-[1530px] lg:h-[600px] lg:overflow-hidden">
+      <div className="bg-[#17233E] h-[1630px] md:h-[1000px]  blueBackground lg:h-[620px] lg:overflow-hidden">
         <div
           className="background-travelers  grid grid-cols-1 p-4 justify-items-center "
           style={{
