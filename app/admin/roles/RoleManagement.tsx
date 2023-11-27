@@ -19,18 +19,16 @@ import AlternateImg from "../../../public/alternative.png";
 
 interface UserData {
   id: number;
-  title: string;
-  start_date: string;
-  file_name: any;
-  description: string;
+  name: string;
+  contact_no: string;
+  destination: string;
+  city: string;
+  booking_date: string;
   no_of_person: number;
-  days_and_night: string;
-  country: string;
-  state: string;
-  price: string | number;
-  published: number | boolean;
+  packages: string;
+  published: string;
 }
-const AllPackageLists = () => {
+const UserRoleManagement = () => {
   const [entries, setEntries] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
@@ -89,7 +87,6 @@ const AllPackageLists = () => {
             ? { ...item, published: item.published ? 0 : 1 }
             : item,
         );
-        setData(updatedData);
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`,
@@ -186,19 +183,16 @@ const AllPackageLists = () => {
     }
   }
 
-  const filteredData = data.filter((item) =>
-    item.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
-  );
-
-  const totalPages = Math.ceil(filteredData.length / entries);
+  const totalPages = Math.ceil(data.length / entries);
 
   return (
     <div className="px-4 lg:px-6">
       <div className=" pt-6 md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5">
-            <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp; /
-            &nbsp; Package
+            <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp;{" "}
+            <span className="text-[rgb(2,158,157)]">&nbsp;/ Setting</span> /
+            &nbsp;Role Management
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
@@ -206,7 +200,7 @@ const AllPackageLists = () => {
             className="bg-[hsl(180,82%,35%)]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400 "
             onClick={handleInput}
           >
-            <FontAwesomeIcon icon={faPlus} className="text-xl" /> Add Packages
+            <FontAwesomeIcon icon={faPlus} className="text-xl" /> Back To List
           </button>
         </div>
       </div>
@@ -216,7 +210,7 @@ const AllPackageLists = () => {
         <div className="">
           <h5 className="flex justify-center md:justify-start   w-full p-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px] md:py-0 font-semibold  text-[#424040]   xl:pt-3">
             {" "}
-            Package Lists{" "}
+            All Role Lists{" "}
           </h5>
         </div>
 
@@ -224,18 +218,10 @@ const AllPackageLists = () => {
           <TableSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            placeholder="Search by slider title"
+            placeholder="Search by role title"
           />
 
           <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-          <div className=" ">
-            <select className="border-[1px] border-gray-200  px-4 py-3 mb-2 rounded-lg outline-none w-full md:w-56 bg-white text-base">
-              <option selected>Category</option>
-              <option>One</option>
-              <option>Two</option>
-              <option>Three</option>
-            </select>
-          </div>
         </div>
       </div>
 
@@ -248,92 +234,15 @@ const AllPackageLists = () => {
             <TableHead className="text-gray-800 ">
               <TableRow className="table-head">
                 <th>ID</th>
-                <th>START DATE</th>
-                <th>IMAGE</th>
-                <th>TITLE</th>
-                <th>COUNTRY</th>
-                <th>STATE</th>
-                <th>DESCRIPTION</th>
-                <th>PRICE</th>
-                <th>NO.OF PERSON</th>
-                <th>DAY & NIGHT</th>
-
-                <th>PUBLISHED</th>
-                <th>ACTION </th>
+                <th>ROLE NAME</th>
+                <th>PERMISSION</th>
+                <th>ACTION</th>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData
-                .slice((currentPage - 1) * entries, currentPage * entries)
-                .map((list) => (
-                  <tr key={list.id}>
-                    <td>{list.id}</td>
-                    <td>{list.start_date}</td>
-                    <td>
-                      {list.file_name === null ||
-                      list.file_name === undefined ? (
-                        <Image
-                          src={AlternateImg}
-                          className="rounded-md h-10 w-10"
-                          alt={"img"}
-                          height={30}
-                          width={50}
-                        />
-                      ) : (
-                        <Image
-                          src={list.file_name}
-                          className="rounded-md h-10 w-10"
-                          alt="img"
-                          height={30}
-                          width={50}
-                        />
-                      )}
-                    </td>
-
-                    <td>{list.title}</td>
-
-                    <td>{list.country}</td>
-                    <td>{list.state}</td>
-                    <td
-                      dangerouslySetInnerHTML={{ __html: list.description }}
-                    ></td>
-                    <td>${list.price}</td>
-                    <td>{list.no_of_person}</td>
-                    <td>{list.days_and_night}</td>
-
-                    <td>
-                      {" "}
-                      <label
-                        className={`switch ${
-                          list.published ? "published-on" : "published-off"
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={Boolean(list.published)}
-                          onChange={() => handleTogglePublished(list.id)}
-                        />
-                        <span className="slider round"></span>
-                      </label>
-                    </td>
-
-                    <td>
-                      <span className="flex gap-2 text-[#029e9d] justify-center">
-                        <Link href={"/admin/package/addpackage/" + list.id}>
-                          <FontAwesomeIcon
-                            icon={faPenToSquare}
-                            className="text-xl"
-                            onClick={() => handleEditAction(list.id)}
-                          />
-                        </Link>
-
-                        <BackspaceOutlinedIcon
-                          onClick={() => handleDeleteAction(list.id)}
-                        />
-                      </span>{" "}
-                    </td>
-                  </tr>
-                ))}
+              <tr>
+                <td></td>
+              </tr>
             </TableBody>
           </Table>
         </TableContainer>
@@ -349,4 +258,4 @@ const AllPackageLists = () => {
     </div>
   );
 };
-export default AllPackageLists;
+export default UserRoleManagement;

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import FormInput from "./FormInput";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 const SignInForm: React.FC = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -9,7 +11,8 @@ const SignInForm: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const errorMessage = validateInput(name, value);
@@ -72,7 +75,7 @@ const SignInForm: React.FC = () => {
 
         localStorage.setItem("accessToken", user.accessToken);
         localStorage.setItem("refreshToken", user.refreshToken);
-
+        setIsSuccess(true);
         window.location.replace("/admin/users");
       } else if (response.status === 404) {
         setError("User not found. Please check your email and password.");
@@ -185,6 +188,16 @@ const SignInForm: React.FC = () => {
             {isSignUp ? "Sign Up" : "Sign In"}
           </button>
         </div>
+        <div className="flex justify-center ">
+          {isSuccess && (
+            <Stack sx={{ width: "100%" }} spacing={2}>
+              <Alert severity="success" onClose={() => setIsSuccess(true)}>
+                You are signed in successfully!
+              </Alert>
+            </Stack>
+          )}
+        </div>
+
         <div className="flex justify-center">
           {successMessage && (
             <div style={{ color: "green" }}>{successMessage}</div>

@@ -7,12 +7,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Image from "next/image";
-import img1 from "../../public/beautiful-green-field-scenery-free-photo.webp";
+import img1 from "../../public/deal1.jpg";
 import img2 from "../../public/images.jpeg";
 import img3 from "../../public/4f7af96819b05591c4ce89017ccb40db.png";
-import alternativeImg from "../../public/alternative.png";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-
+import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 interface UserData {
   id: number;
   title: string;
@@ -36,11 +37,12 @@ export default function PackageSlider() {
     let screenWidth = window.innerWidth;
 
     if (screenWidth <= 425) {
+      window.location.reload();
       setWindowWidth(1);
     } else if (screenWidth <= 768) {
       setWindowWidth(1);
     } else if (screenWidth <= 1024) {
-      setWindowWidth(3);
+      setWindowWidth(2);
     } else {
       setWindowWidth(4);
     }
@@ -64,7 +66,6 @@ export default function PackageSlider() {
       })
       .then((responseData) => {
         const userDataArray = responseData.data;
-        console.log(userDataArray);
 
         setData(userDataArray);
       })
@@ -72,18 +73,17 @@ export default function PackageSlider() {
         console.error("Error fetching user data:", error);
       });
   }, []);
-  console.log(`data ${data}`);
 
   return (
     <>
-      <div className="h-[50vh] w-full">
+      <div className="h-[70vh] w-full">
         <Swiper
           slidesPerView={windowWidth}
           spaceBetween={0}
-          centeredSlides={true}
+          centeredSlides={false}
           loop={true}
           autoplay={{
-            delay: 3000,
+            delay: 2000,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -93,39 +93,53 @@ export default function PackageSlider() {
           modules={[Autoplay, Navigation]}
           className="mySwiper "
         >
-          <SwiperSlide className="h-[50vh]  bg-orange-500">
-            <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full" />
-              <div className="text-black z-10"><h1> heading</h1></div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="h-[50vh]  bg-orange-500">
-            <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full " />
-              <div className="text-black z-10 text-lg"><h1> heading</h1></div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="h-[50vh]  bg-orange-500">
-            <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full " />
-              <div className="text-black z-10"><h1> heading</h1></div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="h-[50vh]  bg-orange-500 ">
-            <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="h-[50vh]  bg-orange-500">
-            <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="h-[50vh]  bg-orange-500">
-            <div>
-              <Image src={img2} alt="img" className="h-[50vh] w-full" />
-            </div>
-          </SwiperSlide>
+          {data.map((item) => (
+            <SwiperSlide key={item.id} className="h-[70vh] ">
+              <div className="swiper-slide-content">
+                <div className="imageHover">
+                  <Image
+                    src={img1}
+                    alt="img"
+                    className="h-[70vh] w-full bgimgcolor "
+                  />
+                </div>
+
+                <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-44 gap-y-5">
+                  <div className="text-2xl text-[#fbbc06] font-medium ">
+                    {item.country}
+                  </div>
+                  <div className="text-white text-4xl font-bold">
+                    <h1>{item.title}</h1>
+                  </div>
+                  <div className="text-[#fbbc06] text-xl ">
+                    {[...Array(5)].map((_, index) => (
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={index < item.id ? faStar : ["far", "star"]}
+                        style={{ color: "#fbbc06" }}
+                      />
+                    ))}{" "}
+                    <span className="text-white text-xl">(12)</span>
+                  </div>
+                  <div className="text-lg">
+                    <h1>
+                      <span className="text-[#fbbc06] text-xl font-bold">
+                        ${item.price}
+                      </span>{" "}
+                      <span className="text-white">&nbsp;|&nbsp;PerPerson</span>
+                    </h1>
+                  </div>
+                  <div className="text-white font-bold text-xl ">
+                    <h1>
+                      {" "}
+                      <FontAwesomeIcon icon={faCalendarAlt} />
+                      &nbsp;{item.days_and_night}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </>

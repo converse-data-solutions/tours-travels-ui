@@ -86,16 +86,13 @@ const Userlistpage = () => {
       } else {
         if (window.confirm("Are you sure you want to delete this user?")) {
           const token = localStorage.getItem("accessToken");
-          fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${userid}`,
-            {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/${userid}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
-          )
+          })
             .then(async (response) => {
               if (response.status === 200) {
                 const usertoken = await response.json();
