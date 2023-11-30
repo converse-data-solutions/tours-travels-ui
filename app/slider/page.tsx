@@ -97,11 +97,7 @@ export default function PackageSlider() {
             <SwiperSlide key={item.id} className=" ">
               <div className="swiper-slide-content">
                 <div className="imageHover">
-                  <Image
-                    src={img1}
-                    alt="img"
-                    className=" w-full bgimgcolor "
-                  />
+                  <Image src={img1} alt="img" className=" w-full bgimgcolor " />
                 </div>
 
                 <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-[26vh] gap-y-3 ">

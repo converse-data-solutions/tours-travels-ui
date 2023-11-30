@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Inter } from "next/font/google";
 import React, { useState, useEffect } from "react";
 import logo from "../../public/travelin img.png";

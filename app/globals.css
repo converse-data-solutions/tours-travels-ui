@@ -555,7 +555,7 @@ body {
 .swiper-button-prev,
 .swiper-button-next {
   width: -2px;
- 
+
   background-color: #fdc703;
   font-size: 2px !important;
   border-radius: 50%;
@@ -563,9 +563,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-   padding: 25px;
+  padding: 25px;
   color: green;
-  
 }
 
 .swiper-button-prev:hover,
@@ -578,10 +577,9 @@ body {
 .swiper-button-next:after {
   content: "prev";
   color: #fff;
-    font-size: 15px !important;
-    font-weight: 600 !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
 }
-
 
 /* .imageHover:hover {
   transform: scale(100%);
@@ -593,13 +591,10 @@ body {
 
 .bgimgcolor {
   filter: brightness(50%);
-  
-
 }
-.bgimgcolor:hover{
+.bgimgcolor:hover {
   transition: 0.5s;
   transform: scale(1.1);
-
 }
 .packageimage {
   filter: brightness(100%);
@@ -694,11 +689,8 @@ body {
   }
 }
 
-.SliderPart{
-z-index: 5;
-
-
-
+.SliderPart {
+  z-index: 5;
 }
 /* .blueBackground{
 background-color:#17233E ;
