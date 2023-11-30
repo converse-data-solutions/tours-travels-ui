@@ -292,7 +292,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   <RegionDropdown
                     country={bookNowData.country}
                     value={bookNowData.state}
-                    onChange={(val) =>
+                    onChange={(val:any) =>
                       setBookNowData({ ...bookNowData, state: val })
                     }
                     classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
@@ -592,7 +592,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
               Your Payment Schedule
             </div>
             <div className="flex flex-row justify-between">
-              <div className="text-gray-500">Before you stay you'll pay</div>
+              <div className="text-gray-500">Before you stay you will pay</div>
               <div className="text-gray-500">$40.00</div>
             </div>
           </div>

@@ -508,8 +508,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               onChange={handleSelectChange}
             >
               <option value="1">Admin</option>
-              <option value="2">User</option>
-              <option value="3">Hr</option>
+              <option value="2">Consumer</option>
+              <option value="3">Agent</option>
             </select>
           </div>
         </div>

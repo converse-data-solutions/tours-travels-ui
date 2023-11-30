@@ -2,43 +2,73 @@
 import React, { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-
-const SignInAndSignOut = () => {
-  useEffect(() => {
-    const storedAccessToken = localStorage.getItem("accessToken");
-    setIsLoggedIn(!!storedAccessToken);
-  }, []);
+import { signIn, signOut,useSession} from 'next-auth/react';
+import { getSession } from "next-auth/react";
+import Link from "next/link";
+import { User } from "next-auth";
+const  SignInAndSignOut = () => {
+  const { data: session,status } = useSession();
+  const userEmail = session?.user?.email;
+  
+   useEffect(() => {
+   const storedAccessToken = localStorage.getItem("accessToken");
+     setIsLoggedIn(!!storedAccessToken);
+   }, []);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const SignIn = () => {
-    if (!isLoggedIn) {
-      window.location.replace("/signin");
-    }
-  };
+  if (status === 'loading') {
+    // Session is loading
+    return <p>Loading...</p>;
+  }
 
-  const SignOut = () => {
+  if (status === 'authenticated') {
+    // User is authenticated, you can access session data
+    console.log('Authenticated user:', session);
+   console.log(".....",userEmail)
+   
+    
+    
+  } else {
+    // User is not authenticated
+    console.log('User not authenticated');
+   
+  }
+
+ 
+  
+
+  const SignOut = async() => {
+   
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setIsLoggedIn(false);
     setAlertMessage("You are signed out successfully!");
+    await signOut();
+    window.location.replace("/")
+    
 
-    setTimeout(() => {
-      setAlertMessage("");
-      window.location.replace("/");
-    }, 2000);
+    // setTimeout(() => {
+    //   setAlertMessage("");
+    //   window.location.replace("/");
+    // }, 2000);
+    
   };
 
   return (
     <div className="auth-component">
-      {!isLoggedIn ? (
+     
+      {status === 'authenticated'? (
         <div>
-          <button onClick={SignIn}>Sign In</button>
+        <button onClick={SignOut}>Sign Out</button>
+      
         </div>
+        
       ) : (
         <div>
-          <button onClick={SignOut}>Sign Out</button>
+          
+          <Link href={'/signin'}> <button>Sign In</button></Link> 
         </div>
       )}
       <div className="text-center flex justify-center items-center">

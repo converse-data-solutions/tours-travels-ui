@@ -11,7 +11,7 @@ export const HomePage = () => {
     <>
       <div>
         <div className="hidden lg:block">
-          <div className="h-[4.2vh] bg-[hsl(180,82%,35%)] shadow-md flex justify-around text-white items-center text-sm">
+          <div className="h-[4.2vh] bg-[hsl(180,82%,35%)] shadow-md flex justify-start text-white items-center text-sm xl:px-[30vh]">
             <div className="flex  gap-2">
               <div className="border-r-[1px] pr-[8px]">
                 <FontAwesomeIcon icon={faCalendarDays} />{" "}
@@ -28,7 +28,7 @@ export const HomePage = () => {
             <div></div>
           </div>
         </div>
-        <div className="h-[12vh] bg-white px-2 py-4">
+        <div className="h-[10vh] bg-white px-2 py-4">
           <div className="z-10">
             <LargeScreenDropdown />
             <HomeDropDown />

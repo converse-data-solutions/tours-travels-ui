@@ -61,7 +61,7 @@ export const LargeScreenDropdown = () => {
   };
   return (
     <div className="hidden lg:block " onMouseLeave={hideDropdowns}>
-      <div className=" flex flex-wrap justify-between px-10">
+      <div className=" flex flex-wrap justify-between xl:px-[30vh]">
         <div>
           <Image
             src={travelinImage}

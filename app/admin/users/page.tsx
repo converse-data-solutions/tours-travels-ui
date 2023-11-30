@@ -23,6 +23,7 @@ interface UserData {
   image: any;
   mobile_number: string | number;
   role: any;
+  role_name:string;
   role_id: number;
   first_name: string;
   last_name: string;
@@ -241,13 +242,7 @@ const Userlistpage = () => {
                     <td>{list.email}</td>
                     <td>{list.mobile_number}</td>
                     <td>
-                      {list.role_id === 1
-                        ? "Admin"
-                        : list.role_id === 2
-                          ? "User"
-                          : list.role_id === 3
-                            ? "HR"
-                            : ""}
+                      {list.role_name}
                     </td>
                     <td>{list.first_name}</td>
                     <td>{list.last_name}</td>

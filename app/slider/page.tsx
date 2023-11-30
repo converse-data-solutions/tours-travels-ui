@@ -42,7 +42,7 @@ export default function PackageSlider() {
     } else if (screenWidth <= 768) {
       setWindowWidth(1);
     } else if (screenWidth <= 1024) {
-      setWindowWidth(2);
+      setWindowWidth(4);
     } else {
       setWindowWidth(4);
     }
@@ -76,7 +76,7 @@ export default function PackageSlider() {
 
   return (
     <>
-      <div className="h-[70vh] w-full">
+      <div className="h-auto w-full SliderPart">
         <Swiper
           slidesPerView={windowWidth}
           spaceBetween={0}
@@ -94,24 +94,24 @@ export default function PackageSlider() {
           className="mySwiper "
         >
           {data.map((item) => (
-            <SwiperSlide key={item.id} className="h-[70vh] ">
+            <SwiperSlide key={item.id} className=" ">
               <div className="swiper-slide-content">
                 <div className="imageHover">
                   <Image
                     src={img1}
                     alt="img"
-                    className="h-[70vh] w-full bgimgcolor "
+                    className=" w-full bgimgcolor "
                   />
                 </div>
 
-                <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-44 gap-y-5">
-                  <div className="text-2xl text-[#fbbc06] font-medium ">
+                <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-[26vh] gap-y-3 ">
+                  <div className="text-[20px] text-[#fbbc06] font-medium  ">
                     {item.country}
                   </div>
-                  <div className="text-white text-4xl font-bold">
+                  <div className="text-white text-[40px] font-bold">
                     <h1>{item.title}</h1>
                   </div>
-                  <div className="text-[#fbbc06] text-xl ">
+                  <div className="text-[#fbbc06]  ">
                     {[...Array(5)].map((_, index) => (
                       <FontAwesomeIcon
                         key={index}
@@ -119,17 +119,17 @@ export default function PackageSlider() {
                         style={{ color: "#fbbc06" }}
                       />
                     ))}{" "}
-                    <span className="text-white text-xl">(12)</span>
+                    <span className="text-white ">(12)</span>
                   </div>
                   <div className="text-lg">
                     <h1>
-                      <span className="text-[#fbbc06] text-xl font-bold">
+                      <span className="text-[#fbbc06] text-[20px] font-bold">
                         ${item.price}
                       </span>{" "}
-                      <span className="text-white">&nbsp;|&nbsp;PerPerson</span>
+                      <span className="text-white">| Per person</span>
                     </h1>
                   </div>
-                  <div className="text-white font-bold text-xl ">
+                  <div className="text-white font-bold  text-[18px]">
                     <h1>
                       {" "}
                       <FontAwesomeIcon icon={faCalendarAlt} />

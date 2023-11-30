@@ -3,6 +3,11 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import FormInput from "./FormInput";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import { Password } from "@mui/icons-material";
+import { signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
+
+
 
 const SignInForm: React.FC = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -57,8 +62,15 @@ const SignInForm: React.FC = () => {
 
     return errorMessage;
   };
-  const signIn = async () => {
-    try {
+
+
+  const session=getSession();
+  
+  const SignIn = async()=> {
+    
+
+     
+      try{
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/signin`,
         {
@@ -72,16 +84,34 @@ const SignInForm: React.FC = () => {
 
       if (response.status === 200) {
         const user = await response.json();
+        console.log(user)
+      
+        await signIn("credentials", {
+          redirect: false, 
+          username: user.data.email,
+          password:user.data.password,
+          role:user.data.role_name,
+          id:user.data.id,
+          file_name:user.data.file_name
+          
+        });
+       
 
+        
+        
+        console.log(user.data);
+       
         localStorage.setItem("accessToken", user.accessToken);
         localStorage.setItem("refreshToken", user.refreshToken);
         setIsSuccess(true);
+       
         window.location.replace("/admin/users");
       } else if (response.status === 404) {
         setError("User not found. Please check your email and password.");
       } else {
         setError("Invalid email or password");
       }
+    
     } catch (error) {
       console.error("Error:", error);
       setError("An error occurred while signing in.");
@@ -135,7 +165,7 @@ const SignInForm: React.FC = () => {
         return;
       }
 
-      await signIn();
+      await SignIn();
     }
   };
 

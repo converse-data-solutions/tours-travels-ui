@@ -555,16 +555,17 @@ body {
 .swiper-button-prev,
 .swiper-button-next {
   width: -2px;
-  height: -2px;
+ 
   background-color: #fdc703;
   font-size: 2px !important;
   border-radius: 50%;
+  font-weight: 600 !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 5px;
-  padding: 30px;
+   padding: 25px;
   color: green;
+  
 }
 
 .swiper-button-prev:hover,
@@ -573,17 +574,32 @@ body {
   color: white;
   font-size: small;
 }
-.swiper-button-prev:after {
+.swiper-button-prev:after,
+.swiper-button-next:after {
   content: "prev";
-  font-size: 2px;
+  color: #fff;
+    font-size: 15px !important;
+    font-weight: 600 !important;
 }
 
-.imageHover:hover {
-  transform: scale(110%);
-}
+
+/* .imageHover:hover {
+  transform: scale(100%);
+  transition: all ease-in-out .5s;
+ -webkit-transition:all ease-in-out .5s;
+ transform: scale(1.05);
+ 
+} */
 
 .bgimgcolor {
   filter: brightness(50%);
+  
+
+}
+.bgimgcolor:hover{
+  transition: 0.5s;
+  transform: scale(1.1);
+
 }
 .packageimage {
   filter: brightness(100%);
@@ -676,6 +692,13 @@ body {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0;
   }
+}
+
+.SliderPart{
+z-index: 5;
+
+
+
 }
 /* .blueBackground{
 background-color:#17233E ;
