@@ -3,7 +3,6 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import FormInput from "./FormInput";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-import { Password } from "@mui/icons-material";
 import { signIn } from "next-auth/react";
 import { getSession } from "next-auth/react";
 
@@ -61,8 +60,6 @@ const SignInForm: React.FC = () => {
     return errorMessage;
   };
 
-  const session = getSession();
-
   const SignIn = async () => {
     try {
       const response = await fetch(
@@ -95,7 +92,13 @@ const SignInForm: React.FC = () => {
         localStorage.setItem("refreshToken", user.refreshToken);
         setIsSuccess(true);
 
-        window.location.replace("/admin/users");
+        const session = await getSession();
+
+        if (session.user.role === "Admin") {
+          window.location.replace("/admin/users");
+        } else {
+          window.location.replace("/");
+        }
       } else if (response.status === 404) {
         setError("User not found. Please check your email and password.");
       } else {

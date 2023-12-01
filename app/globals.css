@@ -554,8 +554,6 @@ body {
 
 .swiper-button-prev,
 .swiper-button-next {
-  width: -2px;
-
   background-color: #fdc703;
   font-size: 2px !important;
   border-radius: 50%;
@@ -578,23 +576,19 @@ body {
   content: "prev";
   color: #fff;
   font-size: 15px !important;
+
   font-weight: 600 !important;
 }
-
-/* .imageHover:hover {
-  transform: scale(100%);
-  transition: all ease-in-out .5s;
- -webkit-transition:all ease-in-out .5s;
- transform: scale(1.05);
- 
-} */
 
 .bgimgcolor {
   filter: brightness(50%);
 }
 .bgimgcolor:hover {
   transition: 0.5s;
+  -webkit-transform: scale(1.08);
   transform: scale(1.1);
+
+  overflow: hidden;
 }
 .packageimage {
   filter: brightness(100%);
@@ -692,18 +686,10 @@ body {
 .SliderPart {
   z-index: 5;
 }
-/* .blueBackground{
-background-color:#17233E ;
-}
-@media only screen and (min-width: 300px) and (max-width:360px) {
-  .blueBackground {
-    height: 1600px;
-    background-color:#17233E ;
 
-  }
+.zoom-effect-container {
+  float: left;
+  position: relative;
+
+  overflow: hidden;
 }
-@media only screen and (max-width: 375px) {
-  .blueBackground {
-    height: 1600;
-  }
-} */

@@ -9,6 +9,7 @@ import { User } from "next-auth";
 const SignInAndSignOut = () => {
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
+  const role = session?.user.role;
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
@@ -27,6 +28,7 @@ const SignInAndSignOut = () => {
     // User is authenticated, you can access session data
     console.log("Authenticated user:", session);
     console.log(".....", userEmail);
+    console.log("role", role);
   } else {
     // User is not authenticated
     console.log("User not authenticated");

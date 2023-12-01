@@ -79,7 +79,7 @@ export default function PackageSlider() {
       <div className="h-auto w-full SliderPart">
         <Swiper
           slidesPerView={windowWidth}
-          spaceBetween={0}
+          spaceBetween={-1}
           centeredSlides={false}
           loop={true}
           autoplay={{
@@ -94,14 +94,18 @@ export default function PackageSlider() {
           className="mySwiper "
         >
           {data.map((item) => (
-            <SwiperSlide key={item.id} className=" ">
+            <SwiperSlide key={item.id} className="zoom-effect-container  ">
               <div className="swiper-slide-content">
                 <div className="imageHover">
-                  <Image src={img1} alt="img" className=" w-full bgimgcolor " />
+                  <Image
+                    src={img1}
+                    alt="img"
+                    className=" w-full bgimgcolor  "
+                  />
                 </div>
 
-                <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-[26vh] gap-y-3 ">
-                  <div className="text-[20px] text-[#fbbc06] font-medium  ">
+                <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-[26vh] gap-y-2 ">
+                  <div className="text-[20px] text-[#fbbc06] font-medium pt-5 ">
                     {item.country}
                   </div>
                   <div className="text-white text-[40px] font-bold">
