@@ -1,58 +1,6 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth/next";
+import { options } from "./option";
 
-export const handler = NextAuth({
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        username: { label: "Username" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        const authResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/user/signin`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: credentials?.username,
-              password: credentials?.password,
-            }),
-          },
-        );
-
-        if (!authResponse.ok) {
-          return null;
-        }
-
-        const user = await authResponse.json();
-
-        return {
-          email: user.data.email,
-          firstName: user.data.first_name,
-          role: user.data.role_name,
-          file_name: user.data.file_name,
-          id: user.data.id,
-        };
-      },
-    }),
-  ],
-
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
-      return token;
-    },
-
-    async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
-
-      return session;
-    },
-  },
-});
+const handler = NextAuth(options);
 
 export { handler as GET, handler as POST };

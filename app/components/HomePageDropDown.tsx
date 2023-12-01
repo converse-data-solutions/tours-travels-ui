@@ -59,14 +59,9 @@ export const HomeDropDown = () => {
             <FontAwesomeIcon icon={isvisible ? faXmark : faBars} />
           </button>
         </div>
-        <div>
-          <button className="bg-[hsl(180,82%,35%)] px-5 py-3 border rounded-lg hover:bg-yellow-400 sm:text-sm lg:text-lg text-white">
-            <SignInAndSignOut />
-          </button>
-        </div>
       </div>
       {isvisible && (
-        <div className="bg-black z-10 text-white dropdownbox lg:hidden w-screen ">
+        <div className="bg-black z-30 text-white dropdownbox lg:hidden w-screen ">
           <div className="lg:hidden ">
             <ul className=" homedropdown flex flex-col py-5 gap-3 text-slate-600 hover:cursor-pointer homepage">
               <button>

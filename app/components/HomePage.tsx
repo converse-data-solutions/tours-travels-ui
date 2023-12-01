@@ -28,7 +28,7 @@ export const HomePage = () => {
             <div></div>
           </div>
         </div>
-        <div className="h-[11.4vh] bg-white px-2 py-4">
+        <div className="lg:h-[11.4vh] bg-white px-4 py-6 h-[93px]">
           <div className="z-10">
             <LargeScreenDropdown />
             <HomeDropDown />

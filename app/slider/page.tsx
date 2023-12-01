@@ -100,15 +100,15 @@ export default function PackageSlider() {
                   <Image
                     src={img1}
                     alt="img"
-                    className=" w-full bgimgcolor  "
+                    className=" w-full bgimgcolor h-full "
                   />
                 </div>
 
-                <div className="z-10 absolute flex flex-col justify-center items-center text-white w-full top-[26vh] gap-y-2 ">
+                <div className="top-[33%] z-10 absolute flex flex-col justify-center items-center text-white w-full lg:top-[26vh] gap-y-2 ">
                   <div className="text-[20px] text-[#fbbc06] font-medium pt-5 ">
                     {item.country}
                   </div>
-                  <div className="text-white text-[40px] font-bold">
+                  <div className="text-white  text-[26px] lg:text-[40px] font-bold">
                     <h1>{item.title}</h1>
                   </div>
                   <div className="text-[#fbbc06]  ">
@@ -121,7 +121,7 @@ export default function PackageSlider() {
                     ))}{" "}
                     <span className="text-white ">(12)</span>
                   </div>
-                  <div className="text-lg">
+                  <div className=" text-[16px] lg:text-lg">
                     <h1>
                       <span className="text-[#fbbc06] text-[20px] font-bold">
                         ${item.price}
@@ -129,7 +129,7 @@ export default function PackageSlider() {
                       <span className="text-white">| Per person</span>
                     </h1>
                   </div>
-                  <div className="text-white font-bold  text-[18px]">
+                  <div className="text-white font-bold text-[16px] lg:text-[18px]">
                     <h1>
                       {" "}
                       <FontAwesomeIcon icon={faCalendarAlt} />

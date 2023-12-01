@@ -7,19 +7,20 @@ import AdminPage from "./AdminPage";
 import { redirect } from "next/navigation";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
-import { handler } from "../api/auth/[...nextauth]/route";
+import { options } from "../api/auth/[...nextauth]/option";
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(handler);
-  // const isAdmin = session?.user.role === "Admin" || session?.user.role === "admin";
-  // if (!isAdmin) {
-  //  redirect('/404')
+  const session = await getServerSession(options);
 
-  // }
+  const isAdmin =
+    session?.user.role === "Admin" || session?.user.role === "admin";
+  if (!isAdmin) {
+    redirect("/404");
+  }
   return (
     <html lang="en">
       <body>
