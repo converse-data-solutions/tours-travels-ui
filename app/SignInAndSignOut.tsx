@@ -19,20 +19,7 @@ const SignInAndSignOut = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  if (status === "loading") {
-    // Session is loading
-    return <p>Loading...</p>;
-  }
-
-  if (status === "authenticated") {
-    // User is authenticated, you can access session data
-    console.log("Authenticated user:", session);
-    console.log(".....", userEmail);
-    console.log("role", role);
-  } else {
-    // User is not authenticated
-    console.log("User not authenticated");
-  }
+  
 
   const SignOut = async () => {
     localStorage.removeItem("accessToken");
@@ -42,11 +29,7 @@ const SignInAndSignOut = () => {
     await signOut();
     window.location.replace("/");
 
-    // setTimeout(() => {
-    //   setAlertMessage("");
-    //   window.location.replace("/");
-    // }, 2000);
-  };
+    
 
   return (
     <div className="auth-component">

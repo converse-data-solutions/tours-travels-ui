@@ -3,7 +3,6 @@ import "./globals.css";
 import Provider from "./provider/provider";
 import { getServerSession } from "next-auth";
 
-// import { SessionProvider } from "next-auth/react"
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
