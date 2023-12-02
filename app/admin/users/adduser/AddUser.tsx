@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
-import FormInput from "./Forminput";
-import RadioButton from "./RadioButton";
+import FormInput from "../../../components/FormInput";
+import RadioButton from "../../../components/Radiobutton";
 import TextArea from "./TextArea";
-import SelectInput from "./SelectedInput";
+import SelectInput from "../../../components/SelectedInput";
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
 
@@ -350,13 +350,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             />
           )
         ) : (
-          <Image
-            src={AlternateImg}
-            className="h-20 w-20"
-            height={20}
-            width={20}
-            alt="img"
-          />
+          <></>
         )}
 
         <div className="file-input-container">
@@ -508,8 +502,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               onChange={handleSelectChange}
             >
               <option value="1">Admin</option>
-              <option value="2">User</option>
-              <option value="3">Hr</option>
+              <option value="2">Consumer</option>
+              <option value="3">Agent</option>
             </select>
           </div>
         </div>

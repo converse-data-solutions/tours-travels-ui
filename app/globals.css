@@ -554,16 +554,14 @@ body {
 
 .swiper-button-prev,
 .swiper-button-next {
-  width: -2px;
-  height: -2px;
   background-color: #fdc703;
   font-size: 2px !important;
   border-radius: 50%;
+  font-weight: 600 !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 5px;
-  padding: 30px;
+  padding: 25px;
   color: green;
 }
 
@@ -573,17 +571,24 @@ body {
   color: white;
   font-size: small;
 }
-.swiper-button-prev:after {
+.swiper-button-prev:after,
+.swiper-button-next:after {
   content: "prev";
-  font-size: 2px;
-}
+  color: #fff;
+  font-size: 15px !important;
 
-.imageHover:hover {
-  transform: scale(110%);
+  font-weight: 600 !important;
 }
 
 .bgimgcolor {
   filter: brightness(50%);
+}
+.bgimgcolor:hover {
+  transition: 0.5s;
+  -webkit-transform: scale(1.08);
+  transform: scale(1.1);
+
+  overflow: hidden;
 }
 .packageimage {
   filter: brightness(100%);
@@ -677,18 +682,14 @@ body {
     opacity: 0;
   }
 }
-/* .blueBackground{
-background-color:#17233E ;
-}
-@media only screen and (min-width: 300px) and (max-width:360px) {
-  .blueBackground {
-    height: 1600px;
-    background-color:#17233E ;
 
-  }
+.SliderPart {
+  z-index: 5;
 }
-@media only screen and (max-width: 375px) {
-  .blueBackground {
-    height: 1600;
-  }
-} */
+
+.zoom-effect-container {
+  float: left;
+  position: relative;
+
+  overflow: hidden;
+}

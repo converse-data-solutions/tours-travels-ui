@@ -10,7 +10,7 @@ const Page = () => {
       <div>
         <HomePage />
       </div>
-      <div className="flex justify-center  h-[70vh]">
+      <div className="flex justify-center  ">
         <PackageSlider />
       </div>
       <div className="lg:px-[16.2%] flex flex-col  items-center pt-[100px]">

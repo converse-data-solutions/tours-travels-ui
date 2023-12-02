@@ -2,8 +2,14 @@
 import React, { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import Link from "next/link";
+import { User } from "next-auth";
 
 const SignInAndSignOut = () => {
+  const { data: session, status } = useSession();
+  
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!storedAccessToken);
@@ -12,33 +18,27 @@ const SignInAndSignOut = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const SignIn = () => {
-    if (!isLoggedIn) {
-      window.location.replace("/signin");
-    }
-  };
-
-  const SignOut = () => {
+  const SignOut = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setIsLoggedIn(false);
     setAlertMessage("You are signed out successfully!");
-
-    setTimeout(() => {
-      setAlertMessage("");
-      window.location.replace("/");
-    }, 2000);
+    await signOut();
+    window.location.replace("/");
   };
 
   return (
     <div className="auth-component">
-      {!isLoggedIn ? (
+      {status === "authenticated" ? (
         <div>
-          <button onClick={SignIn}>Sign In</button>
+          <button onClick={SignOut}>Sign Out</button>
         </div>
       ) : (
         <div>
-          <button onClick={SignOut}>Sign Out</button>
+          <Link href={"/signin"}>
+            {" "}
+            <button>Sign In</button>
+          </Link>
         </div>
       )}
       <div className="text-center flex justify-center items-center">
