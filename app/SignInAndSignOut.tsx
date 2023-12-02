@@ -6,11 +6,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { User } from "next-auth";
+
 const SignInAndSignOut = () => {
   const { data: session, status } = useSession();
-  const userEmail = session?.user?.email;
-  const role = session?.user.role;
-
+  
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!storedAccessToken);
@@ -19,8 +18,6 @@ const SignInAndSignOut = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  
-
   const SignOut = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -28,8 +25,7 @@ const SignInAndSignOut = () => {
     setAlertMessage("You are signed out successfully!");
     await signOut();
     window.location.replace("/");
-
-    
+  };
 
   return (
     <div className="auth-component">
