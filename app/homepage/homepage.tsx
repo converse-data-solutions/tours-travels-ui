@@ -4,7 +4,7 @@ import Image from "next/image";
 import BooknowPageimg from "../../public/booknowpageimg.jpg";
 import backgroundImg from "../../public/shape8.png";
 import SelectLabels from "./SelectDropDown";
-import FormInput from "../admin/users/adduser/Forminput";
+import FormInput from "../components/FormInput";
 import { useState, useEffect } from "react";
 import ReusableSelect from "./SelectDropDown";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
