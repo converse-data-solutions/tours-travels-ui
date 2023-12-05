@@ -9,7 +9,7 @@ import { User } from "next-auth";
 
 const SignInAndSignOut = () => {
   const { data: session, status } = useSession();
-  
+
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!storedAccessToken);

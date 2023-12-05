@@ -782,7 +782,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
                     {" "}
                     Booking Fee{" "}
                   </TableCell>{" "}
-                  <TableCell>{data?.booking_fees}</TableCell>
+                  <TableCell>Free</TableCell>
                 </TableRow>
                 <TableRow style={{ backgroundColor: "white" }}>
                   <TableCell style={{ border: "solid 1px #d3d3d3" }}>

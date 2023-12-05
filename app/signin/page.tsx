@@ -93,9 +93,8 @@ const SignInForm: React.FC = () => {
         setIsSuccess(true);
 
         const session = await getSession();
-        console.log("Session User",session.user.role);
 
-        if (session.user.role === "Admin"||"admin") {
+        if (session?.user.role === "Admin" || session?.user.role === "admin") {
           window.location.replace("/admin/users");
         } else {
           window.location.replace("/");

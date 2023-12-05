@@ -45,15 +45,16 @@ export const options: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.role = user.role;
-      console.log(token.role)
+
       return token;
     },
 
     async session({ session, token }) {
-       if (session?.user) 
-      session?user.role = token.role;
+      if (session?.user) {
+        session.user.role = token.role;
 
-      return session;
+        return session;
+      }
     },
   },
 };
