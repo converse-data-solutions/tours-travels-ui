@@ -1,26 +1,34 @@
-import { Inter } from "next/font/google";
+import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
-import { useSession } from "next-auth/react";
 import Provider from "../provider/provider";
 import AdminPage from "./AdminPage";
-import { redirect } from "next/navigation";
-import { AuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]/option";
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await getServerSession(options);
-
-  const isAdmin =
-    session?.user.role === "Admin" || session?.user.role === "admin";
+import { ReactNode } from "react";
+ 
+interface User {
+  role: string;
+}
+interface Session {
+  user: User;
+}
+ 
+const isAdminUser = (user: User | null | undefined): boolean => {
+  return user?.role === "Admin" || user?.role === "admin";
+};
+ 
+interface RootLayoutProps {
+  children: ReactNode;
+}
+ 
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const session: Session | null | undefined = await getServerSession(options);
+  const isAdmin = isAdminUser(session?.user);
+ 
   if (!isAdmin) {
     redirect("/404");
+    return null;
   }
+ 
   return (
     <html lang="en">
       <body>
@@ -31,3 +39,4 @@ export default async function RootLayout({
     </html>
   );
 }
+ 

@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import BooknowPageimg from "../../public/booknowpageimg.jpg";
 import backgroundImg from "../../public/shape8.png";
-import SelectLabels from "./SelectDropDown";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/FormInput"
 import { useState, useEffect } from "react";
 import ReusableSelect from "./SelectDropDown";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
@@ -13,10 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGrinWink, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import CreditCard from "../../public/CreditCard.png";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faMap } from "@fortawesome/free-regular-svg-icons";
 import image from "../../public/beautiful-green-field-scenery-free-photo.webp";
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import { useRouter } from "next/router";
 
 interface UserDataType {
   first_name: string;
