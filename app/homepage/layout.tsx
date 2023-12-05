@@ -1,5 +1,4 @@
-// components/Layout.js
-// import React from "react";
+
 import { HomePage } from "../components/HomePage";
 import FooterPart from "../components/FooterPart";
 import VideoPart from "./VideoPart";

@@ -2,7 +2,6 @@
 import React from "react";
 import Image from "next/image";
 import backgroundImg from "../../../public/shape8.png";
-import FormInput from "../../admin/users/adduser/Forminput";
 import { useState, useEffect } from "react";
 import ReusableSelect from "../SelectDropDown";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
@@ -14,6 +13,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import image from "../../../public/beautiful-green-field-scenery-free-photo.webp";
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
+import FormInput from "@/app/components/FormInput";
 
 interface UserDataType {
   first_name: string;
