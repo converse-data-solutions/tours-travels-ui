@@ -5,7 +5,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { signIn } from "next-auth/react";
 import { getSession } from "next-auth/react";
-
+ 
 const SignInForm: React.FC = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -14,11 +14,11 @@ const SignInForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-
+ 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const errorMessage = validateInput(name, value);
-
+ 
     setData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -28,17 +28,17 @@ const SignInForm: React.FC = () => {
       [name]: errorMessage,
     }));
   };
-
+ 
   const validateInput = (fieldName: string, value: string) => {
     let errorMessage = "";
-
+ 
     if (fieldName === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!value.match(emailRegex)) {
         errorMessage = "Invalid email address";
       }
     }
-
+ 
     if (fieldName === "password") {
       if (value.length < 6) {
         errorMessage = "Password must be at least 6 characters long";
@@ -48,7 +48,7 @@ const SignInForm: React.FC = () => {
         errorMessage = "Password must contain at least one number";
       }
     }
-
+ 
     if (
       isSignUp &&
       fieldName === "confirmPassword" &&
@@ -56,10 +56,10 @@ const SignInForm: React.FC = () => {
     ) {
       errorMessage = "Passwords do not match";
     }
-
+ 
     return errorMessage;
   };
-
+ 
   const SignIn = async () => {
     try {
       const response = await fetch(
@@ -72,11 +72,11 @@ const SignInForm: React.FC = () => {
           body: JSON.stringify(data),
         },
       );
-
+ 
       if (response.status === 200) {
         const user = await response.json();
         console.log(user);
-
+ 
         await signIn("credentials", {
           redirect: false,
           username: user.data.email,
@@ -85,16 +85,19 @@ const SignInForm: React.FC = () => {
           id: user.data.id,
           file_name: user.data.file_name,
         });
-
+ 
         console.log(user.data);
-
+ 
         localStorage.setItem("accessToken", user.accessToken);
         localStorage.setItem("refreshToken", user.refreshToken);
         setIsSuccess(true);
 
-        const session = await getSession();
+ 
+        const session = (await getSession()) as { user?: { role?: string } };
+ 
+        const userRole = session?.user?.role || "";
+        if (userRole === "Admin" || userRole === "admin") {
 
-        if (session?.user.role === "Admin" || session?.user.role === "admin") {
           window.location.replace("/admin/users");
         } else {
           window.location.replace("/");
@@ -127,7 +130,7 @@ const SignInForm: React.FC = () => {
           body: JSON.stringify(data),
         },
       );
-
+ 
       if (response.status === 200) {
         const user = await response.json();
         localStorage.setItem("token", user.token);
@@ -156,11 +159,11 @@ const SignInForm: React.FC = () => {
         setError("Both email and password are required.");
         return;
       }
-
+ 
       await SignIn();
     }
   };
-
+ 
   return (
     <div className="lg:my-40 lg:mx-96 p-10 bg-white shadow-md gap-4 rounded-lg">
       <form onSubmit={handleSubmit}>
@@ -188,7 +191,7 @@ const SignInForm: React.FC = () => {
           />
           <div className="text-red-500">{errors.password}</div>
         </div>
-
+ 
         {isSignUp && (
           <div className="m-2">
             <FormInput
@@ -219,7 +222,7 @@ const SignInForm: React.FC = () => {
             </Stack>
           )}
         </div>
-
+ 
         <div className="flex justify-center">
           {successMessage && (
             <div style={{ color: "green" }}>{successMessage}</div>
@@ -243,3 +246,4 @@ const SignInForm: React.FC = () => {
   );
 };
 export default SignInForm;
+ 

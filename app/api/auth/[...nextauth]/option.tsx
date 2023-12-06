@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
-
+ 
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -24,13 +24,13 @@ export const options: NextAuthOptions = {
             }),
           },
         );
-
+ 
         if (!authResponse.ok) {
           return null;
         }
-
+ 
         const user = await authResponse.json();
-
+ 
         return {
           email: user.data.email,
           firstName: user.data.first_name,
@@ -41,20 +41,42 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
-
+ 
+  
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
 
+    async jwt({
+      token,
+      user,
+    }: {
+      token: Record<string, any>;
+      user?: Record<string, any>;
+    }) {
+      const { role } = user || {};
+ 
+      if (role) {
+        token.role = role;
+      }
+ 
       return token;
     },
-
-    async session({ session, token }) {
-      if (session?.user) {
-        session.user.role = token.role;
-
-        return session;
+ 
+    async session({
+      session,
+      token,
+    }: {
+      session: any;
+      token: Record<string, any>;
+    }) {
+      const { user } = session || {};
+      const { role } = token || {};
+ 
+      if (user && role) {
+        user.role = role;
       }
+ 
+      return session;
+
     },
   },
 };
