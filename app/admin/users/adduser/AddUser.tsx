@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
-import FormInput from "../../../components/FormInput";
-import RadioButton from "../../../components/Radiobutton";
+import FormInput from "../../../components/CommonComponents/FormInput";
+import RadioButton from "../../../components/CommonComponents/Radiobutton";
 import TextArea from "./TextArea";
-import SelectInput from "../../../components/SelectedInput";
+import SelectInput from "../../../components/CommonComponents/SelectedInput";
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
 

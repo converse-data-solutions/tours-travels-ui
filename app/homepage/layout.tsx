@@ -1,5 +1,5 @@
-import { HomePage } from "../components/HomePage";
-import FooterPart from "../components/FooterPart";
+import { HomePage } from "../components/CommonComponents/HomePage";
+import FooterPart from "../components/CommonComponents/FooterPart";
 import VideoPart from "./VideoPart";
 import PartnersHeading from "./OurPartners";
 

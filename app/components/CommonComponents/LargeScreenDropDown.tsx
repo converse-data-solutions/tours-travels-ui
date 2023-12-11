@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import travelinImage from "../../public/travelin img.png";
+import travelinImage from "../../../public/travelin img.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleRight,
   faChevronDown,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import SignInAndSignOut from "../SignInAndSignOut";
+import SignInAndSignOut from "../../SignInAndSignOut";
 import Image from "next/image";
 
 export const LargeScreenDropdown = () => {

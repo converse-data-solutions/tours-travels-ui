@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import HomePageSearchIcon from "../components/HomePageSearchIcon";
+import HomePageSearchIcon from "../components/CommonComponents/HomePageSearchIcon";
 
 const SearchPage = () => {
   return (
