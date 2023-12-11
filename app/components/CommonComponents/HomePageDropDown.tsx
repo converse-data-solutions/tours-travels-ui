@@ -9,9 +9,9 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-import travelinImage from "../../public/travelin img.png";
+import travelinImage from "../../../public/travelin img.png";
 
-import SignInAndSignOut from "../SignInAndSignOut";
+import SignInAndSignOut from "../../SignInAndSignOut";
 import Image from "next/image";
 
 export const HomeDropDown = () => {

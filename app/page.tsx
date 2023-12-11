@@ -1,20 +1,22 @@
 import SearchBox from "./SearchBox/page";
 import CarouselSearch from "./SearchCarousel/page";
-import BestTourPackages from "./components/ServerComponents.tsx/BestTourPackage";
-import OutlinedCard from "./components/ServerComponents.tsx/CardComponent";
-import SubDestinationCard from "./components/ClientComponet/SubDestinationCard";
-import { DestinationCard } from "./components/ClientComponet/DestinationCard";
-import FooterPart from "./components/FooterPart";
-import { HomePage } from "./components/HomePage";
-import LastMinuteDeals from "./components/ServerComponents.tsx/LastMinuteDeals";
-import TopDestinations from "./components/ServerComponents.tsx/TopDestionContent";
-import TravelPerfection from "./components/ServerComponents.tsx/TravelPerfection";
+import BestTourPackages from "./components/ServerComponents/BestTourPackage";
+import OutlinedCard from "./components/ServerComponents/CardComponent";
+import SubDestinationCard from "./components/ClientComponets/SubDestinationCard";
+import { DestinationCard } from "./components/ClientComponets/DestinationCard";
+import FooterPart from "./components/CommonComponents/FooterPart";
+import { HomePage } from "./components/CommonComponents/HomePage";
+import LastMinuteDeals from "./components/ServerComponents/LastMinuteDeals";
+import TopDestinations from "./components/ServerComponents/TopDestionContent";
+import TravelPerfection from "./components/ServerComponents/TravelPerfection";
 import PackageSlider from "./slider/page";
 import Card from "./tourpackages/page";
-import TourPackageCard from "./components/ClientComponet/TourPackage";
-import LastMinuteCardRight from "./components/ClientComponet/LastMinuteCardRight";
-import LastMinutePackageCard from "./components/ClientComponet/LastMinutePackage";
-import DealsForLastMinute from "./components/ServerComponents.tsx/DealsForLastMinute";
+import TourPackageCard from "./components/ClientComponets/TourPackage";
+import LastMinuteCardRight from "./components/ClientComponets/LastMinuteCardRight";
+import LastMinutePackageCard from "./components/ClientComponets/LastMinutePackage";
+import DealsForLastMinute from "./components/ServerComponents/DealsForLastMinute";
+import GetToKnowUsContent from "./components/ServerComponents/GetToKnowUs";
+import ImageGetToKnowUs from "./components/ServerComponents/ImageGetToKnowUs";
 
 const Page = () => {
   return (
@@ -77,7 +79,10 @@ const Page = () => {
           <DealsForLastMinute />
         </div>
       </div>
-
+      {/* <div className="flex flex-col lg:flex-row ">
+      <div className="w-6/12"><GetToKnowUsContent/></div>
+      <div className="w-6/12"><ImageGetToKnowUs/></div>
+      </div> */}
       <footer>
         <FooterPart />
       </footer>

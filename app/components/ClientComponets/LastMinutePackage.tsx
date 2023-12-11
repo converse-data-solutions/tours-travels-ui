@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import img from "../../../public/TourPackageimg.jpg";
-import CardDetails from "../ServerComponents.tsx/CardDetails";
+import CardDetails from "../ServerComponents/CardDetails";
 import { useState, useEffect } from "react";
 
 interface UserData {

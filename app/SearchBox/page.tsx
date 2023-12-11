@@ -4,7 +4,7 @@ import ReusableSelect from "../homepage/SelectDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOn";
-import SearchDropDown from "../components/SearchDropDown";
+import SearchDropDown from "../components/CommonComponents/SearchDropDown";
 import { useSession } from "next-auth/react";
 
 interface PackageSearch {
