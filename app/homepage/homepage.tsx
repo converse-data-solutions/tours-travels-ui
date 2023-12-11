@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import backgroundImg from "../../public/shape8.png";
-import FormInput from "../components/FormInput"
+import FormInput from "../components/FormInput";
 import { useState, useEffect } from "react";
 import ReusableSelect from "./SelectDropDown";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";

@@ -693,3 +693,112 @@ body {
 
   overflow: hidden;
 }
+.card-sheet {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+}
+
+.card:hover {
+  background: linear-gradient(#fff, #fff 50%, #029e9d 50%, #029e9d);
+  background-size: 100% 200%;
+}
+.destination-card {
+  transition: transform 0.5s ease;
+}
+
+.destination-card:hover {
+  transform: scale(1.2);
+  filter: brightness(90%);
+}
+.card-destination {
+  background: linear-gradient(#029e9d 0 0) no-repeat calc(200% - var(--p, 0%))
+    100% / 200% var(--p, 0em);
+  transition:
+    0.4s var(--t, 0s),
+    background-position 0.3s calc(0.3s - var(--t, 0s));
+}
+.card-destination:hover {
+  --p: 100%;
+  --t: 0.3s;
+  color: #fff;
+  font-display: var(--bs-white) z;
+}
+.package-card {
+  background: linear-gradient(#1095c1 0 0) no-repeat calc(200% - var(--p, 0%))
+    100% / 200% var(--p, 0.1em);
+}
+.package-card:hover {
+  --p: 100%;
+  --t: 0.3s;
+  color: #fff;
+}
+
+.card-hover {
+  float: left;
+  box-sizing: border-box;
+  transition: 0.5s all ease-in;
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.card-hover:before {
+  position: absolute;
+  bottom: 0;
+  background: #029e9d;
+  height: 3px;
+  display: block;
+  content: "";
+  width: 0;
+  transition: 0.5s all ease-in;
+  border-radius: 10px;
+}
+.card-hover:hover:before {
+  width: 100%;
+}
+.btn-fromLeft:before {
+  bottom: 0;
+  left: 0;
+}
+
+.travel-perfection {
+  background-image: url(../public/travelperfection2imagepart.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+
+  filter: brightness(96.5%);
+  background-position: 50% center;
+}
+.Destination-background {
+  background-image: url(../public/bgshape.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+
+  filter: brightness(97%);
+  background-position: 50% center;
+}
+.last-minute-deals {
+  background-image: url(../public/IMAGE\ for\ lastminutedeals.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+
+  filter: brightness(99%);
+  background-color: WHITE;
+}
+.lastminuteimg-hover {
+  position: relative;
+}
+.lastminuteimg-hover:hover {
+  transition: 0.5s;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  filter: brightness(90%);
+}
+.outerbox-image:hover {
+  overflow: hidden;
+}
+
+.hoveredCard:hover {
+  color: white;
+}
