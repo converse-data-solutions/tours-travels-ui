@@ -12,7 +12,7 @@ import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "../../components/CommonComponents/TableSearchBox";
 import PaginationBar from "../../components/CommonComponents/PaginationBar";
-import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
+import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import Image from "next/image";
 import AlternateImg from "../../../public/alternative.png";
 

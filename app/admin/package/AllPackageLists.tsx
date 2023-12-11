@@ -11,8 +11,8 @@ import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "@/app/components/CommonComponents/TableSearchBox";
-import PaginationBar from "@/app/components/PaginationBar";
-import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
+import PaginationBar from "../../components/CommonComponents/PaginationBar";
+import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import Image from "next/image";
 
 import AlternateImg from "../../../public/alternative.png";

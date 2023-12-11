@@ -1,6 +1,6 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import CountUp from 'react-countup';
+"use client";
+import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
 
 interface CountUpProps {
   end: number;
@@ -15,9 +15,7 @@ const CountUpComponent: React.FC<CountUpProps> = ({ end, duration }) => {
   }, []);
 
   return (
-    <div>
-      {startCounting && <CountUp end={end} duration={duration} />}
-    </div>
+    <div>{startCounting && <CountUp end={end} duration={duration} />}</div>
   );
 };
 

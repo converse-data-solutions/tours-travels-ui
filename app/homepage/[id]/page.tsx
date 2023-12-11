@@ -13,7 +13,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import image from "../../../public/beautiful-green-field-scenery-free-photo.webp";
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
-import FormInput from "@/app/components/FormInput";
+import FormInput from "../../components/CommonComponents/FormInput";
 
 interface UserDataType {
   first_name: string;
