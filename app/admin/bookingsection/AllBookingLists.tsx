@@ -9,8 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableSearchBar from "@/app/components/CommonComponents/TableSearchBox";
-import PaginationBar from "@/app/components/PaginationBar";
-import ShowEntriesDropdown from "@/app/components/EntriesDropDown";
+import PaginationBar from "../../components/CommonComponents/PaginationBar";
+import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import { format } from "date-fns";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 
@@ -26,7 +26,7 @@ interface BookingData {
   country: string;
   state: string;
   address_1: string;
-  address_2: string;
+  address_2: string; 
   package_id: number;
   user_id: number;
   terms_and_conditions: number;

@@ -7,7 +7,7 @@ import { faRepeat, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
-import AlternateImg from "../../public/alternative.png";
+import AlternateImg from "../../../public/alternative.png";
 
 type UserData = {
   first_name: string;
