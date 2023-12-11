@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-import destination1 from "../../public/destination1.jpg";
+import destination1 from "../../../public/destination1.jpg";
 
 interface StateData {
   count: number;

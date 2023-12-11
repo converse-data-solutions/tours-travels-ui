@@ -1,20 +1,20 @@
 import SearchBox from "./SearchBox/page";
 import CarouselSearch from "./SearchCarousel/page";
-import BestTourPackages from "./components/BestTourPackage";
-import OutlinedCard from "./components/CardComponent";
-import SubDestinationCard from "./components/SubDestinationCard";
-import { DestinationCard } from "./components/DestinationCard";
+import BestTourPackages from "./components/ServerComponents.tsx/BestTourPackage";
+import OutlinedCard from "./components/ServerComponents.tsx/CardComponent";
+import SubDestinationCard from "./components/ClientComponet/SubDestinationCard";
+import { DestinationCard } from "./components/ClientComponet/DestinationCard";
 import FooterPart from "./components/FooterPart";
 import { HomePage } from "./components/HomePage";
-import LastMinuteDeals from "./components/LastMinuteDeals";
-import TopDestinations from "./components/TopDestionContent";
-import TravelPerfection from "./components/TravelPerfection";
+import LastMinuteDeals from "./components/ServerComponents.tsx/LastMinuteDeals";
+import TopDestinations from "./components/ServerComponents.tsx/TopDestionContent";
+import TravelPerfection from "./components/ServerComponents.tsx/TravelPerfection";
 import PackageSlider from "./slider/page";
 import Card from "./tourpackages/page";
-import TourPackageCard from "./components/TourPackage";
-import LastMinuteCardRight from "./components/LastMinuteCardRight";
-import LastMinutePackageCard from "./components/LastMinutePackage";
-import DealsForLastMinute from "./components/DealsForLastMinute";
+import TourPackageCard from "./components/ClientComponet/TourPackage";
+import LastMinuteCardRight from "./components/ClientComponet/LastMinuteCardRight";
+import LastMinutePackageCard from "./components/ClientComponet/LastMinutePackage";
+import DealsForLastMinute from "./components/ServerComponents.tsx/DealsForLastMinute";
 
 const Page = () => {
   return (
@@ -26,11 +26,9 @@ const Page = () => {
         <PackageSlider />
       </div>
 
-      
       <div className="hidden xl:block relative top-[-150px] z-10  lg:h-0">
         <CarouselSearch />
       </div>
-      
 
       <div className=" z-0  mx-4 mt-20  xl:z-10  xl:mx-[16%] xl:mt-0   xl:relative xl:top-[-120px]  xl:h-12">
         <SearchBox />

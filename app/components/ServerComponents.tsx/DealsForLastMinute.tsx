@@ -1,6 +1,6 @@
 import React from "react";
-import LastMinutePackageCard from "./LastMinutePackage";
-import LastMinuteCardRight from "./LastMinuteCardRight";
+import LastMinutePackageCard from "../ClientComponet/LastMinutePackage";
+import LastMinuteCardRight from "../ClientComponet/LastMinuteCardRight";
 
 const DealsForLastMinute = () => {
   return (

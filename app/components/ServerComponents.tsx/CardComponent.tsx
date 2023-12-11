@@ -28,7 +28,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
   reviewlabel,
   icon,
 }) => (
-  <div className="hover:text-white text-black">
+  <div className="hover:text-white">
     <Box sx={{ minWidth: 150, margin: "16px" }}>
       <div className=" rounded-lg card-sheet px-7 2xl:px-9 card-destination hover:text-white">
         <CardContent sx={{ paddingX: "10px" }}>

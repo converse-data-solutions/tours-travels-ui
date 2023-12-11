@@ -719,7 +719,7 @@ body {
 .card-destination:hover {
   --p: 100%;
   --t: 0.3s;
-  color: #fff;
+  color: #fff !important;
   font-display: var(--bs-white) z;
 }
 .package-card {

@@ -4,7 +4,7 @@ import { Card } from "@mui/material";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import img from "../../public/lastminutedeal.jpg";
+import img from "../../../public/lastminutedeal.jpg";
 
 interface UserData {
   id: number;
