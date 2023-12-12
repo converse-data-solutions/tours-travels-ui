@@ -17,6 +17,7 @@ import LastMinutePackageCard from "./components/ClientComponets/LastMinutePackag
 import DealsForLastMinute from "./components/ServerComponents/DealsForLastMinute";
 import GetToKnowUsContent from "./components/ServerComponents/GetToKnowUs";
 import ImageGetToKnowUs from "./components/ServerComponents/ImageGetToKnowUs";
+import CountUpForGetToKnowUs from "./components/ServerComponents/CountUpForGetToKnowUs";
 
 const Page = () => {
   return (
@@ -78,11 +79,9 @@ const Page = () => {
         <div className="lg:pl-[6%] lg:pr-[8%] xl:px-0 xl:mx-[13%]">
           <DealsForLastMinute />
         </div>
+        <br></br>
       </div>
-      {/* <div className="flex flex-col lg:flex-row ">
-      <div className="w-6/12"><GetToKnowUsContent/></div>
-      <div className="w-6/12"><ImageGetToKnowUs/></div>
-      </div> */}
+
       <footer>
         <FooterPart />
       </footer>
