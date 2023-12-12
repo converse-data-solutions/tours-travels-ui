@@ -88,7 +88,7 @@ const Page = () => {
 
 
 
-      <div><CountUpForGetToKnowUs/></div>
+      <div className="shadow"><CountUpForGetToKnowUs/></div>
       <footer>
         <FooterPart />
       </footer>
