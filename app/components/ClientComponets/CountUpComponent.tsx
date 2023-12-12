@@ -1,6 +1,6 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import CountUp from 'react-countup';
+"use client";
+import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
 
 interface CountUpProps {
   end: number;
@@ -12,7 +12,7 @@ const CountUpComponent: React.FC<CountUpProps> = ({ end, duration }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const element = document.getElementById('countUpComponent'); 
+      const element = document.getElementById("countUpComponent");
 
       if (element) {
         const rect = element.getBoundingClientRect();
@@ -20,16 +20,16 @@ const CountUpComponent: React.FC<CountUpProps> = ({ end, duration }) => {
 
         if (isVisible) {
           setStartCounting(true);
-          window.removeEventListener('scroll', handleScroll);
+          window.removeEventListener("scroll", handleScroll);
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); 
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

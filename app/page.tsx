@@ -81,14 +81,7 @@ const Page = () => {
         </div>
         <br></br>
       </div>
-      <div className="flex flex-col lg:flex-row  xl:mx-[15%]  xl:mt-10">
-      <div className="w-6/12  xl:mt-[11%]"><GetToKnowUsContent/></div>
-      <div className="w-6/12"><ImageGetToKnowUs/></div>
-      </div>
 
-
-
-      <div><CountUpForGetToKnowUs/></div>
       <footer>
         <FooterPart />
       </footer>

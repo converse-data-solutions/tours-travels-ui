@@ -26,7 +26,7 @@ interface BookingData {
   country: string;
   state: string;
   address_1: string;
-  address_2: string; 
+  address_2: string;
   package_id: number;
   user_id: number;
   terms_and_conditions: number;
