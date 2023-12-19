@@ -9398,15 +9398,13 @@
                 (this.mutateOptions = t),
                 this.currentMutation &&
                   this.currentMutation.removeObserver(this),
-                (this.currentMutation = this.client
-                  .getMutationCache()
-                  .build(
-                    this.client,
-                    (0, f.Z)({}, this.options, {
-                      variables:
-                        "undefined" !== typeof e ? e : this.options.variables,
-                    }),
-                  )),
+                (this.currentMutation = this.client.getMutationCache().build(
+                  this.client,
+                  (0, f.Z)({}, this.options, {
+                    variables:
+                      "undefined" !== typeof e ? e : this.options.variables,
+                  }),
+                )),
                 this.currentMutation.addObserver(this),
                 this.currentMutation.execute()
               );
@@ -9911,12 +9909,10 @@
                       e(t.currentResult);
                     }),
                   e.cache &&
-                    t.client
-                      .getQueryCache()
-                      .notify({
-                        query: t.currentQuery,
-                        type: "observerResultsUpdated",
-                      });
+                    t.client.getQueryCache().notify({
+                      query: t.currentQuery,
+                      type: "observerResultsUpdated",
+                    });
               });
             }),
             t
@@ -12169,13 +12165,11 @@
             t.reverse(),
               k.test(t[t.length - 1].function || "") &&
                 (t.pop(), k.test(t[t.length - 1].function || "") && t.pop());
-            return t
-              .slice(0, 50)
-              .map((e) => ({
-                ...e,
-                filename: e.filename || t[t.length - 1].filename,
-                function: e.function || "?",
-              }));
+            return t.slice(0, 50).map((e) => ({
+              ...e,
+              filename: e.filename || t[t.length - 1].filename,
+              function: e.function || "?",
+            }));
           })(r);
         };
       }
@@ -20910,19 +20904,17 @@
             a = e.city,
             s = e.state_code,
             c = e.country;
-          return "/api/v3/media/"
-            .concat(t, "/location?")
-            .concat(
-              (0, o.stringify)({
-                id: t,
-                google_place_id: n,
-                longitude: r,
-                latitude: i,
-                city: a,
-                state_code: s,
-                country: c,
-              }),
-            );
+          return "/api/v3/media/".concat(t, "/location?").concat(
+            (0, o.stringify)({
+              id: t,
+              google_place_id: n,
+              longitude: r,
+              latitude: i,
+              city: a,
+              state_code: s,
+              country: c,
+            }),
+          );
         },
         T = function (e) {
           return "/api/v3/media/".concat(e);

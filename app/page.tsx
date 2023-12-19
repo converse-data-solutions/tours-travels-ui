@@ -164,7 +164,9 @@ const Page = () => {
         <ArrowPart />
       </div>
 
-      <div><ScrollDetailsComponent/></div>
+      <div>
+        <ScrollDetailsComponent />
+      </div>
 
       <footer>
         <FooterPart />

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState, useEffect } from "react";
 import { LargeScreenDropdown } from "../CommonComponents/LargeScreenDropDown";
 import { HomeDropDown } from "../CommonComponents/HomePageDropDown";
@@ -10,16 +10,18 @@ const ScrollDetailsComponent = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const scrollDirection = scrollPosition > prevScrollPosition ? "down" : "up";
+      const scrollDirection =
+        scrollPosition > prevScrollPosition ? "down" : "up";
 
       const showThreshold = 100;
-      setShowDetails(scrollDirection === "up" && scrollPosition > showThreshold);
+      setShowDetails(
+        scrollDirection === "up" && scrollPosition > showThreshold,
+      );
       setPrevScrollPosition(scrollPosition);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
