@@ -61,8 +61,6 @@ const Userlistpage = () => {
         })
         .then((responseData) => {
           const userDataArray = responseData.data;
-          console.log(userDataArray);
-
           setData(userDataArray);
         })
         .catch((error) => {
@@ -144,10 +142,11 @@ const Userlistpage = () => {
       }
     }
   }
+  console.log("data",data)
   const filteredData = data.filter((item) =>
     item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
-
+ 
   const totalPages = Math.ceil(filteredData.length / entries);
 
   return (

@@ -18,6 +18,19 @@ import DealsForLastMinute from "./components/ServerComponents/DealsForLastMinute
 import GetToKnowUsContent from "./components/ServerComponents/GetToKnowUs";
 import ImageGetToKnowUs from "./components/ServerComponents/ImageGetToKnowUs";
 import CountUpForGetToKnowUs from "./components/ServerComponents/CountUpForGetToKnowUs";
+import TourGuideSlider from "./components/ClientComponets/TourGuideList";
+import TourGuidesHeading from "./components/ServerComponents/TourGuideHeading";
+import SpecialTourPackageCard from "./components/ClientComponets/SpecialOfferPackage";
+import SpecialOffersHeading from "./components/ServerComponents/SpecialOffersHeading";
+import VideoPart from "./homepage/VideoPart";
+import OurTestimonails from "./components/ServerComponents/OurTestimonials";
+import OurTestimonailsSlider from "./components/ClientComponets/OurTestimonails";
+import BackgroundShape from "./components/ServerComponents/BackgroundShape8";
+import BlogOffersHead from "./components/ServerComponents/BlogOffersHead";
+import BlogOffersCard from "./components/ClientComponets/BlogOffers";
+import OurPartnersHeading from "./components/ServerComponents/OurPartnersHeading";
+import PartnersHeading from "./homepage/OurPartners";
+import ArrowPart from "./components/ClientComponets/ArrowPart";
 
 const Page = () => {
   return (
@@ -76,19 +89,82 @@ const Page = () => {
           <LastMinuteDeals />
         </div>
 
-        <div className="lg:pl-[6%] lg:pr-[8%] xl:px-0 xl:mx-[13%]">
+        <div className=" px-4 lg:pl-[6%] lg:pr-[8%] xl:px-0 xl:mx-[13%]">
           <DealsForLastMinute />
         </div>
         <br></br>
       </div>
-      <div className="flex flex-col lg:flex-row  xl:mx-[15%]  xl:mt-10">
-      <div className="w-6/12  xl:mt-[11%]"><GetToKnowUsContent/></div>
-      <div className="w-6/12"><ImageGetToKnowUs/></div>
+      <div className="getToKnowUs lg:h-[90%]">
+        <div className="flex flex-col lg:flex-row  xl:mx-[15%]  xl:mt-10">
+          <div className=" w-full lg:w-6/12  xl:mt-[11%]">
+            <GetToKnowUsContent />
+          </div>
+          <div className="w-full h-auto lg:w-6/12">
+            <ImageGetToKnowUs />
+          </div>
+        </div>
+
+        <div className="shadow rounded-lg  lg:w-9/12 lg:mx-8 lg:top-[-60px] lg:py-4 lg:z-10 xl:mx-[15.3%] xl:w-6/12 xl:top-[-50px] lg:relative bg-white">
+          <CountUpForGetToKnowUs />
+        </div>
       </div>
 
+      <br></br>
+      <div>
+        <TourGuidesHeading />
+      </div>
 
+      <div className="xl:px-[15%]">
+        <TourGuideSlider />
+      </div>
+      <br></br>
 
-      <div className="shadow"><CountUpForGetToKnowUs/></div>
+      <div className=" xl:pt-10 xl:pb-5">
+        <SpecialOffersHeading />
+      </div>
+
+      <div className="px-4">
+        <SpecialTourPackageCard />
+      </div>
+
+      <div>
+        <VideoPart />
+      </div>
+      <div >
+        <BackgroundShape />
+      </div>
+
+      <div className="bg-white relative top-[-70px] lg:top-[-80px]">
+        <OurTestimonails />
+      </div>
+      <br></br>
+      <div className=" px-4 xl:px-[18%]">
+        <OurTestimonailsSlider />
+      </div>
+
+      <br></br>
+      <div>
+        <BlogOffersHead />
+      </div>
+      <br></br>
+      <div className=" px-4 xl:px-[16%]">
+        <BlogOffersCard />
+      </div>
+
+      <br></br>
+      <div className="pb-6">
+        <OurPartnersHeading />
+      </div>
+      <div className="">
+        <PartnersHeading />
+      </div>
+
+       <div>
+        <ArrowPart/>
+      </div> 
+
+      
+
       <footer>
         <FooterPart />
       </footer>

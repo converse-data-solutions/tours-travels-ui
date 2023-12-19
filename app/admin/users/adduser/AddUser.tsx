@@ -24,6 +24,7 @@ interface UserdataType {
   default_currency: string;
   default_language: string;
   role_id: string;
+  agent_position:string;
   [key: string]: any;
 }
 interface AddUserProps {
@@ -35,6 +36,8 @@ interface AddUserProps {
 const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   const { id } = useParams<{ id: string }>();
   const [successMessage, setSuccessMessage] = useState("");
+  const [showAdditionalDropdown, setShowAdditionalDropdown] = useState(false);
+
 
   let [userData, setUserData] = useState<UserdataType>(
     initialUserData || {
@@ -51,6 +54,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       default_currency: "",
       default_language: "",
       role_id: "",
+      agent_position:""
     },
   );
   let [file, setFile] = useState<File | string>();
@@ -273,6 +277,19 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   };
+   
+  const handleSelectRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    if (name === 'role_id' && value === '3') {
+      setShowAdditionalDropdown(true);
+    } else {
+      setShowAdditionalDropdown(false);
+    }
+    setUserData({ ...userData, [name]: value });
+  };
+
+  
 
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -292,6 +309,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     if (event.target.type === "radio") {
       setUserData({ ...userData, [name]: value });
     }
+  };
+  const handleSelectPositionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    setUserData((prevData) => ({ ...prevData, agent_position: selectedValue }));
   };
 
   return (
@@ -499,7 +520,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white"
               name="role_id"
               value={userData.role_id}
-              onChange={handleSelectChange}
+              onChange={handleSelectRoleChange}
             >
               <option value="1">Admin</option>
               <option value="2">Consumer</option>
@@ -507,6 +528,31 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             </select>
           </div>
         </div>
+
+
+        {showAdditionalDropdown && (
+          
+            <div className="flex flex-col w-full pt-2 ">
+              <label htmlFor="additionalRole" className="">
+                Additional Role
+              </label>
+              <select
+                id="additionalRole"
+                placeholder="select one"
+                className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white"
+                name="agent_position"
+                value={userData.agent_position}
+                onChange={handleSelectPositionChange}
+                required={true}
+              ><option value="Supervisor1">Supervisor</option>
+              <option value="Assistant Manager">Assistant Manager</option>
+              <option value="Senior Officer">Senior Officer</option>
+              <option value="Head Officer">Head Officer</option>
+              </select>
+            </div>
+          )}
+
+
 
         <div className="flex justify-center pt-3">
           <button

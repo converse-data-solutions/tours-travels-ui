@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Image from "next/image";
+import img from "../../public/enovataimg.png";
 import img1 from "../../public/partnerimg2.png";
 import img2 from "../../public/partnerimg3.png";
 import img3 from "../../public/partnerimg4.png";
@@ -45,17 +46,17 @@ const PackageSlider = () => {
     } else if (screenWidth <= 1024) {
       setWindowWidth(2);
     } else {
-      setWindowWidth(4);
+      setWindowWidth(5);
     }
   }, []);
 
   return (
     <>
-      <div className=" w-full">
+      <div className=" w-full ">
         <Swiper
           slidesPerView={windowWidth}
-          spaceBetween={0}
-          centeredSlides={true}
+          spaceBetween={80}
+          centeredSlides={false}
           loop={true}
           autoplay={{
             delay: 2000,
@@ -66,47 +67,56 @@ const PackageSlider = () => {
           }}
           navigation={false}
           modules={[Autoplay]}
-          className="mySwiper "
+          className="Partner-swiper"
         >
-          <SwiperSlide className="flex justify-center img-radius  ">
+          <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image className="" src={img1} alt="" />
+              <Image height={70} width={1000} className=" h-14 font-serif" src={img} alt="" />
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center img-radius ">
+          <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image className="  " src={img2} alt="" />
+              <Image  height={70} width={1000} className=" h-14  font-serif" src={img1} alt="" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center  ">
+            <div className=" ">
+              <Image height={70} width={1000} className=" h-14 font-serif" src={img2} alt="" />
             </div>{" "}
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center img-radius ">
+          <SwiperSlide className="flex justify-center  ">
             <div className=" ">
-              <Image className=" " src={img3} alt="" />
+              <Image  height={70} width={1000} className="h-14  font-serif" src={img3} alt="" />
             </div>{" "}
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center img-radius ">
+          <SwiperSlide className="flex justify-center ">
             <div className=" ">
-              <Image className=" " src={img4} alt="" />
+              <Image  height={70} width={1000} className="h-14  font-serif" src={img4} alt="" />
             </div>{" "}
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center img-radius ">
+          <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image className=" " src={img1} alt="" />
+              <Image height={70} width={1000} className="h-14  font-serif" src={img} alt="" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center   ">
+            <div className=" ">
+              <Image  height={70} width={1000} className=" h-14  font-serif" src={img1} alt="" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center  ">
+            <div className=" ">
+              <Image height={70} width={1000} className=" h-14  font-serif" src={img2} alt="" />
             </div>{" "}
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center img-radius ">
+          <SwiperSlide className="flex justify-center  ">
             <div className=" ">
-              <Image className=" " src={img2} alt="" />
+              <Image  height={70} width={1000} className="h-14  font-serif" src={img3} alt="" />
             </div>{" "}
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center img-radius ">
-            <div className="">
-              <Image className="  " src={img3} alt="" />
-            </div>{" "}
-          </SwiperSlide>
-
-          <SwiperSlide className="flex justify-center img-radius ">
+          <SwiperSlide className="flex justify-center ">
             <div className=" ">
-              <Image className=" " src={img4} alt="" />
+              <Image  height={70} width={1000} className="h-14  font-serif" src={img4} alt="" />
             </div>{" "}
           </SwiperSlide>
         </Swiper>
