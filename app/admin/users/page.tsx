@@ -142,11 +142,11 @@ const Userlistpage = () => {
       }
     }
   }
-  console.log("data",data)
+  console.log("data", data);
   const filteredData = data.filter((item) =>
     item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
- 
+
   const totalPages = Math.ceil(filteredData.length / entries);
 
   return (

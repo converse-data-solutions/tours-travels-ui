@@ -10,17 +10,16 @@ const SpecialOffersHeading = () => {
         </div>
         <div className="lg:px-[15%] text-center">
           <span className="text-black text-[28px] lg:text-[46px] font-serif pr-2 lg:pr-4 font-semibold lg:font-semibold">
-          Special 
+            Special
           </span>
           <span className="text-[#028B8A] text-[28px]  lg:text-[46px] font-serif font-semibold pr-2 ">
-          Offers & Discount
+            Offers & Discount
           </span>
 
           <span className="text-black text-[28px] lg:text-[46px] font-serif pr-2 lg:pr-4 font-semibold lg:font-semibold">
-          Packages
+            Packages
           </span>
         </div>
-
 
         <div className="text-[#777777] text-[18px] font-serif px-8 md:px-20 items-center text-center">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

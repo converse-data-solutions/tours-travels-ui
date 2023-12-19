@@ -9,60 +9,56 @@ import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import user1 from '../../../public/bloguser1.jpg';
-import user2 from '../../../public/bloguser2.jpg';
-import user3 from '../../../public/bloguser3.jpg';
+import user1 from "../../../public/bloguser1.jpg";
+import user2 from "../../../public/bloguser2.jpg";
+import user3 from "../../../public/bloguser3.jpg";
 
 interface UserData {
   id: number;
   title: string;
-  heading:string;
-  content:string;
-  
-  name:string;
+  heading: string;
+  content: string;
+
+  name: string;
   file_name: any;
-  image:any
-  
+  image: any;
 }
 
 const mockData: UserData[] = [
-    {
-      id: 1,
-      title: "Technology",
-      heading: "How A Developer Duo At Deutsche Bank Keep Remote Alive.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-     
-      name:"Sollmond Nell",
-      file_name:img1,
-      image:user1
-    },
-    {
-      id: 2,
-      title: "Inspiration",
-      heading: "How A Developer Duo At Deutsche Bank Keep Remote Alive.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-     
-      name: "David Scott",
-      file_name:img2,
-      image:user2
-    },
-    {
-        id: 3,
-        title: "Public",
-        heading: "Services To Grow Your Business Sell Affiliate Products",
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-       
-        name: "John Bolden",
-        file_name:img3,
-        image:user3
+  {
+    id: 1,
+    title: "Technology",
+    heading: "How A Developer Duo At Deutsche Bank Keep Remote Alive.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
 
-    }
-  ];
+    name: "Sollmond Nell",
+    file_name: img1,
+    image: user1,
+  },
+  {
+    id: 2,
+    title: "Inspiration",
+    heading: "How A Developer Duo At Deutsche Bank Keep Remote Alive.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
 
- 
+    name: "David Scott",
+    file_name: img2,
+    image: user2,
+  },
+  {
+    id: 3,
+    title: "Public",
+    heading: "Services To Grow Your Business Sell Affiliate Products",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
 
-
-
+    name: "John Bolden",
+    file_name: img3,
+    image: user3,
+  },
+];
 
 export default function BlogOffersCard() {
   const [data, setData] = useState<UserData[]>([]);
@@ -118,14 +114,23 @@ export default function BlogOffersCard() {
               <div className="flex justify-between py-2">
                 <div className="flex">
                   <div className="hover:overflow-hidden">
-                    <Image src={item.image} alt="img" height={100} width={100} className="h-10 w-10  rounded-full  "  />
+                    <Image
+                      src={item.image}
+                      alt="img"
+                      height={100}
+                      width={100}
+                      className="h-10 w-10  rounded-full  "
+                    />
                   </div>
                   <div className="font-sans text-gray-500 text-[16px] pb-1 flex pl-3 items-center">
                     {item.name}
                   </div>
                 </div>
                 <div>
-                  <button className="bg-[#029e9d] text-white px-5 py-3 rounded-lg"> Read More</button>
+                  <button className="bg-[#029e9d] text-white px-5 py-3 rounded-lg">
+                    {" "}
+                    Read More
+                  </button>
                 </div>
               </div>
 

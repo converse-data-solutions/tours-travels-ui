@@ -71,52 +71,112 @@ const PackageSlider = () => {
         >
           <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image height={70} width={1000} className=" h-14 font-serif" src={img} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className=" h-14 font-serif"
+                src={img}
+                alt=""
+              />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image  height={70} width={1000} className=" h-14  font-serif" src={img1} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className=" h-14  font-serif"
+                src={img1}
+                alt=""
+              />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center  ">
             <div className=" ">
-              <Image height={70} width={1000} className=" h-14 font-serif" src={img2} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className=" h-14 font-serif"
+                src={img2}
+                alt=""
+              />
             </div>{" "}
           </SwiperSlide>
           <SwiperSlide className="flex justify-center  ">
             <div className=" ">
-              <Image  height={70} width={1000} className="h-14  font-serif" src={img3} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className="h-14  font-serif"
+                src={img3}
+                alt=""
+              />
             </div>{" "}
           </SwiperSlide>
           <SwiperSlide className="flex justify-center ">
             <div className=" ">
-              <Image  height={70} width={1000} className="h-14  font-serif" src={img4} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className="h-14  font-serif"
+                src={img4}
+                alt=""
+              />
             </div>{" "}
           </SwiperSlide>
           <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image height={70} width={1000} className="h-14  font-serif" src={img} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className="h-14  font-serif"
+                src={img}
+                alt=""
+              />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center   ">
             <div className=" ">
-              <Image  height={70} width={1000} className=" h-14  font-serif" src={img1} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className=" h-14  font-serif"
+                src={img1}
+                alt=""
+              />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center  ">
             <div className=" ">
-              <Image height={70} width={1000} className=" h-14  font-serif" src={img2} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className=" h-14  font-serif"
+                src={img2}
+                alt=""
+              />
             </div>{" "}
           </SwiperSlide>
           <SwiperSlide className="flex justify-center  ">
             <div className=" ">
-              <Image  height={70} width={1000} className="h-14  font-serif" src={img3} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className="h-14  font-serif"
+                src={img3}
+                alt=""
+              />
             </div>{" "}
           </SwiperSlide>
           <SwiperSlide className="flex justify-center ">
             <div className=" ">
-              <Image  height={70} width={1000} className="h-14  font-serif" src={img4} alt="" />
+              <Image
+                height={70}
+                width={1000}
+                className="h-14  font-serif"
+                src={img4}
+                alt=""
+              />
             </div>{" "}
           </SwiperSlide>
         </Swiper>

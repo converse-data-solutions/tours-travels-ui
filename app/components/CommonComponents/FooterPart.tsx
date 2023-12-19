@@ -334,11 +334,11 @@ const FooterPart = () => {
         </div>
       </div>
 
-       <div id="container" className="">
+      <div id="container" className="">
         {/* <AnimationPart /> */}
-       
+
         <div id="your-div"></div>
-      </div> 
+      </div>
     </div>
   );
 };

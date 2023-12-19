@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -13,42 +13,36 @@ import img1 from "../../../public/testimonails1.jpg";
 import img2 from "../../../public/destimonails2.jpg";
 import img3 from "../../../public/destimonails3.jpg";
 
-
 const mockData = [
   {
     id: 1,
     title: "Mock Package 1",
-    file_name:  img1,
-    name:"Loneal South",
-    position:"Accountant"
+    file_name: img1,
+    name: "Loneal South",
+    position: "Accountant",
   },
   {
     id: 2,
     title: "Mock Package 2",
-    file_name: img2, 
-    name:"Kelton Mick",
-    position:"Manager"
+    file_name: img2,
+    name: "Kelton Mick",
+    position: "Manager",
   },
   {
     id: 3,
     title: "Mock Package 1",
-    file_name: img3, 
-    name:"Jared Erondu",
-    position:"Supervisor"
-  }
-  
+    file_name: img3,
+    name: "Jared Erondu",
+    position: "Supervisor",
+  },
 ];
-
 
 export default function OurTestimonailsSlider() {
   const [windowWidth, setWindowWidth] = useState(4);
 
   const titleFontStyle: CSSProperties = {
-    fontFamily: 'Poppins, sans-serif',
-    color: '#777777',
-  
-    
-  
+    fontFamily: "Poppins, sans-serif",
+    color: "#777777",
   };
 
   useEffect(() => {
@@ -59,7 +53,7 @@ export default function OurTestimonailsSlider() {
       setWindowWidth(1);
     } else if (screenWidth <= 1024) {
       setWindowWidth(1);
-    }  else {
+    } else {
       setWindowWidth(2);
     }
   }, []);
@@ -85,26 +79,44 @@ export default function OurTestimonailsSlider() {
           className="mySwiper"
         >
           {mockData.map((item) => (
-            <SwiperSlide key={item.id} className=" border-gray-200 border-[1px] py-7 px-4 rounded-lg">
+            <SwiperSlide
+              key={item.id}
+              className=" border-gray-200 border-[1px] py-7 px-4 rounded-lg"
+            >
               <div className="">
-
-                <div  className="text-[20px] text-center gap-7">
-                 <span className="text-[40px] text-[#029e9d] hidden sm:inline-block"><FontAwesomeIcon icon={faQuoteLeft} className="pr-2"/></span>
-                 <span style={titleFontStyle}><i>Lorem Ipsum is simply dummy text of the printing andypesetting industry. Lorem ipsum a simple Lorem Ipsum has been the industry's standard dummy hic et quidem. Dignissimos maxime velit unde inventore quasi vero dolorem.</i></span>
-
+                <div className="text-[20px] text-center gap-7">
+                  <span className="text-[40px] text-[#029e9d] hidden sm:inline-block">
+                    <FontAwesomeIcon icon={faQuoteLeft} className="pr-2" />
+                  </span>
+                  <span style={titleFontStyle}>
+                    <i>
+                      Lorem Ipsum is simply dummy text of the printing
+                      andypesetting industry. Lorem ipsum a simple Lorem Ipsum
+                      has been the industry's standard dummy hic et quidem.
+                      Dignissimos maxime velit unde inventore quasi vero
+                      dolorem.
+                    </i>
+                  </span>
                 </div>
                 <br></br>
-               <div className="flex justify-center"> <Image
-                  src={item.file_name} 
-                  alt="img"
-                  className=" h-30 w-30 mx-auto rounded-full "
-                  height={100}
-                  width={100}
-                /></div>
-                  
-                <div className="text-center pt-2 text-[18px] text-[#029e9d] font-serif font-semibold">{item.name}</div>
-        
-                <div className="text-center text-gray-500 text-[16px] font-serif font-semibold pb-2">{item.position}</div>
+                <div className="flex justify-center">
+                  {" "}
+                  <Image
+                    src={item.file_name}
+                    alt="img"
+                    className=" h-30 w-30 mx-auto rounded-full "
+                    height={100}
+                    width={100}
+                  />
+                </div>
+
+                <div className="text-center pt-2 text-[18px] text-[#029e9d] font-serif font-semibold">
+                  {item.name}
+                </div>
+
+                <div className="text-center text-gray-500 text-[16px] font-serif font-semibold pb-2">
+                  {item.position}
+                </div>
               </div>
             </SwiperSlide>
           ))}

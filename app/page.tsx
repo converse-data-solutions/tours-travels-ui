@@ -31,6 +31,7 @@ import BlogOffersCard from "./components/ClientComponets/BlogOffers";
 import OurPartnersHeading from "./components/ServerComponents/OurPartnersHeading";
 import PartnersHeading from "./homepage/OurPartners";
 import ArrowPart from "./components/ClientComponets/ArrowPart";
+import ScrollDetailsComponent from "./components/ClientComponets/ScrollDetails";
 
 const Page = () => {
   return (
@@ -130,7 +131,7 @@ const Page = () => {
       <div>
         <VideoPart />
       </div>
-      <div >
+      <div>
         <BackgroundShape />
       </div>
 
@@ -159,11 +160,11 @@ const Page = () => {
         <PartnersHeading />
       </div>
 
-       <div>
-        <ArrowPart/>
-      </div> 
+      <div>
+        <ArrowPart />
+      </div>
 
-      
+      <div><ScrollDetailsComponent/></div>
 
       <footer>
         <FooterPart />

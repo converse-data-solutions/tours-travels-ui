@@ -802,43 +802,35 @@ body {
 .hoveredCard:hover {
   color: white;
 }
-.getToKnowUs{
+.getToKnowUs {
   background-image: url(../public/backgroundimage.png);
   background-repeat: no-repeat;
   background-size: contain;
   position: relative;
   filter: brightness(100%);
-  background-position:90% 
+  background-position: 90%;
 }
-.tour-guide{
+.tour-guide {
   position: relative;
-  transition: transform 0.3s ease; 
+  transition: transform 0.3s ease;
 }
-.tour-guide:hover{
- 
+.tour-guide:hover {
   transform: translateY(-15px);
 }
-.tour-guides-image{
+.tour-guides-image {
   position: relative;
-  transition: transform 0.0;
-
-
+  transition: transform 0;
 }
-.tour-guides-image:hover{
+.tour-guides-image:hover {
   transform: scale(1.1);
-
- 
 }
-.tour-outer:hover{
+.tour-outer:hover {
   overflow: hidden;
-  bottom:-15%
-  
+  bottom: -15%;
 }
 .tour-guide:hover ~ .tour-guides-image {
   transform: translateY(-15px) scale(1.1);
 }
-
-
 
 .modal {
   display: none;
@@ -852,7 +844,6 @@ body {
   justify-content: center;
 }
 
-
 .modal-content {
   background-color: #430fde;
   padding: 20px;
@@ -865,27 +856,20 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
-
 .lastminuteimg-hover .outerbox-image img.image-hover {
   transform: scale(1.2);
   transition: transform 0.3s ease-in-out;
 }
 .outerbox-image {
-  
   overflow: hidden;
 }
 .offersimage {
   position: relative;
   overflow: hidden;
-  transition: filter 0.3s ease; 
+  transition: filter 0.3s ease;
 }
 
 .offersimage:hover {
   filter: brightness(80%);
-  transform-origin: bottom; 
+  transform-origin: bottom;
 }
-
-
-
-
-

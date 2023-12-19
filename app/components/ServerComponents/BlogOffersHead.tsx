@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const BlogOffersHead = () => {
   return (
@@ -6,14 +6,14 @@ const BlogOffersHead = () => {
       <br></br>
       <div className="flex flex-col items-center justify-center">
         <div className="text-[#FDC703] text-[22px] font-serif font-normal lg:text-2xl">
-        Our Blogs Offers
+          Our Blogs Offers
         </div>
         <div className="lg:px-[15%] text-center">
           <span className="text-black text-[28px] lg:text-[46px] font-serif pr-2 lg:pr-4 font-semibold lg:font-semibold">
-          Recent
+            Recent
           </span>
           <span className="text-[#028B8A] text-[28px]  lg:text-[46px] font-serif font-semibold ">
-          Articles & Posts
+            Articles & Posts
           </span>
         </div>
         <div className="text-[#777777] text-[18px] font-serif px-8 md:px-20 items-center text-center">
@@ -23,7 +23,7 @@ const BlogOffersHead = () => {
         <br></br>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BlogOffersHead
+export default BlogOffersHead;
