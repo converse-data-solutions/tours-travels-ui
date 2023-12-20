@@ -34,7 +34,7 @@ const AnimationPart = () => {
   }, []);
 
   return (
-    <div style={{ height: "200px", position: "absolute", width: "100%" }}>
+    <div style={{ height: "", position: "absolute", width: "100%" }}>
       <Particles
         id="tsparticles"
         init={particlesInit}

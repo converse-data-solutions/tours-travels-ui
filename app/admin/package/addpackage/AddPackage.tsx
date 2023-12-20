@@ -21,6 +21,7 @@ interface PackageDataType {
   no_of_person: string;
   days_and_night: string;
   description: string;
+  offer: string;
 }
 interface AddUserProps {
   isEditMode: boolean;
@@ -43,6 +44,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       no_of_person: "",
       days_and_night: "",
       description: "",
+      offer: "",
     },
   );
 
@@ -103,7 +105,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
         if (response.status === 200) {
           const newPackage = await response.json();
-          console.log(newPackage);
+
           console.log("User updated successfully");
 
           if (file) {
@@ -383,6 +385,18 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             />
           </div>
         </div>
+        <div className="pb-2">
+          {" "}
+          <FormInput
+            label="offer"
+            name="offer"
+            type="number"
+            value={packageData.offer}
+            onChange={handleChange}
+            required={true}
+          />{" "}
+        </div>
+
         <div className="">
           <label>Description</label>
           <br></br>

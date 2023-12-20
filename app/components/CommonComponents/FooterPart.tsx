@@ -25,6 +25,7 @@ import {
   faCcVisa,
 } from "@fortawesome/free-brands-svg-icons";
 import AnimationPart from "./FooterAnimation";
+import ShapesAnimation from "./Animation";
 const FooterPart = () => {
   const [windowWidth, setWindowWidth] = useState(4);
 
@@ -332,11 +333,15 @@ const FooterPart = () => {
           </div>
         </div>
       </div>
-
-      <div id="container">
+      <div className="h-0">
         <AnimationPart />
-        <div id="your-div"></div>
       </div>
+
+      {/* <div id="container" className=""> */}
+      {/* <AnimationPart />  */}
+
+      {/* <div id="your-div"></div> */}
+      {/* </div> */}
     </div>
   );
 };

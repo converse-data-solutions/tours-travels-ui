@@ -61,8 +61,6 @@ const Userlistpage = () => {
         })
         .then((responseData) => {
           const userDataArray = responseData.data;
-          console.log(userDataArray);
-
           setData(userDataArray);
         })
         .catch((error) => {
