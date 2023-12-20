@@ -26,19 +26,11 @@ const playFair = Playfair_Display({
 });
 
 const GetToKnowUsContent: React.FC = () => {
-  const titleFontStyle: CSSProperties = {
-    fontFamily: "poppins,sansSerif",
-    color: "#777777",
+  
 
-    fontWeight: "",
-  };
 
-  const contentFontStyle: CSSProperties = {
-    fontFamily: "playFair",
-    color: "#777777",
-
-    fontWeight: "",
-  };
+  
+  
 
   return (
     <div className="px-5 bg-white md:px-10 lg:px-8">
@@ -55,8 +47,8 @@ const GetToKnowUsContent: React.FC = () => {
 
       <div
         style={{ ...poppins.style }}
-        className="text-[16px] text-center lg:text-start text-gray-500"
-      >
+        className="text-[16px] text-center lg:text-start text-gray-500">
+
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -64,8 +56,10 @@ const GetToKnowUsContent: React.FC = () => {
       </div>
       <br></br>
       <div
+
         className="text-[16px] text-center lg:text-start text-gray-500"
         style={{ ...poppins.style }}
+
       >
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
@@ -76,7 +70,7 @@ const GetToKnowUsContent: React.FC = () => {
       <br></br>
       <div
         className="flex text-center text-[16px] flex-col md:flex-row md:hidden"
-        style={titleFontStyle}
+        
       >
         <div className="flex justify-center ">
           <div className="flex " style={{ ...poppins.style }}>
@@ -96,7 +90,7 @@ const GetToKnowUsContent: React.FC = () => {
 
       <div
         className="hidden md:flex text-center text-[16px] justify-between "
-        style={titleFontStyle}
+        
       >
         <div className=" " style={{ ...poppins.style }}>
           <LocationOnOutlined className="text-[#029e9d] " />
