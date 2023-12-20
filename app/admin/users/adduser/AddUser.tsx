@@ -157,7 +157,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
 
           if (response.status === 200) {
             const newUser = await response.json();
-            console.log(newUser);
+
             console.log("User updated successfully");
 
             if (file) {

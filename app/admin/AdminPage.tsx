@@ -89,7 +89,6 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
 
   const decoded: any = jwtDecode(token);
 
-  console.log(decoded);
   useEffect(() => {
     const fetchData = () => {
       fetch(

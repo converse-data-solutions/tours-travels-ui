@@ -105,7 +105,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
         if (response.status === 200) {
           const newPackage = await response.json();
-          console.log(newPackage);
+
           console.log("User updated successfully");
 
           if (file) {

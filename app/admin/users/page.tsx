@@ -142,7 +142,6 @@ const Userlistpage = () => {
       }
     }
   }
-  console.log("data", data);
   const filteredData = data.filter((item) =>
     item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
