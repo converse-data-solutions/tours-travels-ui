@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 
 interface UserData {
   id: number;

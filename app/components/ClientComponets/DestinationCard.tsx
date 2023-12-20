@@ -1,8 +1,16 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-
 import destination1 from "../../../public/destination1.jpg";
+import { Playfair_Display, Poppins } from "next/font/google";
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 interface StateData {
   count: number;
@@ -67,12 +75,25 @@ export const DestinationCard = () => {
             <div className="h-0">
               <div className="relative top-[-100px] flex flex-row justify-between px-6 ">
                 <div className="flex flex-col ">
-                  <div className="text-[20px] text-[#FDC703]">{country} </div>
-                  <div className="text-white text-[26px]">{data.states[0]}</div>
+                  <div
+                    className="text-[18px] text-[#FDC703] font-bold"
+                    style={playFair.style}
+                  >
+                    {country}{" "}
+                  </div>
+                  <div
+                    className="text-white text-[26px] font-bold"
+                    style={playFair.style}
+                  >
+                    {data.states[0]}
+                  </div>
                 </div>
 
                 <div className="items-center flex ">
-                  <button className="text-white bg-[#029E9D] rounded-lg px-2 py-1">
+                  <button
+                    className="text-white text-[16px] bg-[#029E9D] rounded-lg px-2 py-1 font-bold"
+                    style={poppins.style}
+                  >
                     {data.count} Tours
                   </button>
                 </div>

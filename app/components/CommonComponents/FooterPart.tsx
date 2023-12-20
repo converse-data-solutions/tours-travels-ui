@@ -333,12 +333,15 @@ const FooterPart = () => {
           </div>
         </div>
       </div>
-
-      <div id="container" className="">
-        {/* <AnimationPart /> */}
-
-        <div id="your-div"></div>
+      <div className="h-0">
+        <AnimationPart />
       </div>
+
+      {/* <div id="container" className=""> */}
+      {/* <AnimationPart />  */}
+
+      {/* <div id="your-div"></div> */}
+      {/* </div> */}
     </div>
   );
 };

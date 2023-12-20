@@ -6,6 +6,15 @@ import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { Playfair_Display, Poppins } from "next/font/google";
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 interface StateData {
   count: number;
@@ -73,11 +82,24 @@ export default function SubDestinationCard() {
           <div className="h-0">
             <div className="relative top-[-100px] flex flex-row justify-between px-7">
               <div className="flex flex-col">
-                <div className="text-[20px] text-[#FDC703]">{country}</div>
-                <div className="text-white text-[26px]">{data.states[0]}</div>
+                <div
+                  className="text-[18px] text-[#FDC703] font-bold"
+                  style={playFair.style}
+                >
+                  {country}
+                </div>
+                <div
+                  className="text-white text-[26px] font-bold"
+                  style={playFair.style}
+                >
+                  {data.states[0]}
+                </div>
               </div>
               <div className="items-center flex">
-                <button className="text-white bg-[#029E9D] rounded-lg px-2 py-1">{`${data.count} Tours`}</button>
+                <button
+                  className="text-white bg-[#029E9D] font-bold text-[16px] rounded-lg px-2 py-1"
+                  style={poppins.style}
+                >{`${data.count} Tours`}</button>
               </div>
             </div>
           </div>

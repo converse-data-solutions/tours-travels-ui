@@ -6,7 +6,7 @@ import PackageSlider from "./OurPartnersSlider";
 const PartnersHeading = () => {
   return (
     <div className=" ">
-      <div className="xl:pl-[33vh] xl:pr-[20vh]   px-[10vh] md:px-[5vh]">
+      <div className="xl:px-[16%]    px-[10vh]  md:px-[5vh]">
         <PackageSlider />
       </div>
     </div>

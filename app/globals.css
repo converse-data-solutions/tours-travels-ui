@@ -873,3 +873,22 @@ body {
   filter: brightness(80%);
   transform-origin: bottom;
 }
+.hovering-button {
+  display: block;
+  background: linear-gradient(to right, #fdc703 50%, #029e9d 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.3s ease-out;
+}
+.hovering-button:hover {
+  background-position: left bottom;
+}
+
+/* .Destination-part{
+  background-image: url(../public/booknowpageimg.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  filter: brightness(100%);
+  background-position: 90% */
+/* } */

@@ -127,8 +127,7 @@ export default function BlogOffersCard() {
                   </div>
                 </div>
                 <div>
-                  <button className="bg-[#029e9d] text-white px-5 py-3 rounded-lg">
-                    {" "}
+                  <button className="px-6 py-3 bg-[#028B8A] text-white rounded-lg mt-2  hovering-button">
                     Read More
                   </button>
                 </div>
