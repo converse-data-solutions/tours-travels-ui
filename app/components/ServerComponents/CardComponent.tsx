@@ -3,17 +3,11 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Icon } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
-import {
-  ExploreOutlined,
-  LocationOnOutlined,
-  OutlinedFlag,
-  SignpostOutlined,
-} from "@mui/icons-material";
+
+import { SlCompass, SlFlag, SlLocationPin } from "react-icons/sl";
+import { SlDirections } from "react-icons/sl";
+import { Playfair_Display,Poppins } from "next/font/google";
+
 
 interface CustomCardProps {
   title: string;
@@ -21,6 +15,19 @@ interface CustomCardProps {
   definition: string;
   icon: React.ReactElement;
 }
+const playFair=Playfair_Display({
+  subsets:["latin"]
+})
+
+const poppins=Poppins({
+  subsets:["latin"],
+  weight:'400',
+  
+})
+const iconStyle = {
+  fontSize: "55px",
+};
+
 
 const CustomCard: React.FC<CustomCardProps> = ({
   title,
@@ -28,27 +35,28 @@ const CustomCard: React.FC<CustomCardProps> = ({
   reviewlabel,
   icon,
 }) => (
-  <div className="hover:text-white">
+  <div className="hover:text-white  lg:px-0">
     <Box sx={{ minWidth: 150, margin: "16px" }}>
-      <div className=" rounded-lg card-sheet px-7 2xl:px-9 card-destination hover:text-white">
+      <div className=" rounded-lg card-sheet px-7 2xl:px-9 card-destination hover:text-white hoveredCard">
         <CardContent sx={{ paddingX: "10px" }}>
           <br></br>
 
-          <div className="  text-[hsl(180,82%,35%)] text-[66px] hover:text-white">
+           <div className="text-custom-color  hover:text-white font-thin">
             {icon}
-          </div>
+          </div> 
+           
 
-          <div className=" text-[23px] text-black font-sans font-medium pb-4 hover:text-white hoveredCard">
+          <div className=" text-[22px] text-black font-sans  pb-4 hover:text-white hoveredCard font-bold" style={playFair.style}>
             {title}
           </div>
           {/*  */}
-          <div className="text-[18px] text-gray-500 hover:text-white">
+          <div className="text-[16px] text-gray-500 hover:text-white" style={poppins.style}>
             {definition}
           </div>
           {/*  */}
         </CardContent>
         <CardActions>
-          <div className="text-[hsl(180,82%,35%)] hover:text-white">
+          <div className="text-custom-color text-[16px] hover:text-white">
             {reviewlabel}
           </div>
         </CardActions>
@@ -66,7 +74,7 @@ const cardsData = [
     definition:
       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
     reviewlabel: "100 + Reviews",
-    icon: <OutlinedFlag className="text-[66px] " />,
+    icon: <SlFlag className="mb-2 mt-3  text-[55px] font-thin" />,
   },
   {
     title: "Share Your Travel Locations",
@@ -74,7 +82,7 @@ const cardsData = [
     definition:
       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
     reviewlabel: "100 + Reviews",
-    icon: <LocationOnOutlined className="text-[66px] " />,
+    icon: <SlLocationPin className="mb-2 mt-3 font-thin text-[55px]" />,
   },
   {
     title: "Share Your Travel Preference",
@@ -82,7 +90,7 @@ const cardsData = [
     definition:
       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
     reviewlabel: "100 + Reviews",
-    icon: <SignpostOutlined className=" text-[66px]" />,
+    icon: <SlDirections className=" mb-2 mt-3 font-thin text-[55px]" />,
   },
   {
     title: "Here 100% Trusted Tour Agency",
@@ -91,7 +99,7 @@ const cardsData = [
       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
 
     reviewlabel: "100 + Reviews",
-    icon: <ExploreOutlined className="text-[66px] " />,
+    icon: <SlCompass  className=" mb-2 mt-3 font-thin text-[55px]"/>,
   },
 ];
 

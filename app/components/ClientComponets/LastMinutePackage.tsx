@@ -6,6 +6,21 @@ import { faStar, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import img from "../../../public/TourPackageimg.jpg";
 import CardDetails from "../ServerComponents/CardDetails";
 import { useState, useEffect } from "react";
+import { Playfair_Display ,Poppins} from "next/font/google";
+import { SlCalender } from "react-icons/sl";
+
+
+
+const poppins = Poppins({
+  weight: "600",
+  style: ["normal"],
+  subsets: ["latin"],
+});
+
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--poppins",
+});
 
 interface UserData {
   id: number;
@@ -52,7 +67,7 @@ export default function LastMinutePackageCard() {
   const filteredData = data.filter((item) => item.published === 1).slice(0, 4);
 
   return (
-    <div className="w-auto grid md:grid-cols-2 gap-7 lg:px-4 rounded-lg">
+    <div className="w-full grid md:grid-cols-2 gap-7  px-0  rounded-lg">
       {filteredData.map((item) => (
         <div
           key={item.id}
@@ -65,11 +80,14 @@ export default function LastMinutePackageCard() {
                 alt={item.title}
                 height={200}
                 width={300}
-                className="w-full rounded-t-lg  xl:h-[28vh] lastminuteimg-hover"
+                className="w-full rounded-t-lg  xl:h-[28vh] lastminuteimg-hover brightness-[58%]"
               />
             </div>
-            <button className="bg-[hsl(180,82%,35%)] relative top-[-35px]  ml-[70%] mr-[5%]  md:ml-[180px] lg:text-lg lg:ml-[90px] xl:ml-[195px] px-2 mx-5 h-[55px] text-white font-extrabold rounded-lg">
-              <FontAwesomeIcon icon={faCalendarAlt} /> {item.days_and_night}
+            <button className="bg-[#029e9d] relative top-[-35px]  ml-[4%] mr-[3%] lg:mr-[5%]  md:ml-[50%] text-[16px] lg:ml-[90px] xl:ml-[55%] px-2 mx-5 h-[55px] text-white font-bold rounded-lg" style={poppins.style}>
+            <div className="flex">
+               <div className="pt-[2px]"> <SlCalender/></div>
+                <div>&nbsp;{item.days_and_night} Days Tours</div>
+                </div>
             </button>
 
             <CardDetails item={item} />

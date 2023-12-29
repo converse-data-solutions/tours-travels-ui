@@ -6,7 +6,7 @@ const playFair = Playfair_Display({
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: "400",
+  weight: "300",
 });
 
 const TourGuidesHeading = () => {
@@ -35,7 +35,7 @@ const TourGuidesHeading = () => {
           </span>
         </div>
         <div
-          className="text-[#777777] text-[18px] font-serif px-8 md:px-20 items-center text-center"
+          className="text-[#777777] text-[16px]  px-8 md:px-20 items-center text-center"
           style={poppins.style}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

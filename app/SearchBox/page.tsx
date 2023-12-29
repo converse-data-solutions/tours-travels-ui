@@ -4,8 +4,19 @@ import ReusableSelect from "../homepage/SelectDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOn";
-import SearchDropDown from "../components/CommonComponents/SearchDropDown";
+import SearchSelectDropDown from "../components/CommonComponents/SearchDropDown";
 import { useSession } from "next-auth/react";
+import { Playfair_Display,Poppins } from "next/font/google";
+import { SlLocationPin } from "react-icons/sl";
+
+
+const playFair=Playfair_Display({
+  subsets:["latin"]
+});
+const poppins=Poppins({
+  subsets:["latin"],
+  weight:'400'
+})
 
 interface PackageSearch {
   date: string;
@@ -86,22 +97,22 @@ const SearchBox: React.FC = () => {
 
   return (
     <div className=" flex flex-col lg:flex-row w-full xl:h-[16vh] ">
-      <div className="w-full lg:w-1/5 bg-[hsl(180,82%,35%)] rounded-t-lg lg:rounded-l-lg  lg:rounded-r-none flex px-4">
+      <div className="w-full lg:w-1/5 bg-[#029e9d] rounded-t-lg lg:rounded-l-lg  lg:rounded-r-none flex px-4">
         <div className="flex w-full  items-center justify-center py-7 lg:py-0">
           <div className="text-white lg:w-4/12 flex justify-center ">
-            <LocationOnOutlinedIcon className="text-[45px]" />
+            <SlLocationPin className="mb-3 lg:mb-0 text-[35px] lg:text-[45px]"/>
           </div>
           <div>
-            <h1 className="text-white text-[22px] font-bold pl-2 flex justify-start font-serif">
+            <div className="text-white text-[22px] font-bold pl-2 flex justify-start " style={playFair.style}>
               Find Your Holidays
-            </h1>
+            </div>
           </div>
         </div>
       </div>
-      <div className=" flex flex-col lg:w-full lg:flex-row  bg-white p-4 border border-solid-[1px] rounded-b-md lg:rounded-r-md  lg:rounded-l-none">
+      <div className=" flex flex-col lg:w-full lg:flex-row  shadow-sm bg-white p-4 lg:border  lg:border-solid-[1px] rounded-b-md lg:rounded-r-md  lg:rounded-l-none">
         <form className="bg-white lg:flex  items-center  xl:justify-between  lg:h-auto py-6  lg:rounded-r-lg xl:px-1 w-full">
-          <div className="flex gap-3 justify-around w-full flex-col lg:flex-row">
-            <SearchDropDown
+          <div className="flex gap-3 justify-around w-full flex-col lg:grid lg:grid-cols-5 text-[15px]" style={poppins.style}>
+            <SearchSelectDropDown
               id="destination"
               value={destination}
               onChange={handleDestinationChange}
@@ -112,11 +123,13 @@ const SearchBox: React.FC = () => {
                 { value: "Cochin", label: "cochin" },
               ]}
               displayEmpty
-              placeholder="Destination &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+              placeholder="Destination "
               required
               width="100%"
-              className=""
+              className="lg:w-3/12 text-[15px] hover:text-white"
+              style={poppins.style}
             />
+            
             <input
               id="date"
               value={date}
@@ -124,9 +137,10 @@ const SearchBox: React.FC = () => {
               placeholder="dd/mm/yyyy"
               type="date"
               required
-              className="border-[1px] border-gray-300 rounded-lg h-[50px] w-full pl-4"
+              className="border-[1px] border-gray-300 rounded-lg h-[50px] w-full pl-4 pr-2 "
+              style={poppins.style}
             />
-            <SearchDropDown
+            <SearchSelectDropDown
               id="travelType"
               value={travelType}
               onChange={handleTravelTypeChange}
@@ -135,13 +149,14 @@ const SearchBox: React.FC = () => {
                 { value: "Family tour", label: "Family tour" },
               ]}
               displayEmpty
-              placeholder="Travel type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+              placeholder="Travel type "
               required
               width="100%"
-              className="border-[1px] border-gray-100 rounded-lg h-[50px] w-full "
+              className="border-[1px] border-gray-100 rounded-lg h-[50px] w-full lg:w-3/12"
+              style={poppins.style}
             />
 
-            <SearchDropDown
+            <SearchSelectDropDown
               id="tourDuration"
               value={tourDuration}
               onChange={handleTourDurationChange}
@@ -150,16 +165,18 @@ const SearchBox: React.FC = () => {
                 { value: "7 days", label: "7 days" },
               ]}
               displayEmpty
-              placeholder=" Tour duration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+              placeholder=" Tour duration "
               required
               width="100%"
+              className="lg:w-3/12"
+              style={poppins.style}
             />
 
             <button
               type="submit"
-              className="bg-[hsl(180,82%,35%)] lg:min-w-fit px-10 text-white rounded-lg h-[50px] booking"
+              className="bg-[#029e9d] lg:min-w-fit px-10 text-white rounded-lg h-[50px] booking mb-[-15px] "
             >
-              <span className="pr-2">
+              <span className=" pr-2">
                 <FontAwesomeIcon icon={faSearch} className="text-white" />
               </span>
               Search Now

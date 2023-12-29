@@ -42,7 +42,7 @@ const PackageSlider = () => {
       window.location.reload();
       setWindowWidth(1);
     } else if (screenWidth <= 768) {
-      setWindowWidth(1);
+      setWindowWidth(2);
     } else if (screenWidth <= 1024) {
       setWindowWidth(2);
     } else {

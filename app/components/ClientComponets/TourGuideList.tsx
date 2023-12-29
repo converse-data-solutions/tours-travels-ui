@@ -10,9 +10,8 @@ import "swiper/css/navigation";
 import Image from "next/image";
 import img from "../../../public/Tourguideimage.jpg";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Playfair_Display,Poppins } from "next/font/google";
+
 interface UserData {
   id: number;
   first_name: string;
@@ -21,31 +20,45 @@ interface UserData {
   role_id: number;
 }
 
+const playFair=Playfair_Display({
+  subsets:["latin"]
+});
+const poppins=Poppins({
+  subsets:["latin"],
+  weight:'400'
+})
+
 export default function TourGuideSlider() {
   const [windowWidth, setWindowWidth] = useState(4);
   const [data, setData] = useState<UserData[]>([]);
 
-  const titleFontStyle: CSSProperties = {
-    fontFamily: "sans-serif, poppins",
-  };
-
-  const headingFontStyle: CSSProperties = {
-    fontFamily: " playfair display, serif",
-  };
+  
   useEffect(() => {
-    let screenWidth = window.innerWidth;
+    const handleResize = () => {
+      let screenWidth = window.innerWidth;
 
-    if (screenWidth <= 425) {
-      window.location.reload();
-      setWindowWidth(1);
-    } else if (screenWidth <= 768) {
-      setWindowWidth(1);
-    } else if (screenWidth <= 1024) {
-      setWindowWidth(4);
-    } else {
-      setWindowWidth(4);
-    }
-  }, []);
+      if (screenWidth <= 425) {
+        setWindowWidth(1);
+      } else if (screenWidth <= 768) {
+        setWindowWidth(1);
+      } else if (screenWidth <= 1024) {
+        setWindowWidth(4);
+      } else {
+        setWindowWidth(4);
+      }
+    };
+
+    
+    window.addEventListener("resize", handleResize);
+
+    
+    handleResize();
+
+    
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); 
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -75,7 +88,7 @@ export default function TourGuideSlider() {
 
   return (
     <>
-      <div className="h-auto w-full">
+      <div className="h-auto w-full md:px-[5%] lg:px-0">
         <Swiper
           slidesPerView={windowWidth}
           spaceBetween={25}
@@ -106,13 +119,13 @@ export default function TourGuideSlider() {
                   <div className="bg-[#029E9D] rounded-b-lg py-4 tour-guide absolute bottom-0 left-0 w-full text-center transition-transform transform group-hover:translate-y-[-20px] duration-1000 ">
                     <div
                       className="text-[22px] text-white font-bold"
-                      style={headingFontStyle}
+                      style={playFair.style}
                     >
                       {item.first_name}
                     </div>
                     <div
                       className="text-white font-bold text-[16px]"
-                      style={titleFontStyle}
+                      style={poppins.style}
                     >
                       <h1>{item.agent_position}</h1>
                     </div>

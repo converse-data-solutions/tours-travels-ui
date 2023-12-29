@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import img from "../../../public/subdestination3.jpg";
 import { Playfair_Display, Poppins } from "next/font/google";
+import Link from "next/link";
 const playFair = Playfair_Display({
   subsets: ["latin"],
 });
@@ -62,10 +63,22 @@ export default function WholeDestinationCard() {
       });
   }, []);
 
+
+
+  
+
+
   return (
+    <>
+   
     <div className="grid grid-cols-1 px-4 md:grid-cols-2 lg:grid-cols-3  gap-7 ">
       {visibleCountries.map(([country, data]) => (
-        <div className="w-full" key={country}>
+        
+        <Link href={`/destinationList/${country}`}>
+        <div
+        className="w-full"
+        key={country}
+      >
           <div className="zoom-effect-container rounded-lg">
             <Image
               src={img}
@@ -100,7 +113,10 @@ export default function WholeDestinationCard() {
             </div>
           </div>
         </div>
+        </Link>
       ))}
     </div>
+    
+    </>
   );
 }

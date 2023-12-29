@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import { Inter, Inter as InterFont, Poppins } from "next/font/google";
+import {  Poppins } from "next/font/google";
 import {
   BusinessCenterOutlined,
   FolderOutlined,
@@ -7,38 +7,26 @@ import {
 } from "@mui/icons-material";
 import { Playfair_Display } from "next/font/google";
 
-const inter = Inter({
-  subsets: ["latin"],
-});
 
-const sansSerif = InterFont({
-  subsets: ["latin"],
-});
 const poppins = Poppins({
   weight: "400",
-  style: ["normal"],
   subsets: ["latin"],
 });
 
 const playFair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--poppins",
+  
 });
 
 const GetToKnowUsContent: React.FC = () => {
   
-
-
-  
-  
-
   return (
     <div className="px-5 bg-white md:px-10 lg:px-8">
-      <div className="text-[24px] text-[#029e9d] text-center lg:text-start font-serif font-semibold">
+      <div className="text-[24px] text-[#029e9d] text-center lg:text-start font-serif font-semibold" style={playFair.style}>
         Get To Know Us
       </div>
 
-      <div className="text-[30px] lg:text-[46px] text-[#2e2e2e]   lg:text-start font-serif  font-bold text-center">
+      <div className="text-[30px] lg:text-[46px] text-[#17233e]   lg:text-start font-serif  font-bold text-center" style={playFair.style}>
         Explore All Tour Of The World With Us.
       </div>
 
@@ -46,8 +34,8 @@ const GetToKnowUsContent: React.FC = () => {
       <br></br>
 
       <div
-        style={{ ...poppins.style }}
-        className="text-[16px] text-center lg:text-start text-gray-500">
+        style={poppins.style }
+        className="text-[16px] text-center lg:text-start text-[#777777]">
 
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -57,8 +45,8 @@ const GetToKnowUsContent: React.FC = () => {
       <br></br>
       <div
 
-        className="text-[16px] text-center lg:text-start text-gray-500"
-        style={{ ...poppins.style }}
+        className="text-[16px] text-center lg:text-start text-[#777777]"
+        style={poppins.style }
 
       >
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
@@ -69,20 +57,20 @@ const GetToKnowUsContent: React.FC = () => {
       <hr className="border border-dashed border-[#f1f1f1]"></hr>
       <br></br>
       <div
-        className="flex text-center text-[16px] flex-col md:flex-row md:hidden"
+        className="flex text-center text-[16px] flex-col md:flex-row md:hidden pb-5"
         
       >
-        <div className="flex justify-center ">
-          <div className="flex " style={{ ...poppins.style }}>
+        <div className="flex justify-center text-[#777777]">
+          <div className="flex " style={poppins.style }>
             <LocationOnOutlined className="text-[#029e9d] " />
             Tour Guide
           </div>
-          <div style={{ ...poppins.style }}>
+          <div style={poppins.style }>
             <BusinessCenterOutlined className="text-[#029e9d] pr-1" />
             Friendly Price
           </div>
         </div>
-        <div className="flex justify-center pt-2" style={{ ...poppins.style }}>
+        <div className="flex justify-center pt-2 text-[#777777]" style={poppins.style }>
           <FolderOutlined className="text-[#029e9d] pr-1" />
           Reliable Tour Package
         </div>
@@ -94,16 +82,16 @@ const GetToKnowUsContent: React.FC = () => {
       >
         <div className=" " style={{ ...poppins.style }}>
           <LocationOnOutlined className="text-[#029e9d] " />
-          Tour Guide
+          <span className="text-[16px] text-[#777777]" style={poppins.style }>Tour Guide</span>
         </div>
         <div style={{ ...poppins.style }}>
           <BusinessCenterOutlined className="text-[#029e9d] pr-1" />
-          Friendly Price
+          <span className="text-[16px] text-[#777777]" style={poppins.style }> Friendly Price</span>
         </div>
 
         <div style={{ ...poppins.style }}>
           <FolderOutlined className="text-[#029e9d] pr-1" />
-          Reliable Tour Package
+          <span className="text-[16px] text-[#777777]" style={poppins.style}>Reliable Tour Package</span>
         </div>
       </div>
     </div>

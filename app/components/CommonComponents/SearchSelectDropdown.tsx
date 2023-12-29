@@ -1,11 +1,11 @@
-// SearchDropDown.jsx
+
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-const SearchDropDown = (props: any) => {
+const SearchSelectDropDown = (props: any) => {
   const {
     label,
     id,
@@ -21,8 +21,20 @@ const SearchDropDown = (props: any) => {
     placeholder,
     required,
   } = props;
+
   
-  
+  const menuHoverStyles = {
+    "&:hover": {
+      color: "black",
+    },
+  };
+
+  const selectStyles = {
+    "&:focus": {
+      borderColor: "black !important", 
+    },
+  };
+
   return (
     <div>
       <FormControl sx={{ minWidth: "100%" }}>
@@ -35,8 +47,7 @@ const SearchDropDown = (props: any) => {
           displayEmpty={displayEmpty}
           inputProps={{ "aria-label": ariaLabel }}
           required
-          className={`border-[1px] border-[hsl(0,100%,99%)]  rounded-lg h-[50px] w-full pl-2 }`}
-
+          className="border-[1px] border-gray-100 rounded-lg h-[50px] w-full pl-2 "
           MenuProps={{
             anchorOrigin: {
               vertical: "bottom",
@@ -45,23 +56,20 @@ const SearchDropDown = (props: any) => {
             transformOrigin: {
               vertical: "top",
               horizontal: "left",
-            }
+            },
            
+            sx: {
+              "&:hover": {
+                color: "black",
+              },
+            },
           }}
           sx={{
             "&:focus": {
-              borderColor: "gray !important", 
-              "& fieldset": {
-                borderColor: "white!important", 
-                borderWidth: "1px !important",
-              },
+              borderColor: "black", // Outline color on selection and clicking
             },
-            "&.Mui-focused": {
-              borderColor: "gray !important", 
-              "& fieldset": {
-                borderColor: "white!important", 
-                borderWidth: "1px !important",
-              },
+            "&:hover": {
+              borderColor: "black", // Border color on hovering
             },
           }}
         >
@@ -85,4 +93,4 @@ const SearchDropDown = (props: any) => {
   );
 };
 
-export default SearchDropDown;
+export default SearchSelectDropDown;

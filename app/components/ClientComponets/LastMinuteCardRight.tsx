@@ -5,7 +5,22 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import img from "../../../public/lastminutedeal.jpg";
+import { Playfair_Display,Poppins } from "next/font/google";
+import { SlCalender } from "react-icons/sl";
 
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const poppins2 = Poppins({
+  subsets: ["latin"],
+  weight: "700",
+});
 interface UserData {
   id: number;
   title: string;
@@ -22,46 +37,48 @@ interface UserData {
 
 const LastMinuteCard = ({ item }: { item: UserData }) => {
   return (
-    <div className="rounded-lg mb-7 h-full w-full ">
+    <div className="rounded-lg md:rounded-xl mb-7 h-full w-full md:pt-1  pt-10 lg:pt-0">
       <Card>
-        <div className="w-full px-4 lg:px-0 ">
+        <div className="w-full  lg:px-0 ">
           <Image
             height={100}
             width={1000}
             src={item.file_name || img}
             alt="img"
-            className="w-full h-auto lg:h-[25vh] xl:h-[37.4vh] bgimgcolor"
+            className="w-full h-[24vh] md:h-[60vh] lg:h-[25vh] xl:h-[37.7vh] bgimgcolor md:rounded-xl "
           />
         </div>
-        <div className="h-0 relative top-[-170px] lg:top-[-200px] px-7">
-          <div className="text-[18px] text-[#FDC703] font-sans">
+        <div className="h-0 relative top-[-180px] lg:top-[-150px] px-7 lg:pl-4 lg:pr-2 lg:px-0 xl:px-7">
+          <div className="text-[18px] text-[#FDC703] font-bold" style={playFair.style}>
             {item.state}
           </div>
-          <div className="text-[26px] text-white font-sans">{item.country}</div>
+          <div className=" text-[21px] lg:text-[26px] text-white font-bold" style={playFair.style}>{item.country}</div>
           <div className="text-[#fbbc06] pb-2 font-sans ">
             {[...Array(5)].map((_, index) => (
               <FontAwesomeIcon
                 key={index}
                 icon={index < item.id ? faStar : ["far", "star"]}
-                style={{ color: "#fbbc06" }}
+                style={{ color: "#fbbc06",marginRight: "4px" }}
               />
             ))}{" "}
-            <span className="text-white ">(12)</span>
+            <span className="text-white  text-[16px]" style={poppins.style}>(12)</span>
           </div>
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className=" text-[16px] lg:text-lg">
               <h1>
-                <span className="text-[#fbbc06] text-[20px] font-bold font-sans">
+                <span className="text-[#fbbc06] text-[18px] font-bold" style={poppins2.style}>
                   ${item.price}
                 </span>{" "}
-                <span className="text-white">| Per person</span>
+                <span className="text-white text-[16px]" style={poppins.style}>| Per person</span>
               </h1>
             </div>
             <div className="text-white font-bold text-[16px] lg:text-[18px] font-sans pt-2 lg:pt-0">
               <h1>
                 {" "}
-                <FontAwesomeIcon icon={faCalendarAlt} />
-                &nbsp;{item.days_and_night}
+                <div className="flex flex-row ">
+               <div className="pt-[2px]"> <SlCalender/></div>
+                <div>&nbsp;{item.days_and_night} Days Tours</div>
+                </div>
               </h1>
             </div>
           </div>

@@ -378,7 +378,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             <FormInput
               label="No. of day & Night"
               name="days_and_night"
-              type="text"
+              type="number"
               value={packageData.days_and_night}
               onChange={handleChange}
               required={true}

@@ -5,13 +5,18 @@ import img1 from "../../../public/blogoffersimg1.jpg";
 import img2 from "../../../public/blogoffersimg2.jpg";
 import img3 from "../../../public/blogoffersimg3.jpg";
 import { useState, useEffect } from "react";
-import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import user1 from "../../../public/bloguser1.jpg";
 import user2 from "../../../public/bloguser2.jpg";
 import user3 from "../../../public/bloguser3.jpg";
+import { Playfair_Display,Poppins } from "next/font/google";
+
+const playFair=Playfair_Display({
+  subsets:["latin"]
+});
+const poppins=Poppins({
+  subsets:["latin"],
+  weight:'400'
+})
 
 interface UserData {
   id: number;
@@ -63,6 +68,8 @@ const mockData: UserData[] = [
 export default function BlogOffersCard() {
   const [data, setData] = useState<UserData[]>([]);
   const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+  const [isFirstImageHovered, setIsFirstImageHovered] = useState<boolean>(false);
+
 
   useEffect(() => {
     setData(mockData);
@@ -70,23 +77,30 @@ export default function BlogOffersCard() {
 
   const handleMouseOver = (id: number) => {
     setHoveredItemId(id);
+    setIsFirstImageHovered(isFirstImageHovered);
   };
 
   const handleMouseOut = () => {
     setHoveredItemId(null);
+    setIsFirstImageHovered(false);
   };
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 rounded-lg">
-      {data.map((item) => (
+    <div className="w-full grid grid-cols-1 md:px-[4%] lg:px-[5%] xl:px-0 md:grid-cols-2 lg:grid-cols-3 gap-7 rounded-lg">
+      {data.map((item: UserData, index: number) => (
+       
         <div
-          key={item.id}
-          className={`rounded-lg shadow-lg last-deal card-hover btn-fromLeft card-line   overflow-hidden ${
-            hoveredItemId === item.id ? "lastminuteimg-hover" : ""
-          }`}
-          onMouseOver={() => handleMouseOver(item.id)}
-          onMouseOut={handleMouseOut}
-        >
+        key={item.id}
+        className={`
+  rounded-lg shadow-lg last-deal card-hover btn-fromLeft card-line overflow-hidden
+  ${hoveredItemId === item.id ? "lastminuteimg-hover" : ""}
+  ${index === 0 ? "md:col-span-full" : "md:col-span-1"}
+  lg:col-span-1 xl:col-span-1
+`}
+
+        onMouseOver={() => handleMouseOver(item.id)}
+        onMouseOut={handleMouseOut}
+      >
           <div className="w-full h-full outerbox-image rounded-md blogoffer-card lastminuteimg-hover">
             <div className="outerbox-image rounded-t-md">
               <Image
@@ -95,39 +109,42 @@ export default function BlogOffersCard() {
                 height={200}
                 width={300}
                 className={`w-full lg:h-[25vh]  rounded-t-lg xl:w-full xl:h-[28vh] ${
-                  hoveredItemId === item.id ? "image-hover" : ""
+                  hoveredItemId === item.id && isFirstImageHovered ? "image-hover" : ""
                 }`}
               />
             </div>
 
             <div className="card_details1 pt-5 px-7">
-              <div className="text-xl text-[hsl(180,82%,35%)] pb-2 font-serif font-semibold">
+              <div className="text-[18px] text-[#029e9d] pb-2 font-serif font-bold" style={playFair.style}>
                 {item.title}
               </div>
-              <div className="font-serif font-semibold text-2xl pb-3 hover:text-[hsl(180,82%,35%)]">
+              <div className="font-serif font-semibold text-[22px] pb-3 hover:text-[#029e9d]">
                 {item.heading}
               </div>
-              <div className="text-[18px] text-gray-500 pb-3 font-sans pr-6 ">
+              <div className="text-[16px] text-gray-500 pb-3 font-sans pr-6 " style={poppins.style}>
                 {item.content}
               </div>
 
               <div className="flex justify-between py-2">
                 <div className="flex">
-                  <div className="hover:overflow-hidden">
+                <div className={index === 0 ? "hover:overflow-hidden" : ""}>
                     <Image
                       src={item.image}
                       alt="img"
                       height={100}
                       width={100}
-                      className="h-10 w-10  rounded-full  "
-                    />
+                      className={`h-10 w-10  rounded-full ${
+                        index === 0 && hoveredItemId === item.id && isFirstImageHovered
+                          ? "image-hover"
+                          : ""
+                      }`}                />
                   </div>
-                  <div className="font-sans text-gray-500 text-[16px] pb-1 flex pl-3 items-center">
+                  <div className="font-sans text-gray-500 text-[16px] pb-1 flex pl-3 items-center" style={poppins.style}>
                     {item.name}
                   </div>
                 </div>
                 <div>
-                  <button className="px-6 py-3 bg-[#028B8A] text-white rounded-lg mt-2  hovering-button">
+                  <button className="px-6 py-3 bg-[#029e9d] text-white  text-[14px] rounded-lg mt-2  hovering-button" style={poppins.style}>
                     Read More
                   </button>
                 </div>

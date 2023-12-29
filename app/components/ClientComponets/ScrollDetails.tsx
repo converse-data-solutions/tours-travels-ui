@@ -33,7 +33,7 @@ const ScrollDetailsComponent = () => {
         showDetails ? "visible" : "invisible"
       }`}
     >
-      <div className="z-50">
+      <div className="z-50 bg-white">
         <LargeScreenDropdown />
         <HomeDropDown />
       </div>
