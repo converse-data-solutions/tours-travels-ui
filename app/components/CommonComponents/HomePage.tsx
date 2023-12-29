@@ -1,23 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LargeScreenDropdown } from "./LargeScreenDropDown";
 import { HomeDropDown } from "./HomePageDropDown";
+
 import {
-  faCalendarDays,
-  faLocationDot,
-  faClock,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebookF,
+  
   faTwitter,
   faInstagram,
-  faLinkedinIn,
+
 } from "@fortawesome/free-brands-svg-icons";
 import { Poppins } from "next/font/google";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+
 import { FaFacebook } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
-import { FaCalendar } from "react-icons/fa6";
+
 import { SlCalender, SlClock, SlLocationPin } from "react-icons/sl";
+import { FaRegClock } from "react-icons/fa6";
 
 const poppins = Poppins({
   weight: "400",
@@ -55,7 +52,7 @@ export const HomePage = () => {
               <div>
                 <div className="flex flex-row gap-2">
                   {" "}
-                  <SlClock className="mt-1" />
+                  <FaRegClock className="mt-1" />
                   <div> Mon-Fri:10 AM-5 PM</div>
                 </div>
               </div>
