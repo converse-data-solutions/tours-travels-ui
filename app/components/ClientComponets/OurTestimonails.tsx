@@ -12,16 +12,16 @@ import { CSSProperties } from "react";
 import img1 from "../../../public/testimonails1.jpg";
 import img2 from "../../../public/destimonails2.jpg";
 import img3 from "../../../public/destimonails3.jpg";
-import { Playfair_Display,Poppins} from "next/font/google";
+import { Playfair_Display, Poppins } from "next/font/google";
 
-const playFair=Playfair_Display({
-  subsets:["latin"]
+const playFair = Playfair_Display({
+  subsets: ["latin"],
 });
 
-const poppins=Poppins({
-  subsets:["latin"],
-  weight:"400"
-})
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const mockData = [
   {
@@ -94,15 +94,18 @@ export default function OurTestimonailsSlider() {
               className=" border-gray-200 border-[1px] py-7 px-4 rounded-lg"
             >
               <div className="">
-                <div className="text-[20px] text-center gap-7 text-[#777777]" style={poppins.style}>
+                <div
+                  className="text-[20px] text-center gap-7 text-[#777777]"
+                  style={poppins.style}
+                >
                   <span className="text-[40px] text-[#029e9d] hidden sm:inline-block">
                     <FontAwesomeIcon icon={faQuoteLeft} className="pr-2" />
                   </span>
-                  <span >
+                  <span>
                     <i>
                       Lorem Ipsum is simply dummy text of the printing
                       andypesetting industry. Lorem ipsum a simple Lorem Ipsum
-                      has been the industry's standard dummy hic et quidem. 
+                      has been the industry's standard dummy hic et quidem.
                       Dignissimos maxime velit unde inventore quasi vero
                       dolorem.
                     </i>
@@ -120,11 +123,17 @@ export default function OurTestimonailsSlider() {
                   />
                 </div>
 
-                <div className="text-center pt-2 text-[18px] text-[#029e9d] font-serif font-bold" style={playFair.style}>
+                <div
+                  className="text-center pt-2 text-[18px] text-[#029e9d] font-serif font-bold"
+                  style={playFair.style}
+                >
                   {item.name}
                 </div>
 
-                <div className="text-center text-gray-500 text-[16px] font-serif font-semibold pb-2" style={poppins.style}>
+                <div
+                  className="text-center text-gray-500 text-[16px] font-serif font-semibold pb-2"
+                  style={poppins.style}
+                >
                   {item.position}
                 </div>
               </div>

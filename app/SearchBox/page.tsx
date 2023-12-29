@@ -6,17 +6,16 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOn";
 import SearchSelectDropDown from "../components/CommonComponents/SearchDropDown";
 import { useSession } from "next-auth/react";
-import { Playfair_Display,Poppins } from "next/font/google";
+import { Playfair_Display, Poppins } from "next/font/google";
 import { SlLocationPin } from "react-icons/sl";
 
-
-const playFair=Playfair_Display({
-  subsets:["latin"]
+const playFair = Playfair_Display({
+  subsets: ["latin"],
 });
-const poppins=Poppins({
-  subsets:["latin"],
-  weight:'400'
-})
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 interface PackageSearch {
   date: string;
@@ -100,10 +99,13 @@ const SearchBox: React.FC = () => {
       <div className="w-full lg:w-1/5 bg-[#029e9d] rounded-t-lg lg:rounded-l-lg  lg:rounded-r-none flex px-4">
         <div className="flex w-full  items-center justify-center py-7 lg:py-0">
           <div className="text-white lg:w-4/12 flex justify-center ">
-            <SlLocationPin className="mb-3 lg:mb-0 text-[35px] lg:text-[45px]"/>
+            <SlLocationPin className="mb-3 lg:mb-0 text-[35px] lg:text-[45px]" />
           </div>
           <div>
-            <div className="text-white text-[22px] font-bold pl-2 flex justify-start " style={playFair.style}>
+            <div
+              className="text-white text-[22px] font-bold pl-2 flex justify-start "
+              style={playFair.style}
+            >
               Find Your Holidays
             </div>
           </div>
@@ -111,7 +113,10 @@ const SearchBox: React.FC = () => {
       </div>
       <div className=" flex flex-col lg:w-full lg:flex-row  shadow-sm bg-white p-4 lg:border  lg:border-solid-[1px] rounded-b-md lg:rounded-r-md  lg:rounded-l-none">
         <form className="bg-white lg:flex  items-center  xl:justify-between  lg:h-auto py-6  lg:rounded-r-lg xl:px-1 w-full">
-          <div className="flex gap-3 justify-around w-full flex-col lg:grid lg:grid-cols-5 text-[15px]" style={poppins.style}>
+          <div
+            className="flex gap-3 justify-around w-full flex-col lg:grid lg:grid-cols-5 text-[15px]"
+            style={poppins.style}
+          >
             <SearchSelectDropDown
               id="destination"
               value={destination}
@@ -129,7 +134,7 @@ const SearchBox: React.FC = () => {
               className="lg:w-3/12 text-[15px] hover:text-white"
               style={poppins.style}
             />
-            
+
             <input
               id="date"
               value={date}

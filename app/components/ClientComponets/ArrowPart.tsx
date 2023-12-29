@@ -33,7 +33,6 @@ const ArrowPart: React.FC = () => {
               color: "white",
               padding: "13px",
               borderRadius: "50%",
-             
             }}
             onClick={scrollToTop}
           >

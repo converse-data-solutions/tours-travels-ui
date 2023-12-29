@@ -13,7 +13,6 @@ const poppins = Poppins({
 });
 const CountUpForGetToKnowUs = () => {
   return (
-
     <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row w-full justify-evenly py-4 ">
       <div className="pl-8 py-3 lg:py-0 ">
         <span
@@ -22,7 +21,10 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={20} duration={10} />
         </span>
-        <p className="text-gray-500 text-[16px] lg:text-[18px]" style={poppins.style}>
+        <p
+          className="text-gray-500 text-[16px] lg:text-[18px]"
+          style={poppins.style}
+        >
           Years Experiences
         </p>
       </div>
@@ -34,7 +36,10 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={344} duration={3} />
         </span>
-        <p className="text-gray-500  text-[16px] lg:text-[18px]" style={poppins.style}>
+        <p
+          className="text-gray-500  text-[16px] lg:text-[18px]"
+          style={poppins.style}
+        >
           Tour Packages
         </p>
       </div>
@@ -46,7 +51,10 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={850} duration={10} />
         </span>
-        <p className="text-gray-500  text-[16px] lg:text-[18px]" style={poppins.style}>
+        <p
+          className="text-gray-500  text-[16px] lg:text-[18px]"
+          style={poppins.style}
+        >
           Happy Customers
         </p>
       </div>
@@ -58,11 +66,12 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={320} duration={3} />
         </span>
-        <p className="text-gray-500  text-[16px] lg:text-[18px]" style={poppins.style}>
+        <p
+          className="text-gray-500  text-[16px] lg:text-[18px]"
+          style={poppins.style}
+        >
           Award Winning
         </p>
-
-    
       </div>
     </div>
   );

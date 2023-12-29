@@ -16,7 +16,7 @@ import backgroundimage from "../../../public/shape8.png";
 import img1 from "../../../public/beautiful-green-field-scenery-free-photo.webp";
 import img2 from "../../../public/4f7af96819b05591c4ce89017ccb40db.png";
 import img3 from "../../../public/images.jpeg";
-import { Poppins,Playfair_Display } from "next/font/google";
+import { Poppins, Playfair_Display } from "next/font/google";
 import AnimationPart from "./FooterAnimation";
 import Particles from "react-tsparticles";
 
@@ -30,15 +30,14 @@ import {
 
 import ShapesAnimation from "./Animation";
 
-const poppins=Poppins({
-subsets:["latin"],
-weight:'400'
-})
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
-const playFair=Playfair_Display({
-  subsets:["latin"]
-})
-
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+});
 
 const FooterPart = () => {
   const [windowWidth, setWindowWidth] = useState(4);
@@ -58,20 +57,15 @@ const FooterPart = () => {
       }
     };
 
-   
     window.addEventListener("resize", handleResize);
 
-    
     handleResize();
 
-    
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); 
+  }, []);
 
-
-  
   return (
     <div>
       <div className="flex z-40 relative">
@@ -93,10 +87,11 @@ const FooterPart = () => {
       </div>
 
       <div className=" w-full flex flex-col items-center p-4 pt-20 bg-[#17233E]">
-      <div className="-z-[0]"><AnimationPart/></div>
+        <div className="-z-[0]">
+          <AnimationPart />
+        </div>
 
-     
-               <div className="w-full lg:max-w-[1290px] grid grid-cols-1 ">
+        <div className="w-full lg:max-w-[1290px] grid grid-cols-1 ">
           <div className="bg-[#17233E] h-[131px] md:h-[195px] lg:h-[97px] xl:h-[135px] ">
             <Swiper
               slidesPerView={windowWidth}
@@ -228,7 +223,10 @@ const FooterPart = () => {
                   suspendisse leo neque iaculis molestie sagittis maecenas
                   aenean eget molestie sagittis.
                 </p>
-                <div className="flex flex-col gap-4 mb-[32px]" style={poppins.style}>
+                <div
+                  className="flex flex-col gap-4 mb-[32px]"
+                  style={poppins.style}
+                >
                   <h4 style={poppins.style}>
                     <span className="font-semibold">PO Box :</span>{" "}
                     +47-252-254-2542
@@ -249,11 +247,17 @@ const FooterPart = () => {
               </div>
 
               <div className="mb-[32px] flex flex-col lg:px-2">
-                <h2 className=" border-white font-bold text-[26px] pb-2" style={playFair.style}>
+                <h2
+                  className=" border-white font-bold text-[26px] pb-2"
+                  style={playFair.style}
+                >
                   Quick Link
                 </h2>
                 <hr className="w-12 pb-6  font-extrabold"></hr>
-                <div className="flex flex-col gap-4 md:justify-between h-full text-[16px]  "style={poppins.style}>
+                <div
+                  className="flex flex-col gap-4 md:justify-between h-full text-[16px]  "
+                  style={poppins.style}
+                >
                   <h3 className="hover:text-[#029e9d]">About Us</h3>
                   <h3 className="hover:text-[#029e9d]">Delivery Information</h3>
                   <h3 className="hover:text-[#029e9d]">Privacy Policy</h3>
@@ -264,7 +268,10 @@ const FooterPart = () => {
               </div>
 
               <div className="mb-[32px] flex flex-col lg:px-2">
-                <h2 className="  border-white font-bold text-[26px] pb-2" style={playFair.style}>
+                <h2
+                  className="  border-white font-bold text-[26px] pb-2"
+                  style={playFair.style}
+                >
                   Categories
                 </h2>
                 <hr className="w-12 pb-6 font-extrabold"></hr>
@@ -279,7 +286,10 @@ const FooterPart = () => {
               </div>
 
               <div className="mb-[32px] flex flex-col  lg:px-2">
-                <h2 className="  border-white text-[26px] font-bold pb-2" style={playFair.style}>
+                <h2
+                  className="  border-white text-[26px] font-bold pb-2"
+                  style={playFair.style}
+                >
                   Newsletter
                 </h2>
                 <hr className="w-12 pb-6 font-extrabold"></hr>
@@ -306,7 +316,9 @@ const FooterPart = () => {
             </div>
             <div className="grid-width lg:grid grid-cols-4 px-2 justify-between items-center text-white">
               <div className="flex justify-start md:justify-center lg:justify-start">
-                <h3 className="text-[16px] " style={poppins.style}>We Support : </h3>
+                <h3 className="text-[16px] " style={poppins.style}>
+                  We Support :{" "}
+                </h3>
                 <div className="flex gap-4 items-center">
                   <i className="fa-brands fa-cc-paypal"></i>
                   <FontAwesomeIcon icon={faCcMastercard} />
@@ -344,7 +356,10 @@ const FooterPart = () => {
               </div>
             </div>
             <div className="flex flex-col py-5 md:px-6 rounded-xl mt-6 bg-[#fbfbfb12] md:flex-row justify-between  text-white">
-              <div className="flex justify-center items-center text-[16px]" style={poppins.style}  >
+              <div
+                className="flex justify-center items-center text-[16px]"
+                style={poppins.style}
+              >
                 <h3>2022 Travelin. All rights reserved.</h3>
               </div>
               <div className="flex gap-5 justify-center items-center">

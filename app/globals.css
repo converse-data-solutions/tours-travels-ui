@@ -24,7 +24,6 @@
 }
 
 :root {
-  
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -261,8 +260,7 @@ body {
 }
 
 .bullet-list li:hover
-/* li:hover */
- {
+/* li:hover */ {
   color: #029e9d;
   list-style-type: disc;
 }
@@ -334,8 +332,6 @@ li {
 .formshadow {
   box-shadow: 0px 0px 4px 2px rgba(194, 191, 191, 0.1);
 }
-
-
 
 .custom-file-input-button,
 .custom-file-input-button2 {
@@ -755,13 +751,12 @@ body {
   left: 0;
 }
 
-
 .travel-perfection {
   background-image: url(../public/travelperfection2imagepart.png);
   background-repeat: no-repeat;
   background-size: contain;
   position: relative;
-  background-color:rgba(255, 255, 255, 0.356);
+  background-color: rgba(255, 255, 255, 0.356);
 
   filter: brightness(96.5%);
   background-position: 50% center;
@@ -883,29 +878,24 @@ body {
 }
 
 .static-reviews {
-  height: 16px; 
+  height: 16px;
   display: flex;
-  
 }
 
 .filled-section {
-  background-color:#029e9d;
+  background-color: #029e9d;
 }
 
 .unfilled-section {
   background-color: #e9ecef;
 }
 
- .hoveredCard:hover .text-custom-color,
+.hoveredCard:hover .text-custom-color,
 .hoveredCard:hover .text-black,
 .hoveredCard:hover .text-gray-500 {
   color: white !important;
 }
 
-
-
-
-
-.anome{
+.anome {
   position: relative;
 }

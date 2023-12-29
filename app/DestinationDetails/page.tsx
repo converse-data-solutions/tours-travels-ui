@@ -45,7 +45,7 @@ const DestinationDetailsPage = () => {
                 className="text-white text-center text-[26px] lg:text-[56px] font-semibold"
                 style={{ ...playFair.style }}
               >
-               BANGKOK - THAILAND
+                BANGKOK - THAILAND
               </div>
               <div
                 className="text-center text-[16px]"
@@ -70,13 +70,12 @@ const DestinationDetailsPage = () => {
               <BackgroundShape />
             </div>
 
-
             <div className="">
-            <div className="px-4 md:px-10"><DestinationLeftSide/></div>
-            <div></div>
+              <div className="px-4 md:px-10">
+                <DestinationLeftSide />
+              </div>
+              <div></div>
             </div>
-
-            
 
             <div className="">
               <ScrollDetailsComponent />

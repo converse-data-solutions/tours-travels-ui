@@ -1,10 +1,6 @@
-
-
-
 "use client";
 import React, { useState, useEffect } from "react";
 import CountyCard from "@/app/components/ClientComponets/CountryCard";
-
 
 import { Playfair_Display, Poppins } from "next/font/google";
 import { CountryGridCard } from "@/app/components/ClientComponets/CountryGridCard";
@@ -68,21 +64,20 @@ const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({ params }) => {
   }, []);
 
   const filteredData = data.filter(
-    (item) => item.country.toLowerCase() === countryName.toLowerCase()
+    (item) => item.country.toLowerCase() === countryName.toLowerCase(),
   );
 
   return (
     <>
-      <div >
-        
-          
-         
-            {filteredData.map((item) => (
-              <div className="py-7 relative xl:top-[-250px]"><CountyCard key={item.id} item={item} /></div>
-            ))}
+      <div>
+        {filteredData.map((item) => (
+          <div className="py-7 relative xl:top-[-250px]">
+            <CountyCard key={item.id} item={item} />
           </div>
+        ))}
+      </div>
 
-          {/* <div>
+      {/* <div>
         
           
          
@@ -90,16 +85,6 @@ const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({ params }) => {
               <div className="py-7 relative xl:top-[-250px]"><CountryGridCard  item={item} /></div>
             ))}
           </div> */}
-
-
-
-          
-
-        
-          
-        
-      
-      
     </>
   );
 };

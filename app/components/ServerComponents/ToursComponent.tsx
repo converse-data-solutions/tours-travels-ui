@@ -1,5 +1,4 @@
-
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
 interface ToursComponentProps {
   number: number;
@@ -8,13 +7,13 @@ interface ToursComponentProps {
 
 const ToursComponent: FC<ToursComponentProps> = ({ number, label }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div style={{ marginRight: '10px' }}>
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ marginRight: "10px" }}>
         <input type="checkbox" />
       </div>
       <div>
         <span>{label}</span>
-        <span style={{ marginLeft: '5px' }}>{number}</span>
+        <span style={{ marginLeft: "5px" }}>{number}</span>
       </div>
     </div>
   );
