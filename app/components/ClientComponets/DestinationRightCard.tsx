@@ -4,9 +4,6 @@ import Image from "next/image";
 import img from "../../../public/subdestination3.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import { faCalendarAlt, faStar } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { Playfair_Display, Poppins } from "next/font/google";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 

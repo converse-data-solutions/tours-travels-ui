@@ -18,7 +18,7 @@ import img2 from "../../../public/4f7af96819b05591c4ce89017ccb40db.png";
 import img3 from "../../../public/images.jpeg";
 import { Poppins, Playfair_Display } from "next/font/google";
 import AnimationPart from "./FooterAnimation";
-import Particles from "react-tsparticles";
+
 
 import {
   faCcDiscover,
@@ -68,7 +68,7 @@ const FooterPart = () => {
 
   return (
     <div>
-      <div className="flex z-40 relative">
+      <div className="flex z-40 relative ">
         <Image
           src={backgroundimage}
           className="bg-[#17233E] w-[33.33%] relative top-1 "
@@ -92,7 +92,7 @@ const FooterPart = () => {
         </div>
 
         <div className="w-full lg:max-w-[1290px] grid grid-cols-1 ">
-          <div className="bg-[#17233E] h-[131px] md:h-[195px] lg:h-[97px] xl:h-[135px] ">
+          <div className="bg-[#17233E] h-[131px] md:h-[195px] lg:h-[97px] xl:h-[135px] xl:mb-8 ">
             <Swiper
               slidesPerView={windowWidth}
               spaceBetween={30}
@@ -191,6 +191,8 @@ const FooterPart = () => {
                 </div>{" "}
               </SwiperSlide>
             </Swiper>
+            
+            
             <div className="flex justify-center relative z-10 top-[-70%] md:top-[-60%] lg:top-[-70%] xl:top-[-76%] outline-[3px] outline-black   m-[2px]">
               <div className="border-2 border-white p-1 rounded-lg">
                 <button className="bg-slate-50 text-Play-fair rounded-lg gap-1 flex items-center px-5 py-2">
@@ -204,6 +206,7 @@ const FooterPart = () => {
           </div>
         </div>
       </div>
+      
       <div className="bg-[#17233E] h-[1630px] md:h-[1000px]  blueBackground lg:h-[620px] lg:overflow-hidden">
         <div
           className="background-travelers  grid grid-cols-1 p-4 justify-items-center "

@@ -91,7 +91,7 @@ export default function BlogOffersCard() {
         <div
           key={item.id}
           className={`
-  rounded-lg shadow-lg last-deal card-hover btn-fromLeft card-line overflow-hidden
+  rounded-lg shadow-sm last-deal card-hover btn-fromLeft card-line overflow-hidden
   ${hoveredItemId === item.id ? "lastminuteimg-hover" : ""}
   ${index === 0 ? "md:col-span-full" : "md:col-span-1"}
   lg:col-span-1 xl:col-span-1

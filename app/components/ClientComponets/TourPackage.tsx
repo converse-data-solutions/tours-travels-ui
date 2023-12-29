@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image";
 import img from "../../../public/TourPackageimg.jpg";
 import { useState, useEffect } from "react";
-import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Playfair_Display, Poppins } from "next/font/google";

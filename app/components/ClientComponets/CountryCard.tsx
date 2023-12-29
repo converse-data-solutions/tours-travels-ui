@@ -1,8 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Poppins, Playfair_Display } from "next/font/google";
 import { SlLocationPin } from "react-icons/sl";

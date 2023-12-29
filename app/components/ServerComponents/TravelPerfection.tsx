@@ -10,9 +10,9 @@ const poppins = Poppins({
 
 const TravelPerfection = () => {
   return (
-    <div className="">
+    <div className="bg-transparent">
       <br></br>
-      <div className="flex flex-col items-center justify-center bg-white">
+      <div className="flex flex-col items-center justify-center">
         <div
           className="text-[#FDC703] text-[22px] font-bold"
           style={playFair.style}

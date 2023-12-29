@@ -68,13 +68,14 @@ const Page = () => {
             <OutlinedCard />
           </div>
         </div>
-        <br className="lg:hidden"></br>
-        <br></br>
+        <br className=""></br>
+        
         <div className="Destination-background">
           <div className="lg:px-[20%] ">
             <TopDestinations />
           </div>
-          <br className="lg:hidden"></br>
+          <br className=""></br>
+         
           <div className=" flex flex-col lg:flex-row h-full w-full px-4 py-2 lg:py-0 lg:px-[5%] xl:pl-[16%]  xl:pr-[12%]">
             <div className="w-full lg:w-8/12 md:mx-[5%] lg:mx-0 xl:w-full">
               <DestinationCard />
@@ -86,11 +87,11 @@ const Page = () => {
         </div>
         <br className=""></br>
         <br className=""></br>
-        <br className="lg:hidden"></br>
+        <br className=""></br>
         <div className=" ">
           <BestTourPackages />
         </div>
-        <br className="lg:hidden"></br>
+        <br className=""></br>
         <div className=" px-4 md:px-[7%] lg:px-[5%] xl:px-[16%] ">
           <TourPackageCard />
         </div>
@@ -102,17 +103,20 @@ const Page = () => {
             View All Packages
           </button>
         </div>
+        <br className="hidden lg:block"></br>
         <div className="last-minute-deals ">
           <div>
             <LastMinuteDeals />
           </div>
-          <br className="lg:hidden"></br>
+          <br className=""></br>
 
           <div className="md:px-[6%] lg:px-[4%]   xl:pl-[15%] xl:pr-[16%] pb-10 lg:pb-0">
             <DealsForLastMinute />
           </div>
           <br></br>
+         
         </div>
+
         <div className="getToKnowUs lg:h-[90%]">
           <div className="flex flex-col lg:flex-row  xl:mx-[15%]  xl:mt-10">
             <div className=" w-full lg:w-6/12  lg:px-4 xl:mt-[11%]">
@@ -132,7 +136,7 @@ const Page = () => {
         <div>
           <TourGuidesHeading />
         </div>
-
+        <br></br>
         <div className=" lg:px-[5%] xl:px-[16%]">
           <TourGuideSlider />
         </div>
@@ -152,15 +156,16 @@ const Page = () => {
         <div>
           <BackgroundShape />
         </div>
-
+       <br></br>
         <div className="bg-white relative top-[-70px] lg:top-[-80px]">
           <OurTestimonails />
         </div>
-        <br></br>
+        
         <div className=" px-4 lg:px-[5%] xl:px-[12%]">
           <OurTestimonailsSlider />
         </div>
-
+        <br className="hidden lg:block"></br>
+        <br className="hidden lg:block"></br>
         <br></br>
         <div>
           <BlogOffersHead />
@@ -169,7 +174,7 @@ const Page = () => {
         <div className=" px-4 xl:px-[16%]">
           <BlogOffersCard />
         </div>
-
+        <br className="hidden lg:block"></br>
         <br></br>
         <div className="pb-6">
           <OurPartnersHeading />
