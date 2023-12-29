@@ -2,12 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LargeScreenDropdown } from "./LargeScreenDropDown";
 import { HomeDropDown } from "./HomePageDropDown";
 
-import {
-  
-  faTwitter,
-  faInstagram,
-
-} from "@fortawesome/free-brands-svg-icons";
+import { faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Poppins } from "next/font/google";
 
 import { FaFacebook } from "react-icons/fa6";
