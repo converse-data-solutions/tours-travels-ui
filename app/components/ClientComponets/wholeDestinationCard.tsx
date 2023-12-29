@@ -63,60 +63,49 @@ export default function WholeDestinationCard() {
       });
   }, []);
 
-
-
-  
-
-
   return (
     <>
-   
-    <div className="grid grid-cols-1 px-4 md:grid-cols-2 lg:grid-cols-3  gap-7 ">
-      {visibleCountries.map(([country, data]) => (
-        
-        <Link href={`/destinationList/${country}`}>
-        <div
-        className="w-full"
-        key={country}
-      >
-          <div className="zoom-effect-container rounded-lg">
-            <Image
-              src={img}
-              className="w-full h-auto rounded-lg destination-card"
-              height={100}
-              width={1000}
-              alt="Image"
-            />
-          </div>
-          <div className="h-0">
-            <div className="relative top-[-100px] flex flex-row justify-between px-7">
-              <div className="flex flex-col">
-                <div
-                  className="text-[20px] font-bold text-[#FDC703]"
-                  style={playFair.style}
-                >
-                  {country}
-                </div>
-                <div
-                  className="text-white text-[26px] font-bold"
-                  style={playFair.style}
-                >
-                  {data.states[0]}
-                </div>
+      <div className="grid grid-cols-1 px-4 md:grid-cols-2 lg:grid-cols-3  gap-7 ">
+        {visibleCountries.map(([country, data]) => (
+          <Link href={`/destinationList/${country}`}>
+            <div className="w-full" key={country}>
+              <div className="zoom-effect-container rounded-lg">
+                <Image
+                  src={img}
+                  className="w-full h-auto rounded-lg destination-card"
+                  height={100}
+                  width={1000}
+                  alt="Image"
+                />
               </div>
-              <div className="items-center flex">
-                <button
-                  className="text-white bg-[#029E9D] rounded-lg font-bold px-2 py-1"
-                  style={poppins.style}
-                >{`${data.count} Tours`}</button>
+              <div className="h-0">
+                <div className="relative top-[-100px] flex flex-row justify-between px-7">
+                  <div className="flex flex-col">
+                    <div
+                      className="text-[20px] font-bold text-[#FDC703]"
+                      style={playFair.style}
+                    >
+                      {country}
+                    </div>
+                    <div
+                      className="text-white text-[26px] font-bold"
+                      style={playFair.style}
+                    >
+                      {data.states[0]}
+                    </div>
+                  </div>
+                  <div className="items-center flex">
+                    <button
+                      className="text-white bg-[#029E9D] rounded-lg font-bold px-2 py-1"
+                      style={poppins.style}
+                    >{`${data.count} Tours`}</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        </Link>
-      ))}
-    </div>
-    
+          </Link>
+        ))}
+      </div>
     </>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Playfair_Display, Poppins } from "next/font/google";
 const playFair = Playfair_Display({
   subsets: ["latin"],
-  weight:'600'
+  weight: "600",
 });
 
 const poppins = Poppins({

@@ -6,8 +6,7 @@ import CardContent from "@mui/material/CardContent";
 
 import { SlCompass, SlFlag, SlLocationPin } from "react-icons/sl";
 import { SlDirections } from "react-icons/sl";
-import { Playfair_Display,Poppins } from "next/font/google";
-
+import { Playfair_Display, Poppins } from "next/font/google";
 
 interface CustomCardProps {
   title: string;
@@ -15,19 +14,17 @@ interface CustomCardProps {
   definition: string;
   icon: React.ReactElement;
 }
-const playFair=Playfair_Display({
-  subsets:["latin"]
-})
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+});
 
-const poppins=Poppins({
-  subsets:["latin"],
-  weight:'400',
-  
-})
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 const iconStyle = {
   fontSize: "55px",
 };
-
 
 const CustomCard: React.FC<CustomCardProps> = ({
   title,
@@ -41,16 +38,21 @@ const CustomCard: React.FC<CustomCardProps> = ({
         <CardContent sx={{ paddingX: "10px" }}>
           <br></br>
 
-           <div className="text-custom-color  hover:text-white font-thin">
+          <div className="text-custom-color  hover:text-white font-thin">
             {icon}
-          </div> 
-           
+          </div>
 
-          <div className=" text-[22px] text-black font-sans  pb-4 hover:text-white hoveredCard font-bold" style={playFair.style}>
+          <div
+            className=" text-[22px] text-black font-sans  pb-4 hover:text-white hoveredCard font-bold"
+            style={playFair.style}
+          >
             {title}
           </div>
           {/*  */}
-          <div className="text-[16px] text-gray-500 hover:text-white" style={poppins.style}>
+          <div
+            className="text-[16px] text-gray-500 hover:text-white"
+            style={poppins.style}
+          >
             {definition}
           </div>
           {/*  */}
@@ -99,7 +101,7 @@ const cardsData = [
       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
 
     reviewlabel: "100 + Reviews",
-    icon: <SlCompass  className=" mb-2 mt-3 font-thin text-[55px]"/>,
+    icon: <SlCompass className=" mb-2 mt-3 font-thin text-[55px]" />,
   },
 ];
 

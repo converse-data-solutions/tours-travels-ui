@@ -110,4 +110,3 @@ const AnimationPart = () => {
 };
 
 export default AnimationPart;
-

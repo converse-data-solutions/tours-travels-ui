@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,7 +21,6 @@ const SearchSelectDropDown = (props: any) => {
     required,
   } = props;
 
-  
   const menuHoverStyles = {
     "&:hover": {
       color: "black",
@@ -31,7 +29,7 @@ const SearchSelectDropDown = (props: any) => {
 
   const selectStyles = {
     "&:focus": {
-      borderColor: "black !important", 
+      borderColor: "black !important",
     },
   };
 
@@ -57,7 +55,7 @@ const SearchSelectDropDown = (props: any) => {
               vertical: "top",
               horizontal: "left",
             },
-           
+
             sx: {
               "&:hover": {
                 color: "black",

@@ -1,12 +1,10 @@
-
 "use client";
-import React, { useState } from 'react';
-import { Poppins } from 'next/font/google'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { BsGrid3X3GapFill } from 'react-icons/bs';
-import SearchSelectDropDown from '../CommonComponents/SearchSelectDropdown';
-
+import React, { useState } from "react";
+import { Poppins } from "next/font/google";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { BsGrid3X3GapFill } from "react-icons/bs";
+import SearchSelectDropDown from "../CommonComponents/SearchSelectDropdown";
 
 interface Filter {
   filter: any;
@@ -17,13 +15,13 @@ interface GridAndFilterProps {
 }
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: '400',
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const GridAndFilter: React.FC<GridAndFilterProps> = ({ onButtonClick }) => {
   const [data, setData] = useState<Filter>({
-    filter: '',
+    filter: "",
   });
   const [isBarsButtonClicked, setIsBarsButtonClicked] = useState(true);
   const [isGridButtonClicked, setIsGridButtonClicked] = useState(false);
@@ -36,81 +34,73 @@ const GridAndFilter: React.FC<GridAndFilterProps> = ({ onButtonClick }) => {
   };
 
   const handleBarsButtonClick = () => {
-   
     setIsBarsButtonClicked(true);
     setIsGridButtonClicked(false);
-    onButtonClick('bars');
-
-    
-  
+    onButtonClick("bars");
   };
 
   const handleGridButtonClick = () => {
     setIsBarsButtonClicked(false);
     setIsGridButtonClicked(true);
-    onButtonClick('grid');
-    
+    onButtonClick("grid");
   };
 
-
   return (
-    <div className='w-[100%]'>
-    <div className='flex flex-row  justify-between w-full'>
-      <div className='text-[16px] text-[#777777]' style={poppins.style}>
-        Showing 1-5 of 80 results
-      </div>
-      <div className='flex gap-4 justify-end items-center'>
-
-      <div>
-      <button
+    <div className="w-[100%]">
+      <div className="flex flex-row  justify-between w-full">
+        <div className="text-[16px] text-[#777777]" style={poppins.style}>
+          Showing 1-5 of 80 results
+        </div>
+        <div className="flex gap-4 justify-end items-center">
+          <div>
+            <button
               onClick={handleBarsButtonClick}
               className={`${
                 isBarsButtonClicked
-                  ? 'text-white bg-yellow-500 px-3 py-2 rounded-lg'
-                  : 'text-[#777777] hover:text-[#029e9d] px-2 py-1 rounded transition-all duration-300'
+                  ? "text-white bg-yellow-500 px-3 py-2 rounded-lg"
+                  : "text-[#777777] hover:text-[#029e9d] px-2 py-1 rounded transition-all duration-300"
               } text-[16px]`}
             >
               <FontAwesomeIcon icon={faBars} />
             </button>
-      </div>
+          </div>
 
-      <div>
-      <button
+          <div>
+            <button
               onClick={handleGridButtonClick}
               className={`${
                 isGridButtonClicked
-                  ? 'text-white bg-yellow-500 p-3 rounded-lg'
-                  : 'text-[#777777] hover:text-[#029e9d]  px-2 py-1 rounded transition-all duration-300'
+                  ? "text-white bg-yellow-500 p-3 rounded-lg"
+                  : "text-[#777777] hover:text-[#029e9d]  px-2 py-1 rounded transition-all duration-300"
               } text-[16px]`}
             >
               <BsGrid3X3GapFill />
             </button>
-      </div>
+          </div>
 
-      <div>
-        <SearchSelectDropDown
-          value={data.filter}
-          onChange={handleChange}
-          options={[
-            { value: 'Kerala', label: 'Kerala' },
-            { value: 'Average rating', label: 'Average rating' },
-            { value: 'Price:low to high', label: 'Price:low to high' },
-            { value: 'Price:high to low', label: 'Price:high to low' },
-          ]}
-          displayEmpty
-          placeholder='Sort By '
-          required
-          width='100%'
-          className='text-[15px] hover:text-white'
-          style={poppins.style}
-        />
-      </div>
+          <div>
+            <SearchSelectDropDown
+              value={data.filter}
+              onChange={handleChange}
+              options={[
+                { value: "Kerala", label: "Kerala" },
+                { value: "Average rating", label: "Average rating" },
+                { value: "Price:low to high", label: "Price:low to high" },
+                { value: "Price:high to low", label: "Price:high to low" },
+              ]}
+              displayEmpty
+              placeholder="Sort By "
+              required
+              width="100%"
+              className="text-[15px] hover:text-white"
+              style={poppins.style}
+            />
+          </div>
 
-     
-      <div></div>
-      <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

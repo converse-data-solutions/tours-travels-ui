@@ -21,8 +21,7 @@ const SearchDropDown = (props: any) => {
     placeholder,
     required,
   } = props;
-  
-  
+
   return (
     <div>
       <FormControl sx={{ minWidth: "100%" }}>
@@ -36,7 +35,6 @@ const SearchDropDown = (props: any) => {
           inputProps={{ "aria-label": ariaLabel }}
           required
           className={`border-[1px] border-[hsl(0,100%,99%)]  rounded-lg h-[50px] w-full pl-2 }`}
-
           MenuProps={{
             anchorOrigin: {
               vertical: "bottom",
@@ -45,21 +43,20 @@ const SearchDropDown = (props: any) => {
             transformOrigin: {
               vertical: "top",
               horizontal: "left",
-            }
-           
+            },
           }}
           sx={{
             "&:focus": {
-              borderColor: "gray !important", 
+              borderColor: "gray !important",
               "& fieldset": {
-                borderColor: "white!important", 
+                borderColor: "white!important",
                 borderWidth: "1px !important",
               },
             },
             "&.Mui-focused": {
-              borderColor: "gray !important", 
+              borderColor: "gray !important",
               "& fieldset": {
-                borderColor: "white!important", 
+                borderColor: "white!important",
                 borderWidth: "1px !important",
               },
             },

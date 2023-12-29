@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 import Image from "next/image";
 import img from "../../../public/Tourguideimage.jpg";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { Playfair_Display,Poppins } from "next/font/google";
+import { Playfair_Display, Poppins } from "next/font/google";
 
 interface UserData {
   id: number;
@@ -20,19 +20,18 @@ interface UserData {
   role_id: number;
 }
 
-const playFair=Playfair_Display({
-  subsets:["latin"]
+const playFair = Playfair_Display({
+  subsets: ["latin"],
 });
-const poppins=Poppins({
-  subsets:["latin"],
-  weight:'400'
-})
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export default function TourGuideSlider() {
   const [windowWidth, setWindowWidth] = useState(4);
   const [data, setData] = useState<UserData[]>([]);
 
-  
   useEffect(() => {
     const handleResize = () => {
       let screenWidth = window.innerWidth;
@@ -48,17 +47,14 @@ export default function TourGuideSlider() {
       }
     };
 
-    
     window.addEventListener("resize", handleResize);
 
-    
     handleResize();
 
-    
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");

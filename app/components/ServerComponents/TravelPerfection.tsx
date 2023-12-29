@@ -1,23 +1,22 @@
 import React from "react";
-import { Playfair_Display,Poppins } from "next/font/google";
-const playFair=Playfair_Display({
-  subsets:["latin"],
-
-})
-const poppins=Poppins({
-  subsets:["latin"],
-  weight: '400'
-
-})
-
-
+import { Playfair_Display, Poppins } from "next/font/google";
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+});
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const TravelPerfection = () => {
   return (
     <div className="">
       <br></br>
       <div className="flex flex-col items-center justify-center bg-white">
-        <div className="text-[#FDC703] text-[22px] font-bold" style={playFair.style}>
+        <div
+          className="text-[#FDC703] text-[22px] font-bold"
+          style={playFair.style}
+        >
           Core Feautures
         </div>
         <div className="lg:px-[15%] text-center">
@@ -28,7 +27,10 @@ const TravelPerfection = () => {
             Travel Perfection
           </span>
         </div>
-        <div className="text-[#777777] text-[16px] lg:text-[18px] font-serif px-8 md:px-10 items-center text-center xl:px-[18%]" style={poppins.style}>
+        <div
+          className="text-[#777777] text-[16px] lg:text-[18px] font-serif px-8 md:px-10 items-center text-center xl:px-[18%]"
+          style={poppins.style}
+        >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore.
         </div>
