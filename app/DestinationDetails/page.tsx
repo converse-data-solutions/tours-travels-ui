@@ -12,6 +12,7 @@ import VideoPart from "../homepage/VideoPart";
 import OurPartnersHeading from "../components/ServerComponents/OurPartnersHeading";
 import PartnersHeading from "../homepage/OurPartners";
 import FooterPart from "../components/CommonComponents/FooterPart";
+import DestinationLeftSide from "../components/ServerComponents/DestinationLeftSide";
 
 const playFair = Playfair_Display({
   subsets: ["latin"],
@@ -22,11 +23,10 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-const DestinationListPage = () => {
+const DestinationDetailsPage = () => {
   return (
     <>
-      <div className="Destination-part  ">
-        <div className="z-40 bg-white relative">
+      <div className="Destination-part">
         <div className="">
           <Image
             height={100}
@@ -35,17 +35,17 @@ const DestinationListPage = () => {
             alt=""
             className=" h-[80vh] w-[100%]  lg:h-[130vh] lg:w-screen z-[-10] fixed top-[45px] brightness-[40%]"
           />
-          <div className="z-40 bg-white relative ">
+          <div className=" bg-white ">
             <HomePage />
           </div>
 
-          <div className="lg:h-full h-[320px]  lg:py-[10%] w-full flex justify-center items-center xl:py-[5.6%] ">
+          <div className="lg:h-full h-[320px]  lg:py-[10%] w-full flex justify-center items-center xl:py-[6%]">
             <div className="flex-col">
               <div
                 className="text-white text-center text-[26px] lg:text-[56px] font-semibold"
                 style={{ ...playFair.style }}
               >
-                DESTINATION LIST
+               BANGKOK - THAILAND
               </div>
               <div
                 className="text-center text-[16px]"
@@ -65,19 +65,20 @@ const DestinationListPage = () => {
             </div>
           </div>
 
-          <div className="bg-white z-40 relative">
-            <div className="relative md:top-[-20px] lg:top-[35px] xl:top-[10px]">
+          <div className="bg-white">
+            <div className="relative top-[13px] md:top-[-20px] lg:top-[35px] xl:top-[0px]">
               <BackgroundShape />
             </div>
 
-            <div className="xl:px-[20%] xl:top-[-50px] xl:relative">
-              <TopDestinations />
-            </div>
-            <div className="xl:px-[16%]">
-              <WholeDestinationCard />
+
+            <div className="">
+            <div className="px-4 md:px-10"><DestinationLeftSide/></div>
+            <div></div>
             </div>
 
-            <div>
+            
+
+            <div className="">
               <ScrollDetailsComponent />
             </div>
             <div>
@@ -93,7 +94,7 @@ const DestinationListPage = () => {
               <BackgroundShape />
             </div>
             <br></br>
-            <div>
+            <div className="z-0">
               <OurPartnersHeading />
             </div>
             <div className="h-70px">
@@ -101,8 +102,7 @@ const DestinationListPage = () => {
             </div>
             <br></br>
             <br></br>
-            </div>
-            <footer className="z-0 relative top-[-5px]">
+            <footer>
               <FooterPart />
             </footer>
           </div>
@@ -112,4 +112,4 @@ const DestinationListPage = () => {
   );
 };
 
-export default DestinationListPage;
+export default DestinationDetailsPage;

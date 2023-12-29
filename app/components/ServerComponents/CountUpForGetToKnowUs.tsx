@@ -22,7 +22,7 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={20} duration={10} />
         </span>
-        <p className="text-gray-500  text-[18px]" style={poppins.style}>
+        <p className="text-gray-500 text-[16px] lg:text-[18px]" style={poppins.style}>
           Years Experiences
         </p>
       </div>
@@ -32,9 +32,9 @@ const CountUpForGetToKnowUs = () => {
           className="text-[#029e9d] text-[50px] font-semibold"
           style={playFair.style}
         >
-          <CountUpComponent end={530} duration={3} />
+          <CountUpComponent end={344} duration={3} />
         </span>
-        <p className="text-gray-500  text-[18px]" style={poppins.style}>
+        <p className="text-gray-500  text-[16px] lg:text-[18px]" style={poppins.style}>
           Tour Packages
         </p>
       </div>
@@ -46,7 +46,7 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={850} duration={10} />
         </span>
-        <p className="text-gray-500  text-[18px]" style={poppins.style}>
+        <p className="text-gray-500  text-[16px] lg:text-[18px]" style={poppins.style}>
           Happy Customers
         </p>
       </div>
@@ -58,7 +58,7 @@ const CountUpForGetToKnowUs = () => {
         >
           <CountUpComponent end={320} duration={3} />
         </span>
-        <p className="text-gray-500  text-[18px]" style={poppins.style}>
+        <p className="text-gray-500  text-[16px] lg:text-[18px]" style={poppins.style}>
           Award Winning
         </p>
 

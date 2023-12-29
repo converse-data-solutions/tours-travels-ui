@@ -9,6 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SignInAndSignOut from "../../SignInAndSignOut";
 import Image from "next/image";
+import { Poppins } from "next/font/google";
+
+const poppins=Poppins({
+  weight:'400',
+  subsets:["latin"]
+
+})
 
 export const LargeScreenDropdown = () => {
   const [isPageDetailsVisible, setIsPageDetailsVisible] = useState(false);
@@ -61,7 +68,7 @@ export const LargeScreenDropdown = () => {
   };
   return (
     <div className="hidden lg:block " onMouseLeave={hideDropdowns}>
-      <div className=" flex flex-wrap justify-between xl:px-[30vh]">
+      <div className=" flex flex-wrap justify-between xl:px-[30vh]" style={poppins.style}>
         <div>
           <Image
             src={travelinImage}

@@ -22,12 +22,12 @@ const CardDetails: React.FC<{ item: UserData }> = ({ item }) => (
       {item.country}
     </div>
     <div className="font-serif font-semibold text-2xl pb-1">{item.state}</div>
-    <div className="text-[#fbbc06] lg:text-xl pb-1  ">
+    <div className="text-[#fbbc06]  pb-1">
       {[...Array(5)].map((_, index) => (
         <FontAwesomeIcon
           key={index}
           icon={index < item.id ? faStar : ["far", "star"]}
-          style={{ color: "#fbbc06", gap: "1" }}
+          style={{ color: "#fbbc06", marginRight: "4px" }}
         />
       ))}
       <span className="text-gray-700 text-xl">(12)</span>

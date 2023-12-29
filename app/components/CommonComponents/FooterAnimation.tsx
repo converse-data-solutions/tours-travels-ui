@@ -54,7 +54,7 @@ const AnimationPart = () => {
               },
               repulse: {
                 distance: 200,
-                duration: 2,
+                duration: 10,
               },
             },
           },
@@ -76,7 +76,7 @@ const AnimationPart = () => {
                 default: "bounce",
               },
               random: false,
-              speed: 6,
+              speed: 3,
               straight: false,
             },
             number: {
@@ -101,7 +101,7 @@ const AnimationPart = () => {
               value: particleSize,
             },
           },
-          zIndex: -10,
+          zIndex: 10,
           detectRetina: true,
         }}
       />
@@ -110,3 +110,4 @@ const AnimationPart = () => {
 };
 
 export default AnimationPart;
+

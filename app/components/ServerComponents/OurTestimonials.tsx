@@ -1,11 +1,12 @@
 import { Playfair_Display, Poppins } from "next/font/google";
 const playFair = Playfair_Display({
   subsets: ["latin"],
+  weight:'600'
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: "400",
+  weight: "300",
 });
 
 const OurTestimonails = () => {
@@ -34,7 +35,7 @@ const OurTestimonails = () => {
           </span>
         </div>
         <div
-          className="text-[#777777] text-[18px] font-serif px-8 md:px-20 items-center text-center"
+          className="text-[#777777] text-[16px] font-serif px-8 md:px-20 items-center text-center"
           style={poppins.style}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

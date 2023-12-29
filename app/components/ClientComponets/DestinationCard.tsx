@@ -73,7 +73,7 @@ export const DestinationCard = () => {
               />
             </div>
             <div className="h-0">
-              <div className="relative top-[-100px] flex flex-row justify-between px-6 ">
+              <div className="relative top-[-100px] flex flex-row justify-between px-6 md:pl-10 md:pr-16 lg:px-6 ">
                 <div className="flex flex-col ">
                   <div
                     className="text-[18px] text-[#FDC703] font-bold"

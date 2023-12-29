@@ -67,7 +67,7 @@ export default function SubDestinationCard() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2  gap-7 xl:w-[99.5%]">
+    <div className="grid grid-cols-1 md:grid-cols-2  gap-7 xl:w-[100%] xl:h-[80%]">
       {visibleCountries.map(([country, data]) => (
         <div className="w-full" key={country}>
           <div className="zoom-effect-container rounded-lg">
@@ -80,7 +80,7 @@ export default function SubDestinationCard() {
             />
           </div>
           <div className="h-0">
-            <div className="relative top-[-100px] flex flex-row justify-between px-7">
+            <div className="relative top-[-100px] flex flex-row justify-between px-7  lg:px-7">
               <div className="flex flex-col">
                 <div
                   className="text-[18px] text-[#FDC703] font-bold"
@@ -89,7 +89,7 @@ export default function SubDestinationCard() {
                   {country}
                 </div>
                 <div
-                  className="text-white text-[26px] font-bold"
+                  className="text-white  text-[21px] lg:text-[26px] font-bold"
                   style={playFair.style}
                 >
                   {data.states[0]}
