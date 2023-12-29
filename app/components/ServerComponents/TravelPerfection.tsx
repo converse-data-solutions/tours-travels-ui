@@ -20,10 +20,16 @@ const TravelPerfection = () => {
           Core Feautures
         </div>
         <div className="lg:px-[15%] text-center">
-          <span className="text-[#17233e] text-[28px] lg:text-[46px] font-serif pr-2 lg:pr-4 font-semibold lg:font-bold">
+          <span
+            className="text-[#17233e] text-[28px] lg:text-[46px] font-serif pr-2 lg:pr-4 font-semibold lg:font-bold"
+            style={playFair.style}
+          >
             Find
           </span>
-          <span className="text-[#029e9d] text-[28px]  lg:text-[46px] font-serif font-semibold ">
+          <span
+            className="text-[#029e9d] text-[28px]  lg:text-[46px] font-serif font-semibold "
+            style={playFair.style}
+          >
             Travel Perfection
           </span>
         </div>

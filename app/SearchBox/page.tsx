@@ -96,9 +96,9 @@ const SearchBox: React.FC = () => {
 
   return (
     <div className=" flex flex-col lg:flex-row w-full xl:h-[16vh] ">
-      <div className="w-full lg:w-1/5 bg-[#029e9d] rounded-t-lg lg:rounded-l-lg  lg:rounded-r-none flex px-4">
-        <div className="flex w-full  items-center justify-center py-7 lg:py-0">
-          <div className="text-white lg:w-4/12 flex justify-center ">
+      <div className="w-full lg:w-1/6 xl:1/5 bg-[#029e9d] rounded-t-lg lg:rounded-l-lg  lg:rounded-r-none flex px-4">
+        <div className="flex w-full  items-center justify-center py-7 lg:py-0 ">
+          <div className="text-white lg:w-3/12 xl:w-4/12 flex justify-center ">
             <SlLocationPin className="mb-3 lg:mb-0 text-[35px] lg:text-[45px]" />
           </div>
           <div>
@@ -114,7 +114,7 @@ const SearchBox: React.FC = () => {
       <div className=" flex flex-col lg:w-full lg:flex-row  shadow-sm bg-white p-4 lg:border  lg:border-solid-[1px] rounded-b-md lg:rounded-r-md  lg:rounded-l-none">
         <form className="bg-white lg:flex  items-center  xl:justify-between  lg:h-auto py-6  lg:rounded-r-lg xl:px-1 w-full">
           <div
-            className="flex gap-3 justify-around w-full flex-col lg:grid lg:grid-cols-5 text-[15px]"
+            className="flex gap-3 justify-around w-full lg:justify-between flex-col lg:grid  lg:grid-cols-5 text-[15px]"
             style={poppins.style}
           >
             <SearchSelectDropDown
@@ -131,7 +131,7 @@ const SearchBox: React.FC = () => {
               placeholder="Destination "
               required
               width="100%"
-              className="lg:w-3/12 text-[15px] hover:text-white"
+              className=" text-[15px] hover:text-white "
               style={poppins.style}
             />
 
@@ -157,7 +157,7 @@ const SearchBox: React.FC = () => {
               placeholder="Travel type "
               required
               width="100%"
-              className="border-[1px] border-gray-100 rounded-lg h-[50px] w-full lg:w-3/12"
+              className="border-[1px] border-gray-100 rounded-lg h-[50px] w-full "
               style={poppins.style}
             />
 
@@ -173,13 +173,13 @@ const SearchBox: React.FC = () => {
               placeholder=" Tour duration "
               required
               width="100%"
-              className="lg:w-3/12"
+              className=""
               style={poppins.style}
             />
 
             <button
               type="submit"
-              className="bg-[#029e9d] lg:min-w-fit px-10 text-white rounded-lg h-[50px] booking mb-[-15px] "
+              className="bg-[#029e9d] lg:w-full px-10 text-white rounded-lg h-[50px] booking mb-[-15px] "
             >
               <span className=" pr-2">
                 <FontAwesomeIcon icon={faSearch} className="text-white" />
