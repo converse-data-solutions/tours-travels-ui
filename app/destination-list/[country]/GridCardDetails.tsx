@@ -4,7 +4,8 @@ import CountyCard from "@/app/components/ClientComponets/CountryCard";
 
 import { Playfair_Display, Poppins } from "next/font/google";
 import { CountryGridCard } from "@/app/components/ClientComponets/CountryGridCard";
-
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { Category } from "@mui/icons-material";
 const playFair = Playfair_Display({
   subsets: ["latin"],
 });
@@ -26,16 +27,23 @@ interface UserData {
   state: string;
   price: string | number;
   published: number;
+  category: string;
 }
 
 interface CountyDetailsPageProps {
   params: {
     country: string;
   };
+  query?: {
+    category?: string | null;
+    duration?: string | null;
+    price?: string | null;
+  };
 }
 
 const CountryGridDetailsPage: React.FC<CountyDetailsPageProps> = ({
   params,
+  query,
 }) => {
   const [data, setData] = useState<UserData[]>([]);
   const countryName = params.country;
@@ -43,7 +51,22 @@ const CountryGridDetailsPage: React.FC<CountyDetailsPageProps> = ({
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/get`, {
+    let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/filter/${countryName}`;
+
+    if (query?.category) {
+      apiUrl += `?category=${query.category}`;
+    }
+
+    if (query?.duration) {
+      apiUrl += `${apiUrl.includes("?") ? "&" : "?"}days_and_night=${
+        query.duration
+      }`;
+    }
+    if (query?.price) {
+      apiUrl += `${apiUrl.includes("?") ? "&" : "?"}price=${query.price}`;
+    }
+
+    fetch(apiUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -63,20 +86,30 @@ const CountryGridDetailsPage: React.FC<CountyDetailsPageProps> = ({
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, []);
-
-  const filteredData = data.filter(
-    (item) => item.country.toLowerCase() === countryName.toLowerCase(),
-  );
+  }, [countryName, query?.category, query?.duration]);
 
   return (
     <>
-      <div className=" w-full grid lg:grid-cols-2 gap-8">
-        {filteredData.map((item) => (
-          <div className="py-7 relative xl:top-[-250px]">
+      <div className="w-full grid md:grid-cols-2 gap-8">
+        {data.map((item) => (
+          <div className="py-7 relative  xl:top-[-10px]" key={item.id}>
             <CountryGridCard item={item} />
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center">
+        <button
+          className="booking text-white px-5 py-3 rounded-lg"
+          style={poppins.style}
+        >
+          <div className="flex flex-row">
+            <div>Load More</div>
+            <div className="ml-1 mt-1">
+              <FaLongArrowAltRight />
+            </div>
+          </div>
+        </button>
       </div>
     </>
   );

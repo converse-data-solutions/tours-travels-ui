@@ -37,6 +37,7 @@ export default function TopdestinationRightCard() {
   const [visibleCountries, setVisibleCountries] = useState<
     [string, StateData][]
   >([]);
+  const [slidesPerView, setSlidesPerView] = useState<number>(1);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -66,6 +67,25 @@ export default function TopdestinationRightCard() {
       });
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width >= 768) {
+        setSlidesPerView(1);
+      } else {
+        setSlidesPerView(1);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="w-full">
       <div className="text-[26px] font-bold pb-2" style={playFair.style}>
@@ -84,7 +104,7 @@ export default function TopdestinationRightCard() {
 
       <br></br>
       <div className="w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 h-full">
+        <div className="grid grid-cols-1  gap-7 h-full">
           <Swiper
             spaceBetween={10}
             slidesPerView={1}
@@ -98,19 +118,19 @@ export default function TopdestinationRightCard() {
             modules={[Autoplay, Navigation]}
           >
             {visibleCountries.map(([country, data]) => (
-              <SwiperSlide key={country} className="h-full w-full">
+              <SwiperSlide key={country} className="h-full w-full ">
                 <div className="w-full h-full">
-                  <div className=" rounded-lg w-[100%]">
+                  <div className=" rounded-lg w-[100%] ">
                     <Image
                       src={img}
-                      className="w-full xl:w-[100%]   rounded-lg "
+                      className="w-full    rounded-lg  "
                       height={100}
                       width={1000}
                       alt="Image"
                     />
                   </div>
                   <div className="h-0">
-                    <div className="relative top-[-100px] flex flex-row justify-between px-7">
+                    <div className="relative top-[-80px] lg:top-[-100px] flex flex-row justify-between px-7">
                       <div className="flex flex-col">
                         <div
                           className="text-[18px] text-[#FDC703] font-bold"
@@ -119,7 +139,7 @@ export default function TopdestinationRightCard() {
                           {country}
                         </div>
                         <div
-                          className="text-white text-[26px] font-bold"
+                          className="text-white text-[22px] lg:text-[26px] font-bold"
                           style={playFair.style}
                         >
                           {data.states[0]}

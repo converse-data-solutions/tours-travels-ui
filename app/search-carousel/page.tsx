@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import img from "../../public/shape8.png";
-import SearchBox from "../SearchBox/page";
+import SearchBox from "../search-box/page";
 import { useSession } from "next-auth/react";
 
 const CarouselSearch = () => {

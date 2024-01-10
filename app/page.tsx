@@ -1,5 +1,5 @@
-import SearchBox from "./SearchBox/page";
-import CarouselSearch from "./SearchCarousel/page";
+import SearchBox from "./search-box/page";
+import CarouselSearch from "./search-carousel/page";
 import BestTourPackages from "./components/ServerComponents/BestTourPackage";
 import OutlinedCard from "./components/ServerComponents/CardComponent";
 import SubDestinationCard from "./components/ClientComponets/SubDestinationCard";

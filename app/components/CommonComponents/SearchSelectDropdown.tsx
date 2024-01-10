@@ -64,10 +64,18 @@ const SearchSelectDropDown = (props: any) => {
           }}
           sx={{
             "&:focus": {
-              borderColor: "black", // Outline color on selection and clicking
+              borderColor: "gray !important",
+              "& fieldset": {
+                borderColor: "white!important",
+                borderWidth: "1px !important",
+              },
             },
-            "&:hover": {
-              borderColor: "black", // Border color on hovering
+            "&.Mui-focused": {
+              borderColor: "gray !important",
+              "& fieldset": {
+                borderColor: "white!important",
+                borderWidth: "1px !important",
+              },
             },
           }}
         >

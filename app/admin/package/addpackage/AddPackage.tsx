@@ -9,6 +9,7 @@ import DraftEditing from "./DraftEditing";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
+import SelectInput from "../../../components/CommonComponents/SelectedInput";
 
 interface PackageDataType {
   title: string;
@@ -22,6 +23,7 @@ interface PackageDataType {
   days_and_night: string;
   description: string;
   offer: string;
+  category: string;
 }
 interface AddUserProps {
   isEditMode: boolean;
@@ -45,6 +47,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       days_and_night: "",
       description: "",
       offer: "",
+      category: " ",
     },
   );
 
@@ -221,6 +224,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     const { name, value } = event.target;
     setPackageData({ ...packageData, [name]: value });
   };
+  const handleSelectCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setPackageData({ ...packageData, [name]: value });
+  };
 
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -358,7 +367,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
             <FormInput
               label="Price"
-              type="text"
+              type="number"
               name="price"
               value={packageData.price}
               onChange={handleChange}
@@ -385,7 +394,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             />
           </div>
         </div>
-        <div className="pb-2">
+        <div className="lg:flex gap-6 mb-2 pb-2 lg:pb-0">
           {" "}
           <FormInput
             label="offer"
@@ -393,8 +402,24 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             type="number"
             value={packageData.offer}
             onChange={handleChange}
-            required={true}
+            required={false}
           />{" "}
+          <SelectInput
+            label="Category"
+            name="category"
+            value={packageData.category}
+            options={[
+              "tours",
+              "travels",
+              "attractions",
+              "day trips",
+              "indoor",
+              "outdoor activities",
+              "concert & show",
+              "sight seeing",
+            ]}
+            onChange={handleSelectCategoryChange}
+          />
         </div>
 
         <div className="">

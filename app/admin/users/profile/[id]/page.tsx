@@ -5,6 +5,8 @@ import AddUser from "../../adduser/AddUser";
 import Link from "next/link";
 import Image from "next/image";
 import AlternateImg from "../../../../../public/alternative.png";
+import { MdOutlineEmail } from "react-icons/md";
+import { FiGrid } from "react-icons/fi";
 
 type UserData = {
   email: string;
@@ -167,6 +169,17 @@ const ProfileEditingPage = () => {
               <div>{userData.default_language}</div> <br></br>
             </div>
           )}
+        </div>
+        <div className="h-20 absolute right-28 top-4 flex gap-5 z-30 px-2 ">
+          <div className="hidden md:inline-block text-[14px] text-[#232323] hover:text-[#029e9d] mt-[2px]">
+            English
+          </div>
+          <div>
+            <FiGrid className="hover:text-[#029e9d] text-[20px] mt-[2px]" />
+          </div>
+          <div className="">
+            <MdOutlineEmail className="hover:text-[#029e9d] text-[24px]  " />
+          </div>
         </div>
 
         <div className=" w-full lg:w-7/12  rounded-lg shadow-md">

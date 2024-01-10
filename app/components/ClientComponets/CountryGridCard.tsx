@@ -87,7 +87,7 @@ export const CountryGridCard: React.FC<CountryGridCardProps> = ({ item }) => {
             />
           </div>
           <button
-            className="bg-[#029e9d] relative top-[-35px] ml-[50%] xl:ml-[60%] md:ml-[60%]   text-[16px]   px-3 h-[55px]  text-white font-bold rounded-lg "
+            className="bg-[#029e9d] relative top-[-30px] ml-[40%] xl:ml-[52%] md:ml-[53%]   text-[16px]   px-3 h-[55px]  text-white font-bold rounded-lg "
             style={poppins1.style}
           >
             <div className="flex">

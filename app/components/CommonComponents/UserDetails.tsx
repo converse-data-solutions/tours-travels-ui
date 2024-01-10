@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faRepeat, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
-import AlternateImg from "../../../public/alternative.png";
+import AlternateImg from "../../../public/bloguser2.jpg";
+import { FiUser } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import { FiRepeat } from "react-icons/fi";
+import { MdOutlineLogout } from "react-icons/md";
+import { signOut } from "next-auth/react";
 
 type UserData = {
   first_name: string;
@@ -54,23 +55,21 @@ const UserDetailsForm = () => {
     fetchData();
   }, [decoded.userId, token]);
   const [isVisible, setIsVisible] = useState(true);
-  const profileForm = () => {
-    setIsVisible(!isVisible);
-  };
 
   return (
     <>
       {isVisible && (
-        <div className=" rounded-lg bg-white flex-col justify-center w-60 py-2">
-          <div className="px-10  pb-4 flex-col justify-center">
+        <div className=" rounded-xl bg-white flex-col justify-center w-60 py-2">
+          <div className="triangle-outline"></div>
+          <div className="px-5 pt-2 pb-4 flex-col justify-center">
             <div className="flex justify-center">
               {userData.file_name === null ||
               userData.file_name === undefined ? (
                 <Image
                   src={AlternateImg}
-                  className="rounded-md h-10 w-10"
+                  className="rounded-full h-20 w-20"
                   alt={"img"}
-                  height={30}
+                  height={50}
                   width={50}
                 />
               ) : (
@@ -84,55 +83,67 @@ const UserDetailsForm = () => {
               )}
             </div>
             <br></br>
-            <div className="flex justify-center text-2xl font-bold">
+            <div className="flex justify-center text-[16px] font-bold">
               {userData.first_name}
             </div>
-            <br></br>
-            <div className="flex justify-center">{userData.email}</div>
-            <br></br>
+            <div className="flex justify-center text-[12px]">
+              {userData.email}
+            </div>
           </div>
           <hr></hr>
-          <div className="px-10 py-4">
-            <div onClick={profileForm}>
-              <Link href={"/admin/users/profile/" + decoded.userId}>
-                <span>
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    className="text-lg pr-3 text-gray-500"
-                  />
-                </span>
-                <span>Profile</span>
-              </Link>
-            </div>
+          <div className="pt-1">
+            <ul className="custom-ul">
+              <li>
+                {" "}
+                <div className="flex flex-row hover:text-[#029e9d]">
+                  <Link href={"/admin/users/profile/" + decoded.userId}>
+                    <div className="flex flex-row py-2">
+                      <div className="iconuser">
+                        <FiUser className="mt-1 hover:text-[#029e9d]" />
+                      </div>
+                      <div className="pl-3 userdetail ">Profile</div>
+                    </div>
+                  </Link>
+                </div>
+              </li>
 
-            <div>
-              {" "}
-              <span>
-                <FontAwesomeIcon
-                  icon={faPenToSquare}
-                  className="text-lg pr-1 text-gray-500"
-                />
-              </span>{" "}
-              <span> Edit profile</span>
-            </div>
-            <div>
-              <span>
-                <FontAwesomeIcon
-                  icon={faSignOut}
-                  className="text-lg pr-2 text-gray-500"
-                />
-              </span>
-              <span>Log Out</span>
-            </div>
-            <div>
-              <span>
-                <FontAwesomeIcon
-                  icon={faRepeat}
-                  className="text-lg pr-2 text-gray-500"
-                />
-              </span>
-              <span>Switch User</span>
-            </div>
+              <li>
+                <div className="flex flex-row py-2">
+                  {" "}
+                  <div className="iconuser">
+                    <FiEdit className="mt-1  " />
+                  </div>
+                  <div className="pl-3 userdetail"> Edit profile</div>
+                </div>
+              </li>
+              <li>
+                <div className="flex flex-row py-2">
+                  <div className="mt-1  hover:text-[#029e9d] iconuser">
+                    <MdOutlineLogout className="text-[16px]" />
+                  </div>
+                  <div
+                    className="pl-3 userdetail"
+                    onClick={async () => {
+                      localStorage.removeItem("accessToken");
+                      alert("You are signed out successfully!");
+                      await signOut();
+                      localStorage.removeItem("refreshToken");
+                      window.location.replace("/");
+                    }}
+                  >
+                    Log Out
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="flex flex-row  ">
+                  <div className="mt-2  hover:text-[#029e9d] iconuser">
+                    <FiRepeat />
+                  </div>
+                  <div className="py-1 pl-3 userdetail">Switch User</div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       )}
