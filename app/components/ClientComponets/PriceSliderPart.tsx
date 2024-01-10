@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+"use client";
+import React, { useState, useCallback } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import { Playfair_Display, Poppins } from "next/font/google";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useCallback } from "react";
 
 interface Mark {
   value: number;
   label: string;
 }
+
 const playFair = Playfair_Display({
   subsets: ["latin"],
 });
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: "400",
@@ -39,8 +41,26 @@ const DurationRange: React.FC = () => {
 
   const [sliderValue, setSliderValue] = useState<number[]>([0, 2000]);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setSliderValue(newValue as number[]);
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
+  const handlePriceChange = (event: Event, newValue: number | number[]) => {
+    const newSliderValue = newValue as number[];
+    setSliderValue(newSliderValue);
+    const queryString = createQueryString(
+      "price",
+      `${newSliderValue[0]}-${newSliderValue[1]}`,
+    );
+    router.push(pathname + "?" + queryString);
+
+    //  window.history.replaceState(null, "", `${pathname}?${queryString}`);
   };
 
   return (
@@ -59,17 +79,16 @@ const DurationRange: React.FC = () => {
         <div style={{ flex: "85%", background: "#f1f1f1" }}></div>
       </div>
 
-      <br></br>
+      <br />
 
       <Box sx={{ width: 500 }}>
         <Typography variant="subtitle2" gutterBottom>
           Price Range
         </Typography>
         <Link href="">
-          {" "}
           <Slider
             value={sliderValue}
-            onChange={handleChange}
+            onChange={handlePriceChange}
             valueLabelFormat={valueLabelFormat}
             marks={marks}
             step={1}
@@ -81,13 +100,11 @@ const DurationRange: React.FC = () => {
               width: "100%",
               "& .MuiSlider-valueLabel": {
                 backgroundColor: "transparent",
-
                 top: 0,
               },
               "& .MuiSlider-rail": {
                 boxShadow: "none",
               },
-
               "& .MuiSlider-thumb": {
                 height: 14,
                 width: 14,

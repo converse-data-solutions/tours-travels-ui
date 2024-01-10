@@ -1,23 +1,20 @@
 "use client";
-import { Inter } from "next/font/google";
 import React, { useState, useEffect } from "react";
 import logo from "../../public/travelin img.png";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "@mui/material";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Squash as Hamburger, Twirl } from "hamburger-react";
 import NavListDetails from "../components/CommonComponents/Navlist";
 import NavlistIcons from "../components/CommonComponents/NavListIcons";
-import SignInAndSignOut from "../SignInAndSignOut";
 import { jwtDecode } from "jwt-decode";
 import UserDetailsForm from "../components/CommonComponents/UserDetails";
-import { getSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
-const inter = Inter({ subsets: ["latin"] });
-import RootLayout from "./layout";
+import { LuSearch } from "react-icons/lu";
+import { FiBell } from "react-icons/fi";
+import { useRef } from "react";
+import BellIconDetails from "../components/CommonComponents/BellIconDetails";
 
 type UserData = {
   email: string;
@@ -38,6 +35,7 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
 
   const [iconOpen, setIconOpen] = useState(true);
   const [imgClick, setImgClick] = useState(false);
+  const [bellClick, setBellClick] = useState(false);
   const [userData, setUserData] = useState<UserData>({
     file_name: "",
     email: "",
@@ -72,7 +70,9 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
   const editForm = () => {
     setImgClick(!imgClick);
   };
-  const exitForm = () => {};
+  const iconClick = () => {
+    setBellClick(!bellClick);
+  };
 
   const Blink = () => {
     return <div className="notification-circle"></div>;
@@ -118,29 +118,61 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
 
     fetchData();
   }, [decoded.userId, token]);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleOutSideClick = (event: MouseEvent) => {
+      if (
+        ref.current &&
+        !(ref.current as unknown as Node).contains(event.target as Node)
+      ) {
+        setImgClick(imgClick);
+        setBellClick(bellClick);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [ref]);
+
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      window.location.reload();
+    }
+  };
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <div className="h-screen  ">
-          <div className="w-full sticky top-0 flex border-b-[1px] border-gray-200 h-[65px] z-10">
+          <div className=" sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10   ">
             {!navVisible ? (
-              <div className=" hidden lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] px-[20px] justify-between">
-                <Image
-                  src={logo}
-                  alt="logo"
-                  className=" h-[30px] w-[160px]  lg:inline-block lg:justify-self-start"
-                  onClick={() => window.location.replace("/")}
-                />
-
-                <span onClick={navication}>
-                  <Hamburger
-                    toggled={isOpen}
-                    toggle={setOpen}
-                    size={20}
-                    color="gray"
+              <div className=" hidden lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between">
+                <div className="">
+                  {" "}
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    className=" h-[28px] w-[130px] lg:inline-block lg:justify-self-start"
+                    onClick={() => window.location.replace("/")}
                   />
-                </span>
+                </div>
+
+                <div>
+                  <div onClick={navication} className="">
+                    <Hamburger
+                      toggled={isOpen}
+                      toggle={setOpen}
+                      size={18}
+                      duration={0.5}
+                      color="gray"
+                      distance="lg"
+                    />
+                  </div>
+                </div>
               </div>
             ) : (
               <div className=" hidden lg:block min-w-[72px !important] text-center z-[1] border-r-[1px] bg-white border-gray-200 py-3 px-3">
@@ -148,7 +180,7 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
                   <Twirl
                     toggled={!iconOpen}
                     toggle={setIconOpen}
-                    size={20}
+                    size={18}
                     color="gray"
                   />
                 </span>
@@ -192,33 +224,30 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
 
             <div className="bg-white  w-full  flex items-center justify-between  px-2 md:px-6">
               <div className="flex items-center gap-2  md:gap-5">
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
+                <LuSearch
                   className=" hidden text-[#7987a1;] md:inline-block"
-                  style={{ height: "18px", width: "18px" }}
+                  style={{ height: "20px", width: "20px" }}
                 />
 
                 <input
                   type="text"
                   placeholder="Search here..."
-                  className="outline-none hidden  md:inline-block  md:w-[400px] text-[16px]"
+                  className="outline-none hidden  md:inline-block  md:w-[400px]"
+                  onKeyPress={handleKeyPress}
                 />
               </div>
-              <div className=" flex 2xl:ml-[600px]">
-                {" "}
-                <button className="bg-[hsl(180,82%,35%)]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400">
-                  {" "}
-                  <SignInAndSignOut />
-                </button>
-              </div>
-              <div className="flex items-center gap-2  md:gap-5 pr-6">
-                <NotificationsNoneIcon /> <Blink />
+
+              <div className="flex items-center gap-2  md:gap-5 pr-1">
+                <FiBell
+                  className={`text-[20px] ${bellClick ? "text-[#029e9d]" : ""}`}
+                  onClick={iconClick}
+                />{" "}
+                <Blink />
                 <Avatar
                   alt={`${userData.email}`}
                   src={userData.file_name}
                   style={{ height: "30px", width: "30px" }}
                   onClick={editForm}
-                  onMouseOut={exitForm}
                 />
               </div>
             </div>
@@ -269,9 +298,23 @@ export default function AdminPage({ children }: { children: React.ReactNode }) {
                 </span>
               </div>
               {imgClick && (
-                <div className="z-30 absolute right-[10px] ">
+                <div
+                  className="z-30 absolute right-[10px] mt-[2px] shadow-2xl rounded-lg "
+                  ref={ref}
+                >
                   {" "}
                   <UserDetailsForm />
+                </div>
+              )}
+
+              {bellClick && (
+                <div
+                  className="z-30 absolute right-[55px] mt-[2px] shadow-2xl rounded-lg "
+                  ref={ref}
+                >
+                  <div>
+                    <BellIconDetails />
+                  </div>
                 </div>
               )}
             </div>

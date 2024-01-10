@@ -3,6 +3,8 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
+import { FiUser } from "react-icons/fi";
+import { LuTable2 } from "react-icons/lu";
 
 const NavlistIcons = () => {
   const [listButtonColor, setListButtonColor] = useState("black");
@@ -47,7 +49,7 @@ const NavlistIcons = () => {
         >
           <span className="flex gap-3 items-center w-full">
             <span className="min-w-[25px] text-center">
-              <PersonOutlineIcon />
+              <FiUser className="text-[20px]" />
             </span>
           </span>
         </button>
@@ -61,7 +63,7 @@ const NavlistIcons = () => {
         >
           <span className="flex gap-3 items-center w-full">
             <span className="min-w-[25px] text-center ">
-              <WorkOutlineIcon />
+              <FiUser className="text-[20px]" />
             </span>
           </span>
         </button>
@@ -75,21 +77,7 @@ const NavlistIcons = () => {
         >
           <span className="flex gap-3 items-center w-full">
             <span className="min-w-[25px] text-center">
-              <PersonOutlineIcon />
-            </span>
-          </span>
-        </button>
-      </div>
-
-      <div className=" border-b-[1px] border-dashed border-gray-200">
-        <button
-          className=" px-[20px] flex items-center py-[10px] w-full  nav-button"
-          style={{ color: bookingButtonColor }}
-          onClick={toggleBookingVisibility}
-        >
-          <span className="flex gap-3 items-center w-full">
-            <span className="min-w-[25px] text-center text-[19px]">
-              <FontAwesomeIcon icon={faTableList} />
+              <LuTable2 className="text-[20px]" />
             </span>
           </span>
         </button>

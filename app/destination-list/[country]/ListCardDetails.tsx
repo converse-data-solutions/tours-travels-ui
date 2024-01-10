@@ -4,7 +4,7 @@ import CountyCard from "@/app/components/ClientComponets/CountryCard";
 
 import { Playfair_Display, Poppins } from "next/font/google";
 import { CountryGridCard } from "@/app/components/ClientComponets/CountryGridCard";
-
+import { FaLongArrowAltRight } from "react-icons/fa";
 const playFair = Playfair_Display({
   subsets: ["latin"],
 });
@@ -26,22 +26,46 @@ interface UserData {
   state: string;
   price: string | number;
   published: number;
+  category: string;
+  duration: string;
 }
 
 interface CountyDetailsPageProps {
   params: {
     country: string;
   };
+  query: {
+    category: string | null;
+    duration: string | null;
+    price?: string | null;
+  };
 }
 
-const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({ params }) => {
+const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({
+  params,
+  query,
+}) => {
   const [data, setData] = useState<UserData[]>([]);
   const countryName = params.country;
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+    let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/filter/${countryName}`;
 
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/get`, {
+    if (query?.category) {
+      apiUrl += `?category=${query.category}`;
+    }
+
+    if (query?.duration) {
+      apiUrl += `${apiUrl.includes("?") ? "&" : "?"}days_and_night=${
+        query.duration
+      }`;
+    }
+    if (query?.price) {
+      apiUrl += `${apiUrl.includes("?") ? "&" : "?"}price=${query.price}`;
+    }
+
+    fetch(apiUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -63,28 +87,29 @@ const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({ params }) => {
       });
   }, []);
 
-  const filteredData = data.filter(
-    (item) => item.country.toLowerCase() === countryName.toLowerCase(),
-  );
-
   return (
     <>
       <div>
-        {filteredData.map((item) => (
-          <div className="py-7 relative xl:top-[-250px]">
+        {data.map((item) => (
+          <div className="py-7 relative xl:top-[-50px]">
             <CountyCard key={item.id} item={item} />
           </div>
         ))}
       </div>
-
-      {/* <div>
-        
-          
-         
-            {filteredData.map((item) => (
-              <div className="py-7 relative xl:top-[-250px]"><CountryGridCard  item={item} /></div>
-            ))}
-          </div> */}
+      <div className="flex justify-center">
+        <button
+          className="booking text-white px-5 py-3 rounded-lg"
+          style={poppins.style}
+        >
+          <div className="flex flex-row">
+            {" "}
+            <div>Load More </div>
+            <div className=" ml-1 mt-1">
+              <FaLongArrowAltRight />
+            </div>
+          </div>
+        </button>{" "}
+      </div>
     </>
   );
 };

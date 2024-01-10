@@ -30,6 +30,7 @@ interface UserData {
   price: string | number;
   published: number | boolean;
   offer: string;
+  category: string;
 }
 const AllPackageLists = () => {
   const [entries, setEntries] = useState(10);
@@ -258,6 +259,7 @@ const AllPackageLists = () => {
                 <th>PRICE</th>
                 <th>NO.OF PERSON</th>
                 <th>DAY & NIGHT</th>
+                <th>CATEGORY</th>
                 <th>OFFER</th>
                 <th>PUBLISHED</th>
                 <th>ACTION </th>
@@ -301,6 +303,7 @@ const AllPackageLists = () => {
                     <td>${list.price}</td>
                     <td>{list.no_of_person}</td>
                     <td>{list.days_and_night}</td>
+                    <td>{list.category}</td>
                     <td>
                       {list.offer !== "No Offer"
                         ? `${list.offer}%`
