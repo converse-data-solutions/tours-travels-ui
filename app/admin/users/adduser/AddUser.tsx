@@ -322,9 +322,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
           <div className="flex-row text-center">
             <h2 className="text-gray-500 md:pt-5 lg:pt-5">
-              <span className="text-[rgb(2,158,157)] ">Dashboard</span> /{" "}
-              <span className="text-[rgb(2,158,157)">User Management</span> /{" "}
-              <span> {isEditMode ? "Update User" : "Add User"}</span>
+              <span className="text-[rgb(2,158,157)] ">Dashboard</span> <span className="text-[#7978a1]">/</span>{" "}
+              <span className="text-[#7978a1]">User Management</span> /{" "}
+              <span className="text-[#7978a1]"> {isEditMode ? "Update User" : "Add User"}</span>
             </h2>
           </div>
           <div className="flex-row mt-3 text-center lg:mr-1">

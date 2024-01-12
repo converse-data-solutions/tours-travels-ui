@@ -19,7 +19,7 @@ const PaginationBar: React.FC<PaginationBarProps> = ({
   return (
     <div className="my-8 flex justify-center lg:justify-start flex-row">
       <button
-        className="bg-white text-[hsl(180,82%,35%)] hover:text-white hover:bg-[hsl(180,82%,35%)] py-2 px-3 rounded-lg mr-1 border-[1px] border-gray-200"
+        className="bg-white text-[#029e9d] hover:text-white hover:bg-[#029e9d] py-2 px-3 rounded-lg mr-1 border-[1px] border-gray-200"
         onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
       >
         Previous
@@ -30,7 +30,7 @@ const PaginationBar: React.FC<PaginationBarProps> = ({
           className={`${
             currentPage === pageNumber
               ? "active-page"
-              : "bg-white text-[hsl(180,82%,35%)]"
+              : "bg-white text-[#029e9d]"
           } py-2 border-[1px] border-gray-200 px-4 rounded-lg mr-1`}
           onClick={() => setCurrentPage(pageNumber)}
         >
@@ -38,7 +38,7 @@ const PaginationBar: React.FC<PaginationBarProps> = ({
         </button>
       ))}
       <button
-        className="bg-white text-[hsl(180,82%,35%)] hover:bg-[hsl(180,82%,35%)] hover:text-white py-2 border-[1px] border-gray-200 px-3 rounded-lg mr-1"
+        className="bg-white text-[#029e9d] hover:bg-[#029e9d] hover:text-white py-2 border-[1px] border-gray-200 px-3 rounded-lg mr-1"
         onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
       >
         Next

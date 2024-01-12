@@ -1,9 +1,13 @@
+
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import Provider from "../provider/provider";
 import AdminPage from "./AdminPage";
 import { options } from "../api/auth/[...nextauth]/option";
 import { ReactNode } from "react";
+import store from "../components/ServerComponents/StatementStorage";
+import { Provider as ReduxProvider } from "react-redux";
+import { NavStateProvider } from "../components/ClientComponets/NavStateContext";
 
 interface User {
   role: string;
@@ -32,8 +36,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <Provider session={session}>
+        <Provider session={session} >
+          <NavStateProvider>
+          {/* <ReduxProvider store={store}> */}
           <AdminPage>{children}</AdminPage>
+          </NavStateProvider>
+          {/* </ReduxProvider> */}
         </Provider>
       </body>
     </html>

@@ -1,44 +1,107 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import Link from "next/link";
 import { FiUser } from "react-icons/fi";
 import { LuTable2 } from "react-icons/lu";
-
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdExpandMore } from "react-icons/md";
+import { useNavState } from "../ClientComponets/NavStateContext";
 
-const NavListDetails = () => {
-  const [isListVisible, setIsListVisible] = useState(false);
-  const [isCareerVisible, setIsCareerVisible] = useState(false);
+type ListDetails = {
+  category: string;
+  subcategory: string;
+};
+type NavListDetailsProps = {
+  onListClick: (listDetails: any) => void;
+  parent: ListDetails | null;
+  children: ListDetails[];
+  activeCategory: string | null;
+  activeSubcategory: string | null;
+};
+
+const NavListDetails: React.FC<NavListDetailsProps> = ({
+  onListClick,
+  parent,
+  children,
+  activeCategory,
+  activeSubcategory,
+}) => {  const [isListVisible, setIsListVisible] = useState(false);
   const [isPackageVisible, setPackageVisible] = useState(false);
   const [isBookingVisible, setBookingVisible] = useState(false);
   const [listButtonColor, setListButtonColor] = useState("black");
   const [packageButtonColor, setPackageButtonColor] = useState("black");
   const [bookingButtonColor, setBookingButtonColor] = useState("black");
-  const [openSection, setOpenSection] = useState(null);
+  const [navActive, setNavActive] = useNavState();
+  const [activeList, setActiveList] = useState<ListDetails | null>(null);
+  const [subCategoryColor, setSubCategoryColor] = useState<string>('#029e9d');
 
-  const userManagement = () => {
+
+  const handleListClick = (listDetails: any) => {
+    setActiveList(listDetails);
+    setNavActive({ category: listDetails.category, subcategory: listDetails.subcategory });
+
+     setActiveList(listDetails.subcategory)
+
+    onListClick(listDetails);
+    console.log("details",listDetails.category,listDetails.subcategory)
+  };
+  
+  const userManagement1 = () => {
     setIsListVisible(true);
     setPackageVisible(false);
     setBookingVisible(false);
     setPackageButtonColor("black");
     setBookingButtonColor("black");
+    const listDetails = { category: "User Management", subcategory: "All User Lists" };
+    setNavActive(listDetails);
+    onListClick(listDetails);
   };
 
-  const packageManagement = () => {
+  const userManagement2 = () => {
+    setIsListVisible(true);
+    setPackageVisible(false);
+    setBookingVisible(false);
+    setPackageButtonColor("black");
+    setBookingButtonColor("black");
+    const listDetails = { category: "User Management", subcategory: "Add User" };
+    setNavActive(listDetails);
+    onListClick(listDetails);
+  };
+
+  const packageManagement1 = () => {
     setIsListVisible(false);
     setPackageVisible(true);
     setBookingVisible(false);
     setListButtonColor("black");
     setBookingButtonColor("black");
+    const listDetails = { category: "Package Management", subcategory: "All Package Lists" };
+    setNavActive(listDetails);
+    onListClick(listDetails);
   };
+   
+  const packageManagement2 = () => {
+    setIsListVisible(false);
+    setPackageVisible(true);
+    setBookingVisible(false);
+    setListButtonColor("black");
+    setBookingButtonColor("black");
+    const listDetails = { category: "Package Management", subcategory: "Add Package" };
+    setNavActive(listDetails);
+    onListClick(listDetails);
+  };
+
   const bookingSection = () => {
     setIsListVisible(false);
     setPackageVisible(false);
     setBookingVisible(true);
     setListButtonColor("black");
     setPackageButtonColor("black");
+    const listDetails = { category: "Booking Section", subcategory: "All Booking List" };
+    setNavActive(listDetails);
+    onListClick(listDetails);
   };
+
+  
 
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
@@ -54,6 +117,41 @@ const NavListDetails = () => {
     setBookingVisible(!isBookingVisible);
     setBookingButtonColor(isBookingVisible ? "#232323" : "#20B2AA");
   };
+
+  useEffect(() => {
+    if (!activeCategory && !activeSubcategory && children.length > 0) {
+      const defaultListDetails = children[0];
+      onListClick(defaultListDetails);
+    }
+  }, [activeCategory, activeSubcategory, children, onListClick]);
+
+
+  useEffect(() => {
+    if (!navActive || !navActive.category) {
+      
+      setIsListVisible(true);
+      setPackageVisible(false);
+      setBookingVisible(false);
+      setListButtonColor('#029e9d')
+    } else if (navActive.category === 'User Management') {
+      setIsListVisible(true);
+      setPackageVisible(false);
+      setBookingVisible(false);
+      setListButtonColor('#029e9d')
+    } else if (navActive.category === 'Package Management') {
+      setIsListVisible(false);
+      setPackageVisible(true);
+      setBookingVisible(false);
+      setPackageButtonColor('#029e9d')
+    } else if (navActive.category === 'Booking Section') {
+      setIsListVisible(false);
+      setPackageVisible(false);
+      setBookingVisible(true);
+      setBookingButtonColor('#029e9d')
+    }
+  }, [navActive]);
+
+  
 
   return (
     <>
@@ -85,10 +183,10 @@ const NavListDetails = () => {
 
           {isListVisible && (
             <ul className="list-part pb-4">
-              <li className="hover:pl-4" onClick={userManagement}>
+              <li className={`hover:pl-4 text-[#232323] ${navActive?.subcategory === 'All User Lists' ? 'active-list' : ''}`} onClick={userManagement1}>
                 <Link href="/admin/users">All User Lists</Link>
               </li>
-              <li className="hover:pl-4" onClick={userManagement}>
+              <li className={`hover:pl-4 text-[#232323] ${navActive?.subcategory === 'Add User' ? 'active-list' : ''}`} onClick={userManagement2}>
                 <Link href="/admin/users/adduser">Add User</Link>
               </li>
             </ul>
@@ -120,10 +218,10 @@ const NavListDetails = () => {
 
           {isPackageVisible && (
             <ul className="list-part pb-4">
-              <li className="hover:pl-4 " onClick={packageManagement}>
+              <li className={`hover:pl-4 text-[#232323] ${navActive?.subcategory === 'All Package Lists' ? 'active-list' : ''}`} onClick={packageManagement1}>
                 <Link href="/admin/package">All Package Lists</Link>
               </li>
-              <li className="hover:pl-4" onClick={packageManagement}>
+              <li className={`hover:pl-4  text-[#232323] ${navActive?.subcategory === 'Add Package' ? 'active-list' : ''}`} onClick={packageManagement2}>
                 <Link href="/admin/package/addpackage">Add Package</Link>
               </li>
             </ul>
@@ -157,8 +255,8 @@ const NavListDetails = () => {
 
           {isBookingVisible && (
             <ul className="list-part pb-4">
-              <li
-                className="hover:text-[#029e9d] hover:pl-4"
+               <li
+                className={`hover:text-[#029e9d] text-[#232323] hover:pl-4 ${navActive?.subcategory === 'All Booking List' ? 'active-list' : ''}`}
                 onClick={bookingSection}
               >
                 <Link href="/admin/bookingsection">All Booking List</Link>
