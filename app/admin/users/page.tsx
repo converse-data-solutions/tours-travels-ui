@@ -15,6 +15,10 @@ import PaginationBar from "../../components/CommonComponents/PaginationBar";
 import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import Image from "next/image";
 import AlternateImg from "../../../public/alternative.png";
+import { FiPlus } from "react-icons/fi";
+import { CgMathPlus } from "react-icons/cg";
+import { LuPlus } from "react-icons/lu";
+
 
 interface UserData {
   id: number;
@@ -151,18 +155,18 @@ const Userlistpage = () => {
   return (
     <div className="px-4 lg:px-6">
       <div className=" pt-6 md:flex justify-between   ">
-        <div className="flex-row text-center  2xl:mr">
-          <h2 className="text-gray-500 md:mt-5">
-            <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp; /
-            &nbsp;<span> User Mangement</span>
+        <div className="flex-row text-center  ">
+          <h2 className="text-gray-500 md:mt-5 lg:mt-4">
+            <span className="text-[#029e9d] hover:text-[#6f42c1]">Dashboard</span>&nbsp; <span className="text-[#7987a1]">/</span>
+            &nbsp;<span className="text-[#7987a1]"> User Mangement</span>
           </h2>
         </div>
-        <div className="flex-row mt-3 text-center">
+        <div className="flex-row mt-3 lg:mt-0 lg:mr-3 text-center">
           <button
-            className="bg-[hsl(180,82%,35%)]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400 "
+            className="bg-[#029e9d]  text-white py-3.5   px-5 rounded-lg mr-1 hover:bg-yellow-400 "
             onClick={handleInput}
           >
-            <FontAwesomeIcon icon={faPlus} className="text-xl" /> Add user
+           <div className="flex "><div><LuPlus className=" text-white text-[24px] "/> </div> <div className="pl-1">Add User</div></div> 
           </button>
         </div>
       </div>
