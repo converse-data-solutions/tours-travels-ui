@@ -16,8 +16,6 @@ import { FiBell } from "react-icons/fi";
 import { useRef } from "react";
 import BellIconDetails from "../components/CommonComponents/BellIconDetails";
 import { NavStateContext, useNavState } from "../components/ClientComponets/NavStateContext";
-import { useContext } from "react";
-import { NavStateProvider } from "../components/ClientComponets/NavStateContext";
 
 type ListDetails = {
   category: string;
@@ -57,6 +55,8 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
 
   const [parent, setParent] = useState<ListDetails | null>(null);
   const [ischildren, setChildren] = useState<ListDetails[]>([]);
+  
+
  
   
   const handleMouseEnter = () => {
@@ -75,6 +75,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
       setOpen(!isOpen);
       setIconOpen(!iconOpen);
       setNavVisible(!navVisible)
+      
     }, 100);
   };
 
@@ -175,9 +176,9 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
     <html lang="en">
       <body >
         <div className="h-screen  ">
-          <div className=" sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10  duration-500 ">
+          <div className=" sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10 duration-1000!important  nav-transition">
             {!navVisible ? (
-              <div className=" hidden lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between">
+              <div className=" hidden  nav-img-icon lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between">
                <div className=""> <Image
                   src={logo}
                   alt="logo"
@@ -198,7 +199,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 </div></div>
               </div>
             ) : (
-              <div className=" hidden lg:block min-w-[72px !important] text-center z-[1] border-r-[1px] bg-white border-gray-200 py-3 px-3">
+              <div className=" hidden lg:block min-w-[72px !important] text-center z-[1] border-r-[1px] bg-white border-gray-200 py-3 px-3  nav-transition">
                 <span onClick={navication} style={{ borderRadius: "50%" }}>
                   <Twirl
                     toggled={iconOpen}
@@ -211,7 +212,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             )}
 
             {!navMenuvisible ? (
-              <div className="  lg:hidden min-w-[72px] text-center z-10 border-r-[1px] bg-white border-gray-200 p-5">
+              <div className="  lg:hidden min-w-[72px] text-center z-10 border-r-[1px] bg-white border-gray-200 p-5 nav-transition">
                 <FontAwesomeIcon
                   icon={faBars}
                   className="text-[#696767] text-lg"
@@ -219,7 +220,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 />
               </div>
             ) : (
-              <div className=" menuvisible  bg-white  border-r-[1px] border-gray-200  items-center flex-col  min-w-[240px] h-screen   justify-between lg:hidden ">
+              <div className=" smooth-action  bg-white  border-r-[1px] border-gray-200  items-center flex-col  min-w-[240px] h-screen   justify-between lg:hidden ">
                 <div className="flex h-[65px] justify-between items-center border-[1px] border-b-gray-200 px-6 ">
                   <Image
                     src={logo}
@@ -237,13 +238,16 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                   </span>
                 </div>
 
-                <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between bg-white">
+                <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between bg-white nav-transition">
                 <NavListDetails
                 onListClick={handleListClick}
                 parent={parent}
                 children={ischildren}
                 activeCategory={selectedListDetails?.category || null}
                 activeSubcategory={selectedListDetails?.subcategory || null}
+                showIconsOnly={true}
+
+              
               />             </div>
               </div>
             )}
@@ -290,6 +294,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 children={ischildren}
                 activeCategory={selectedListDetails?.category || null}
                 activeSubcategory={selectedListDetails?.subcategory || null}
+                showIconsOnly={false}
               />               </div>
               </div>
             ) : (
@@ -299,19 +304,28 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 onMouseLeave={handleMouseLeave}
               >
                 {isDetailsVisible ? (
-                  <div className=" sm:hidden lg: bg-white  lg:flex-col h-[93vh]    border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[250px] lg:min-w-[280px] lg:pr-11 xl:pr-10 2xl:pr-7">
+                  <div className=" sm:hidden lg: bg-white  lg:flex-col h-[93vh]  smooth-action  border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[250px] lg:min-w-[280px] lg:pr-11 xl:pr-10 2xl:pr-7" >
  <NavListDetails
                 onListClick={handleListClick}
                 parent={parent}
                 children={ischildren}
                 activeCategory={selectedListDetails?.category || null}
                 activeSubcategory={selectedListDetails?.subcategory || null}
+                showIconsOnly={false}
               />                  </div>
                 ) : (
                   ""
                 )}
                 <div className="pt-[25px] border-b-[1px] border-dashed border-gray-200">
-                  <NavlistIcons />
+                  {/* <NavlistIcons /> */}
+                  <NavListDetails
+                onListClick={handleListClick}
+                parent={parent}
+                children={ischildren}
+                activeCategory={selectedListDetails?.category || null}
+                activeSubcategory={selectedListDetails?.subcategory || null}
+                showIconsOnly={true}
+              />       
                 </div>
               </div>
             )}

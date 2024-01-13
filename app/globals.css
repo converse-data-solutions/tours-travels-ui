@@ -1015,4 +1015,14 @@ background-color: #029e9d;
  
   color: #ffffff;
 }
+.nav-img-icon {
+  transition: transform 2s ease;
+
+}
+.smooth-action {
+ overflow: hidden;
+  background-color: #05a34a;
+  transition-duration: 5s;
+  
+}
 
