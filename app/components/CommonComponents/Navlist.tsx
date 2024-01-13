@@ -17,7 +17,7 @@ type NavListDetailsProps = {
   children: ListDetails[];
   activeCategory: string | null;
   activeSubcategory: string | null;
-};
+  showIconsOnly: boolean;};
 
 const NavListDetails: React.FC<NavListDetailsProps> = ({
   onListClick,
@@ -25,6 +25,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   children,
   activeCategory,
   activeSubcategory,
+  showIconsOnly
 }) => {  const [isListVisible, setIsListVisible] = useState(false);
   const [isPackageVisible, setPackageVisible] = useState(false);
   const [isBookingVisible, setBookingVisible] = useState(false);
@@ -36,15 +37,15 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   const [subCategoryColor, setSubCategoryColor] = useState<string>('#029e9d');
 
 
-  const handleListClick = (listDetails: any) => {
-    setActiveList(listDetails);
-    setNavActive({ category: listDetails.category, subcategory: listDetails.subcategory });
+  // const handleListClick = (listDetails: any) => {
+  //   setActiveList(listDetails);
+  //   setNavActive({ category: listDetails.category, subcategory: listDetails.subcategory });
 
-     setActiveList(listDetails.subcategory)
+  //    setActiveList(listDetails.subcategory)
 
-    onListClick(listDetails);
-    console.log("details",listDetails.category,listDetails.subcategory)
-  };
+  //   onListClick(listDetails);
+  //   console.log("details",listDetails.category,listDetails.subcategory)
+  // };
   
   const userManagement1 = () => {
     setIsListVisible(true);
@@ -155,17 +156,24 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
 
   return (
     <>
-      <div>
+      <div className="">
         <div className="mt-7 border-b-[1px] border-dashed border-gray-200 pl-6 pr-5  bg-white ">
           <button
             className="flex items-center py-[10px] w-full nav-button"
             style={{ color: listButtonColor }}
             onClick={toggleListVisibility}
           >
-            <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
-              <span className="min-w-[25px] text-center">
-                <FiUser className="text-[18px]" />
+            {showIconsOnly ? ( 
+              <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
+                <div className="min-w-[25px] text-center">
+                  <FiUser className="text-[18px]" />
+                </div>
               </span>
+            ) :(
+            <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
+              <div className="min-w-[25px] text-center">
+                <FiUser className="text-[18px]" />
+              </div>
               <div className="w-full flex  bg-white">
                 <span className="font-semibold hover:pl-1  transition-all duration-300  ">
                   User Management
@@ -179,8 +187,9 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                 )}
               </div>
             </span>
+            )}
           </button>
-
+          {!showIconsOnly&&<div>
           {isListVisible && (
             <ul className="list-part pb-4">
               <li className={`hover:pl-4 text-[#232323] ${navActive?.subcategory === 'All User Lists' ? 'active-list' : ''}`} onClick={userManagement1}>
@@ -191,6 +200,10 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
               </li>
             </ul>
           )}
+         </div>}
+
+
+
         </div>
 
         <div className="border-b-[1px] border-dashed border-gray-200 pl-6 pr-5 justify-between top-5 bg-white ">
@@ -199,6 +212,13 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
             style={{ color: packageButtonColor }}
             onClick={togglePackageVisibility}
           >
+            {showIconsOnly ? (
+            <span className="flex gap-[10px] items-center w-full hover:text-[#20B2AA]">
+              <span>
+                <FiUser className="text-[18px] " />
+              </span>
+            </span>
+          ) : (
             <span className="flex gap-[10px] items-center w-full hover:text-[#20B2AA]">
               <span>
                 <FiUser className="text-[18px] " />
@@ -214,9 +234,10 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                 </span>
               </div>
             </span>
+          )}
           </button>
 
-          {isPackageVisible && (
+       {!showIconsOnly&&<div>   {isPackageVisible && (
             <ul className="list-part pb-4">
               <li className={`hover:pl-4 text-[#232323] ${navActive?.subcategory === 'All Package Lists' ? 'active-list' : ''}`} onClick={packageManagement1}>
                 <Link href="/admin/package">All Package Lists</Link>
@@ -225,7 +246,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                 <Link href="/admin/package/addpackage">Add Package</Link>
               </li>
             </ul>
-          )}
+          )}</div>}
         </div>
 
         <div className="border-b-[1px] border-dashed border-gray-200 pl-6 pr-5 justify-between top-5 bg-white ">
@@ -234,6 +255,13 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
             style={{ color: bookingButtonColor }}
             onClick={toggleBookingVisibility}
           >
+             {showIconsOnly ? (
+            <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
+              <span>
+                <LuTable2 className="text-center text-[17px] min-w-[25px] pr-1" />
+              </span>
+            </span>
+          ) : (
             <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
               <span>
                 <LuTable2 className="text-center text-[17px] min-w-[25px] pr-1" />
@@ -251,9 +279,10 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                 </span>
               </div>
             </span>
+          )}
           </button>
 
-          {isBookingVisible && (
+         {showIconsOnly&&<div>{isBookingVisible && (
             <ul className="list-part pb-4">
                <li
                 className={`hover:text-[#029e9d] text-[#232323] hover:pl-4 ${navActive?.subcategory === 'All Booking List' ? 'active-list' : ''}`}
@@ -263,6 +292,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
               </li>
             </ul>
           )}
+          </div>} 
         </div>
       </div>
     </>
