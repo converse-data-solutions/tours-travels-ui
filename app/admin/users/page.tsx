@@ -18,7 +18,8 @@ import AlternateImg from "../../../public/alternative.png";
 import { FiPlus } from "react-icons/fi";
 import { CgMathPlus } from "react-icons/cg";
 import { LuPlus } from "react-icons/lu";
-
+import { LuPenSquare } from "react-icons/lu";
+import { FiDelete } from "react-icons/fi";
 
 interface UserData {
   id: number;
@@ -157,16 +158,24 @@ const Userlistpage = () => {
       <div className=" pt-6 md:flex justify-between   ">
         <div className="flex-row text-center  ">
           <h2 className="text-gray-500 md:mt-5 lg:mt-4">
-            <span className="text-[#029e9d] hover:text-[#6f42c1]">Dashboard</span>&nbsp; <span className="text-[#7987a1]">/</span>
+            <span className="text-[#029e9d] hover:text-[#6f42c1]">
+              Dashboard
+            </span>
+            &nbsp; <span className="text-[#7987a1]">/</span>
             &nbsp;<span className="text-[#7987a1]"> User Mangement</span>
           </h2>
         </div>
-        <div className="flex-row mt-3 lg:mt-0 lg:mr-3 text-center">
+        <div className="flex-row mt-3 lg:mt-0  text-center">
           <button
-            className="bg-[#029e9d]  text-white py-3.5   px-5 rounded-lg mr-1 hover:bg-yellow-400 "
+            className="bg-[#029e9d]  text-white py-[12px]  px-[18px] rounded-lg  hover:bg-yellow-400 "
             onClick={handleInput}
           >
-           <div className="flex "><div><LuPlus className=" text-white text-[24px] "/> </div> <div className="pl-1">Add User</div></div> 
+            <div className="flex ">
+              <div>
+                <LuPlus className=" text-white text-[24px] " />{" "}
+              </div>{" "}
+              <div className="pl-1 mt-[1px]">Add User</div>
+            </div>
           </button>
         </div>
       </div>
@@ -196,9 +205,9 @@ const Userlistpage = () => {
           sx={{ maxHeight: "450px", width: "100%" }}
         >
           <Table className="gap-6 table">
-            <TableHead className="text-gray-800 ">
+            <TableHead className="text-[#232323]  font-bold">
               <TableRow className="table-head">
-                <th>ID</th>
+                <th className="">ID</th>
                 <th>IMAGE</th>
                 <th>EMAIL</th>
                 <th>MOBILE</th>
@@ -259,15 +268,14 @@ const Userlistpage = () => {
                     <td>
                       <span className="flex gap-2 text-[#029e9d] justify-center">
                         <Link href={"/admin/users/adduser/" + list.id}>
-                          <FontAwesomeIcon
-                            icon={faPenToSquare}
-                            className="text-xl"
+                          <LuPenSquare
+                            className="text-[24px] hover:text-[#6f42c1]"
                             onClick={() => handleEditAction(list.id)}
                           />
                         </Link>
-
-                        <BackspaceOutlinedIcon
+                        <FiDelete
                           onClick={() => handleDeleteAction(list.id)}
+                          className="text-[25px] font-bold hover:text-[#6f42c1]"
                         />
                       </span>{" "}
                     </td>

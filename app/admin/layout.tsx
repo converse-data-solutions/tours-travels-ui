@@ -1,4 +1,3 @@
-
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import Provider from "../provider/provider";
@@ -36,12 +35,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <Provider session={session} >
+        <Provider session={session}>
           <NavStateProvider>
-          {/* <ReduxProvider store={store}> */}
-          <AdminPage>{children}</AdminPage>
+            <AdminPage>{children}</AdminPage>
           </NavStateProvider>
-          {/* </ReduxProvider> */}
         </Provider>
       </body>
     </html>
