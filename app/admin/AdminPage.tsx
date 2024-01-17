@@ -370,7 +370,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
               {imgClick && (
                 <div
                   className="z-30 absolute right-[10px] mt-[2px] shadow-2xl rounded-lg "
-                  ref={ref}
+                 ref={ref}
                 >
                   {" "}
                   <UserDetailsForm />
