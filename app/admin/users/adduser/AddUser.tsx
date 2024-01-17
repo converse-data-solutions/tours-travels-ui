@@ -9,6 +9,8 @@ import TextArea from "./TextArea";
 import SelectInput from "../../../components/CommonComponents/SelectedInput";
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
+import { LuArrowLeft } from "react-icons/lu";
+import { LuPlus } from "react-icons/lu";
 
 interface UserdataType {
   email: string;
@@ -322,21 +324,32 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
           <div className="flex-row text-center">
             <h2 className="text-gray-500 md:pt-5 lg:pt-5">
-              <span className="text-[rgb(2,158,157)] ">Dashboard</span> <span className="text-[#7978a1]">/</span>{" "}
-              <span className="text-[#7978a1]">User Management</span> /{" "}
-              <span className="text-[#7978a1]"> {isEditMode ? "Update User" : "Add User"}</span>
+              <span className="text-[#029e9d] hover:text-[#6f42c1]">
+                Dashboard
+              </span>{" "}
+              <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
+              <span className="text-[#029e9d] hover:text-[#6f42c1]">
+                User Management
+              </span>{" "}
+              <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
+              <span className="text-[#7987a1]">
+                {" "}
+                {isEditMode ? "Update User" : "Add User"}
+              </span>
             </h2>
           </div>
-          <div className="flex-row mt-3 text-center lg:mr-1">
+          <div className="flex-row mt-3 text-center ">
             <button
-              className="bg-[hsl(180,82%,35%)] text-white py-[10px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
+              className="bg-[#029e9d] text-white py-[13px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
               onClick={handleInput}
             >
-              <span className=" text-[20px] pr-1  ">
-                {" "}
-                <FontAwesomeIcon icon={faArrowLeft} className="text-[20px] " />
-              </span>{" "}
-              <span className="text-[15px]">Back To List</span>
+              <div className="flex">
+                <div className=" pr-[2px]  ">
+                  {" "}
+                  <LuArrowLeft className="text-[25px] pb-[2px] text-white" />
+                </div>{" "}
+                <div className="text-[15px]">Back To List</div>
+              </div>
             </button>
           </div>
         </div>
@@ -554,15 +567,20 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
 
         <div className="flex justify-center pt-3">
           <button
-            className="bg-[hsl(180,82%,35%)] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-3"
+            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-[#ffc107] mt-3"
             type="submit"
           >
-            <FontAwesomeIcon icon={faUserPlus} />{" "}
-            {isEditMode ? "Update User" : "Add User"}
+            <div className="flex">
+              <div>
+                {" "}
+                <LuPlus className="text-[24px]" />
+              </div>
+              <div> {isEditMode ? "Update User" : "Add User"}</div>
+            </div>
           </button>
         </div>
         {successMessage && (
-          <p className="text-green-700 flex justify-center">{successMessage}</p>
+          <p className="text-[#029e9d] flex justify-center">{successMessage}</p>
         )}
       </form>
     </div>

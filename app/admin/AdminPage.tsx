@@ -1,28 +1,24 @@
 "use client";
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../public/travelin img.png";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Squash as Hamburger, Twirl } from "hamburger-react";
 import NavListDetails from "../components/CommonComponents/Navlist";
-import NavlistIcons from "../components/CommonComponents/NavListIcons";
 import { jwtDecode } from "jwt-decode";
 import UserDetailsForm from "../components/CommonComponents/UserDetails";
 import { LuSearch } from "react-icons/lu";
 import { FiBell } from "react-icons/fi";
 import { useRef } from "react";
 import BellIconDetails from "../components/CommonComponents/BellIconDetails";
-import { NavStateContext, useNavState } from "../components/ClientComponets/NavStateContext";
 
 type ListDetails = {
   category: string;
   subcategory: string;
 };
-
-
 
 type UserData = {
   email: string;
@@ -31,14 +27,11 @@ type UserData = {
 };
 
 export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
-
-  const [navState, setNavState] = useNavState();
-
+  const [navState, setNavState] = useState<ListDetails>();
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-    const [navVisible, setNavVisible] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
 
   const [navMenuvisible, setNavMenuvisible] = useState(false);
-
 
   const [isRotated, setIsRotated] = useState(false);
 
@@ -46,19 +39,17 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
 
   const [iconOpen, setIconOpen] = useState(false);
   const [imgClick, setImgClick] = useState(false);
-  const [bellClick,setBellClick]=useState(false);
+  const [bellClick, setBellClick] = useState(false);
   const [userData, setUserData] = useState<UserData>({
     file_name: "",
     email: "",
   });
-  const [selectedListDetails, setSelectedListDetails] = useState<ListDetails|null>(null);
+  const [selectedListDetails, setSelectedListDetails] =
+    useState<ListDetails | null>(null);
 
   const [parent, setParent] = useState<ListDetails | null>(null);
   const [ischildren, setChildren] = useState<ListDetails[]>([]);
-  
 
- 
-  
   const handleMouseEnter = () => {
     setIsDetailsVisible(true);
   };
@@ -74,8 +65,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
     setTimeout(() => {
       setOpen(!isOpen);
       setIconOpen(!iconOpen);
-      setNavVisible(!navVisible)
-      
+      setNavVisible(!navVisible);
     }, 100);
   };
 
@@ -87,14 +77,10 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
   };
   const editForm = () => {
     setImgClick(!imgClick);
-    
   };
-  const iconClick=()=>{
-    setBellClick(!bellClick);
-    
-  }
-  
- 
+  const iconClick = () => {
+    setBellClick((prevBellClick) => !prevBellClick);
+  };
 
   const Blink = () => {
     return <div className="notification-circle"></div>;
@@ -140,14 +126,16 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
 
     fetchData();
   }, [decoded.userId, token]);
-  const ref=useRef(null)
+  const ref = useRef(null);
 
   useEffect(() => {
-    const handleOutSideClick = (event:MouseEvent) => {
-      if (ref.current && !((ref.current as unknown) as Node).contains(event.target as Node)) {
+    const handleOutSideClick = (event: MouseEvent) => {
+      if (
+        ref.current &&
+        !(ref.current as unknown as Node).contains(event.target as Node)
+      ) {
         setImgClick(false);
         setBellClick(false);
-       
       }
     };
 
@@ -156,50 +144,60 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
     return () => {
       window.removeEventListener("mousedown", handleOutSideClick);
     };
-  }, [ref])
+  }, [ref]);
 
-  const handleKeyPress = (event:any) => {
-    if (event.key === 'Enter') {
-      
-     window.location.reload()
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      window.location.reload();
     }
   };
-  
+
   const handleListClick = (listDetails: any) => {
-    setNavState({ category: listDetails.category, subcategory: listDetails.subcategory });
+    setNavState({
+      category: listDetails.category,
+      subcategory: listDetails.subcategory,
+    });
     setSelectedListDetails(listDetails);
     setParent(listDetails.category);
-    setChildren(listDetails.subcategory)
-  }; 
-  
+    setChildren(listDetails.subcategory);
+  };
+
   return (
     <html lang="en">
-      <body >
+      <body>
         <div className="h-screen  ">
-          <div className=" sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10 duration-1000!important  nav-transition">
+          {/****  Nav bar started****/}
+          <div
+            className={`sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10`}
+          >
+            {/**** largescreen icon with nav ****/}
             {!navVisible ? (
               <div className=" hidden  nav-img-icon lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between">
-               <div className=""> <Image
-                  src={logo}
-                  alt="logo"
-                  className=" h-[28px] w-[130px] lg:inline-block lg:justify-self-start"
-                  onClick={() => window.location.replace("/")}
-                /></div>
-
-                <div ><div onClick={navication} className="" >
-                  <Hamburger
-                    toggled={isOpen}
-                    toggle={setOpen}
-                    size={18}
-                    duration={0.5}
-                    color="gray"
-                    distance="lg"
-                    
+                <div className="">
+                  {" "}
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    className=" h-[28px] w-[130px] lg:inline-block lg:justify-self-start"
+                    onClick={() => window.location.replace("/")}
                   />
-                </div></div>
+                </div>
+
+                <div>
+                  <div onClick={navication} className="">
+                    <Hamburger
+                      toggled={isOpen}
+                      toggle={setOpen}
+                      size={18}
+                      duration={0.5}
+                      color="gray"
+                      distance="lg"
+                    />
+                  </div>
+                </div>
               </div>
             ) : (
-              <div className=" hidden lg:block min-w-[72px !important] text-center z-[1] border-r-[1px] bg-white border-gray-200 py-3 px-3  nav-transition">
+              <div className=" hidden lg:block min-w-[72px !important] text-center z-[1] border-r-[1px] bg-white border-gray-200 py-3 px-3 ">
                 <span onClick={navication} style={{ borderRadius: "50%" }}>
                   <Twirl
                     toggled={iconOpen}
@@ -210,9 +208,9 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 </span>
               </div>
             )}
-
+            {/**** Small screen ****/}
             {!navMenuvisible ? (
-              <div className="  lg:hidden min-w-[72px] text-center z-10 border-r-[1px] bg-white border-gray-200 p-5 nav-transition">
+              <div className="  lg:hidden min-w-[72px] text-center z-10 border-r-[1px] bg-white border-gray-200 p-5 ">
                 <FontAwesomeIcon
                   icon={faBars}
                   className="text-[#696767] text-lg"
@@ -220,112 +218,133 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 />
               </div>
             ) : (
-              <div className=" smooth-action  bg-white  border-r-[1px] border-gray-200  items-center flex-col  min-w-[240px] h-screen   justify-between lg:hidden ">
-                <div className="flex h-[65px] justify-between items-center border-[1px] border-b-gray-200 px-6 ">
-                  <Image
-                    src={logo}
-                    alt="logo"
-                    className=" h-[30px] w-[140px]  lg:inline"
-                    onClick={() => window.location.replace("/")}
-                  />
-                  <span onClick={MenuNavication}>
-                    <Twirl
-                      toggled={!iconOpen}
-                      toggle={setIconOpen}
-                      size={20}
-                      color="gray"
+              <div className="nav-transition">
+                <div className="  bg-white  border-r-[1px] border-gray-200  items-center flex-col  min-w-[240px] h-screen   justify-between lg:hidden ">
+                  <div className="flex h-[65px] justify-between items-center border-[1px] border-b-gray-200 px-6 ">
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      className=" h-[30px] w-[140px]  lg:inline"
+                      onClick={() => window.location.replace("/")}
                     />
-                  </span>
+                    <span onClick={MenuNavication}>
+                      <Twirl
+                        toggled={!iconOpen}
+                        toggle={setIconOpen}
+                        size={20}
+                        color="gray"
+                      />
+                    </span>
+                  </div>
+
+                  <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between bg-white nav-transition">
+                    <NavListDetails
+                      onListClick={handleListClick}
+                      parent={parent}
+                      children={ischildren}
+                      activeCategory={selectedListDetails?.category || null}
+                      activeSubcategory={
+                        selectedListDetails?.subcategory || null
+                      }
+                      showIconsOnly={true}
+                    />{" "}
+                  </div>
                 </div>
-
-                <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between bg-white nav-transition">
-                <NavListDetails
-                onListClick={handleListClick}
-                parent={parent}
-                children={ischildren}
-                activeCategory={selectedListDetails?.category || null}
-                activeSubcategory={selectedListDetails?.subcategory || null}
-                showIconsOnly={true}
-
-              
-              />             </div>
               </div>
             )}
-
+            {/****  Nav bar end****/}
             {/* search */}
 
             <div className="bg-white  w-full  flex items-center justify-between  px-2 md:px-6">
               <div className="flex items-center gap-2  md:gap-5">
-                 
-                <LuSearch className=" hidden text-[#7987a1;] md:inline-block"
-                  style={{ height: "20px", width: "20px" }}/>
-              
+                <LuSearch
+                  className=" hidden text-[#7987a1;] md:inline-block"
+                  style={{ height: "20px", width: "20px" }}
+                />
+
                 <input
                   type="text"
                   placeholder="Search here..."
                   className="outline-none hidden  md:inline-block  md:w-[400px]"
-                onKeyPress={handleKeyPress}
-                  
+                  onKeyPress={handleKeyPress}
                 />
-                               
               </div>
-             
+
               <div className="flex items-center gap-2  md:gap-5 pr-1">
-                <FiBell className={`text-[20px] ${bellClick ? 'text-[#029e9d]' : ''}`} onClick={iconClick}/> <Blink />
+                <FiBell
+                  className={`text-[20px] hover:text-[#029e9d] ${
+                    bellClick ? "text-[#029e9d]" : ""
+                  }`}
+                  onClick={iconClick}
+                  style={{ cursor: "pointer" }}
+                />{" "}
+                <Blink />
                 <Avatar
                   alt={`${userData.email}`}
                   src={userData.file_name}
-                  style={{ height: "30px", width: "30px" }}
+                  style={{ height: "30px", width: "30px", cursor: "pointer" }}
                   onClick={editForm}
-                
-        
                 />
               </div>
             </div>
           </div>
-
-          <div className="lg:flex   ">
+          {/****  Large screen NavDetails with travelin menubar icon  ,   large screen hovering time of icon list navdetails with xmark icon   *****/}
+          <div className="lg:flex nav-transition">
             {!navVisible ? (
-              <div className=" hidden lg: bg-white  lg:flex-col h-[93vh] border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[240px] lg:min-w-[240px] ">
+              <div
+                className=" hidden lg: bg-white lg:flex-col h-[93vh] border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[240px]  duration-300 lg:min-w-[240px] "
+                style={{ transitionDuration: "0.3s" }}
+              >
                 <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between">
-                <NavListDetails
-                onListClick={handleListClick}
-                parent={parent}
-                children={ischildren}
-                activeCategory={selectedListDetails?.category || null}
-                activeSubcategory={selectedListDetails?.subcategory || null}
-                showIconsOnly={false}
-              />               </div>
+                  {/* <Navlist/> */}
+
+                  <NavListDetails
+                    onListClick={handleListClick}
+                    parent={parent}
+                    children={ischildren}
+                    activeCategory={selectedListDetails?.category || null}
+                    activeSubcategory={selectedListDetails?.subcategory || null}
+                    showIconsOnly={false}
+                  />
+                </div>
               </div>
             ) : (
-              <div
-                className=" hidden lg:block bg-white  h-[93vh] overflow-y-hidden  border-gray-200 md:relative md:inline-block border-r-[1px] min-w-[72px]"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                {isDetailsVisible ? (
-                  <div className=" sm:hidden lg: bg-white  lg:flex-col h-[93vh]  smooth-action  border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[250px] lg:min-w-[280px] lg:pr-11 xl:pr-10 2xl:pr-7" >
- <NavListDetails
-                onListClick={handleListClick}
-                parent={parent}
-                children={ischildren}
-                activeCategory={selectedListDetails?.category || null}
-                activeSubcategory={selectedListDetails?.subcategory || null}
-                showIconsOnly={false}
-              />                  </div>
-                ) : (
-                  ""
-                )}
-                <div className="pt-[25px] border-b-[1px] border-dashed border-gray-200">
-                  {/* <NavlistIcons /> */}
-                  <NavListDetails
-                onListClick={handleListClick}
-                parent={parent}
-                children={ischildren}
-                activeCategory={selectedListDetails?.category || null}
-                activeSubcategory={selectedListDetails?.subcategory || null}
-                showIconsOnly={true}
-              />       
+              <div className="">
+                <div
+                  className={`hidden lg:block bg-white h-[93vh] overflow-y-hidden border-gray-200 md:relative md:inline-block border-r-[1px] min-w-[72px] transition-opacity duration-500 `}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {isDetailsVisible ? (
+                    <div className=" sm:hidden lg: bg-white  lg:flex-col h-[93vh]  smooth-action  border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[230px] lg:min-w-[270px] nav-transition2 lg:pr-11 xl:pr-10 2xl:pr-2">
+                      <NavListDetails
+                        onListClick={handleListClick}
+                        parent={parent}
+                        children={ischildren}
+                        activeCategory={selectedListDetails?.category || null}
+                        activeSubcategory={
+                          selectedListDetails?.subcategory || null
+                        }
+                        showIconsOnly={false}
+                      />{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
+                  {/**** Icon list only with top xmark icon*****/}
+                  <div className="pt-[25px] border-b-[1px] border-dashed border-gray-200 nav-transition ">
+                    <NavListDetails
+                      onListClick={handleListClick}
+                      parent={parent}
+                      children={ischildren}
+                      activeCategory={selectedListDetails?.category || null}
+                      activeSubcategory={
+                        selectedListDetails?.subcategory || null
+                      }
+                      showIconsOnly={true}
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -349,17 +368,23 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 </span>
               </div>
               {imgClick && (
-                <div className="z-30 absolute right-[10px] mt-[2px] shadow-2xl rounded-lg " ref={ref}>
+                <div
+                  className="z-30 absolute right-[10px] mt-[2px] shadow-2xl rounded-lg "
+                  ref={ref}
+                >
                   {" "}
                   <UserDetailsForm />
                 </div>
               )}
 
-              {bellClick&&(
-                <div className="z-30 absolute right-[55px] mt-[2px] shadow-2xl rounded-lg " ref={ref}>
-
-              <div><BellIconDetails/></div>
-
+              {bellClick && (
+                <div
+                  className="z-30 absolute right-[55px] mt-[2px] shadow-2xl rounded-lg "
+                  ref={ref}
+                >
+                  <div>
+                    <BellIconDetails />
+                  </div>
                 </div>
               )}
             </div>
