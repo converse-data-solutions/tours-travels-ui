@@ -11,6 +11,8 @@ import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
 import { LuArrowLeft } from "react-icons/lu";
 import { LuPlus } from "react-icons/lu";
+import SelectRoleInput from "./SelectedInput";
+import CustomDropdown from "@/app/components/ClientComponets/CustomDropDown";
 
 interface UserdataType {
   email: string;
@@ -34,6 +36,13 @@ interface AddUserProps {
   initialUserData?: UserdataType;
   isHeadpart: boolean;
 }
+interface FormErrors {
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  password?: string;
+  mobile_number?: string;
+}
 
 const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   const { id } = useParams<{ id: string }>();
@@ -54,10 +63,17 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       file_name: "",
       default_currency: "",
       default_language: "",
-      role_id: "",
+      role_id: "2",
       agent_position: "",
     },
   );
+
+  const roleOptions = [
+    { label: "Admin", value: "1" },
+    { label: "Consumer", value: "2" },
+    { label: "Agent", value: "3" },
+  ];
+
   let [file, setFile] = useState<File | string>();
   const [errors, setErrors] = useState({
     first_name: "",
@@ -71,7 +87,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     let errorMessage = "";
 
     const nameRegex = /^[A-Za-z]+$/;
-
+    const mobileNumberRegex = /^[6-9]\d{9}$/;
     if (fieldName === "first_name") {
       if (value.trim() === "") {
         errorMessage = "First Name is required";
@@ -86,15 +102,20 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       } else if (!/\d/.test(value)) {
         errorMessage = "Password must contain at least one number";
       }
-    } else if (fieldName === "mobile_number" && /^[6-9]\d{9}$/.test(value)) {
-    } else {
-      errorMessage = "Invalid Mobile Number, ";
+    } else if (fieldName === "mobile_number") {
+      if (value.trim() === "") {
+        errorMessage = "Mobile Number is required";
+      } else if (!mobileNumberRegex.test(value)) {
+        errorMessage = "Invalid Mobile Number";
+      }
+      console.log(`Mobile Number Error: ${errorMessage}`);
     }
 
     setErrors((prevErrors) => ({
       ...prevErrors,
       [fieldName]: errorMessage,
     }));
+    return errorMessage;
   };
 
   useEffect(() => {
@@ -120,6 +141,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         .then((getApiData) => {
           setUserData({
             ...getApiData.data,
+            role_id: getApiData.data.role_id.toString(),
           });
         })
         .catch((error) => {
@@ -132,14 +154,39 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     event.preventDefault();
 
     Object.keys(userData).forEach((fieldName) => {
-      validateInput(fieldName, userData[fieldName]);
+      const errorMessage = validateInput(fieldName, userData[fieldName]);
+      if (errorMessage) {
+        errors[fieldName as keyof FormErrors] = errorMessage; // Set the error message
+      }
     });
 
     const hasErrors = Object.values(errors).some((error) => error !== "");
 
+    let hasValidationErrors = false;
+    Object.keys(userData).forEach((fieldName) => {
+      validateInput(fieldName, userData[fieldName]);
+      if (fieldName === "mobile_number" && errors.mobile_number) {
+        hasValidationErrors = true;
+      }
+      if (
+        (fieldName === "first_name" || fieldName === "last_name") &&
+        errors[fieldName]
+      ) {
+        hasValidationErrors = true;
+      }
+    });
+    console.log("step1");
+    // If there are errors, don't submit the form
+    if (hasErrors) {
+      console.log("Validation errors:", errors);
+      console.log("step2");
+      return false;
+    }
+
     if (!hasErrors) {
       if (isEditMode && id) {
         try {
+          console.log("step3");
           const { file_name, ...userDataWithoutFilename } = userData;
           const token = localStorage.getItem("accessToken");
           if (!token) {
@@ -272,6 +319,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -357,7 +405,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
 
       <form
         className="  formshadow pl-[20px] bg-[#ffffff] border-[1px] border-gray-100 shadow-lg rounded-lg pb-[18px] mb-12 mt-4 pr-6 "
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
         encType="multipart/form-data"
       >
         <h4 className="text-[#232323]  text-[20px] font-semibold pt-3">
@@ -407,7 +455,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         <div className="w-full grid grid-cols-1">
           <div className="lg:flex gap-6 mb-2">
             <FormInput
-              label="First Name*"
+              label="First Name"
               name="first_name"
               value={userData.first_name}
               onChange={handleChange}
@@ -424,7 +472,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
 
           <div className="lg:flex gap-6 mb-2">
             <FormInput
-              label="Email Address*"
+              label="Email Address"
               type="email"
               name="email"
               value={userData.email}
@@ -433,7 +481,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             />
 
             <FormInput
-              label="Phone Number*"
+              label="Phone Number"
+              type="text"
               name="mobile_number"
               value={userData.mobile_number}
               onChange={handleChange}
@@ -443,7 +492,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
           <div className="lg:flex gap-6 mb-2">
             <FormInput
-              label="Password*"
+              label="Password"
               type="password"
               name="password"
               value={userData.password}
@@ -490,30 +539,38 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               value={userData.address}
               onChange={handleTextareaChange}
             />
-            <SelectInput
-              label="Country"
-              name="country"
-              value={userData.country}
-              options={["India", "china", "Others"]}
-              onChange={handleSelectChange}
-            />
+
+            <span className="z-50 w-[100%]">
+              <SelectInput
+                label="Country"
+                name="country"
+                value={userData.country || "Select a country"}
+                options={["Select a country", "India", "china", "Others"]}
+                onChange={handleSelectChange}
+                disabledValue="Select a country"
+              />
+            </span>
           </div>
           <div className="lg:flex gap-6 ">
             <SelectInput
               label="Language"
               name="default_language"
-              value={userData.default_language}
-              options={["Tamil", "English", "Hindi"]}
+              value={userData.default_language || "Select a language"}
+              options={["Select a language", "Tamil", "English", "Hindi"]}
               onChange={handleSelectChange}
+              disabledValue="Select a language"
             />
 
-            <SelectInput
-              label="Currency"
-              name="default_currency"
-              value={userData.default_currency}
-              options={["USD", "CAD", "Other"]}
-              onChange={handleSelectChange}
-            />
+            <span className="z-40 w-[100%]">
+              <SelectInput
+                label="Currency"
+                name="default_currency"
+                value={userData.default_currency || "Select a currency"}
+                options={["Select a currency", "USD", "CAD", "Other"]}
+                onChange={handleSelectChange}
+                disabledValue="Select a currency"
+              />
+            </span>
           </div>
         </div>
         <div className="lg:flex gap-6 ">
@@ -524,26 +581,99 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             onChange={handleChange}
           />
 
-          <div className="flex flex-col w-full ">
+          <span className="z-10 w-[100%]">
+            {" "}
+            <CustomDropdown
+              label="Select Role"
+              name="role_id"
+              value={userData.role_id || "2"}
+              // renderedLabel={renderedLabel}
+              options={[
+                { label: "Admin", value: "1" },
+                { label: "Consumer", value: "2" },
+                { label: "Agent", value: "3" },
+              ]}
+              onChange={handleSelectRoleChange}
+            />
+          </span>
+        </div>
+
+        {/* <div className="flex flex-col w-full ">
             <label htmlFor="role" className="">
               Select Role
             </label>
             <select
               id="role_id"
               placeholder="select one"
-              className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white"
+              className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
               name="role_id"
               value={userData.role_id}
               onChange={handleSelectRoleChange}
+              style={{ 
+                WebkitAppearance: 'none', 
+                MozAppearance: 'none',    
+                appearance: 'none',      
+                paddingRight: '2rem',     
+              }}
+
             >
+              <option value=""disabled>Select a role</option>
               <option value="1">Admin</option>
               <option value="2">Consumer</option>
               <option value="3">Agent</option>
             </select>
-          </div>
+            <div className="relative top-[-30px] left-[96.5%] pointer-events-none">
+          <svg
+            className="fill-current h-3 w-3 text-[#232323]"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
+          </svg>
         </div>
+          </div> */}
 
-        {showAdditionalDropdown && (
+        {/* <select
+  id="role_id"
+  placeholder="Select a role"
+  className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
+  name="role_id"
+  value={userData.role_id || "2"} // Set default value to "2" if undefined
+  onChange={handleSelectRoleChange}
+  style={{ 
+    WebkitAppearance: 'none', 
+    MozAppearance: 'none',    
+    appearance: 'none',      
+    paddingRight: '2rem',     
+  }}
+>
+  {roleOptions.map((option) => (
+    <option key={option.value} value={option.value}>
+      {option.label}
+    </option>
+  ))}
+</select>
+<div className="relative top-[-30px] left-[96.5%] pointer-events-none">
+  <svg
+    className="fill-current h-3 w-3 text-[#232323]"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+  >
+    <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
+  </svg>
+</div>
+</div> */}
+
+        {/* <div><SelectRoleInput
+        label=" Select Role"
+        name="role_id"
+        value={userData.role_id}
+        options={[ "Admin", "consumer", "Agent"]}
+        onChange={handleSelectRoleChange}
+        
+        /></div> */}
+
+        {/* {showAdditionalDropdown && (
           <div className="flex flex-col w-full pt-2 ">
             <label htmlFor="additionalRole" className="">
               Additional Role
@@ -551,20 +681,51 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             <select
               id="additionalRole"
               placeholder="select one"
-              className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white"
+              className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
               name="agent_position"
               value={userData.agent_position}
               onChange={handleSelectPositionChange}
               required={true}
+              style={{ 
+                WebkitAppearance: 'none', 
+                MozAppearance: 'none',    
+                appearance: 'none',      
+                paddingRight: '2rem',     
+              }}
             >
               <option value="Supervisor1">Supervisor</option>
               <option value="Assistant Manager">Assistant Manager</option>
               <option value="Senior Officer">Senior Officer</option>
               <option value="Head Officer">Head Officer</option>
             </select>
+            <div className="relative top-[-30px] left-[96.5%] pointer-events-none">
+          <svg
+            className="fill-current h-3 w-3 text-[#232323]"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
+          </svg>
+        </div>
           </div>
-        )}
+        )} */}
 
+        {showAdditionalDropdown && (
+          <SelectInput
+            label="Additional Role"
+            name="agent_position"
+            value={userData.agent_position || "Select a Agent position"}
+            options={[
+              "Select a Agent Position",
+              "Supervisor1",
+              "Assistant Manager",
+              "Senior Officer",
+              "Head Officer",
+            ]}
+            onChange={handleSelectPositionChange}
+            disabledValue="Select a Agent Position"
+          />
+        )}
         <div className="flex justify-center pt-3">
           <button
             className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-[#ffc107] mt-3"

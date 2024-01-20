@@ -1,39 +1,51 @@
-
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface SelectInputProps {
   label: string;
   name: string;
   value: string;
-  options: string[];
+  options: { label: string; value: string }[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  disabledValue?: string;
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({
+const CustomDropdown: React.FC<SelectInputProps> = ({
   label,
   name,
   value,
   options,
   onChange,
-  disabledValue,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(options[0]);
-  const [currentOptions, setCurrentOptions] = useState(options);
+  const [selectedValue, setSelectedValue] = useState(value);
 
-  const handleOptionClick = (selectedValue: string) => {
-    setIsOpen(false);
-    setSelectedValue(selectedValue);
-    onChange({
-      target: { name, value: selectedValue },
-    } as React.ChangeEvent<HTMLSelectElement>);
-    setCurrentOptions((prevOptions) =>
-      prevOptions.filter((option) => option !== selectedValue),
-    );
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
+
+  const getDisplayLabel = (value: string): string => {
+    console.log(value, typeof value);
+    if (value === "1") {
+      return "Admin";
+    } else if (value === "2") {
+      return "Consumer";
+    } else if (value === "3") {
+      return "Agent";
+    } else {
+      return "";
+    }
   };
 
+  const handleOptionClick = (selectedOption: {
+    label: string;
+    value: string;
+  }) => {
+    setIsOpen(false);
+    setSelectedValue(selectedOption.value);
+    onChange({
+      target: { name, value: selectedOption.value },
+    } as React.ChangeEvent<HTMLSelectElement>);
+  };
   return (
     <div className="relative w-full mb-2">
       <label htmlFor={name}>{label}</label>
@@ -42,7 +54,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center justify-between">
-          <div>{value}</div>
+          <div>{getDisplayLabel(selectedValue)}</div>
           <div className="ml-2 mr-3">
             <svg
               className={`fill-current text-black h-3 w-3 transform ${
@@ -57,21 +69,17 @@ const SelectInput: React.FC<SelectInputProps> = ({
         </div>
         {isOpen && (
           <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#232323] ">
-            {options.map((option, index) => (
+            {options.map((option) => (
               <div
-                key={option}
+                key={option.value}
                 className={`cursor-pointer px-3 ${
-                  index === 0 && value !== option
-                    ? "text-gray-400 hover:bg-transparent hover:text-gray-300 cursor-not-allowed"
-                    : "hover:bg-[#029e9d]"
-                } ${
-                  value === option
+                  selectedValue === option.value
                     ? "bg-[#029e9d] text-white"
-                    : "bg-white hover:text-white"
+                    : "hover:bg-[#029e9d] text-gray-800 hover:text-white"
                 }`}
-                onClick={() => index !== 0 && handleOptionClick(option)}
+                onClick={() => handleOptionClick(option)}
               >
-                {option}
+                {option.label}
               </div>
             ))}
           </div>
@@ -81,4 +89,4 @@ const SelectInput: React.FC<SelectInputProps> = ({
   );
 };
 
-export default SelectInput;
+export default CustomDropdown;

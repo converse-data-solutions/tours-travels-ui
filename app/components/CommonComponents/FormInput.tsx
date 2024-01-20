@@ -22,10 +22,17 @@ const FormInput: React.FC<FormInputProps> = ({
 }) => {
   return (
     <div className="flex flex-col w-full">
-      <label>{label}</label>
+      <label>
+        {label}
+        {required && (
+          <span className="px-1" style={{ color: "red" }}>
+            *
+          </span>
+        )}
+      </label>{" "}
       <input
         type={type}
-        className={`border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 mb-1 ${
+        className={`border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1  focus:border-gray-200 focus:outline-none ${
           error ? "border-red-500" : ""
         }`}
         name={name}
