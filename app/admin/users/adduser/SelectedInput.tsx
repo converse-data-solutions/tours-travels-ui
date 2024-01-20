@@ -80,7 +80,7 @@ const SelectRoleInput: React.FC<SelectInputProps> = ({
                 key={option}
                 className={`cursor-pointer px-3 ${
                   index === 0 && selectedValue !== option
-                    ? "text-gray-400 hover:bg-white hover:text-gray-400 cursor-not-allowed"
+                    ? "text-gray-400 hover:bg-white  cursor-not-allowed"
                     : "hover:bg-[#029e9d]"
                 } ${
                   selectedValue === option
