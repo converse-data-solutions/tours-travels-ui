@@ -1,58 +1,3 @@
-// "use client";
-// import { useState } from "react";
-// interface ShowEntriesDropdownProps {
-//   entries: number;
-//   setEntries: React.Dispatch<React.SetStateAction<number>>;
-// }
-
-// const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
-//   entries,
-//   setEntries,
-// }) => {
-//   const [isFocused, setIsFocused] = useState(false);
-//   return (
-
-// <>
-//     <select
-//       name="entries"
-//       id="entries"
-//       className="border-[1px] border-gray-200 w-full px-4 py-3 mb-2  rounded-lg outline-none md:w-1/3  bg-white text-base text-gray-500  "
-//       value={entries}
-//       onChange={(e) => setEntries(parseInt(e.target.value))}
-//       style={{
-//         WebkitAppearance: 'none',
-//         MozAppearance: 'none',
-//         appearance: 'none',
-//         paddingRight: '2rem',
-//       }}
-//     >
-//       <option  value="6" disabled style={{ color: "gray" }}>
-//         Show Entries
-//       </option>
-//       <option value="10" style={{ color: "gray",backgroundColor: "#029e9d"  }} className="hover:bg-[#029e9d] !important ">
-//         10
-//       </option>
-//       <option value="20" style={{ color: "gray",backgroundColor: "white"  }} className="hover:bg-[#029e9d] !important">
-//         20
-//       </option>
-//       <option value="30" style={{ color: "gray",backgroundColor: "white"  }}>
-//         30
-//       </option>
-//     </select>
-//     <div className="relative top-[-38px] left-[93.5%] md:top-[18px]  md:left-[-7.5%] 2xl:left-[-4.5%] pointer-events-none">
-//     <svg
-//       className="fill-current h-3 w-3 text-[#232323]"
-//       xmlns="http://www.w3.org/2000/svg"
-//       viewBox="0 0 20 20"
-//     >
-//       <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
-//     </svg>
-//   </div>
-//   </>
-//   );
-// };
-
-// export default ShowEntriesDropdown;
 "use client";
 import React, { useState } from "react";
 
@@ -112,7 +57,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
                 key={option}
                 className={`cursor-pointer px-3 ${
                   index === 0 && selectedValue !== option
-                    ? "text-gray-400  hover:text-gray-500 cursor-not-allowed"
+                    ? "text-gray-400  hover:text-gray-600 cursor-not-allowed"
                     : "hover:bg-[#029e9d]"
                 } ${
                   selectedValue === option
