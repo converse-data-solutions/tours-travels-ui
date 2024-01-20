@@ -77,7 +77,6 @@ const CountyDetailsPage: React.FC<CountyDetailsPageProps> = ({
     } else if (buttonType === "bars") {
       setCurrentView("bars");
     }
-    console.log(`Button clicked: ${buttonType}`);
   };
 
   return (

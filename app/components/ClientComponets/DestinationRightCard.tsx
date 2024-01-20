@@ -70,11 +70,7 @@ export default function TopdestinationRightCard() {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width >= 768) {
-        setSlidesPerView(1);
-      } else {
-        setSlidesPerView(1);
-      }
+      
     };
 
     handleResize();
