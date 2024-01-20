@@ -15,7 +15,7 @@ const TableSearchBar: React.FC<SearchBarProps> = ({
     <input
       type="text"
       placeholder={placeholder}
-      className="border-[1px] w-full px-4 py-3 mb-2 border-gray-200 rounded-lg outline-none md:w-1/3 lg:w-2/3 "
+      className="border-[1px] w-full px-4 py-3 mb-2 lg:mb-[0px] mt-[2px] border-gray-200 rounded-lg outline-none md:w-1/3 lg:w-[200%] lg:h-[48px] "
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
     />

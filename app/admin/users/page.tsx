@@ -42,7 +42,7 @@ interface UserData {
   default_language: string;
 }
 const Userlistpage = () => {
-  const [entries, setEntries] = useState(10);
+  const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -155,7 +155,7 @@ const Userlistpage = () => {
 
   return (
     <div className="px-4 lg:px-6">
-      <div className=" pt-6 md:flex justify-between   ">
+      <div className=" pt-6 md:flex justify-between mb-[15px]  ">
         <div className="flex-row text-center  ">
           <h2 className="text-gray-500 md:mt-5 lg:mt-4">
             <span className="text-[#029e9d] hover:text-[#6f42c1]">
@@ -179,17 +179,16 @@ const Userlistpage = () => {
           </button>
         </div>
       </div>
-      <br></br>
 
-      <div className=" bg-white px-4 py-4 rounded-[10px] shadow-sm lg:flex lg:flex-row lg:justify-between xl:py-[22px]">
-        <div className="">
-          <h5 className="flex justify-center md:justify-start   w-full p-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px] md:py-0 font-semibold  text-[#424040]   xl:pt-3">
+      <div className=" bg-white px-4 py-4 rounded-[10px] shadow-sm lg:flex lg:flex-row lg:justify-between ">
+        <div className="pt-6  ">
+          <h5 className="flex justify-center md:justify-start   w-full px-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px]  font-semibold  text-[#232323]   ">
             {" "}
             User Management Lists{" "}
           </h5>
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-6 lg:w-2/3 text-[16px]">
+        <div className="flex flex-col md:flex-row md:gap-6 lg:w-9/12 text-[16px] pt-[9px] z-30">
           <TableSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -286,7 +285,7 @@ const Userlistpage = () => {
         </TableContainer>
       </div>
 
-      <div className="my-8 flex justify-center lg:justify-start flex-row">
+      <div className="mb-[50px] flex justify-center lg:justify-start flex-row">
         <PaginationBar
           currentPage={currentPage}
           totalPages={totalPages}

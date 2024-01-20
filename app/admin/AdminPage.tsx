@@ -44,18 +44,22 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
     file_name: "",
     email: "",
   });
+
   const [selectedListDetails, setSelectedListDetails] =
     useState<ListDetails | null>(null);
 
   const [parent, setParent] = useState<ListDetails | null>(null);
   const [ischildren, setChildren] = useState<ListDetails[]>([]);
-
   const handleMouseEnter = () => {
-    setIsDetailsVisible(true);
+    setTimeout(() => {
+      setIsDetailsVisible(true);
+    }, 400);
   };
 
   const handleMouseLeave = () => {
-    setIsDetailsVisible(false);
+    setTimeout(() => {
+      setIsDetailsVisible(false);
+    }, 300);
   };
 
   const navication = () => {
@@ -167,12 +171,10 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
       <body>
         <div className="h-screen  ">
           {/****  Nav bar started****/}
-          <div
-            className={`sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10`}
-          >
+          <div className="sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10  ">
             {/**** largescreen icon with nav ****/}
             {!navVisible ? (
-              <div className=" hidden  nav-img-icon lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between">
+              <div className=" hidden  nav-img-icon lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between ">
                 <div className="">
                   {" "}
                   <Image
@@ -218,7 +220,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 />
               </div>
             ) : (
-              <div className="nav-transition">
+              <div className="">
                 <div className="  bg-white  border-r-[1px] border-gray-200  items-center flex-col  min-w-[240px] h-screen   justify-between lg:hidden ">
                   <div className="flex h-[65px] justify-between items-center border-[1px] border-b-gray-200 px-6 ">
                     <Image
@@ -229,9 +231,9 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                     />
                     <span onClick={MenuNavication}>
                       <Twirl
-                        toggled={!iconOpen}
+                        toggled={iconOpen}
                         toggle={setIconOpen}
-                        size={20}
+                        size={18}
                         color="gray"
                       />
                     </span>
@@ -246,7 +248,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                       activeSubcategory={
                         selectedListDetails?.subcategory || null
                       }
-                      showIconsOnly={true}
+                      showIconsOnly={false}
                     />{" "}
                   </div>
                 </div>
@@ -289,11 +291,10 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             </div>
           </div>
           {/****  Large screen NavDetails with travelin menubar icon  ,   large screen hovering time of icon list navdetails with xmark icon   *****/}
-          <div className="lg:flex nav-transition">
+          <div className="lg:flex ">
             {!navVisible ? (
               <div
-                className=" hidden lg: bg-white lg:flex-col h-[93vh] border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[240px]  duration-300 lg:min-w-[240px] "
-                style={{ transitionDuration: "0.3s" }}
+                className=" hidden lg: bg-white lg:flex-col h-[93vh] border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[240px]    lg:min-w-[240px] "
               >
                 <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between">
                   {/* <Navlist/> */}
@@ -311,12 +312,17 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             ) : (
               <div className="">
                 <div
-                  className={`hidden lg:block bg-white h-[93vh] overflow-y-hidden border-gray-200 md:relative md:inline-block border-r-[1px] min-w-[72px] transition-opacity duration-500 `}
+                  className=" hidden lg:block bg-white h-[93vh] overflow-y-hidden border-gray-200 md:relative md:inline-block border-r-[1px] min-w-[72px] "
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
                   {isDetailsVisible ? (
-                    <div className=" sm:hidden lg: bg-white  lg:flex-col h-[93vh]  smooth-action  border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[230px] lg:min-w-[270px] nav-transition2 lg:pr-11 xl:pr-10 2xl:pr-2">
+                    <div
+                      className=" sm:hidden lg: bg-white  lg:flex-col h-[93vh]  smooth-action  border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[230px] lg:min-w-[270px]  lg:pr-11 xl:pr-10 2xl:pr-0   "
+                      style={{
+                        transition: "all 5s ease",
+                      }}
+                    >
                       <NavListDetails
                         onListClick={handleListClick}
                         parent={parent}
@@ -333,7 +339,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                   )}
 
                   {/**** Icon list only with top xmark icon*****/}
-                  <div className="pt-[25px] border-b-[1px] border-dashed border-gray-200 nav-transition ">
+                  <div className="pt-[25px] border-b-[1px] border-dashed border-gray-200 nav-duration">
                     <NavListDetails
                       onListClick={handleListClick}
                       parent={parent}
@@ -350,7 +356,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             )}
             {/* children */}
 
-            <div className="content shadow-inner flex flex-col bg-[#f9fafb]  shadow-gray-200 overflow-scroll w-full h-[93vh] md:justify-between ">
+            <div className="content shadow-inner flex flex-col bg-[#f9fafb]  shadow-gray-200 overflow-scroll w-full h-[93vh] md:justify-between overflow-x-hidden ">
               <main>{children}</main>
 
               <div className=" w-full flex flex-col font-sans font-normal   text-gray-400  text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-4 px-4 lg:px-6">
@@ -370,7 +376,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
               {imgClick && (
                 <div
                   className="z-30 absolute right-[10px] mt-[2px] shadow-2xl rounded-lg "
-                 ref={ref}
+                  ref={ref}
                 >
                   {" "}
                   <UserDetailsForm />
