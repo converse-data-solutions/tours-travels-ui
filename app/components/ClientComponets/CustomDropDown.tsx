@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 
 interface SelectInputProps {
   label: string;
@@ -17,14 +17,18 @@ const CustomDropdown: React.FC<SelectInputProps> = ({
   onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(value);
+  const [selectedValue, setSelectedValue] = useState(value); 
+  const dropdownRef = useRef<HTMLDivElement >(null);
 
   useEffect(() => {
     setSelectedValue(value);
   }, [value]);
 
+
+  
+
   const getDisplayLabel = (value: string): string => {
-    console.log(value, typeof value);
+    
     if (value === "1") {
       return "Admin";
     } else if (value === "2") {
@@ -46,12 +50,31 @@ const CustomDropdown: React.FC<SelectInputProps> = ({
       target: { name, value: selectedOption.value },
     } as React.ChangeEvent<HTMLSelectElement>);
   };
+
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative w-full mb-2">
+    <div className="relative w-full mb-2 " >
       <label htmlFor={name}>{label}</label>
       <div
         className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)} ref={dropdownRef}
       >
         <div className="flex items-center justify-between">
           <div>{getDisplayLabel(selectedValue)}</div>

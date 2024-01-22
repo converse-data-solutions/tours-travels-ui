@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef } from "react";
 
 interface ShowEntriesDropdownProps {
   entries: number;
@@ -14,6 +14,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
+  const dropdownRef3=useRef<HTMLDivElement>(null);
 
   const handleOptionClick = (selectedValue: string) => {
     setIsOpen(false);
@@ -23,6 +24,24 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
       prevOptions.filter((option) => option !== selectedValue),
     );
   };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef3.current &&
+        !dropdownRef3.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef3]);
+
+
 
   return (
     <div className="relative w-full mb-2">
@@ -35,6 +54,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           appearance: "none",
           paddingRight: "2rem",
         }}
+        ref={dropdownRef3}
       >
         <div className="flex items-center justify-between">
           <div>{selectedValue}</div>
@@ -51,13 +71,13 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#232323]">
+          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#232323] ">
             {options.map((option, index) => (
               <div
                 key={option}
                 className={`cursor-pointer px-3 ${
                   index === 0 && selectedValue !== option
-                    ? "text-gray-400  hover:text-gray-600 cursor-not-allowed"
+                    ? " hover:text-gray-500 cursor-not-allowed"
                     : "hover:bg-[#029e9d]"
                 } ${
                   selectedValue === option

@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef } from "react";
 
 interface SelectInputProps {
   label: string;
@@ -22,6 +22,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
+  const dropdownRef2=useRef<HTMLDivElement>(null);
 
   const handleOptionClick = (selectedValue: string) => {
     setIsOpen(false);
@@ -34,12 +35,31 @@ const SelectInput: React.FC<SelectInputProps> = ({
     );
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef2.current &&
+        !dropdownRef2.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef2]);
+  
+
+
   return (
     <div className="relative w-full mb-2">
       <label htmlFor={name}>{label}</label>
       <div
         className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)} ref={dropdownRef2}
       >
         <div className="flex items-center justify-between">
           <div>{value}</div>
@@ -62,7 +82,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
                 key={option}
                 className={`cursor-pointer px-3 ${
                   index === 0 && value !== option
-                    ? "text-gray-400  hover:text-gray-600 cursor-not-allowed"
+                    ? " cursor-not-allowed hover:text-gray-500"
                     : "hover:bg-[#029e9d]"
                 } ${
                   value === option
