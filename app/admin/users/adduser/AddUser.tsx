@@ -10,7 +10,6 @@ import AlternateImg from "../../../../public/alternative.png";
 import { LuArrowLeft } from "react-icons/lu";
 import { LuPlus } from "react-icons/lu";
 import CustomDropdown from "@/app/components/ClientComponets/CustomDropDown";
-
 interface UserdataType {
   email: string;
   password: string;
@@ -64,7 +63,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       agent_position: "",
     },
   );
-
 
   let [file, setFile] = useState<File | string>();
   const [errors, setErrors] = useState({
