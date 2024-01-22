@@ -387,6 +387,9 @@ li {
   position: relative;
   overflow: hidden;
 }
+.cursor-not-allowed{
+  cursor:unset !important;
+}
 
 .custom-file-input input[type="file"] {
   font-size: 100px;
@@ -545,7 +548,7 @@ input:checked + .slider:before {
   transform: translateX(18px);
 }
 
-/* Rounded sliders */
+
 .slider.round {
   border-radius: 34px;
 }
@@ -997,9 +1000,11 @@ body {
   color: #7987a1;
 }
 .list-part li:hover::marker {
-  font-size: 20px;
+  font-size: 19px;
   list-style-type: disc;
   color: #029e9d;
+  position: fixed;
+ 
 }
 .rotate-180 {
   transform: rotate(180deg);

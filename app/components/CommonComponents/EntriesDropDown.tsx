@@ -71,19 +71,16 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#232323] ">
+          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#6e6d6d] shadow-md ">
             {options.map((option, index) => (
               <div
                 key={option}
+
+
                 className={`cursor-pointer px-3 ${
-                  index === 0 && selectedValue !== option
-                    ? " hover:text-gray-500 cursor-not-allowed"
-                    : "hover:bg-[#029e9d]"
-                } ${
-                  selectedValue === option
-                    ? "bg-[#029e9d] text-white"
-                    : "bg-white hover:text-white"
-                }`}
+                  index === 0 ? "cursor-not-allowed hover:text-gray-500 !important" : (selectedValue === option ? "bg-[#029e9d] text-white" : "bg-white hover:text-white hover:bg-[#029e9d]")
+                }
+                `}
                 onClick={() => index !== 0 && handleOptionClick(option)}
               >
                 {option}

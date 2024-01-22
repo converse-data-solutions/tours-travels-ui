@@ -408,7 +408,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         onSubmit={(e) => handleSubmit(e)}
         encType="multipart/form-data"
       >
-        <h4 className="text-[#232323]  text-[20px] font-semibold pt-3">
+        <h4 className="text-[#232323]  text-[20px] font-semibold pt-5">
           User Setup
         </h4>
         <br />
@@ -447,8 +447,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               onChange={handleImageChange}
               alt=""
             />
-            <label htmlFor="file-input" className="" >
-              <span className="custom-file-input-button font-thin  hover:bg-gray-200">Choose file  </span> <span className="bg-white relative top-[-36px] pl-4">No file chosen</span>
+            <label htmlFor="file-input"  >
+              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">Choose file  </span> <span className="bg-white relative top-[-36px] pl-4">No file chosen</span>
             </label>
           </span>
         </div>

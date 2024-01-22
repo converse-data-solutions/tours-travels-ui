@@ -91,7 +91,7 @@ const CustomDropdown: React.FC<SelectInputProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#232323] ">
+          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#6e6d6d] shadow-md  ">
             {options.map((option) => (
               <div
                 key={option.value}
