@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import FormInput from "../../../components/CommonComponents/FormInput";
 import RadioButton from "../../../components/CommonComponents/Radiobutton";
@@ -11,7 +9,6 @@ import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
 import { LuArrowLeft } from "react-icons/lu";
 import { LuPlus } from "react-icons/lu";
-import SelectRoleInput from "./SelectedInput";
 import CustomDropdown from "@/app/components/ClientComponets/CustomDropDown";
 
 interface UserdataType {
@@ -68,11 +65,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     },
   );
 
-  const roleOptions = [
-    { label: "Admin", value: "1" },
-    { label: "Consumer", value: "2" },
-    { label: "Agent", value: "3" },
-  ];
 
   let [file, setFile] = useState<File | string>();
   const [errors, setErrors] = useState({
@@ -156,7 +148,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     Object.keys(userData).forEach((fieldName) => {
       const errorMessage = validateInput(fieldName, userData[fieldName]);
       if (errorMessage) {
-        errors[fieldName as keyof FormErrors] = errorMessage; // Set the error message
+        errors[fieldName as keyof FormErrors] = errorMessage; 
       }
     });
 
@@ -175,11 +167,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         hasValidationErrors = true;
       }
     });
-    console.log("step1");
-    // If there are errors, don't submit the form
+    
     if (hasErrors) {
-      console.log("Validation errors:", errors);
-      console.log("step2");
+      
       return false;
     }
 
@@ -388,11 +378,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
           <div className="flex-row mt-3 text-center ">
             <button
-<<<<<<< HEAD
-              className="bg-[#029e9d] text-white py-[13px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
-=======
+
               className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[14px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
->>>>>>> navlist-icon
               onClick={handleInput}
             >
               <div className="flex">
@@ -458,11 +445,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         </div>
         <div className="w-full grid grid-cols-1">
           <div className="lg:flex gap-6 mb-2">
-<<<<<<< HEAD
-            <FormInput
-=======
+
             <FormInput  
->>>>>>> navlist-icon
               label="First Name"
               name="first_name"
               value={userData.first_name}
@@ -593,10 +577,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             {" "}
             <CustomDropdown
               label="Select Role"
-<<<<<<< HEAD
               name="role_id"
               value={userData.role_id || "2"}
-              // renderedLabel={renderedLabel}
               options={[
                 { label: "Admin", value: "1" },
                 { label: "Consumer", value: "2" },
@@ -607,133 +589,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </span>
         </div>
 
-        {/* <div className="flex flex-col w-full ">
-            <label htmlFor="role" className="">
-              Select Role
-            </label>
-            <select
-              id="role_id"
-              placeholder="select one"
-              className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
-=======
->>>>>>> navlist-icon
-              name="role_id"
-              value={userData.role_id || "2"}
-              options={[
-                { label: "Admin", value: "1" },
-                { label: "Consumer", value: "2" },
-                { label: "Agent", value: "3" },
-              ]}
-              onChange={handleSelectRoleChange}
-<<<<<<< HEAD
-              style={{ 
-                WebkitAppearance: 'none', 
-                MozAppearance: 'none',    
-                appearance: 'none',      
-                paddingRight: '2rem',     
-              }}
 
-            >
-              <option value=""disabled>Select a role</option>
-              <option value="1">Admin</option>
-              <option value="2">Consumer</option>
-              <option value="3">Agent</option>
-            </select>
-            <div className="relative top-[-30px] left-[96.5%] pointer-events-none">
-          <svg
-            className="fill-current h-3 w-3 text-[#232323]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
-          </svg>
-=======
-            />
-          </span>
->>>>>>> navlist-icon
-        </div>
-          </div> */}
-
-<<<<<<< HEAD
-        {/* <select
-  id="role_id"
-  placeholder="Select a role"
-  className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
-  name="role_id"
-  value={userData.role_id || "2"} // Set default value to "2" if undefined
-  onChange={handleSelectRoleChange}
-  style={{ 
-    WebkitAppearance: 'none', 
-    MozAppearance: 'none',    
-    appearance: 'none',      
-    paddingRight: '2rem',     
-  }}
->
-  {roleOptions.map((option) => (
-    <option key={option.value} value={option.value}>
-      {option.label}
-    </option>
-  ))}
-</select>
-<div className="relative top-[-30px] left-[96.5%] pointer-events-none">
-  <svg
-    className="fill-current h-3 w-3 text-[#232323]"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-  >
-    <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
-  </svg>
-</div>
-</div> */}
-
-        {/* <div><SelectRoleInput
-        label=" Select Role"
-        name="role_id"
-        value={userData.role_id}
-        options={[ "Admin", "consumer", "Agent"]}
-        onChange={handleSelectRoleChange}
-        
-        /></div> */}
-
-        {/* {showAdditionalDropdown && (
-          <div className="flex flex-col w-full pt-2 ">
-            <label htmlFor="additionalRole" className="">
-              Additional Role
-            </label>
-            <select
-              id="additionalRole"
-              placeholder="select one"
-              className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
-              name="agent_position"
-              value={userData.agent_position}
-              onChange={handleSelectPositionChange}
-              required={true}
-              style={{ 
-                WebkitAppearance: 'none', 
-                MozAppearance: 'none',    
-                appearance: 'none',      
-                paddingRight: '2rem',     
-              }}
-            >
-              <option value="Supervisor1">Supervisor</option>
-              <option value="Assistant Manager">Assistant Manager</option>
-              <option value="Senior Officer">Senior Officer</option>
-              <option value="Head Officer">Head Officer</option>
-            </select>
-            <div className="relative top-[-30px] left-[96.5%] pointer-events-none">
-          <svg
-            className="fill-current h-3 w-3 text-[#232323]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
-          </svg>
-        </div>
-          </div>
-        )} */}
-
-=======
->>>>>>> navlist-icon
         {showAdditionalDropdown && (
           <SelectInput
             label="Additional Role"
@@ -756,15 +612,11 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             type="submit"
           >
             <div className="flex">
-<<<<<<< HEAD
-              <div>
-                {" "}
-                <LuPlus className="text-[24px]" />
-=======
+
               <div className="">
                 {" "}
                 <LuPlus className="text-[26px] pr-1   " />
->>>>>>> navlist-icon
+
               </div>
               <div> {isEditMode ? "Update User" : "Add User"}</div>
             </div>
