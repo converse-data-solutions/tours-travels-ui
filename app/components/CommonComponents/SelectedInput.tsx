@@ -1,7 +1,6 @@
 
 "use client";
-import React, { useState } from "react";
-
+import React, { useState,useEffect,useRef } from "react";
 interface SelectInputProps {
   label: string;
   name: string;
@@ -23,6 +22,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
 
+  const dropdownRef2=useRef<HTMLDivElement>(null);
+
   const handleOptionClick = (selectedValue: string) => {
     setIsOpen(false);
     setSelectedValue(selectedValue);
@@ -34,12 +35,34 @@ const SelectInput: React.FC<SelectInputProps> = ({
     );
   };
 
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef2.current &&
+        !dropdownRef2.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef2]);
+  
+
+
+
   return (
     <div className="relative w-full mb-2">
       <label htmlFor={name}>{label}</label>
       <div
         className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative"
-        onClick={() => setIsOpen(!isOpen)}
+
+        onClick={() => setIsOpen(!isOpen)} ref={dropdownRef2}
       >
         <div className="flex items-center justify-between">
           <div>{value}</div>
@@ -56,19 +79,16 @@ const SelectInput: React.FC<SelectInputProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#232323] ">
+
+          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#6e6d6d] shadow-md ">
             {options.map((option, index) => (
               <div
                 key={option}
                 className={`cursor-pointer px-3 ${
-                  index === 0 && value !== option
-                    ? "text-gray-400  hover:text-gray-600 cursor-not-allowed"
-                    : "hover:bg-[#029e9d]"
-                } ${
-                  value === option
-                    ? "bg-[#029e9d] text-white"
-                    : "bg-white hover:text-white"
-                }`}
+
+                  index === 0 ? "cursor-not-allowed hover:text-gray-500 !important" : (value === option ? "bg-[#029e9d] text-white" : "bg-white hover:text-white hover:bg-[#029e9d]")
+                }
+                `}
                 onClick={() => index !== 0 && handleOptionClick(option)}
               >
                 {option}

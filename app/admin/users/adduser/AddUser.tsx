@@ -388,7 +388,11 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
           <div className="flex-row mt-3 text-center ">
             <button
+<<<<<<< HEAD
               className="bg-[#029e9d] text-white py-[13px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
+=======
+              className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[14px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
+>>>>>>> navlist-icon
               onClick={handleInput}
             >
               <div className="flex">
@@ -408,7 +412,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         onSubmit={(e) => handleSubmit(e)}
         encType="multipart/form-data"
       >
-        <h4 className="text-[#232323]  text-[20px] font-semibold pt-3">
+        <h4 className="text-[#232323]  text-[20px] font-semibold pt-5">
           User Setup
         </h4>
         <br />
@@ -447,14 +451,18 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               onChange={handleImageChange}
               alt=""
             />
-            <label htmlFor="file-input" className="custom-file-input-button  ">
-              Choose File
+            <label htmlFor="file-input"  >
+              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">Choose file  </span> <span className="bg-white relative top-[-36px] pl-4">No file chosen</span>
             </label>
           </span>
         </div>
         <div className="w-full grid grid-cols-1">
           <div className="lg:flex gap-6 mb-2">
+<<<<<<< HEAD
             <FormInput
+=======
+            <FormInput  
+>>>>>>> navlist-icon
               label="First Name"
               name="first_name"
               value={userData.first_name}
@@ -585,6 +593,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             {" "}
             <CustomDropdown
               label="Select Role"
+<<<<<<< HEAD
               name="role_id"
               value={userData.role_id || "2"}
               // renderedLabel={renderedLabel}
@@ -606,9 +615,17 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               id="role_id"
               placeholder="select one"
               className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full grid grid-cols-1 pl-2 px-3 mt-2 mb-1 bg-white text-gray-500"
+=======
+>>>>>>> navlist-icon
               name="role_id"
-              value={userData.role_id}
+              value={userData.role_id || "2"}
+              options={[
+                { label: "Admin", value: "1" },
+                { label: "Consumer", value: "2" },
+                { label: "Agent", value: "3" },
+              ]}
               onChange={handleSelectRoleChange}
+<<<<<<< HEAD
               style={{ 
                 WebkitAppearance: 'none', 
                 MozAppearance: 'none',    
@@ -630,9 +647,14 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           >
             <path d="M10 12l-8-8-1.5 2 9 9 9-9-1.5-2z" />
           </svg>
+=======
+            />
+          </span>
+>>>>>>> navlist-icon
         </div>
           </div> */}
 
+<<<<<<< HEAD
         {/* <select
   id="role_id"
   placeholder="Select a role"
@@ -710,6 +732,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
         )} */}
 
+=======
+>>>>>>> navlist-icon
         {showAdditionalDropdown && (
           <SelectInput
             label="Additional Role"
@@ -732,9 +756,15 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             type="submit"
           >
             <div className="flex">
+<<<<<<< HEAD
               <div>
                 {" "}
                 <LuPlus className="text-[24px]" />
+=======
+              <div className="">
+                {" "}
+                <LuPlus className="text-[26px] pr-1   " />
+>>>>>>> navlist-icon
               </div>
               <div> {isEditMode ? "Update User" : "Add User"}</div>
             </div>

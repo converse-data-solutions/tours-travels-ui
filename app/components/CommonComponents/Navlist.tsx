@@ -31,46 +31,38 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   const [isListVisible, setIsListVisible] = useState(false);
   const [isPackageVisible, setPackageVisible] = useState(false);
   const [isBookingVisible, setBookingVisible] = useState(false);
-  const [listButtonColor, setListButtonColor] = useState("black");
-  const [packageButtonColor, setPackageButtonColor] = useState("black");
-  const [bookingButtonColor, setBookingButtonColor] = useState("black");
+  const [listButtonColor, setListButtonColor] = useState("#232323");
+  const [packageButtonColor, setPackageButtonColor] = useState("#232323");
+  const [bookingButtonColor, setBookingButtonColor] = useState("#232323");
   const [navActive, setNavActive] = useState<ListDetails>();
   const [activeList, setActiveList] = useState<ListDetails | null>(null);
   const [subCategoryColor, setSubCategoryColor] = useState<string>("#029e9d");
+ 
 
   const pathname = usePathname();
-  console.log("path", pathname);
-
-  // const handleListClick = (listDetails: any) => {
-  //   setActiveList(listDetails);
-  //   setNavActive({ category: listDetails.category, subcategory: listDetails.subcategory });
-
-  //    setActiveList(listDetails.subcategory)
-
-  //   onListClick(listDetails);
-  //   console.log("details",listDetails.category,listDetails.subcategory)
-  // };
-
+  
   const userManagement1 = () => {
     setIsListVisible(true);
     setPackageVisible(false);
     setBookingVisible(false);
-    setPackageButtonColor("black");
-    setBookingButtonColor("black");
+    setPackageButtonColor("#232323");
+    setBookingButtonColor("#232323");
+
     const listDetails = {
       category: "User Management",
       subcategory: "All User Lists",
     };
     setNavActive(listDetails);
     onListClick(listDetails);
+    setListButtonColor("#029e9d")
   };
 
   const userManagement2 = () => {
     setIsListVisible(true);
     setPackageVisible(false);
     setBookingVisible(false);
-    setPackageButtonColor("black");
-    setBookingButtonColor("black");
+    setPackageButtonColor("#232323");
+    setBookingButtonColor("#232323");
     const listDetails = {
       category: "User Management",
       subcategory: "Add User",
@@ -83,8 +75,8 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
     setIsListVisible(false);
     setPackageVisible(true);
     setBookingVisible(false);
-    setListButtonColor("black");
-    setBookingButtonColor("black");
+    setListButtonColor("#232323");
+    setBookingButtonColor("#232323");
     const listDetails = {
       category: "Package Management",
       subcategory: "All Package Lists",
@@ -97,8 +89,9 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
     setIsListVisible(false);
     setPackageVisible(true);
     setBookingVisible(false);
-    setListButtonColor("black");
-    setBookingButtonColor("black");
+
+    setListButtonColor("#232323");
+    setBookingButtonColor("#232323");
     const listDetails = {
       category: "Package Management",
       subcategory: "Add Package",
@@ -111,8 +104,8 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
     setIsListVisible(false);
     setPackageVisible(false);
     setBookingVisible(true);
-    setListButtonColor("black");
-    setPackageButtonColor("black");
+    setListButtonColor("#232323");
+    setPackageButtonColor("#232323");
     const listDetails = {
       category: "Booking Section",
       subcategory: "All Booking List",
@@ -124,16 +117,16 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
 
-    setListButtonColor(isListVisible ? "#232323" : "#20B2AA");
+    setListButtonColor(isListVisible ? "#232323" : "#029e9d");
   };
 
   const togglePackageVisibility = () => {
     setPackageVisible(!isPackageVisible);
-    setPackageButtonColor(isPackageVisible ? "#232323" : "#20B2AA");
+    setPackageButtonColor(isPackageVisible ? "#232323" : "#029e9d");
   };
   const toggleBookingVisibility = () => {
     setBookingVisible(!isBookingVisible);
-    setBookingButtonColor(isBookingVisible ? "#232323" : "#20B2AA");
+    setBookingButtonColor(isBookingVisible ? "#232323" : "#029e9d");
   };
 
   useEffect(() => {
@@ -148,7 +141,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
       setIsListVisible(true);
       setPackageVisible(false);
       setBookingVisible(false);
-      // setListButtonColor('#029e9d')
+     setListButtonColor('#029e9d')
     } else if (navActive.category === "User Management") {
       setIsListVisible(true);
       setPackageVisible(false);
@@ -202,7 +195,9 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
 
   return (
     <>
-      <div className="nav-transition">
+
+      <div className="nav-transition ">
+
         <div className="mt-7 border-b-[1px] border-dashed border-gray-200 pl-6 pr-5  bg-white ">
           <button
             className="flex items-center py-[10px] w-full nav-button"
@@ -210,7 +205,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
             onClick={toggleListVisibility}
           >
             {showIconsOnly ? (
-              <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
+             <span className="flex gap-1 items-center w-full hover:text-[#029e9d]">
                 <div className="min-w-[25px] text-center">
                   <FiUser
                     className={`text-[18px] ${
@@ -224,11 +219,12 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                 </div>
               </span>
             ) : (
-              <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
+
+              <span className="flex gap-1 items-center w-full hover:text-[#029e9d]">
                 <div className="min-w-[25px] text-center">
                   <FiUser className="text-[18px]" />
                 </div>
-                <div className="w-full flex  bg-white">
+                <div className="w-full flex  bg-white ">
                   <span className="font-semibold hover:pl-1  transition-all duration-300  ">
                     User Management
                   </span>
@@ -278,25 +274,28 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
             onClick={togglePackageVisibility}
           >
             {showIconsOnly ? (
-              <span className="flex gap-[10px] items-center w-full hover:text-[#20B2AA]">
+
+              <span className="flex gap-[10px] items-center w-full hover:text-[#029e9d]">
                 <span>
                   <FiUser
                     className={`text-[18px] ${
                       (activeCategory === "Package Management" &&
                         activeSubcategory === "All Package Lists") ||
                       activeSubcategory === "Add Package"
-                        ? "text-[#20B2AA]"
+
+                        ? "text-[#029e9d]"
                         : "text-[#232323]"
                     }`}
                   />{" "}
                 </span>
               </span>
             ) : (
-              <span className="flex gap-[10px] items-center w-full hover:text-[#20B2AA]">
+
+              <span className="flex gap-[10px] items-center w-full  hover:text-[#029e9d]">
                 <span>
                   <FiUser className="text-[18px] " />
                 </span>
-                <div className="w-full flex justify-around hover:pl-[2px] transition-all duration-300 font-bold">
+                <div className="w-full flex justify-around hover:pl-[2px] transition-all duration-300 font-bold ">
                   <span className="">Package Management</span>
                   <span className="pl-1">
                     {isPackageVisible ? (
@@ -354,19 +353,21 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                     className={`text-[18px] ${
                       activeCategory === "Booking Section" &&
                       activeSubcategory === "All Booking List"
-                        ? "text-[#20B2AA]"
+
+                        ? "text-[#029e9d]"
                         : "text-[#232323]"
                     }`}
                   />
                 </span>
               </span>
             ) : (
-              <span className="flex gap-1 items-center w-full hover:text-[#20B2AA]">
+
+              <span className="flex gap-1 items-center w-full  hover:text-[#029e9d]">
                 <span>
                   <LuTable2 className="text-center text-[17px] min-w-[25px] pr-1" />
                 </span>
-                <div className="w-full flex justify-between">
-                  <span className="font-bold hover:pl-1 transition-all duration-300 ">
+                <div className="w-full flex justify-between ">
+                  <span className="font-bold hover:pl-1 transition-all duration-300  ">
                     Booking Section
                   </span>
                   <span>
