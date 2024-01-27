@@ -402,8 +402,8 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               </label>
             </span>
           </div>
-          <div className=" w-full z-40  relative">
-            <label>Date</label>
+          <div className=" w-full z-20 lg:z-40  relative">
+            <label><span>Date</span><span className="text-red-500 ml-1">*</span></label>
             <div className="">
               <div className="date-table">
                 <Datetime
@@ -446,10 +446,10 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             />
 
             <div className="lg:w-full">
-              <label>Country</label>
+              <label><span>Country</span><span className="text-red-500 ml-1">*</span></label>
               <br />
               <CountryDropdown
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white ${
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-300 ${
                   errors.country ? "border-red-500" : "border-gray-200"
                 }`}
                 value={packageData.country}
@@ -467,14 +467,14 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
           <div className="lg:flex gap-6 mb-4">
             <div className="lg:w-full">
-              <label>State</label>
+              <label><span>State</span><span className="text-red-500 ml-1">*</span></label>
               <RegionDropdown
                 country={packageData.country}
                 value={packageData.state}
                 onChange={(val) =>
                   setPackageData({ ...packageData, state: val })
                 }
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white ${
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-gray-300   ${
                   errors.state ? "border-red-500" : "border-gray-200"
                 }`}
               />
@@ -564,6 +564,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               customValue={
                 initialPackageData ? initialPackageData.description : ""
               }
+              
             />
           </div>
         </div>
