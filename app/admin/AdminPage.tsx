@@ -10,10 +10,11 @@ import { Squash as Hamburger, Twirl } from "hamburger-react";
 import NavListDetails from "../components/CommonComponents/Navlist";
 import { jwtDecode } from "jwt-decode";
 import UserDetailsForm from "../components/CommonComponents/UserDetails";
-import { LuSearch } from "react-icons/lu";
+import { LuHeart, LuSearch } from "react-icons/lu";
 import { FiBell } from "react-icons/fi";
 import { useRef } from "react";
 import BellIconDetails from "../components/CommonComponents/BellIconDetails";
+import { FaRegHeart } from "react-icons/fa";
 
 type ListDetails = {
   category: string;
@@ -357,19 +358,19 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             <div className="content shadow-inner flex flex-col bg-[#f9fafb]  shadow-gray-200 overflow-scroll w-full h-[93vh] md:justify-between overflow-x-hidden ">
               <main>{children}</main>
 
-              <div className=" w-full flex flex-col font-sans font-normal   text-gray-400  text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-3 px-4 lg:px-6">
-                <span className="text-[13px] font-sans">
-                  Copyright <span>&copy;</span>2022{" "}
-                  <span className="text-[#029e9d] font-sans">Travelin</span>
+              <div className=" w-full flex flex-col font-sans font-normal    text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-[12px] px-4 lg:px-6">
+                <span className="text-[12.25px] text-[#7987a1]">
+                  Copyright <span className="px-[1px]">&copy;</span>2022{" "}
+                  <span className="text-[#029e9d] ">Travelin.</span>
                 </span>
 
-                <span>
-                  Powered By{" "}
-                  <span>
-                    <FavoriteBorderIcon className="text-[#7782fe]" />
-                  </span>{" "}
-                  Converse Data Solutions
-                </span>
+                <div className="text-[12.25px] text-[#7987a1] flex gap-2">
+                  <div>Powered By{" "}</div>
+                  
+                   <div><FaRegHeart  className="text-[14px] mt-[2px] text-[#6f79e4]"/></div>
+                 
+                 <div>Converse Data Solutions</div> 
+                </div>
               </div>
               {imgClick && (
                 <div
