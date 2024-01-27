@@ -293,9 +293,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
           {/****  Large screen NavDetails with travelin menubar icon  ,   large screen hovering time of icon list navdetails with xmark icon   *****/}
           <div className="lg:flex ">
             {!navVisible ? (
-              <div
-                className=" hidden lg: bg-white lg:flex-col h-[93vh] border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[240px]    lg:min-w-[240px] "
-              >
+              <div className=" hidden lg: bg-white lg:flex-col h-[93vh] border-r-[1px] border-gray-200 lg:relative lg:inline-block min-w-[240px]    lg:min-w-[240px] ">
                 <div className="mt-4 border-b-[1px] border-dashed border-gray-200  justify-between">
                   {/* <Navlist/> */}
 
@@ -359,7 +357,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             <div className="content shadow-inner flex flex-col bg-[#f9fafb]  shadow-gray-200 overflow-scroll w-full h-[93vh] md:justify-between overflow-x-hidden ">
               <main>{children}</main>
 
-              <div className=" w-full flex flex-col font-sans font-normal   text-gray-400  text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-4 px-4 lg:px-6">
+              <div className=" w-full flex flex-col font-sans font-normal   text-gray-400  text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-3 px-4 lg:px-6">
                 <span className="text-[13px] font-sans">
                   Copyright <span>&copy;</span>2022{" "}
                   <span className="text-[#029e9d] font-sans">Travelin</span>

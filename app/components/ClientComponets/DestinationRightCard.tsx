@@ -70,7 +70,6 @@ export default function TopdestinationRightCard() {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      
     };
 
     handleResize();

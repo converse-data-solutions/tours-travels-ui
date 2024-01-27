@@ -1,4 +1,5 @@
 import React from "react";
+
 interface FormInputProps {
   label: string;
   name: string;
@@ -8,10 +9,11 @@ interface FormInputProps {
   type?: string;
   required?: boolean;
   placeholder?: string;
-  min?: string;
+  minValue?: number;
+  maxValue?: number;
 }
 
-const FormInput: React.FC<FormInputProps> = ({
+const FormNumberInput: React.FC<FormInputProps> = ({
   label,
   name,
   value,
@@ -20,7 +22,26 @@ const FormInput: React.FC<FormInputProps> = ({
   type = "text",
   placeholder,
   required,
+  minValue,
+  maxValue,
 }) => {
+  const isPositiveInteger = (inputValue: string) => {
+    const numberValue = Number(inputValue);
+    return Number.isInteger(numberValue) && numberValue >= 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const numberValue = Number(inputValue);
+
+    if (
+      (isPositiveInteger(inputValue) || inputValue === "") &&
+      (!maxValue || numberValue <= maxValue)
+    ) {
+      onChange(e);
+    }
+  };
+
   return (
     <div className="flex flex-col w-full">
       <label>
@@ -38,13 +59,14 @@ const FormInput: React.FC<FormInputProps> = ({
         }`}
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder={placeholder}
         required={required}
+        min={minValue}
       />
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 };
 
-export default FormInput;
+export default FormNumberInput;

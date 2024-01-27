@@ -146,7 +146,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     Object.keys(userData).forEach((fieldName) => {
       const errorMessage = validateInput(fieldName, userData[fieldName]);
       if (errorMessage) {
-        errors[fieldName as keyof FormErrors] = errorMessage; 
+        errors[fieldName as keyof FormErrors] = errorMessage;
       }
     });
 
@@ -165,9 +165,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         hasValidationErrors = true;
       }
     });
-    
+
     if (hasErrors) {
-      
       return false;
     }
 
@@ -376,7 +375,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
           <div className="flex-row mt-3 text-center ">
             <button
-
               className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[14px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
               onClick={handleInput}
             >
@@ -436,15 +434,19 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               onChange={handleImageChange}
               alt=""
             />
-            <label htmlFor="file-input"  >
-              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">Choose file  </span> <span className="bg-white relative top-[-36px] pl-4">No file chosen</span>
+            <label htmlFor="file-input">
+              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
+                Choose file{" "}
+              </span>{" "}
+              <span className="bg-white relative top-[-36px] pl-4">
+                No file chosen
+              </span>
             </label>
           </span>
         </div>
         <div className="w-full grid grid-cols-1">
           <div className="lg:flex gap-6 mb-2">
-
-            <FormInput  
+            <FormInput
               label="First Name"
               name="first_name"
               value={userData.first_name}
@@ -587,7 +589,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </span>
         </div>
 
-
         {showAdditionalDropdown && (
           <SelectInput
             label="Additional Role"
@@ -610,18 +611,18 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             type="submit"
           >
             <div className="flex">
-
               <div className="">
                 {" "}
                 <LuPlus className="text-[26px] pr-1   " />
-
               </div>
               <div> {isEditMode ? "Update User" : "Add User"}</div>
             </div>
           </button>
         </div>
         {successMessage && (
-          <p className="text-[#029e9d] flex justify-center">{successMessage}</p>
+          <p className="text-[#029e9d] flex justify-center mt-4">
+            {successMessage}
+          </p>
         )}
       </form>
     </div>

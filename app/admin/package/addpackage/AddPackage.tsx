@@ -1,19 +1,24 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
-import FormInput from "@/app/signin/FormInput";
+import FormInput from "@/app/components/CommonComponents/FormInput";
 import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
-import SelectInput from "../../../components/CommonComponents/SelectedInput";
+import SelectInput from "@/app/components/CommonComponents/SelectedInput";
+import Datetime from "react-datetime";
+import "react-datetime/css/react-datetime.css";
+import { LuCalendar, LuPlus } from "react-icons/lu";
+import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
+import styled from "styled-components";
 
 interface PackageDataType {
   title: string;
-  start_date: Date | string;
+  start_date: any;
   file_name: File | any;
   destination: string;
   country: string;
@@ -30,6 +35,14 @@ interface AddUserProps {
   initialPackageData?: PackageDataType;
 }
 
+const CustomCountryDropdown = styled(CountryDropdown)`
+  padding: 10px;
+  background-color: #029e9d;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+`;
 const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   const { id } = useParams<{ id: string }>();
   const [successMessage, setSuccessMessage] = useState("");
@@ -47,11 +60,62 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       days_and_night: "",
       description: "",
       offer: "",
-      category: " ",
+      category: "",
     },
   );
 
+  interface ErrorType {
+    title: string;
+    start_date: string;
+    country: string;
+    state: string;
+  }
+
   let [file, setFile] = useState<File | string>();
+
+  const [errors, setErrors] = useState<ErrorType>({
+    title: "",
+    start_date: "",
+    country: "",
+    state: "",
+  });
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors: ErrorType = {
+      title: "",
+      start_date: "",
+      country: "",
+      state: "",
+    };
+    if (packageData.title.trim() === "") {
+      newErrors.title = "Title is required";
+      isValid = false;
+    } else if (/\d/.test(packageData.title)) {
+      newErrors.title = "Title should not contain numbers";
+      isValid = false;
+    } else if (packageData.title.trim().length < 10) {
+      newErrors.title = "Title should be at least 10 characters long";
+      isValid = false;
+    }
+
+    if (!packageData.start_date) {
+      newErrors.start_date = "Date is required";
+      isValid = false;
+    }
+    if (packageData.country.trim() === "") {
+      newErrors.country = "Please select a country";
+      isValid = false;
+    }
+    if (packageData.state.trim() === "") {
+      newErrors.state = "Please select a state";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const datetimeRef = useRef<Datetime | null>(null);
 
   useEffect(() => {
     if (isEditMode && id) {
@@ -86,6 +150,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const isValid = validateForm();
+    if (!isValid) {
+      console.error("Form validation failed");
+      return;
+    }
 
     if (isEditMode && id) {
       try {
@@ -124,11 +194,19 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             );
 
             if (uploadImageResponse.status === 201) {
-              console.log("Image uploaded successfully");
+              setSuccessMessage("Package updated successfully!");
+
+              setTimeout(() => {
+                setSuccessMessage("");
+              }, 5000);
             } else {
               window.location.reload();
             }
           }
+          setSuccessMessage("Package updated successfully!");
+          setTimeout(() => {
+            setSuccessMessage("");
+          }, 5000);
           window.location.reload();
         } else {
           console.error("Error updating user:", response.status);
@@ -170,7 +248,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           );
 
           if (uploadImageResponse.status === 201) {
-            setSuccessMessage("User added successfully!");
+            setSuccessMessage("Package added successfully!");
             console.log("Image uploaded successfully");
             setTimeout(() => {
               setSuccessMessage("");
@@ -178,6 +256,10 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             window.location.reload();
           } else {
             console.error("Error uploading image:", uploadImageResponse.status);
+            setSuccessMessage("Package added successfully!");
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 5000);
             window.location.reload();
           }
         } else {
@@ -218,6 +300,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setPackageData({ ...packageData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -248,8 +331,11 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
         <div className="flex-row text-center">
           <h2 className="text-gray-500 md:pt-5 lg:pt-5">
-            <span className="text-[rgb(2,158,157)]">Dashboard</span> /{" "}
-            {isEditMode ? "Update Package" : " Add Package"}
+            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">
+              Dashboard
+            </span>{" "}
+            <span className="px-1">/</span>
+            {isEditMode ? "Update Package" : " Add Packages"}
           </h2>
         </div>
         <div className="flex-row mt-3 text-center lg:mr-1">
@@ -267,7 +353,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       </div>
 
       <form
-        className=" pt-10 formshadow pl-[20px] bg-[#ffffff] border-[1px] border-gray-100 shadow-lg rounded-lg pb-[18px] mb-12 mt-4 pr-6 "
+        className=" pt-6 formshadow pl-[20px] bg-[#ffffff] border-[1px] border-gray-100 shadow-lg rounded-lg pb-[18px] mb-12 mt-4 pr-6 text-[#232323]"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
@@ -305,31 +391,50 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 onChange={handleImageChange}
                 alt=""
               />
-              <label
-                htmlFor="file-input"
-                className=" bg-black custom-file-input-button2  "
-              >
-                Choose File
+
+              <label htmlFor="file-input">
+                <span className="custom-file-input-button2 font-thin  hover:bg-[hsl(0,0%,95%)]">
+                  Choose file{" "}
+                </span>{" "}
+                <span className="bg-white relative top-[-36px] pl-[13px]">
+                  No file chosen
+                </span>
               </label>
             </span>
           </div>
-          <div>
+          <div className=" w-full z-40  relative">
             <label>Date</label>
-            <input
-              type="date"
-              className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5"
-              name="start_date"
-              value={
-                packageData.start_date instanceof Date
-                  ? packageData.start_date.toISOString().split("T")[0]
-                  : packageData.start_date
-              }
-              onChange={handleChange}
-            />
+            <div className="">
+              <div className="date-table">
+                <Datetime
+                  value={
+                    packageData.start_date instanceof Date
+                      ? packageData.start_date
+                      : new Date(packageData.start_date)
+                  }
+                  onChange={(date) => {
+                    setPackageData({ ...packageData, start_date: date });
+                    setErrors({ ...errors, start_date: "" });
+                  }}
+                  inputProps={{
+                    className:
+                      "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-gray-300  z-30  custom-datetime-picker  ",
+                  }}
+                  className="absolute z-30 border-gray-200 rounded-lg h-[48px]  w-[95.5%] focus:outline-none "
+                  timeFormat={false}
+                />{" "}
+                <div className="w-100% border border-gray-200 bg-[#f8f9fa] h-[48px] rounded-lg text-end flex items-center pl-[96%] relative top-[-40px] ">
+                  <LuCalendar className="text-[18px] text-[#232323]  " />{" "}
+                </div>
+              </div>
+            </div>
+            {errors.start_date && (
+              <p className="text-red-500 text-sm">{errors.start_date}</p>
+            )}
           </div>
         </div>
-        <div className="w-full grid grid-cols-1">
-          <div className="lg:flex gap-6 mb-2">
+        <div className="w-full grid grid-cols-1 mt-[-20px] ">
+          <div className="lg:flex gap-6 mb-4">
             <FormInput
               label="Title"
               type="text"
@@ -337,22 +442,30 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               value={packageData.title}
               onChange={handleChange}
               required={true}
+              error={errors.title}
             />
 
             <div className="lg:w-full">
               <label>Country</label>
               <br />
               <CountryDropdown
-                classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white ${
+                  errors.country ? "border-red-500" : "border-gray-200"
+                }`}
                 value={packageData.country}
                 onChange={(val: any) => {
                   setPackageData({ ...packageData, country: val });
                 }}
               />
+              {errors.country && (
+                <div className="text-red-500 text-sm mt-[2px]">
+                  {errors.country}
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="lg:flex gap-6 mb-2">
+          <div className="lg:flex gap-6 mb-4">
             <div className="lg:w-full">
               <label>State</label>
               <RegionDropdown
@@ -361,71 +474,89 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 onChange={(val) =>
                   setPackageData({ ...packageData, state: val })
                 }
-                classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white ${
+                  errors.state ? "border-red-500" : "border-gray-200"
+                }`}
               />
+              {errors.state && (
+                <div className="text-red-500 text-sm mt-[2px]">
+                  {errors.state}
+                </div>
+              )}
             </div>
 
-            <FormInput
+            <FormNumberInput
               label="Price"
               type="number"
               name="price"
               value={packageData.price}
               onChange={handleChange}
+              minValue={0}
               required={true}
             />
           </div>
-          <div className="lg:flex gap-6 mb-2">
-            <FormInput
+          <div className="lg:flex gap-6  mb-4">
+            <FormNumberInput
               label="No.Of Person"
               name="no_of_person"
               type="number"
               value={packageData.no_of_person}
               onChange={handleChange}
               required={true}
+              minValue={1}
+              maxValue={50}
             />
 
-            <FormInput
+            <FormNumberInput
               label="No. of day & Night"
               name="days_and_night"
               type="number"
               value={packageData.days_and_night}
               onChange={handleChange}
               required={true}
+              minValue={1}
+              maxValue={40}
             />
           </div>
         </div>
-        <div className="lg:flex gap-6 mb-2 pb-2 lg:pb-0">
+        <div className="lg:flex gap-6  pb-2 lg:pb-0 mb-4">
           {" "}
-          <FormInput
-            label="offer"
+          <FormNumberInput
+            label="Offer"
             name="offer"
             type="number"
             value={packageData.offer}
             onChange={handleChange}
             required={false}
+            minValue={0}
+            maxValue={50}
           />{" "}
-          <SelectInput
-            label="Category"
-            name="category"
-            value={packageData.category}
-            options={[
-              "tours",
-              "travels",
-              "attractions",
-              "day trips",
-              "indoor",
-              "outdoor activities",
-              "concert & show",
-              "sight seeing",
-            ]}
-            onChange={handleSelectCategoryChange}
-          />
+          <span className="w-full z-30">
+            <SelectInput
+              label="Category"
+              name="category"
+              value={packageData.category || "Select a category"}
+              options={[
+                "Select a category",
+                "tours",
+                "travels",
+                "attractions",
+                "day trips",
+                "indoor",
+                "outdoor activities",
+                "concert & show",
+                "sight seeing",
+              ]}
+              onChange={handleSelectCategoryChange}
+              disabledValue="Select a category"
+            />
+          </span>
         </div>
 
         <div className="">
-          <label>Description</label>
-          <br></br>
-          <span className="mt-3 ">
+          <label className="">Description</label>
+
+          <div className="mt-2 ">
             <DraftEditing
               name="description"
               value={packageData.description}
@@ -434,20 +565,30 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 initialPackageData ? initialPackageData.description : ""
               }
             />
-          </span>
+          </div>
         </div>
 
         <div className="flex justify-center pt-3">
           <button
-            className="bg-[hsl(180,82%,35%)] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-3"
+            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-3"
             type="submit"
           >
-            <FontAwesomeIcon icon={faPlus} />{" "}
-            {isEditMode ? "Update Package" : "Create Package"}
+            <div className="flex">
+              <div className="">
+                {" "}
+                <LuPlus className="text-[28px] pr-1   " />
+              </div>
+              <div className="mt-[3px] text-[14px]">
+                {" "}
+                {isEditMode ? "Update Package" : "Create Package"}
+              </div>
+            </div>
           </button>
         </div>
         {successMessage && (
-          <p className="text-green-700 flex justify-center">{successMessage}</p>
+          <div className="text-[#029e9d] flex justify-center my-5 text-[16px]  ">
+            {successMessage}
+          </div>
         )}
       </form>
     </div>
