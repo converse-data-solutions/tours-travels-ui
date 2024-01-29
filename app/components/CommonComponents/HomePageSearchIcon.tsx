@@ -25,7 +25,7 @@ const HomePageSearchIcon = () => {
             <input
               type="search"
               placeholder="type keyword(s) here"
-              className=" inputcontainer py-12 px-10 border-b-2 border-solid border-gray-400 text-xl lg:text-5xl transition duration-300 ease-in-out focus:border-gray-400 focus:outline-none"
+              className=" inputcontainer py-12 px-10 border-b-2 border-solid border-gray-400 text-xl lg:text-5xl transition duration-300 ease-in-out focus:border-gray-500 focus:outline-none"
             />
             <hr className="text-lime-400 absolute w-full bottom-0 left-0" />
           </div>

@@ -52,10 +52,10 @@ const SelectRoleInput: React.FC<SelectInputProps> = ({
   };
 
   return (
-    <div className="relative w-full mb-2  " >
+    <div className="relative w-full mb-2  ">
       <label htmlFor={name}>{label}</label>
       <div
-        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative"
+        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative focus:outline-none focus:border-gray-300"
         onClick={() => setIsOpen(!isOpen)}
         ref={dropdownRef}
       >

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 interface ShowEntriesDropdownProps {
   entries: number;
   setEntries: React.Dispatch<React.SetStateAction<number>>;
@@ -14,7 +14,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
 
-  const dropdownRef3=useRef<HTMLDivElement>(null);
+  const dropdownRef3 = useRef<HTMLDivElement>(null);
 
   const handleOptionClick = (selectedValue: string) => {
     setIsOpen(false);
@@ -42,13 +42,10 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
     };
   }, [dropdownRef3]);
 
-
-
-
   return (
     <div className="relative w-full mb-2">
       <div
-        className="border-[1px] border-gray-200  h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-gray-500 relative"
+        className="border-[1px] border-gray-200 focus:outline-none focus:border-gray-300 h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-[#7987a1] relative"
         onClick={() => setIsOpen(!isOpen)}
         style={{
           WebkitAppearance: "none",
@@ -56,9 +53,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           appearance: "none",
           paddingRight: "2rem",
         }}
-
         ref={dropdownRef3}
-
       >
         <div className="flex items-center justify-between">
           <div>{selectedValue}</div>
@@ -75,15 +70,16 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-
           <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#6e6d6d] shadow-md ">
             {options.map((option, index) => (
               <div
                 key={option}
-
-
                 className={`cursor-pointer px-3 ${
-                  index === 0 ? "cursor-not-allowed hover:text-gray-500 !important" : (selectedValue === option ? "bg-[#029e9d] text-white" : "bg-white hover:text-white hover:bg-[#029e9d]")
+                  index === 0
+                    ? "cursor-not-allowed hover:text-gray-500 !important"
+                    : selectedValue === option
+                      ? "bg-[#029e9d] text-white"
+                      : "bg-white hover:text-white hover:bg-[#029e9d]"
                 }
                 `}
                 onClick={() => index !== 0 && handleOptionClick(option)}
