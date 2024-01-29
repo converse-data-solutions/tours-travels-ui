@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -12,6 +11,9 @@ import { format } from "date-fns";
 import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar";
 import SelectInput from "@/app/components/CommonComponents/SelectedInput";
 import { FiArrowLeft, FiDelete, FiEye } from "react-icons/fi";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
 
 
 
@@ -217,7 +219,7 @@ const AllBookingLists = () => {
         >
           <Table className="gap-6 table">
             <TableHead className="text-gray-800 ">
-              <TableRow className="table-head">
+              <TableRow className="table-head ">
                 <th>ID</th>
                 <th>TITLE</th>
                 <th>FIRST NAME</th>
@@ -282,15 +284,35 @@ const AllBookingLists = () => {
         </TableContainer>
       </div>
       {viewFormVisible && (
+         <Modal
+         open={viewFormVisible}
+         onClose={()=>setViewFormVisible(false)}
+         aria-labelledby=""
+         aria-describedby=""
+         closeAfterTransition
+          BackdropComponent={(props) => (
+        <Backdrop {...props} style={{ borderRadius: "0px" }} />
+      )}
+         BackdropProps={{
+           timeout: 500,
+           
+         }}
+       >
+         <Fade in={viewFormVisible}>
         <div
-          className="z-40 absolute top-24  lg:w-5/12 lg:mx-[20%] w-screen  bg-white rounded-2xl shadow-md flex justify-center items-center"
-          onClick={() => setViewFormVisible(false)}
+          className="z-50 absolute top-[20%] mx-[30%]  flex-col lg:w-5/12 h-auto  bg-white  py-4 rounded-xl shadow-md flex justify-center items-center"
+           onClick={() => setViewFormVisible(true)}
+           style={{ borderRadius: "20px !important"}}
         >
-          <table className="w-full ">
-            <td className="text-[14px] font-semibold text-end">Booking </td>
-            <td className="text-[14px] font-semibold text-start">Details</td>
 
-            <tbody>
+         
+           <div className="text-[16px] text-[#232323] font-bold pb-3 border-b-gray-200 border-[1px] w-[100%]  text-center border-white">Booking Details</div>
+          <table className="w-full">
+            
+            {/* <td className="text-[14px] font-semibold text-end">Booking </td>
+            <td className="text-[14px] font-semibold text-start">Details</td>  */}
+
+            <tbody className="px-4 !important">
               {detailedBookingData?.title && (
                 <tr>
                   <td>Title</td>
@@ -366,8 +388,12 @@ const AllBookingLists = () => {
               )}
             </tbody>
           </table>
+         
         </div>
-      )}
+        </Fade>
+    </Modal>
+      )
+     }
 
       <div className="mb-8 flex justify-center lg:justify-start flex-row">
         <PaginationBar

@@ -46,6 +46,7 @@
     "react-spring": "^9.7.3",
     "react-tsparticles": "^2.12.2",
     "redux": "^5.0.1",
+    "sharp": "^0.33.2",
     "styled-components": "^6.1.8",
     "swiper": "^11.0.3",
     "tsparticles": "^2.12.0",
