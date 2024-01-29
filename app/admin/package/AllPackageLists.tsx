@@ -194,10 +194,7 @@ const AllPackageLists = () => {
 
   const totalPages = Math.ceil(filteredData.length / entries);
 
-  // const handleCategoryChange = (event:any) => {
-  //   setCategory(event.target.value)
-
-  // };
+  
   const handleCategoryChange = (
     event: React.ChangeEvent<{ value: string }>,
   ) => {

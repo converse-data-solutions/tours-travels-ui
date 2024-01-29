@@ -13,6 +13,12 @@ import PaginationBar from "../../components/CommonComponents/PaginationBar";
 import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import { format } from "date-fns";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
+import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar";
+import SelectInput from "@/app/components/CommonComponents/SelectedInput";
+// import { TbEye } from "react-icons/tb";
+import { CgEye } from "react-icons/cg";
+
+
 
 interface BookingData {
   id: number;
@@ -32,12 +38,13 @@ interface BookingData {
   terms_and_conditions: number;
 }
 const AllBookingLists = () => {
-  const [entries, setEntries] = useState(10);
+  const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<BookingData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [viewFormVisible, setViewFormVisible] = useState(false);
   const [detailedBookingData, setDetailedBookingData] = useState<BookingData>();
+  const [category,setCategory]=useState("")
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -154,24 +161,24 @@ const AllBookingLists = () => {
 
   return (
     <div className="px-4 lg:px-6">
-      <div className=" pt-6 md:flex justify-between   ">
-        <div className="flex-row text-center  2xl:mr">
-          <h2 className="text-gray-500 md:mt-5">
-            <span className="text-[rgb(2,158,157)]">Dashboard</span>&nbsp; /
+      <div className=" pt-4 md:flex justify-between   ">
+        <div className="flex-row text-center  ">
+          <h2 className="text-[#7987a1] md:mt-5 text-[14px]">
+            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">Dashboard</span>&nbsp; /
             &nbsp; Booking Lists
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
-          <button className="bg-[hsl(180,82%,35%)]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400 ">
+          <button className="bg-[#029e9d]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400 ">
             <FontAwesomeIcon icon={faPlus} className="text-xl" /> Back To List
           </button>
         </div>
       </div>
-      <br></br>
+     
 
-      <div className=" bg-white px-4 py-4 rounded-[10px] shadow-sm lg:flex lg:flex-row lg:justify-between xl:py-[22px]">
+      {/* <div className=" bg-white px-4  rounded-[10px] shadow-sm lg:flex lg:flex-row lg:justify-between pt-[22px] pb-[9px]">
         <div className="">
-          <h5 className="flex justify-center md:justify-start   w-full p-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px] md:py-0 font-semibold  text-[#424040]   xl:pt-3">
+          <h5 className="flex justify-center md:justify-start   w-full px-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px] md:py-0 font-semibold  text-[#424040]   xl:pt-3">
             {" "}
             Booking Schedule Lists{" "}
           </h5>
@@ -195,9 +202,42 @@ const AllBookingLists = () => {
 
           <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
         </div>
+      </div> */}
+
+<div>
+        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
+          {" "}
+          <div className="items-center lg:text-start w-[100%]  ">
+            <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">
+              {" "}
+              Booking Schedule Lists{" "}
+            </h5>
+          </div>
+          <div className="w-[100%] lg:w-[140%]  ">
+            <PackageSearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              placeholder="Search by email"
+            />
+          </div>
+          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] z-20 ">
+            <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
+          </div>
+          <div className="w-[100%] relative top-[-7px] text-[16px] z-20">
+            {" "}
+            <SelectInput
+              label=""
+              name="category"
+              value={category||"Category"}
+              options={["Category", "One", "Two", "Three"]}
+              onChange={(e)=>setCategory(e.target.value)}
+              disabledValue="Show Entries"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="  mt-4 px-5 py-5 border-[1px] border-gray-100 rounded-[10px] shadow-sm  bg-white ">
+      <div className="  mt-4 px-5 py-9 border-[1px] border-gray-100 rounded-[10px] shadow-sm  bg-white ">
         <TableContainer
           className="Table-container"
           sx={{ maxHeight: "450px", width: "100%" }}
@@ -252,11 +292,11 @@ const AllBookingLists = () => {
                     </td>
                     <td>
                       <div className="flex gap-4">
-                        <FontAwesomeIcon
-                          icon={faEye}
-                          className="flex gap-2 text-[#029e9d] justify-center py-1 text-[22px]"
-                          onClick={() => handleViewAction(list.id)}
-                        />
+                       
+                      
+                        <CgEye  onClick={() => handleViewAction(list.id)}
+                                                  className="flex gap-2 text-[#029e9d]  text-[26px]"
+                                                 />
                         <span className="flex gap-2 text-[#029e9d] justify-center py-1 ">
                           <BackspaceOutlinedIcon
                             onClick={() => handleDeleteAction(list.id)}
@@ -272,7 +312,7 @@ const AllBookingLists = () => {
       </div>
       {viewFormVisible && (
         <div
-          className="z-10 absolute top-24 w-full lg:w-5/12 lg:mx-[20%] bg-white rounded-2xl shadow-md"
+          className="z-40 absolute top-24 w-full lg:w-5/12 lg:mx-[20%] bg-white rounded-2xl shadow-md flex justify-center items-center"
           onClick={() => setViewFormVisible(false)}
         >
           <table className="w-full ">
@@ -358,7 +398,7 @@ const AllBookingLists = () => {
         </div>
       )}
 
-      <div className="my-8 flex justify-center lg:justify-start flex-row">
+      <div className="mb-8 flex justify-center lg:justify-start flex-row">
         <PaginationBar
           currentPage={currentPage}
           totalPages={totalPages}

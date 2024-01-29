@@ -15,6 +15,7 @@ import "react-datetime/css/react-datetime.css";
 import { LuCalendar, LuPlus } from "react-icons/lu";
 import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
 import styled from "styled-components";
+import { FiArrowLeft } from "react-icons/fi";
 
 interface PackageDataType {
   title: string;
@@ -340,14 +341,17 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         </div>
         <div className="flex-row mt-3 text-center lg:mr-1">
           <button
-            className="bg-[hsl(180,82%,35%)] text-white py-[10px] px-[12px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
+            className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[13px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
             onClick={handleInput}
           >
-            <span className=" text-[20px] pr-1  ">
+            <div className="flex">
+            <div className=" text-[20px] pr-1  ">
               {" "}
-              <FontAwesomeIcon icon={faArrowLeft} className="text-[20px] " />
-            </span>{" "}
-            <span className="text-[15px]">Back To List</span>
+              <FiArrowLeft className="text-[24px] " />
+             
+            </div>{" "}
+            <div className="text-[15px]">Back To List</div>
+            </div>
           </button>
         </div>
       </div>
