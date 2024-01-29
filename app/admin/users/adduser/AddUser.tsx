@@ -146,7 +146,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     Object.keys(userData).forEach((fieldName) => {
       const errorMessage = validateInput(fieldName, userData[fieldName]);
       if (errorMessage) {
-        errors[fieldName as keyof FormErrors] = errorMessage;
+
+        errors[fieldName as keyof FormErrors] = errorMessage; 
       }
     });
 
@@ -167,6 +168,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     });
 
     if (hasErrors) {
+
       return false;
     }
 
@@ -375,6 +377,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
           <div className="flex-row mt-3 text-center ">
             <button
+
               className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[14px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
               onClick={handleInput}
             >
@@ -446,7 +449,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         </div>
         <div className="w-full grid grid-cols-1">
           <div className="lg:flex gap-6 mb-2">
-            <FormInput
+
+
+            <FormInput  
+
               label="First Name"
               name="first_name"
               value={userData.first_name}
@@ -589,6 +595,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </span>
         </div>
 
+
         {showAdditionalDropdown && (
           <SelectInput
             label="Additional Role"
@@ -614,6 +621,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               <div className="">
                 {" "}
                 <LuPlus className="text-[26px] pr-1   " />
+
+              
               </div>
               <div> {isEditMode ? "Update User" : "Add User"}</div>
             </div>
