@@ -1,22 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
-import TableSearchBar from "@/app/components/CommonComponents/TableSearchBox";
 import PaginationBar from "../../components/CommonComponents/PaginationBar";
 import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import { format } from "date-fns";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
 import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar";
 import SelectInput from "@/app/components/CommonComponents/SelectedInput";
-// import { TbEye } from "react-icons/tb";
-import { CgEye } from "react-icons/cg";
+import { FiArrowLeft, FiDelete, FiEye } from "react-icons/fi";
 
 
 
@@ -161,7 +156,7 @@ const AllBookingLists = () => {
 
   return (
     <div className="px-4 lg:px-6">
-      <div className=" pt-4 md:flex justify-between   ">
+      <div className=" pt-3 md:flex justify-between   ">
         <div className="flex-row text-center  ">
           <h2 className="text-[#7987a1] md:mt-5 text-[14px]">
             <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">Dashboard</span>&nbsp; /
@@ -169,40 +164,18 @@ const AllBookingLists = () => {
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
-          <button className="bg-[#029e9d]  text-white py-3.5   px-6 rounded-lg mr-1 hover:bg-yellow-400 ">
-            <FontAwesomeIcon icon={faPlus} className="text-xl" /> Back To List
+          <button className="bg-[#029e9d]  text-white py-[13px]   pl-[18px] pr-[16px] rounded-lg mr-[1px] hover:bg-yellow-400 transition duration-300">
+          <div className="flex">
+            <div className="text-[24px] pr-1 "><FiArrowLeft/></div>
+            
+            <div>Back To List</div>
+            </div>
           </button>
         </div>
       </div>
      
 
-      {/* <div className=" bg-white px-4  rounded-[10px] shadow-sm lg:flex lg:flex-row lg:justify-between pt-[22px] pb-[9px]">
-        <div className="">
-          <h5 className="flex justify-center md:justify-start   w-full px-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px] md:py-0 font-semibold  text-[#424040]   xl:pt-3">
-            {" "}
-            Booking Schedule Lists{" "}
-          </h5>
-        </div>
-
-        <div className="flex flex-col md:flex-row md:gap-6 lg:w-2/3 ">
-          <TableSearchBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            placeholder="Search by email"
-          />
-
-          <div className=" ">
-            <select className="border-[1px] border-gray-200  px-4 py-3 mb-2 rounded-lg outline-none w-full md:w-56 bg-white text-base">
-              <option selected>Show Entries</option>
-              <option>Pending</option>
-              <option>Verified</option>
-              <option>Cancel</option>
-            </select>
-          </div>
-
-          <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-        </div>
-      </div> */}
+      
 
 <div>
         <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
@@ -291,16 +264,14 @@ const AllBookingLists = () => {
                         : "Not Accepted"}
                     </td>
                     <td>
-                      <div className="flex gap-4">
-                       
+                      <div className="flex gap-3 py-1">
                       
-                        <CgEye  onClick={() => handleViewAction(list.id)}
-                                                  className="flex gap-2 text-[#029e9d]  text-[26px]"
+                        <FiEye onClick={() => handleViewAction(list.id)}
+                                                  className="flex  text-[#029e9d] mt-1  text-[24px] hover:text-[#6f42c1]"
                                                  />
                         <span className="flex gap-2 text-[#029e9d] justify-center py-1 ">
-                          <BackspaceOutlinedIcon
-                            onClick={() => handleDeleteAction(list.id)}
-                          />
+                          <FiDelete onClick={() => handleDeleteAction(list.id)} className="text-[25px] font-bold hover:text-[#6f42c1]"/>
+                        
                         </span>{" "}
                       </div>
                     </td>
@@ -312,12 +283,12 @@ const AllBookingLists = () => {
       </div>
       {viewFormVisible && (
         <div
-          className="z-40 absolute top-24 w-full lg:w-5/12 lg:mx-[20%] bg-white rounded-2xl shadow-md flex justify-center items-center"
+          className="z-40 absolute top-24  lg:w-5/12 lg:mx-[20%] w-screen  bg-white rounded-2xl shadow-md flex justify-center items-center"
           onClick={() => setViewFormVisible(false)}
         >
           <table className="w-full ">
-            <td className="text-2xl font-semibold text-end">Booking </td>
-            <td className="text-2xl font-semibold text-start">Details</td>
+            <td className="text-[14px] font-semibold text-end">Booking </td>
+            <td className="text-[14px] font-semibold text-start">Details</td>
 
             <tbody>
               {detailedBookingData?.title && (
