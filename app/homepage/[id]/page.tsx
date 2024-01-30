@@ -14,7 +14,7 @@ import image from "../../../public/beautiful-green-field-scenery-free-photo.webp
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
 import FormInput from "../../components/CommonComponents/FormInput";
-import SelectInput from "@/app/components/CommonComponents/SelectedInput";
+import SelectBgInput from "@/app/components/CommonComponents/SelectGrayBgdropdown";
 
 interface UserDataType {
   first_name: string;
@@ -392,8 +392,8 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
           </div>
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="flex gap-6 justify-around pr-2 flex-col  md:flex-row">
-              <div className="flex flex-col">
-                <SelectInput
+              <div className="flex flex-col z-40 w-[40%]">
+                <SelectBgInput
                   label="Title"
                   name="title"
                   value={bookNowData.title || "Select "}
@@ -448,8 +448,8 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
               </div>
 
               <div className="flex w-full pr-2 pb-2 gap-6 flex-col lg:flex-row">
-                <div className="flex flex-col w-full ">
-                  <SelectInput
+                <div className="flex flex-col w-full z-30">
+                  <SelectBgInput
                     label="Gender"
                     name="title"
                     value={bookNowData.gender || "Select Gender "}
