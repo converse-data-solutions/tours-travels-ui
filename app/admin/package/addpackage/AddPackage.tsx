@@ -345,12 +345,11 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             onClick={handleInput}
           >
             <div className="flex">
-            <div className=" text-[20px] pr-1  ">
-              {" "}
-              <FiArrowLeft className="text-[24px] " />
-             
-            </div>{" "}
-            <div className="text-[15px]">Back To List</div>
+              <div className=" text-[20px] pr-1  ">
+                {" "}
+                <FiArrowLeft className="text-[24px] " />
+              </div>{" "}
+              <div className="text-[15px]">Back To List</div>
             </div>
           </button>
         </div>
@@ -407,7 +406,10 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             </span>
           </div>
           <div className=" w-full z-20 lg:z-40  relative">
-            <label><span>Date</span><span className="text-red-500 ml-1">*</span></label>
+            <label>
+              <span>Date</span>
+              <span className="text-red-500 ml-1">*</span>
+            </label>
             <div className="">
               <div className="date-table">
                 <Datetime
@@ -422,7 +424,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   }}
                   inputProps={{
                     className:
-                      "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-gray-300  z-30  custom-datetime-picker  ",
+                      "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-gray-400  z-30  custom-datetime-picker  ",
                   }}
                   className="absolute z-30 border-gray-200 rounded-lg h-[48px]  w-[95.5%] focus:outline-none "
                   timeFormat={false}
@@ -450,10 +452,13 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             />
 
             <div className="lg:w-full">
-              <label><span>Country</span><span className="text-red-500 ml-1">*</span></label>
+              <label>
+                <span>Country</span>
+                <span className="text-red-500 ml-1">*</span>
+              </label>
               <br />
               <CountryDropdown
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-300 ${
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 ${
                   errors.country ? "border-red-500" : "border-gray-200"
                 }`}
                 value={packageData.country}
@@ -471,14 +476,17 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
           <div className="lg:flex gap-6 mb-4">
             <div className="lg:w-full">
-              <label><span>State</span><span className="text-red-500 ml-1">*</span></label>
+              <label>
+                <span>State</span>
+                <span className="text-red-500 ml-1">*</span>
+              </label>
               <RegionDropdown
                 country={packageData.country}
                 value={packageData.state}
                 onChange={(val) =>
                   setPackageData({ ...packageData, state: val })
                 }
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-gray-300   ${
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-gray-400  ${
                   errors.state ? "border-red-500" : "border-gray-200"
                 }`}
               />
@@ -568,7 +576,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               customValue={
                 initialPackageData ? initialPackageData.description : ""
               }
-              
             />
           </div>
         </div>

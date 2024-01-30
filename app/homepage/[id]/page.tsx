@@ -14,6 +14,7 @@ import image from "../../../public/beautiful-green-field-scenery-free-photo.webp
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
 import FormInput from "../../components/CommonComponents/FormInput";
+import SelectInput from "@/app/components/CommonComponents/SelectedInput";
 
 interface UserDataType {
   first_name: string;
@@ -46,7 +47,7 @@ interface UserData {
   country: string;
   state: string;
   price: number;
-  published: number;
+  published: number | string;
   superior_twin_price: number;
   booking_fees: number;
 }
@@ -56,9 +57,9 @@ const token: any =
     ? localStorage.getItem("accessToken")
     : undefined;
 
-if (!token) {
-  window.location.replace("/");
-}
+// if (!token) {
+//   window.location.replace("/");
+// }
 
 const decoded: any = jwtDecode(token);
 const id: number = decoded.userId;
@@ -104,6 +105,11 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
         errorMessage = "First Name is required";
       } else if (!nameRegex.test(value)) {
         errorMessage = "First Name can only contain alphabetic characters";
+      } else if (/\d/.test(value)) {
+        errorMessage = "First Name should not contain numbers";
+      } else if (!/^[A-Za-z][a-z]*$/.test(value)) {
+        errorMessage =
+          "First letter of First Name should be in uppercase, and only lowercase letters are allowed for the rest";
       }
     } else if (fieldName === "email") {
       if (value.trim() === "") {
@@ -112,6 +118,10 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
         errorMessage = "Invalid email format";
       } else if (!value.includes("@")) {
         errorMessage = "Email must contain '@'";
+      } else if (/[A-Z]/.test(value)) {
+        errorMessage = "Email should not contain uppercase letters";
+      } else if (/[!#$%^&*()+={}\[\]:;<>,?~\\/]/.test(value)) {
+        errorMessage = "Email should not contain unwanted symbols";
       }
     } else if (fieldName === "mobile_number") {
       if (value.trim() === "") {
@@ -127,6 +137,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
       ...prevErrors,
       [fieldName]: errorMessage,
     }));
+    return errorMessage;
   };
 
   useEffect(() => {
@@ -158,6 +169,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setBookNowData({ ...bookNowData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
   const titleOptions = [
     { value: "Mr.", label: "Mr." },
@@ -182,7 +194,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
     }
   };
   const rating = 5;
-  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGender = event.target.value;
     setBookNowData((prevData) => ({
       ...prevData,
@@ -190,7 +202,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
     }));
   };
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTitle = event.target.value;
     setBookNowData((prevData) => ({
       ...prevData,
@@ -236,6 +248,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
       "email",
       "mobile_number",
     ];
+
     const missingFields = requiredFields.filter(
       (fieldName) => !bookNowData[fieldName],
     );
@@ -246,6 +259,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
       });
       return;
     }
+    let hasFormErrors = false;
 
     Object.keys(bookNowData).forEach((fieldName) => {
       const key = fieldName as keyof UserDataType;
@@ -258,8 +272,12 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
     });
 
     const hasErrors = Object.values(errors).some((error) => error !== "");
+    if (hasErrors) {
+      const hasFormErrors = true;
+      return;
+    }
 
-    if (!hasErrors) {
+    if (!hasFormErrors) {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/booking/create`,
@@ -375,20 +393,13 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="flex gap-6 justify-around pr-2 flex-col  md:flex-row">
               <div className="flex flex-col">
-                <div className="pb-2">Title</div>
-                <ReusableSelect
-                  id="title"
-                  value={bookNowData.title}
+                <SelectInput
+                  label="Title"
+                  name="title"
+                  value={bookNowData.title || "Select "}
+                  options={["Select", "Mr", "Mrs", "Miss"]}
                   onChange={handleTitleChange}
-                  options={titleOptions}
-                  displayEmpty
-                  width="full"
-                  height="49px"
-                  borderRadius="11px"
-                  borderColor="#dee2e6"
-                  ariaLabel=""
-                  placeholder="Select"
-                  required={true}
+                  disabledValue="Select a country"
                 />
               </div>
 
@@ -438,20 +449,13 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
 
               <div className="flex w-full pr-2 pb-2 gap-6 flex-col lg:flex-row">
                 <div className="flex flex-col w-full ">
-                  <div className="pb-2">Gender</div>
-                  <ReusableSelect
-                    id="Gender"
-                    value={bookNowData.gender}
+                  <SelectInput
+                    label="Gender"
+                    name="title"
+                    value={bookNowData.gender || "Select Gender "}
+                    options={["Select Gender", "Male", "Female", "Other"]}
                     onChange={handleGenderChange}
-                    options={GenderOptions}
-                    displayEmpty
-                    width=""
-                    height="49px"
-                    borderRadius="11px"
-                    borderColor="#dee2e6"
-                    ariaLabel="Title Select"
-                    placeholder=" Select Gender"
-                    required={true}
+                    disabledValue="Select a country"
                   />
                 </div>
 
@@ -459,7 +463,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
                   <label>Date</label>
                   <input
                     type="date"
-                    className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5"
+                    className="py-3 border-[1px] border-gray-200 rounded-lg  focus:outline-none focus:border-gray-400 h-[50px] w-full mt-2 mb-2 pr-5"
                     name="date_of_birth"
                     value={
                       bookNowData.date_of_birth instanceof Date
@@ -476,7 +480,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
                   <label>Country</label>
                   <br />
                   <CountryDropdown
-                    classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white "
+                    classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 "
                     value={bookNowData.country}
                     onChange={(val: any) => {
                       setBookNowData({ ...bookNowData, country: val });
@@ -492,7 +496,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
                     onChange={(val) =>
                       setBookNowData({ ...bookNowData, state: val })
                     }
-                    classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white"
+                    classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400"
                   />
                 </div>
               </div>
@@ -513,13 +517,14 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
               </div>
               <div className="mr-2">
                 <label>No Of Person</label>
+
                 <input
                   type="number"
                   value={bookNowData.total_persons}
                   onChange={handleChange}
                   name="total_persons"
                   required
-                  className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 mb-1 "
+                  className="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 mb-1  focus:outline-none focus:border-gray-400"
                 />
               </div>
             </div>
@@ -630,9 +635,11 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
                     className="h-4 w-4 text-[#028B8A] border-gray-400 rounded focus:ring-[#028B8A] focus:border-[#028B8A] transition duration-300 ease-in-out"
                     checked={bookNowData.terms_and_conditions === 1}
                     onChange={() =>
-                      handleTermsAndConditionsChange(
-                        bookNowData.terms_and_conditions === 0 ? 1 : 0,
-                      )
+                      setBookNowData((prevData) => ({
+                        ...prevData,
+                        terms_and_conditions:
+                          prevData.terms_and_conditions === 1 ? 0 : 1,
+                      }))
                     }
                   />
 

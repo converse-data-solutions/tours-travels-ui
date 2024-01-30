@@ -55,11 +55,11 @@ const SelectRoleInput: React.FC<SelectInputProps> = ({
     <div className="relative w-full mb-2  ">
       <label htmlFor={name}>{label}</label>
       <div
-        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative focus:outline-none focus:border-gray-300"
+        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative focus:outline-none focus:border-gray-400 !important"
         onClick={() => setIsOpen(!isOpen)}
         ref={dropdownRef}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between focus:outline-none focus:border-gray-400 !important ">
           <div>{selectedValue}</div>
           <div className="ml-2 mr-3">
             <svg

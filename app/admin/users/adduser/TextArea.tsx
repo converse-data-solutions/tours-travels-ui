@@ -17,7 +17,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     <div className="flex flex-col w-full mb-2">
       <label>{label}</label>
       <textarea
-        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 focus:border-gray-300 focus:outline-none"
+        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 focus:border-gray-400 focus:outline-none"
         name={name}
         value={value}
         onChange={onChange}

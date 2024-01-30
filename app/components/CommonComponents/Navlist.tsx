@@ -357,39 +357,16 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                   <LuTable2 className="text-center text-[17px] min-w-[25px] pr-1" />
                 </span>
                 <div className="w-full flex justify-between ">
-                  <span className="font-bold hover:pl-1 transition-all duration-300  ">
-                    Booking Section
-                  </span>
-                  <span>
-                    {isBookingVisible ? (
-                      <MdKeyboardArrowUp className="text-[18px]" />
-                    ) : (
-                      <MdExpandMore className="text-[18px]" />
-                    )}
+                  <span
+                    className="font-bold hover:pl-1 transition-all duration-300  "
+                    onClick={bookingSection}
+                  >
+                    <Link href="/admin/bookingsection"> Booking Section </Link>
                   </span>
                 </div>
               </span>
             )}
           </button>
-
-          {!showIconsOnly && (
-            <div>
-              {isBookingVisible && (
-                <ul className="list-part pb-4">
-                  <li
-                    className={`hover:text-[#029e9d] text-[#232323] hover:pl-4 ${
-                      navActive?.subcategory === "All Booking List"
-                        ? "active-list"
-                        : ""
-                    }`}
-                    onClick={bookingSection}
-                  >
-                    <Link href="/admin/bookingsection">All Booking List</Link>
-                  </li>
-                </ul>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </>

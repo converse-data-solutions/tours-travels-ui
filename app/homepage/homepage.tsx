@@ -258,7 +258,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   <label>Date</label>
                   <input
                     type="date"
-                    className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5"
+                    className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full mt-2 mb-2 pr-5 focus:outline-none focus:outline-gray-400"
                     name="start_date"
                     value={
                       bookNowData.date_of_birth instanceof Date

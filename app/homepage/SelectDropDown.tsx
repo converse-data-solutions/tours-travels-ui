@@ -24,44 +24,49 @@ const ReusableSelect = (props: any) => {
 
   return (
     <div>
-      <FormControl sx={{ minWidth: "100%" }}>
-        {label && <InputLabel id={`${id}-label`}>{label}</InputLabel>}
-        <Select
-          labelId={`${id}-label`}
-          id={id}
-          value={value}
-          onChange={onChange}
-          displayEmpty={displayEmpty}
-          inputProps={{ "aria-label": ariaLabel }}
-          required
-          sx={{
-            width: width || "100%",
-            height: height || "50px",
-            borderRadius: borderRadius || "11px",
-            "&:before": {
-              borderColor: borderColor || "#dee2e6",
-            },
-            "&:after": {
-              borderColor: borderColor || "#dee2e6",
-            },
-          }}
-        >
-          {displayEmpty && (
-            <MenuItem value="" disabled>
-              {placeholder}
-            </MenuItem>
-          )}
-          {options.map((option: any) => (
-            <MenuItem
-              key={option.value}
-              value={option.value}
-              disabled={option.disabled}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {label && <InputLabel id={`${id}-label`}>{label}</InputLabel>}
+      <Select
+        labelId={`${id}-label`}
+        id={id}
+        value={value}
+        onChange={onChange}
+        displayEmpty={displayEmpty}
+        inputProps={{ "aria-label": ariaLabel }}
+        required
+        className="focus:outline-none focus:border-gray-400"
+        sx={{
+          width: width || "100%",
+          height: height || "50px",
+          borderRadius: borderRadius || "11px",
+          "&:before": {
+            borderColor: borderColor || "#dee2e6",
+          },
+          "&:after": {
+            borderColor: borderColor || "#dee2e6",
+          },
+          "&:hover:not([disabled])": {
+            borderColor: "lightgray !important",
+          },
+          "&.Mui-focused": {
+            borderColor: "gray !important",
+          },
+        }}
+      >
+        {displayEmpty && (
+          <MenuItem value="" disabled>
+            {placeholder}
+          </MenuItem>
+        )}
+        {options.map((option: any) => (
+          <MenuItem
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </div>
   );
 };

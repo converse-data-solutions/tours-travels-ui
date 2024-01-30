@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -12,8 +11,10 @@ import { format } from "date-fns";
 import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar";
 import SelectInput from "@/app/components/CommonComponents/SelectedInput";
 import { FiArrowLeft, FiDelete, FiEye } from "react-icons/fi";
-
-
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import Link from "next/link";
 
 interface BookingData {
   id: number;
@@ -39,7 +40,7 @@ const AllBookingLists = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewFormVisible, setViewFormVisible] = useState(false);
   const [detailedBookingData, setDetailedBookingData] = useState<BookingData>();
-  const [category,setCategory]=useState("")
+  const [category, setCategory] = useState("");
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -159,25 +160,28 @@ const AllBookingLists = () => {
       <div className=" pt-3 md:flex justify-between   ">
         <div className="flex-row text-center  ">
           <h2 className="text-[#7987a1] md:mt-5 text-[14px]">
-            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">Dashboard</span>&nbsp; /
-            &nbsp; Booking Lists
+            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">
+              Dashboard
+            </span>
+            &nbsp; / &nbsp; Booking Lists
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
           <button className="bg-[#029e9d]  text-white py-[13px]   pl-[18px] pr-[16px] rounded-lg mr-[1px] hover:bg-yellow-400 transition duration-300">
-          <div className="flex">
-            <div className="text-[24px] pr-1 "><FiArrowLeft/></div>
-            
-            <div>Back To List</div>
+            <div className="flex">
+              <div className="text-[24px] pr-1 ">
+                <FiArrowLeft />
+              </div>
+
+              <div>
+                <Link href={"/destination-list"}>Back To List</Link>
+              </div>
             </div>
           </button>
         </div>
       </div>
-     
 
-      
-
-<div>
+      <div>
         <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
@@ -201,9 +205,9 @@ const AllBookingLists = () => {
             <SelectInput
               label=""
               name="category"
-              value={category||"Category"}
+              value={category || "Category"}
               options={["Category", "One", "Two", "Three"]}
-              onChange={(e)=>setCategory(e.target.value)}
+              onChange={(e) => setCategory(e.target.value)}
               disabledValue="Show Entries"
             />
           </div>
@@ -217,7 +221,7 @@ const AllBookingLists = () => {
         >
           <Table className="gap-6 table">
             <TableHead className="text-gray-800 ">
-              <TableRow className="table-head">
+              <TableRow className="table-head ">
                 <th>ID</th>
                 <th>TITLE</th>
                 <th>FIRST NAME</th>
@@ -259,19 +263,21 @@ const AllBookingLists = () => {
                     <td>{list.package_id}</td>
                     <td>{list.user_id}</td>
                     <td>
-                      {list.terms_and_conditions === 0
+                      {list.terms_and_conditions === 1
                         ? "Accepted"
                         : "Not Accepted"}
                     </td>
                     <td>
                       <div className="flex gap-3 py-1">
-                      
-                        <FiEye onClick={() => handleViewAction(list.id)}
-                                                  className="flex  text-[#029e9d] mt-1  text-[24px] hover:text-[#6f42c1]"
-                                                 />
+                        <FiEye
+                          onClick={() => handleViewAction(list.id)}
+                          className="flex  text-[#029e9d] mt-1  text-[24px] hover:text-[#6f42c1]"
+                        />
                         <span className="flex gap-2 text-[#029e9d] justify-center py-1 ">
-                          <FiDelete onClick={() => handleDeleteAction(list.id)} className="text-[25px] font-bold hover:text-[#6f42c1]"/>
-                        
+                          <FiDelete
+                            onClick={() => handleDeleteAction(list.id)}
+                            className="text-[25px] font-bold hover:text-[#6f42c1]"
+                          />
                         </span>{" "}
                       </div>
                     </td>
@@ -282,91 +288,111 @@ const AllBookingLists = () => {
         </TableContainer>
       </div>
       {viewFormVisible && (
-        <div
-          className="z-40 absolute top-24  lg:w-5/12 lg:mx-[20%] w-screen  bg-white rounded-2xl shadow-md flex justify-center items-center"
-          onClick={() => setViewFormVisible(false)}
+        <Modal
+          open={viewFormVisible}
+          onClose={() => setViewFormVisible(false)}
+          aria-labelledby=""
+          aria-describedby=""
+          closeAfterTransition
+          BackdropComponent={(props) => (
+            <Backdrop {...props} style={{ borderRadius: "0px" }} />
+          )}
+          BackdropProps={{
+            timeout: 500,
+          }}
         >
-          <table className="w-full ">
-            <td className="text-[14px] font-semibold text-end">Booking </td>
-            <td className="text-[14px] font-semibold text-start">Details</td>
+          <Fade in={viewFormVisible}>
+            <div className="flex flex-col">
+              <div
+                className="z-50 absolute top-[20%] mx-[35%] px-5   flex-col lg:w-4/12 h-auto  booking-card bg-white  py-4 rounded-xl shadow-md flex justify-center items-center"
+                onClick={() => setViewFormVisible(true)}
+                style={{ borderRadius: "20px !important" }}
+              >
+                <div className="text-[16px] text-[#232323] font-bold pb-3 pt-5  border-b-gray-200 border-[1px] w-[106%]  text-center border-white">
+                  Booking Details
+                </div>
 
-            <tbody>
-              {detailedBookingData?.title && (
-                <tr>
-                  <td>Title</td>
-                  <td>{detailedBookingData?.title}</td>
-                </tr>
-              )}
+                <table className="w-full ">
+                  <tbody className="">
+                    {detailedBookingData?.title && (
+                      <tr className="">
+                        <td className="w-[50%] ">Title</td>
+                        <td>{detailedBookingData?.title}</td>
+                      </tr>
+                    )}
 
-              {detailedBookingData?.first_name && (
-                <tr>
-                  <td>First Name</td>
-                  <td>{detailedBookingData?.first_name}</td>
-                </tr>
-              )}
-              {detailedBookingData?.last_name && (
-                <tr>
-                  <td>LastName</td>
-                  <td>{detailedBookingData?.last_name}</td>
-                </tr>
-              )}
-              {detailedBookingData?.email && (
-                <tr>
-                  <td>Email</td>
-                  <td>{detailedBookingData?.email}</td>
-                </tr>
-              )}
-              {detailedBookingData?.mobile_number && (
-                <tr>
-                  <td>MobileNumber</td>
-                  <td>{detailedBookingData?.mobile_number}</td>
-                </tr>
-              )}
-              {detailedBookingData?.gender && (
-                <tr>
-                  <td>Gender</td>
-                  <td>{detailedBookingData?.gender}</td>
-                </tr>
-              )}
-              {detailedBookingData?.date_of_birth && (
-                <tr>
-                  <td>DOB</td>
-                  <td>
-                    {detailedBookingData?.date_of_birth &&
-                      format(
-                        new Date(detailedBookingData.date_of_birth),
-                        "dd/MM/yyyy",
-                      )}
-                  </td>
-                </tr>
-              )}
-              {detailedBookingData?.country && (
-                <tr>
-                  <td>Country</td>
-                  <td>{detailedBookingData?.country}</td>
-                </tr>
-              )}
-              {detailedBookingData?.state && (
-                <tr>
-                  <td>State</td>
-                  <td>{detailedBookingData?.state}</td>
-                </tr>
-              )}
-              {detailedBookingData?.address_1 && (
-                <tr>
-                  <td>Address 1</td>
-                  <td>{detailedBookingData?.address_1}</td>
-                </tr>
-              )}
-              {detailedBookingData?.address_2 && (
-                <tr>
-                  <td>Address 2</td>
-                  <td>{detailedBookingData?.address_2}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                    {detailedBookingData?.first_name && (
+                      <tr>
+                        <td>First Name</td>
+                        <td>{detailedBookingData?.first_name}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.last_name && (
+                      <tr>
+                        <td>LastName</td>
+                        <td>{detailedBookingData?.last_name}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.email && (
+                      <tr>
+                        <td>Email</td>
+                        <td>{detailedBookingData?.email}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.mobile_number && (
+                      <tr>
+                        <td>MobileNumber</td>
+                        <td>{detailedBookingData?.mobile_number}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.gender && (
+                      <tr>
+                        <td>Gender</td>
+                        <td>{detailedBookingData?.gender}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.date_of_birth && (
+                      <tr>
+                        <td>DOB</td>
+                        <td>
+                          {detailedBookingData?.date_of_birth &&
+                            format(
+                              new Date(detailedBookingData.date_of_birth),
+                              "dd/MM/yyyy",
+                            )}
+                        </td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.country && (
+                      <tr>
+                        <td>Country</td>
+                        <td>{detailedBookingData?.country}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.state && (
+                      <tr>
+                        <td>State</td>
+                        <td>{detailedBookingData?.state}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.address_1 && (
+                      <tr>
+                        <td>Address 1</td>
+                        <td>{detailedBookingData?.address_1}</td>
+                      </tr>
+                    )}
+                    {detailedBookingData?.address_2 && (
+                      <tr>
+                        <td>Address 2</td>
+                        <td>{detailedBookingData?.address_2}</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Fade>
+        </Modal>
       )}
 
       <div className="mb-8 flex justify-center lg:justify-start flex-row">

@@ -26,7 +26,7 @@ const FormInput: React.FC<FormInputProps> = ({
       <label>{label}</label>
       <input
         type={type}
-        className={`border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 mb-1 focus:outline-none focus:border-gray-300 ${
+        className={`border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 mb-1 focus:outline-none  ${
           error ? "border-red-500" : ""
         }`}
         name={name}

@@ -8,6 +8,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 const playFair = Playfair_Display({
   subsets: ["latin"],
 });
+import Link from "next/link";
 
 const poppins = Poppins({
   weight: "400",
@@ -87,13 +88,21 @@ const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({
       });
   }, []);
 
+  const handleClick = (id: number) => {};
+
   return (
     <>
       <div>
         {data.map((item) => (
-          <div className="py-7 relative xl:top-[-50px]">
-            <CountyCard key={item.id} item={item} />
-          </div>
+          <Link key={item.id} href={`/homepage/${item.id}`}>
+            {" "}
+            <div
+              className="py-7 relative xl:top-[-50px]"
+              onClick={() => handleClick(item.id)}
+            >
+              <CountyCard key={item.id} item={item} />
+            </div>
+          </Link>
         ))}
       </div>
       <div className="flex justify-center">

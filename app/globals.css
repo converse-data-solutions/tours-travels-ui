@@ -1096,19 +1096,36 @@ body {
   border-radius: 10% !important;
 }
 .react-dropdown-select-dropdown {
-  max-height: 200px; /* Set a max height for the dropdown */
-  overflow-y: auto; /* Add a scrollbar if the options exceed the max height */
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .react-dropdown-select-item {
-  padding: 8px 12px; /* Adjust the padding as needed */
+  padding: 8px 12px;
   cursor: pointer;
 }
 
-/* select option:hover {
-  background-color: #029e9d !important;
+.footer-container {
+  font-family: "Roboto", Helvetica, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 12.25px !important;
+
+  line-height: 21px !important;
+  letter-spacing: -0.3px !important;
 }
 
-select option{
-  background-color: #0b1313 !important;
-} */
+.booking-card {
+  z-index: 10;
+  animation-name: bookingcard;
+  animation-duration: 0.5s;
+}
+
+@keyframes bookingcard {
+  from {
+    top: 500px;
+  }
+  to {
+    top: 200px;
+    background-color: white;
+  }
+}

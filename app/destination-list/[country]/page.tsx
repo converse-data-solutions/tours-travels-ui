@@ -55,7 +55,7 @@ interface CountyDetailsPageProps {
     price?: string;
   };
 }
-const CountyDetailsPage: React.FC<CountyDetailsPageProps> = ({
+const CountryDetailsProps: React.FC<CountyDetailsPageProps> = ({
   params,
   query,
 }: {
@@ -82,7 +82,7 @@ const CountyDetailsPage: React.FC<CountyDetailsPageProps> = ({
   return (
     <>
       <div className="">
-        <div className=" w-full ">
+        <div className=" w-[100%] ">
           <Image
             height={100}
             width={1000}
@@ -163,7 +163,6 @@ const CountyDetailsPage: React.FC<CountyDetailsPageProps> = ({
               <div className="flex flex-col md:px-10 lg:px-0 lg:w-5/12">
                 <div className="">
                   <CategoriesType />
-                  <div>${Duration}</div>
                 </div>
                 <br></br>
                 <span className="border-t-2 border-dashed "></span>
@@ -212,3 +211,4 @@ const CountyDetailsPage: React.FC<CountyDetailsPageProps> = ({
     </>
   );
 };
+export default CountryDetailsProps;

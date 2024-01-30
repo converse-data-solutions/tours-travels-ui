@@ -358,18 +358,22 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             <div className="content shadow-inner flex flex-col bg-[#f9fafb]  shadow-gray-200 overflow-scroll w-full h-[93vh] md:justify-between overflow-x-hidden ">
               <main>{children}</main>
 
-              <div className=" w-full flex flex-col font-sans font-normal    text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-[12px] px-4 lg:px-6">
-                <span className="text-[12.25px] text-[#7987a1]">
+              <div className=" w-full flex flex-col font-sans font-normal  text-sm items-center border-t-[1px] border-gray-200 md:flex-row md: justify-between bg-[#f9fafb] py-[12px] px-4 lg:px-6">
+                <span className="text-[12.25px] text-[#7987a1] footer-container  ">
                   Copyright <span className="px-[1px]">&copy;</span>2022{" "}
-                  <span className="text-[#029e9d] ">Travelin.</span>
+                  <span className="text-[#029e9d] footer-container  ">
+                    Travelin.
+                  </span>
                 </span>
 
-                <div className="text-[12.25px] text-[#7987a1] flex gap-2">
-                  <div>Powered By{" "}</div>
-                  
-                   <div><FaRegHeart  className="text-[14px] mt-[2px] text-[#6f79e4]"/></div>
-                 
-                 <div>Converse Data Solutions</div> 
+                <div className="text-[12.25px] text-[#7987a1] flex gap-2 footer-container">
+                  <div>Powered By </div>
+
+                  <div>
+                    <FaRegHeart className="text-[14px] mt-[2px] text-[#6f79e4]" />
+                  </div>
+
+                  <div>Converse Data Solutions</div>
                 </div>
               </div>
               {imgClick && (
