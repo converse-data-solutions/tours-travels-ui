@@ -55,7 +55,7 @@ interface CountyDetailsPageProps {
     price?: string;
   };
 }
-const CountryDetailsProps: React.FC<CountyDetailsPageProps> = ({
+const CountryCardAndGridDetails: React.FC<CountyDetailsPageProps> = ({
   params,
   query,
 }: {
@@ -211,4 +211,4 @@ const CountryDetailsProps: React.FC<CountyDetailsPageProps> = ({
     </>
   );
 };
-export default CountryDetailsProps;
+export default CountryCardAndGridDetails;
