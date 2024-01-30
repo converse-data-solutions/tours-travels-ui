@@ -55,13 +55,17 @@ interface CountyDetailsPageProps {
     price?: string;
   };
 }
-const CountryCardAndGridDetails: React.FC<CountyDetailsPageProps> = ({
-  params,
-  query,
-}: {
-  params: { country: string };
-  query?: { category?: string; duration?: string; price?: string };
-}) => {
+// const CountryCardAndGridDetails: React.FC<CountyDetailsPageProps> = ({
+//   params,
+//   query,
+// }: {
+//   params: { country: string };
+//   query?: { category?: string; duration?: string; price?: string };
+// }) => {
+  const CountryCardAndGridDetails: React.FC<CountyDetailsPageProps> = ({
+    params,
+    query = {},
+  }: CountyDetailsPageProps) => {
   const [data, setData] = useState<UserData[]>([]);
   const countryName = params.country;
 
