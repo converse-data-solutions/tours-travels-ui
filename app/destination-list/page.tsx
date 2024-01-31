@@ -40,7 +40,7 @@ interface CountryDetailsPageProps {
 }
 
 
-const Page:React.FC<CountryDetailsPageProps>= () => {
+const Page= () => {
   return (
     <>
       <div className="Destination-part  ">

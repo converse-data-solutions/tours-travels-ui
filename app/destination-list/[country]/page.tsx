@@ -45,16 +45,6 @@ interface UserData {
   category: string;
 }
 
-// interface CountryDetailsPageProps {
-//   params: {
-//     country: string;
-//   };
-//   query?: {
-//     category?: string;
-//     duration?: string;
-//     price?: string;
-//   };
-// }
 
 const CountryCardAndGridDetails = ({params}: {params: { country: string };}) => {
   const [data, setData] = useState<UserData[]>([]);
