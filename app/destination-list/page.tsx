@@ -12,17 +12,35 @@ import VideoPart from "../homepage/VideoPart";
 import OurPartnersHeading from "../components/ServerComponents/OurPartnersHeading";
 import PartnersHeading from "../homepage/OurPartners";
 import FooterPart from "../components/CommonComponents/FooterPart";
+import { GetServerSideProps } from "next";
+
 
 const playFair = Playfair_Display({
   subsets: ["latin"],
+  display: 'swap',
+  adjustFontFallback: false,
 });
 
 const poppins = Poppins({
-  weight: "400",
+   weight: "400",
   subsets: ["latin"],
+  display: 'swap',
+  adjustFontFallback: false,
 });
 
-const DestinationListPage = () => {
+interface CountryDetailsPageProps {
+  params: {
+    country: string;
+  };
+  query: {
+    category?: string;
+    duration?: string;
+    price?: string;
+  };
+}
+
+
+const Page:React.FC<CountryDetailsPageProps>= () => {
   return (
     <>
       <div className="Destination-part  ">
@@ -112,4 +130,6 @@ const DestinationListPage = () => {
   );
 };
 
-export default DestinationListPage;
+export default Page;
+
+

@@ -30,7 +30,7 @@ interface UserData {
   category: string;
 }
 
-interface CountyDetailsPageProps {
+interface DetailsPageProps {
   params: {
     country: string;
   };
@@ -41,7 +41,7 @@ interface CountyDetailsPageProps {
   };
 }
 
-const CountryGridDetailsPage: React.FC<CountyDetailsPageProps> = ({
+const CountryGridDetailsPage: React.FC<DetailsPageProps> = ({
   params,
   query,
 }) => {

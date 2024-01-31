@@ -275,7 +275,7 @@ const HomePageContent: React.FC<HomePageContentProps> = ({ id }) => {
                   <label>Country</label>
                   <br />
                   <CountryDropdown
-                    classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white "
+                    classes="border-[1px] border-gray-200 rounded-lg h-[50px] w-full pl-2 mt-2 bg-white text-[#7987a1] pr-2"
                     value={bookNowData.country}
                     onChange={(val: any) => {
                       setBookNowData({ ...bookNowData, country: val });

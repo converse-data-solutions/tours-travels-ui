@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, ReactNode } from "react";
-import CountyCard from "@/app/components/ClientComponets/CountryCard";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import img from "../../../public/booknowpageimg.jpg";
 import { HomePage } from "@/app/components/CommonComponents/HomePage";
@@ -45,31 +45,24 @@ interface UserData {
   category: string;
 }
 
-interface CountyDetailsPageProps {
-  params: {
-    country: string;
-  };
-  query: {
-    category?: string;
-    duration?: string;
-    price?: string;
-  };
-}
-// const CountryCardAndGridDetails: React.FC<CountyDetailsPageProps> = ({
-//   params,
-//   query,
-// }: {
-//   params: { country: string };
-//   query?: { category?: string; duration?: string; price?: string };
-// }) => {
-  const CountryCardAndGridDetails: React.FC<CountyDetailsPageProps> = ({
-    params,
-    query = {},
-  }: CountyDetailsPageProps) => {
+// interface CountryDetailsPageProps {
+//   params: {
+//     country: string;
+//   };
+//   query?: {
+//     category?: string;
+//     duration?: string;
+//     price?: string;
+//   };
+// }
+
+const CountryCardAndGridDetails = ({params}: {params: { country: string };}) => {
   const [data, setData] = useState<UserData[]>([]);
   const countryName = params.country;
 
   const [currentView, setCurrentView] = useState("bars");
+  const router = useRouter();
+
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const Duration = searchParams.get("duration");

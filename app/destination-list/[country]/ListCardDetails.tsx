@@ -31,18 +31,18 @@ interface UserData {
   duration: string;
 }
 
-interface CountyDetailsPageProps {
+interface DetailsPageProps {
   params: {
     country: string;
   };
-  query: {
+  query?: {
     category: string | null;
     duration: string | null;
     price?: string | null;
   };
 }
 
-const CountryDetailsPage: React.FC<CountyDetailsPageProps> = ({
+const CountryDetailsPage: React.FC<DetailsPageProps> = ({
   params,
   query,
 }) => {
