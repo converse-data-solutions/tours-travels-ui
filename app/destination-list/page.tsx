@@ -28,17 +28,6 @@ const poppins = Poppins({
   adjustFontFallback: false,
 });
 
-interface CountryDetailsPageProps {
-  params: {
-    country: string;
-  };
-  query: {
-    category?: string;
-    duration?: string;
-    price?: string;
-  };
-}
-
 
 const Page= () => {
   return (
