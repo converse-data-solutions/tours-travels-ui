@@ -57,9 +57,6 @@ const token: any =
     ? localStorage.getItem("accessToken")
     : undefined;
 
-// if (!token) {
-//   window.location.replace("/");
-// }
 
 const decoded: any = jwtDecode(token);
 const id: number = decoded.userId;
@@ -94,41 +91,63 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
     mobile_number: "",
   });
 
+  let hasErrors=true;
   const validateInput = (fieldName: string, value: string) => {
     let errorMessage = "";
-
+    
     const nameRegex = /^[A-Za-z]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+  
     if (fieldName === "first_name") {
       if (value.trim() === "") {
+        hasErrors=false;
         errorMessage = "First Name is required";
+
       } else if (!nameRegex.test(value)) {
+        hasErrors=false;
         errorMessage = "First Name can only contain alphabetic characters";
       } else if (/\d/.test(value)) {
+        hasErrors=false;
+
         errorMessage = "First Name should not contain numbers";
       } else if (!/^[A-Za-z][a-z]*$/.test(value)) {
+        hasErrors=false;
         errorMessage =
           "First letter of First Name should be in uppercase, and only lowercase letters are allowed for the rest";
       }
     } else if (fieldName === "email") {
       if (value.trim() === "") {
+        hasErrors=false;
         errorMessage = "Email is required";
       } else if (!emailRegex.test(value)) {
+        hasErrors=false;
         errorMessage = "Invalid email format";
       } else if (!value.includes("@")) {
+        
+        hasErrors=false;
+
         errorMessage = "Email must contain '@'";
       } else if (/[A-Z]/.test(value)) {
+        hasErrors=false;
+
         errorMessage = "Email should not contain uppercase letters";
       } else if (/[!#$%^&*()+={}\[\]:;<>,?~\\/]/.test(value)) {
+        hasErrors=false;
+
         errorMessage = "Email should not contain unwanted symbols";
       }
     } else if (fieldName === "mobile_number") {
       if (value.trim() === "") {
+        hasErrors=false;
+
         errorMessage = "Mobile Number is required";
       } else if (!/^[0-9]+$/.test(value)) {
+        hasErrors=false;
+
         errorMessage = "Mobile Number must contain only numeric characters";
       } else if (!/^[6-9]\d{9}$/.test(value)) {
+        hasErrors=false;
+
         errorMessage = "Invalid Mobile Number";
       }
     }
@@ -259,25 +278,21 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
       });
       return;
     }
-    let hasFormErrors = false;
 
-    Object.keys(bookNowData).forEach((fieldName) => {
-      const key = fieldName as keyof UserDataType;
+    
+Object.keys(bookNowData).forEach((fieldName) => {
+const key = fieldName as keyof UserDataType;
       const value = bookNowData[key];
-
+     
       validateInput(
         key,
         value instanceof Date ? value.toISOString() : String(value),
       );
     });
+   
+    
 
-    const hasErrors = Object.values(errors).some((error) => error !== "");
-    if (hasErrors) {
-      const hasFormErrors = true;
-      return;
-    }
-
-    if (!hasFormErrors) {
+    if (hasErrors==true) {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/booking/create`,
@@ -295,7 +310,6 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
         );
 
         if (response.status === 200) {
-          console.log("Booking successful");
           window.location.reload();
         } else {
           console.log("Booking encountered an error");
@@ -405,7 +419,7 @@ const HomePageContent = ({ params }: { params: { id: number } }) => {
 
               <div className="w-full lg:pb-2">
                 <FormInput
-                  label="First Name*"
+                  label="First Name"
                   name="first_name"
                   error={errors.first_name}
                   value={bookNowData.first_name}
