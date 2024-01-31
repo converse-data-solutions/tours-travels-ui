@@ -374,6 +374,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                   </div>
 
                   <div>Converse Data Solutions</div>
+
                 </div>
               </div>
               {imgClick && (

@@ -350,6 +350,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 <FiArrowLeft className="text-[24px] " />
               </div>{" "}
               <div className="text-[15px]">Back To List</div>
+
             </div>
           </button>
         </div>
@@ -410,6 +411,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               <span>Date</span>
               <span className="text-red-500 ml-1">*</span>
             </label>
+
             <div className="">
               <div className="date-table">
                 <Datetime
@@ -425,6 +427,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   inputProps={{
                     className:
                       "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-gray-400  z-30  custom-datetime-picker  ",
+
                   }}
                   className="absolute z-30 border-gray-200 rounded-lg h-[48px]  w-[95.5%] focus:outline-none "
                   timeFormat={false}
@@ -459,6 +462,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               <br />
               <CountryDropdown
                 classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 ${
+
                   errors.country ? "border-red-500" : "border-gray-200"
                 }`}
                 value={packageData.country}
@@ -480,6 +484,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 <span>State</span>
                 <span className="text-red-500 ml-1">*</span>
               </label>
+
               <RegionDropdown
                 country={packageData.country}
                 value={packageData.state}
@@ -487,6 +492,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   setPackageData({ ...packageData, state: val })
                 }
                 classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-gray-400  ${
+
                   errors.state ? "border-red-500" : "border-gray-200"
                 }`}
               />
@@ -576,6 +582,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               customValue={
                 initialPackageData ? initialPackageData.description : ""
               }
+              
             />
           </div>
         </div>

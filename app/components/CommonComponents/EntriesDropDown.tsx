@@ -46,6 +46,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
     <div className="relative w-full mb-2">
       <div
         className="border-[1px] border-gray-200 focus:outline-none focus:border-gray-400 h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-[#7987a1] relative"
+
         onClick={() => setIsOpen(!isOpen)}
         style={{
           WebkitAppearance: "none",

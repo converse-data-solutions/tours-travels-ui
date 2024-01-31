@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -15,6 +16,7 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import Link from "next/link";
+
 
 interface BookingData {
   id: number;
@@ -41,6 +43,7 @@ const AllBookingLists = () => {
   const [viewFormVisible, setViewFormVisible] = useState(false);
   const [detailedBookingData, setDetailedBookingData] = useState<BookingData>();
   const [category, setCategory] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -164,6 +167,7 @@ const AllBookingLists = () => {
               Dashboard
             </span>
             &nbsp; / &nbsp; Booking Lists
+
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
@@ -176,12 +180,14 @@ const AllBookingLists = () => {
               <div>
                 <Link href={"/destination-list"}>Back To List</Link>
               </div>
+
             </div>
           </button>
         </div>
       </div>
 
       <div>
+
         <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
@@ -208,6 +214,7 @@ const AllBookingLists = () => {
               value={category || "Category"}
               options={["Category", "One", "Two", "Three"]}
               onChange={(e) => setCategory(e.target.value)}
+
               disabledValue="Show Entries"
             />
           </div>
@@ -278,6 +285,7 @@ const AllBookingLists = () => {
                             onClick={() => handleDeleteAction(list.id)}
                             className="text-[25px] font-bold hover:text-[#6f42c1]"
                           />
+
                         </span>{" "}
                       </div>
                     </td>
@@ -311,6 +319,7 @@ const AllBookingLists = () => {
                 <div className="text-[16px] text-[#232323] font-bold pb-3 pt-5  border-b-gray-200 border-[1px] w-[106%]  text-center border-white">
                   Booking Details
                 </div>
+
 
                 <table className="w-full ">
                   <tbody className="">
