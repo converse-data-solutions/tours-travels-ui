@@ -10,7 +10,12 @@ import PaginationBar from "../../components/CommonComponents/PaginationBar";
 import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import Image from "next/image";
 import { LuPlus } from "react-icons/lu";
+import { LuPlus } from "react-icons/lu";
 import AlternateImg from "../../../public/alternative.png";
+import SelectInput from "@/app/components/CommonComponents/SelectedInput";
+import { LuPenSquare } from "react-icons/lu";
+import { FiDelete } from "react-icons/fi";
+import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar";
 import SelectInput from "@/app/components/CommonComponents/SelectedInput";
 import { LuPenSquare } from "react-icons/lu";
 import { FiDelete } from "react-icons/fi";
@@ -33,9 +38,11 @@ interface UserData {
 }
 const AllPackageLists = () => {
   const [entries, setEntries] = useState(6);
+  const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("Category");
   const [category, setCategory] = useState("Category");
 
   useEffect(() => {
@@ -203,7 +210,15 @@ const AllPackageLists = () => {
   return (
     <div className="px-4 lg:pl-6 pr-5">
       <div className=" mt-[13px] md:flex justify-between   ">
+    <div className="px-4 lg:pl-6 pr-5">
+      <div className=" mt-[13px] md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
+          <h2 className="text-gray-500 md:mt-5 lg:mt-6 text-[14px]">
+            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">
+              Dashboard
+            </span>
+            <span className="px-2 text-[14px]"> /</span>
+            <span className="text-[#7987a1]"> Packages</span>
           <h2 className="text-gray-500 md:mt-5 lg:mt-6 text-[14px]">
             <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">
               Dashboard
@@ -213,10 +228,18 @@ const AllPackageLists = () => {
           </h2>
         </div>
         <div className="flex-row mt-3 text-center ">
+        <div className="flex-row mt-3 text-center ">
           <button
+            className="bg-[#029e9d] text-white py-[13px]   pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
             className="bg-[#029e9d] text-white py-[13px]   pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
             onClick={handleInput}
           >
+            <div className="flex ">
+              <div>
+                <LuPlus className=" text-white text-[24px] " />{" "}
+              </div>{" "}
+              <div className="pl-1 mt-[1px]">Add Packages</div>
+            </div>
             <div className="flex ">
               <div>
                 <LuPlus className=" text-white text-[24px] " />{" "}
@@ -256,10 +279,41 @@ const AllPackageLists = () => {
               onChange={handleCategoryChange}
               disabledValue="Category"
             />
+
+      <div>
+        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
+          {" "}
+          <div className="items-center lg:text-start w-[100%]  ">
+            <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">
+              {" "}
+              Packages Lists{" "}
+            </h5>
+          </div>
+          <div className="w-[100%] lg:w-[140%]  ">
+            <PackageSearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              placeholder="Search by slider title"
+            />
+          </div>
+          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] z-20 ">
+            <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
+          </div>
+          <div className="w-[100%] relative top-[-7px] text-[16px] z-20">
+            {" "}
+            <SelectInput
+              label=""
+              name="default_language"
+              value={category}
+              options={["Category", "One", "Two", "Three"]}
+              onChange={handleCategoryChange}
+              disabledValue="Category"
+            />
           </div>
         </div>
       </div>
 
+      <div className="  mt-4 px-5 py-7 border-[1px] border-gray-100 rounded-[10px] shadow-sm  bg-white ">
       <div className="  mt-4 px-5 py-7 border-[1px] border-gray-100 rounded-[10px] shadow-sm  bg-white ">
         <TableContainer
           className="Table-container"
@@ -330,6 +384,7 @@ const AllPackageLists = () => {
                     </td>
 
                     <td className="">
+                    <td className="">
                       {" "}
                       <label
                         className={`switch ${
@@ -350,12 +405,16 @@ const AllPackageLists = () => {
                         <Link href={"/admin/package/addpackage/" + list.id}>
                           <LuPenSquare
                             className="text-[24px] hover:text-[#6f42c1]"
+                          <LuPenSquare
+                            className="text-[24px] hover:text-[#6f42c1]"
                             onClick={() => handleEditAction(list.id)}
                           />
                         </Link>
 
                         <FiDelete
+                        <FiDelete
                           onClick={() => handleDeleteAction(list.id)}
+                          className="text-[25px] font-bold hover:text-[#6f42c1]"
                           className="text-[25px] font-bold hover:text-[#6f42c1]"
                         />
                       </span>{" "}
@@ -367,6 +426,7 @@ const AllPackageLists = () => {
         </TableContainer>
       </div>
 
+      <div className="mb-8  flex justify-center lg:justify-start flex-row">
       <div className="mb-8  flex justify-center lg:justify-start flex-row">
         <PaginationBar
           currentPage={currentPage}

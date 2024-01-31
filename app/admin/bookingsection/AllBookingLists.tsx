@@ -35,6 +35,7 @@ interface BookingData {
 }
 const AllBookingLists = () => {
   const [entries, setEntries] = useState(6);
+  const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<BookingData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -214,6 +215,7 @@ const AllBookingLists = () => {
         </div>
       </div>
 
+      <div className="  mt-4 px-5 py-9 border-[1px] border-gray-100 rounded-[10px] shadow-sm  bg-white ">
       <div className="  mt-4 px-5 py-9 border-[1px] border-gray-100 rounded-[10px] shadow-sm  bg-white ">
         <TableContainer
           className="Table-container"
@@ -395,6 +397,7 @@ const AllBookingLists = () => {
         </Modal>
       )}
 
+      <div className="mb-8 flex justify-center lg:justify-start flex-row">
       <div className="mb-8 flex justify-center lg:justify-start flex-row">
         <PaginationBar
           currentPage={currentPage}

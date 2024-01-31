@@ -2,6 +2,7 @@
 import React from "react";
 import AddUser from "../AddUser";
 
+
 const EditUser = ({ params }: { params: { id: number } }) => {
   const id = params.id;
 

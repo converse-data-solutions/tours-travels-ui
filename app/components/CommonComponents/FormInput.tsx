@@ -9,6 +9,7 @@ interface FormInputProps {
   required?: boolean;
   placeholder?: string;
   min?: string;
+  min?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({

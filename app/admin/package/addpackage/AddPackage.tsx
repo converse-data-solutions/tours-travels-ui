@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
+import FormInput from "@/app/components/CommonComponents/FormInput";
 import FormInput from "@/app/components/CommonComponents/FormInput";
 import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
@@ -16,9 +18,17 @@ import { LuCalendar, LuPlus } from "react-icons/lu";
 import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
+import SelectInput from "@/app/components/CommonComponents/SelectedInput";
+import Datetime from "react-datetime";
+import "react-datetime/css/react-datetime.css";
+import { LuCalendar, LuPlus } from "react-icons/lu";
+import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
+import styled from "styled-components";
+import { FiArrowLeft } from "react-icons/fi";
 
 interface PackageDataType {
   title: string;
+  start_date: any;
   start_date: any;
   file_name: File | any;
   destination: string;
@@ -36,6 +46,14 @@ interface AddUserProps {
   initialPackageData?: PackageDataType;
 }
 
+const CustomCountryDropdown = styled(CountryDropdown)`
+  padding: 10px;
+  background-color: #029e9d;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+`;
 const CustomCountryDropdown = styled(CountryDropdown)`
   padding: 10px;
   background-color: #029e9d;
@@ -62,6 +80,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       description: "",
       offer: "",
       category: "",
+      category: "",
     },
   );
 
@@ -72,7 +91,58 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     state: string;
   }
 
+  interface ErrorType {
+    title: string;
+    start_date: string;
+    country: string;
+    state: string;
+  }
+
   let [file, setFile] = useState<File | string>();
+
+  const [errors, setErrors] = useState<ErrorType>({
+    title: "",
+    start_date: "",
+    country: "",
+    state: "",
+  });
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors: ErrorType = {
+      title: "",
+      start_date: "",
+      country: "",
+      state: "",
+    };
+    if (packageData.title.trim() === "") {
+      newErrors.title = "Title is required";
+      isValid = false;
+    } else if (/\d/.test(packageData.title)) {
+      newErrors.title = "Title should not contain numbers";
+      isValid = false;
+    } else if (packageData.title.trim().length < 10) {
+      newErrors.title = "Title should be at least 10 characters long";
+      isValid = false;
+    }
+
+    if (!packageData.start_date) {
+      newErrors.start_date = "Date is required";
+      isValid = false;
+    }
+    if (packageData.country.trim() === "") {
+      newErrors.country = "Please select a country";
+      isValid = false;
+    }
+    if (packageData.state.trim() === "") {
+      newErrors.state = "Please select a state";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const datetimeRef = useRef<Datetime | null>(null);
 
   const [errors, setErrors] = useState<ErrorType>({
     title: "",
@@ -158,6 +228,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       return;
     }
 
+    const isValid = validateForm();
+    if (!isValid) {
+      console.error("Form validation failed");
+      return;
+    }
+
     if (isEditMode && id) {
       try {
         const { file_name, ...userDataWithoutFilename } = packageData;
@@ -200,10 +276,19 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               setTimeout(() => {
                 setSuccessMessage("");
               }, 5000);
+              setSuccessMessage("Package updated successfully!");
+
+              setTimeout(() => {
+                setSuccessMessage("");
+              }, 5000);
             } else {
               window.location.reload();
             }
           }
+          setSuccessMessage("Package updated successfully!");
+          setTimeout(() => {
+            setSuccessMessage("");
+          }, 5000);
           setSuccessMessage("Package updated successfully!");
           setTimeout(() => {
             setSuccessMessage("");
@@ -250,6 +335,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
           if (uploadImageResponse.status === 201) {
             setSuccessMessage("Package added successfully!");
+            setSuccessMessage("Package added successfully!");
             console.log("Image uploaded successfully");
             setTimeout(() => {
               setSuccessMessage("");
@@ -257,6 +343,10 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             window.location.reload();
           } else {
             console.error("Error uploading image:", uploadImageResponse.status);
+            setSuccessMessage("Package added successfully!");
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 5000);
             setSuccessMessage("Package added successfully!");
             setTimeout(() => {
               setSuccessMessage("");
@@ -302,6 +392,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     const { name, value } = event.target;
     setPackageData({ ...packageData, [name]: value });
     setErrors({ ...errors, [name]: "" });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -337,10 +428,16 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             </span>{" "}
             <span className="px-1">/</span>
             {isEditMode ? "Update Package" : " Add Packages"}
+            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">
+              Dashboard
+            </span>{" "}
+            <span className="px-1">/</span>
+            {isEditMode ? "Update Package" : " Add Packages"}
           </h2>
         </div>
         <div className="flex-row mt-3 text-center lg:mr-1">
           <button
+            className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[13px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
             className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[13px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
             onClick={handleInput}
           >
@@ -356,6 +453,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       </div>
 
       <form
+        className=" pt-6 formshadow pl-[20px] bg-[#ffffff] border-[1px] border-gray-100 shadow-lg rounded-lg pb-[18px] mb-12 mt-4 pr-6 text-[#232323]"
         className=" pt-6 formshadow pl-[20px] bg-[#ffffff] border-[1px] border-gray-100 shadow-lg rounded-lg pb-[18px] mb-12 mt-4 pr-6 text-[#232323]"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
@@ -394,6 +492,14 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 onChange={handleImageChange}
                 alt=""
               />
+
+              <label htmlFor="file-input">
+                <span className="custom-file-input-button2 font-thin  hover:bg-[hsl(0,0%,95%)]">
+                  Choose file{" "}
+                </span>{" "}
+                <span className="bg-white relative top-[-36px] pl-[13px]">
+                  No file chosen
+                </span>
 
               <label htmlFor="file-input">
                 <span className="custom-file-input-button2 font-thin  hover:bg-[hsl(0,0%,95%)]">
@@ -441,6 +547,8 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         </div>
         <div className="w-full grid grid-cols-1 mt-[-20px] ">
           <div className="lg:flex gap-6 mb-4">
+        <div className="w-full grid grid-cols-1 mt-[-20px] ">
+          <div className="lg:flex gap-6 mb-4">
             <FormInput
               label="Title"
               type="text"
@@ -448,6 +556,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               value={packageData.title}
               onChange={handleChange}
               required={true}
+              error={errors.title}
               error={errors.title}
             />
 
@@ -471,9 +580,15 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   {errors.country}
                 </div>
               )}
+              {errors.country && (
+                <div className="text-red-500 text-sm mt-[2px]">
+                  {errors.country}
+                </div>
+              )}
             </div>
           </div>
 
+          <div className="lg:flex gap-6 mb-4">
           <div className="lg:flex gap-6 mb-4">
             <div className="lg:w-full">
               <label>
@@ -495,8 +610,14 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   {errors.state}
                 </div>
               )}
+              {errors.state && (
+                <div className="text-red-500 text-sm mt-[2px]">
+                  {errors.state}
+                </div>
+              )}
             </div>
 
+            <FormNumberInput
             <FormNumberInput
               label="Price"
               type="number"
@@ -504,9 +625,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               value={packageData.price}
               onChange={handleChange}
               minValue={0}
+              minValue={0}
               required={true}
             />
           </div>
+          <div className="lg:flex gap-6  mb-4">
+            <FormNumberInput
           <div className="lg:flex gap-6  mb-4">
             <FormNumberInput
               label="No.Of Person"
@@ -517,8 +641,11 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               required={true}
               minValue={1}
               maxValue={50}
+              minValue={1}
+              maxValue={50}
             />
 
+            <FormNumberInput
             <FormNumberInput
               label="No. of day & Night"
               name="days_and_night"
@@ -528,11 +655,16 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               required={true}
               minValue={1}
               maxValue={40}
+              minValue={1}
+              maxValue={40}
             />
           </div>
         </div>
         <div className="lg:flex gap-6  pb-2 lg:pb-0 mb-4">
+        <div className="lg:flex gap-6  pb-2 lg:pb-0 mb-4">
           {" "}
+          <FormNumberInput
+            label="Offer"
           <FormNumberInput
             label="Offer"
             name="offer"
@@ -542,7 +674,29 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             required={false}
             minValue={0}
             maxValue={50}
+            minValue={0}
+            maxValue={50}
           />{" "}
+          <span className="w-full z-30">
+            <SelectInput
+              label="Category"
+              name="category"
+              value={packageData.category || "Select a category"}
+              options={[
+                "Select a category",
+                "tours",
+                "travels",
+                "attractions",
+                "day trips",
+                "indoor",
+                "outdoor activities",
+                "concert & show",
+                "sight seeing",
+              ]}
+              onChange={handleSelectCategoryChange}
+              disabledValue="Select a category"
+            />
+          </span>
           <span className="w-full z-30">
             <SelectInput
               label="Category"
@@ -569,6 +723,9 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           <label className="">Description</label>
 
           <div className="mt-2 ">
+          <label className="">Description</label>
+
+          <div className="mt-2 ">
             <DraftEditing
               name="description"
               value={packageData.description}
@@ -576,12 +733,15 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               customValue={
                 initialPackageData ? initialPackageData.description : ""
               }
+              
             />
+          </div>
           </div>
         </div>
 
         <div className="flex justify-center pt-3">
           <button
+            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-3"
             className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-3"
             type="submit"
           >
@@ -595,9 +755,22 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 {isEditMode ? "Update Package" : "Create Package"}
               </div>
             </div>
+            <div className="flex">
+              <div className="">
+                {" "}
+                <LuPlus className="text-[28px] pr-1   " />
+              </div>
+              <div className="mt-[3px] text-[14px]">
+                {" "}
+                {isEditMode ? "Update Package" : "Create Package"}
+              </div>
+            </div>
           </button>
         </div>
         {successMessage && (
+          <div className="text-[#029e9d] flex justify-center my-5 text-[16px]  ">
+            {successMessage}
+          </div>
           <div className="text-[#029e9d] flex justify-center my-5 text-[16px]  ">
             {successMessage}
           </div>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 interface ShowEntriesDropdownProps {
   entries: number;
   setEntries: React.Dispatch<React.SetStateAction<number>>;
@@ -14,6 +15,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
 
+  const dropdownRef3 = useRef<HTMLDivElement>(null);
   const dropdownRef3 = useRef<HTMLDivElement>(null);
 
   const handleOptionClick = (selectedValue: string) => {
@@ -75,6 +77,11 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
               <div
                 key={option}
                 className={`cursor-pointer px-3 ${
+                  index === 0
+                    ? "cursor-not-allowed hover:text-gray-500 !important"
+                    : selectedValue === option
+                      ? "bg-[#029e9d] text-white"
+                      : "bg-white hover:text-white hover:bg-[#029e9d]"
                   index === 0
                     ? "cursor-not-allowed hover:text-gray-500 !important"
                     : selectedValue === option

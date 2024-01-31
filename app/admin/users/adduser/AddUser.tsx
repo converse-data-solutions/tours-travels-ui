@@ -166,6 +166,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       }
     });
 
+
     if (hasErrors) {
       return false;
     }
@@ -441,6 +442,13 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               <span className="bg-white relative top-[-36px] pl-4">
                 No file chosen
               </span>
+            <label htmlFor="file-input">
+              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
+                Choose file{" "}
+              </span>{" "}
+              <span className="bg-white relative top-[-36px] pl-4">
+                No file chosen
+              </span>
             </label>
           </span>
         </div>
@@ -620,6 +628,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </button>
         </div>
         {successMessage && (
+          <p className="text-[#029e9d] flex justify-center mt-4">
+            {successMessage}
+          </p>
           <p className="text-[#029e9d] flex justify-center mt-4">
             {successMessage}
           </p>
