@@ -51,8 +51,7 @@ const CountryCardAndGridDetails = ({params}: {params: { country: string };}) => 
   const countryName = params.country;
 
   const [currentView, setCurrentView] = useState("bars");
-  const router = useRouter();
-
+  
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const Duration = searchParams.get("duration");
