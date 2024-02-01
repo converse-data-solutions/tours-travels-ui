@@ -60,7 +60,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
     <div className="relative w-full mb-2">
       <label htmlFor={name}>{label}</label>
       <div
-        className={`border-[1px]  ${isOpen?"border-[#babcbe]":"border-gray-200"} border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-[#7987a1] bg-white relative `}
+        className={`border-[1px]  ${isOpen?"border-[#b5b7b9]":"border-gray-200"} border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-[#7987a1] bg-white relative `}
         onClick={() => setIsOpen(!isOpen)}
         ref={dropdownRef2}
       >
