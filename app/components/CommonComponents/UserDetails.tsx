@@ -68,16 +68,16 @@ const UserDetailsForm = () => {
                 <Image
                   src={AlternateImg}
                   className="rounded-full h-20 w-20"
-                  alt={"img"}
+                  alt=""
                   height={50}
                   width={50}
                 />
               ) : (
                 <Image
-                  src={userData.file_name}
-                  className="rounded-md h-10 w-10"
-                  alt="img"
-                  height={30}
+                  src={AlternateImg}
+                  className="rounded-full h-20 w-20"
+                  alt=""
+                  height={50}
                   width={50}
                 />
               )}
