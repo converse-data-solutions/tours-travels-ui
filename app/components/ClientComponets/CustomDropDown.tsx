@@ -65,10 +65,10 @@ const CustomDropdown: React.FC<SelectInputProps> = ({
   }, []);
 
   return (
-    <div className="relative w-full mb-2 ">
+    <div className={`relative w-full mb-2  `}>
       <label htmlFor={name}>{label}</label>
       <div
-        className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative"
+        className={`border-[1px] ${isOpen ? "border-[#babcbe]" : "border-gray-200"}  rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative`}
         onClick={() => setIsOpen(!isOpen)}
         ref={dropdownRef}
       >
@@ -87,7 +87,7 @@ const CustomDropdown: React.FC<SelectInputProps> = ({
           </div>
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#6e6d6d] shadow-md  ">
+          <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#6e6d6d] shadow-md entries-style ">
             {options.map((option) => (
               <div
                 key={option.value}

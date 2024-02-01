@@ -1130,3 +1130,52 @@ body {
   }
 }
 
+
+
+.entries-style  {
+  
+  
+
+  /* ubuntu specific styles */
+  @media screen and (min-resolution: 96dpi) and (min-width: 800px) {
+    
+    z-index: index 20;
+    overflow: hidden;
+
+    .entries-first-index{
+      background-color: #029e9d !important;
+    }
+    .entries-first-index1:hover{
+      background-color: #029e9d !important;
+
+    }
+   
+    
+
+  }
+
+  /* windows specific styles */
+  @media screen and (min-resolution: 120dpi) and (min-width: 800px) {
+
+    border-radius: 10px !important;
+    z-index: index 20;
+    overflow: hidden;
+    border: 1px solid #7987a1 !important;
+    margin-top: 8px !important;
+   
+    
+
+    .entries-first-index{
+      background-color: #029e9d !important;
+    }
+    .entries-first-index1:hover{
+      background-color: #029e9d !important;
+
+    }
+    
+
+  }
+}
+
+
+

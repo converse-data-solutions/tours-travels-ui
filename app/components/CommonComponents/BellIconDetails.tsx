@@ -4,12 +4,12 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 const BellIconDetails = () => {
   return (
-    <div className="py-2  rounded-lg shadow-md bg-white">
+    <div className="py-2  rounded-lg  bg-white">
       <div className="triangle-outline"></div>
       <div>
-        <div className="flex gap-4 px-5">
-          <div>6 New Notifications</div>
-          <div className="text-gray-500">Clear all</div>
+        <div className="flex gap-4 px-5 py-[6px]">
+          <div className="text-[14px] text-[#232323]">6 New Notifications</div>
+          <div className="text-[#7987a1] text-[14px]">Clear all</div>
         </div>
         <hr></hr>
         <div className="px-5 py-3">
@@ -18,8 +18,8 @@ const BellIconDetails = () => {
               <LuGift className="text-white " />
             </div>
             <div>
-              <div className="order-head text-[12px]">New Order.Received</div>
-              <div className="order-time">30 min ago</div>
+              <div className="order-head text-[12.992px]">New Order.Received</div>
+              <div className="order-time text-[12px] text-[#7987a1]">30 min ago</div>
             </div>
           </div>
           <div className="order-fullbox flex  gap-4">
@@ -30,12 +30,12 @@ const BellIconDetails = () => {
               <div className="order-head text-[12px]">
                 Server Limit Reached!
               </div>
-              <div className="order-time">1 hrs ago</div>
+              <div className="order-time text-[12px] text-[#7987a1]">1 hrs ago</div>
             </div>
           </div>
         </div>
         <hr></hr>
-        <div className="items-center text-center py-1">View all</div>
+        <div className="items-center text-center pt-[8px] pb-[2px] text-[#232323] text-[14px] font-medium">View all</div>
       </div>
     </div>
   );
