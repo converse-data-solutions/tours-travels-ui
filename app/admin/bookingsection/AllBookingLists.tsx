@@ -188,7 +188,7 @@ const AllBookingLists = () => {
 
       <div>
 
-        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
+        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
             <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">

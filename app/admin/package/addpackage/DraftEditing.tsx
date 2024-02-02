@@ -1,6 +1,8 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
+
+
 interface DraftEditingProps {
   name: string;
   value: string;
@@ -29,8 +31,11 @@ export default function DraftEditing({
           "searchreplace visualblocks code fullscreen",
           "insertdatetime media table paste code help wordcount",
         ],
-        toolbar:
-          "undo redo | formatselect | bold italic underline strikethrough bullist numlist | help",
+        toolbar: `undo redo | formatselect | |
+        bold italic backcolor | alignleft aligncenter alignright alignjustify | 
+        bullist numlist outdent indent | removeformat | help redo | |
+        formatselect | bold italic underline strikethrough bullist numlist | help`,
+      
       }}
       onEditorChange={handleEditorChange}
     />

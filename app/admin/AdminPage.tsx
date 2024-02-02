@@ -379,7 +379,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
               </div>
               {imgClick && (
                 <div
-                  className="z-30 absolute right-[10px] mt-[2px] shadow-2xl rounded-lg "
+                  className="z-50 absolute right-[10px] mt-[2px]  rounded-lg profile-card" style={{ boxShadow: '0 5px 10px 0 rgba(183, 192, 206, 0.20)' }}
                   ref={ref}
                 >
                   {" "}
@@ -389,7 +389,8 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
 
               {bellClick && (
                 <div
-                  className="z-30 absolute right-[55px] mt-[2px] shadow-2xl rounded-lg "
+                  className="z-50 absolute right-[55px] mt-[2px]  rounded-lg "
+                  style={{ boxShadow: '0 5px 10px 0 rgba(183, 192, 206, 0.20)' }}
                   ref={ref}
                 >
                   <div>

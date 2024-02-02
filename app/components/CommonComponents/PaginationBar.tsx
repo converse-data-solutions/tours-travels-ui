@@ -30,7 +30,7 @@ const PaginationBar: React.FC<PaginationBarProps> = ({
           className={`${
             currentPage === pageNumber
               ? "active-page"
-              : "bg-white text-[#029e9d]"
+              : "bg-white text-[#029e9d] hover:bg-[#029e9d] hover:text-white"
           } py-2 border-[1px] border-gray-200 px-4 rounded-lg mr-1 transition duration-300`}
           onClick={() => setCurrentPage(pageNumber)}
         >

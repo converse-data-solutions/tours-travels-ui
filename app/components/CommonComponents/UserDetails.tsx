@@ -59,7 +59,7 @@ const UserDetailsForm = () => {
   return (
     <>
       {isVisible && (
-        <div className=" rounded-xl bg-white flex-col justify-center w-60 py-2">
+        <div className=" rounded-xl bg-white flex-col justify-center w-60 py-2 z-50">
           <div className="triangle-outline"></div>
           <div className="px-5 pt-2 pb-4 flex-col justify-center">
             <div className="flex justify-center">
@@ -97,11 +97,12 @@ const UserDetailsForm = () => {
                 {" "}
                 <div className="flex flex-row hover:text-[#029e9d]">
                   <Link href={"/admin/users/profile/" + decoded.userId}>
-                    <div className="flex flex-row py-2">
-                      <div className="iconuser">
-                        <FiUser className="mt-1 hover:text-[#029e9d]" />
+                    <div className="flex flex-row py-2" onClick={()=>setIsVisible(false)}>
+                     <div className="iconuser">
+                        <FiUser className="mt-[2px] hover:text-[#029e9d] text-[16px]" />
                       </div>
-                      <div className="pl-3 userdetail ">Profile</div>
+                      <div className="pl-3 userdetail  text-[12.992px]">Profile</div>
+                     
                     </div>
                   </Link>
                 </div>
@@ -111,18 +112,28 @@ const UserDetailsForm = () => {
                 <div className="flex flex-row py-2">
                   {" "}
                   <div className="iconuser">
-                    <FiEdit className="mt-1  " />
+                    <FiEdit className="mt-[2px]  text-[16px]" />
                   </div>
-                  <div className="pl-3 userdetail"> Edit profile</div>
+                  <div className="pl-3 userdetail text-[12.992px]"> Edit profile</div>
                 </div>
               </li>
+              
+              <li>
+                <div className="flex flex-row  ">
+                  <div className="mt-[7px] hover:text-[#029e9d] iconuser text-[16px]">
+                    <FiRepeat />
+                  </div>
+                  <div className="py-1 pl-3 userdetail text-[12.992px]">Switch User</div>
+                </div>
+              </li>
+
               <li>
                 <div className="flex flex-row py-2">
-                  <div className="mt-1  hover:text-[#029e9d] iconuser">
+                  <div className="mt-[2px]  hover:text-[#029e9d] iconuser text-[16px]">
                     <MdOutlineLogout className="text-[16px]" />
                   </div>
                   <div
-                    className="pl-3 userdetail"
+                    className="pl-3 userdetail text-[12.992px]"
                     onClick={async () => {
                       localStorage.removeItem("accessToken");
                       alert("You are signed out successfully!");
@@ -133,14 +144,6 @@ const UserDetailsForm = () => {
                   >
                     Log Out
                   </div>
-                </div>
-              </li>
-              <li>
-                <div className="flex flex-row  ">
-                  <div className="mt-2  hover:text-[#029e9d] iconuser">
-                    <FiRepeat />
-                  </div>
-                  <div className="py-1 pl-3 userdetail">Switch User</div>
                 </div>
               </li>
             </ul>
