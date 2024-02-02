@@ -16,8 +16,8 @@ import { LuCalendar, LuPlus } from "react-icons/lu";
 import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
-import { Country, State, City }  from 'country-state-city';
-import { ICountry, IState, ICity } from 'country-state-city'
+// import { Country, State, City }  from 'country-state-city';
+// import { ICountry, IState, ICity } from 'country-state-city'
 
 
 
@@ -44,16 +44,16 @@ interface AddUserProps {
 interface CustomCountryDropdownProps {
   onChange?: (value: string) => void;
 }
-const CustomCountryDropdown = styled(
-  CountryDropdown
-)<CustomCountryDropdownProps>`
-  padding: 10px;
-  background-color: #029e9d;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box;
-`;
+// const CustomCountryDropdown = styled(
+//   CountryDropdown
+// )<CustomCountryDropdownProps>`
+//   padding: 10px;
+//   background-color: #029e9d;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+//   width: 100%;
+//   box-sizing: border-box;
+// `;
 
 
 const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
@@ -84,12 +84,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     state: string;
   }
 
-  let Country = require('country-state-city').Country;
-let State = require('country-state-city').State;
+//   let Country = require('country-state-city').Country;
+// let State = require('country-state-city').State;
 
-console.log( "country",Country.getAllCountries());
-console.log("state",State.getAllStates());
-console.log("hello")
+// console.log( "country",Country.getAllCountries());
+// console.log("state",State.getAllStates());
+// console.log("hello")
 
   let [file, setFile] = useState<File | string>();
 
