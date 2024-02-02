@@ -1132,6 +1132,7 @@ body {
 
 
 
+
 .entries-style  {
   
   
@@ -1155,16 +1156,16 @@ body {
   }
 
   /* windows specific styles */
-  @media screen and (min-resolution: 192dpi) and (-webkit-min-device-pixel-ratio: 0) {
-
+  @media screen and (min-resolution: 192dpi) and (-webkit-min-device-pixel-ratio:0) {
+    
     border-radius: 10px !important;
     z-index: index 20;
     overflow: hidden;
     border: 1px solid #7987a1 !important;
     margin-top: 8px !important;
-   
     
-
+    
+   
     .entries-first-index{
       background-color: #029e9d !important;
     }

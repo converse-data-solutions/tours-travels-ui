@@ -85,7 +85,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#6e6d6d] shadow-md  entries-style  "  onMouseEnter={() => setIsHovered(false)}
+  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#6e6d6d] shadow-md  rounded-none entries-style  "  onMouseEnter={() => setIsHovered(false)}
   onMouseLeave={() => setIsHovered(true)}>
     {options.map((option, index) => (
  <div
