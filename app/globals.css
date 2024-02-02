@@ -1155,7 +1155,7 @@ body {
   }
 
   /* windows specific styles */
-  @media screen and (min-resolution: 120dpi) and (min-width: 800px) {
+  @media screen and (min-resolution: 192dpi) and (-webkit-min-device-pixel-ratio: 0) {
 
     border-radius: 10px !important;
     z-index: index 20;

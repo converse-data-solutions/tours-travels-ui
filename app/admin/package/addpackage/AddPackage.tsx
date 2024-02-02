@@ -16,6 +16,11 @@ import { LuCalendar, LuPlus } from "react-icons/lu";
 import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
+import { Country, State, City }  from 'country-state-city';
+import { ICountry, IState, ICity } from 'country-state-city'
+
+
+
 
 interface PackageDataType {
   title: string;
@@ -36,7 +41,12 @@ interface AddUserProps {
   initialPackageData?: PackageDataType;
 }
 
-const CustomCountryDropdown = styled(CountryDropdown)`
+interface CustomCountryDropdownProps {
+  onChange?: (value: string) => void;
+}
+const CustomCountryDropdown = styled(
+  CountryDropdown
+)<CustomCountryDropdownProps>`
   padding: 10px;
   background-color: #029e9d;
   border: 1px solid #ccc;
@@ -44,6 +54,8 @@ const CustomCountryDropdown = styled(CountryDropdown)`
   width: 100%;
   box-sizing: border-box;
 `;
+
+
 const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   const { id } = useParams<{ id: string }>();
   const [successMessage, setSuccessMessage] = useState("");
@@ -71,6 +83,13 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     country: string;
     state: string;
   }
+
+  let Country = require('country-state-city').Country;
+let State = require('country-state-city').State;
+
+console.log( "country",Country.getAllCountries());
+console.log("state",State.getAllStates());
+console.log("hello")
 
   let [file, setFile] = useState<File | string>();
 
@@ -460,6 +479,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 <span className="text-red-500 ml-1">*</span>
               </label>
               <br />
+              
               <CountryDropdown
                 classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 ${
 
@@ -469,6 +489,8 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 onChange={(val: any) => {
                   setPackageData({ ...packageData, country: val });
                 }}
+
+
               />
               {errors.country && (
                 <div className="text-red-500 text-sm mt-[2px]">
@@ -570,6 +592,38 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             />
           </span>
         </div>
+
+
+        
+
+
+        {/* <CustomCountryDropdown
+              classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 ${
+                errors.country ? "border-red-500" : "border-gray-200"
+              }`}
+              value={packageData.country}
+              onChange={(val: any) => {
+                setPackageData({ ...packageData, country: val });
+              }}
+            >
+              {Country.getAllCountries().map((country:any) => (
+                <option key={country.isoCode} value={country.name}>
+                  {country.name}
+                </option>
+              ))}
+            </CustomCountryDropdown>
+            {errors.country && (
+              <div className="text-red-500 text-sm mt-[2px]">
+                {errors.country}
+              </div>
+            )} */}
+        
+
+
+
+
+
+
 
         <div className="">
           <label className="">Description</label>
