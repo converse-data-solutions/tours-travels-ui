@@ -63,7 +63,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   let [packageData, setPackageData] = useState<PackageDataType>(
     initialPackageData || {
       title: "",
-      start_date: "",
+      start_date: new Date(),
       file_name: "",
       destination: "",
       country: "",
@@ -351,13 +351,19 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       <div className="md:flex justify-between mt-7 md:mt-3 lg:mt-3 ">
         <div className="flex-row text-center">
           <h2 className="text-gray-500 md:pt-5 lg:pt-5">
-            <span className="text-[#029e9d] hover:text-[#6f42c1] text-[14px]">
+            <span className="text-[#029e9d] duration-200 hover:text-[#6f42c1] text-[14px]">
               Dashboard
             </span>{" "}
-            <span className="px-1">/</span>
-            {isEditMode ? "Update Package" : " Add Packages"}
+            <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
+              <span className="text-[#029e9d] duration-200 hover:text-[#6f42c1]">
+                Package Management
+              </span>{" "}
+              <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
+           
+           <span className="text-[#7987a1]"> {isEditMode ? "Update Package" : " Add Packages"}</span>
           </h2>
         </div>
+
         <div className="flex-row mt-3 text-center lg:mr-1">
           <button
             className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[13px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
@@ -409,19 +415,17 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 type="file"
                 className="py-3 border-[1px] border-gray-200 rounded-lg h-[50px] w-full  mt-2  custom-file-input grid"
                 name="file"
-                accept="image/*"
+                accept="Image/*"
                 id="file-input"
                 onChange={handleImageChange}
                 alt=""
               />
 
               <label htmlFor="file-input">
-                <span className="custom-file-input-button2 font-thin  hover:bg-[hsl(0,0%,95%)]">
+                <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
                   Choose file{" "}
                 </span>{" "}
-                <span className="bg-white relative top-[-36px] pl-[13px]">
-                  No file chosen
-                </span>
+                
               </label>
             </span>
           </div>
@@ -445,7 +449,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   }}
                   inputProps={{
                     className:
-                      "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-gray-400  z-30  custom-datetime-picker  ",
+                      "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-[#cbced3]  z-30  custom-datetime-picker  ",
 
                   }}
                   className="absolute z-30 border-gray-200 rounded-lg h-[48px]  w-[95.5%] focus:outline-none "
@@ -481,7 +485,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               <br />
               
               <CountryDropdown
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 ${
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-[#cbced3] ${
 
                   errors.country ? "border-red-500" : "border-gray-200"
                 }`}
@@ -513,7 +517,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 onChange={(val) =>
                   setPackageData({ ...packageData, state: val })
                 }
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-gray-400  ${
+                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-[#cbced3]  ${
 
                   errors.state ? "border-red-500" : "border-gray-200"
                 }`}
@@ -527,7 +531,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
             <FormNumberInput
               label="Price"
-              type="number"
+              type="text"
               name="price"
               value={packageData.price}
               onChange={handleChange}
@@ -539,7 +543,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             <FormNumberInput
               label="No.Of Person"
               name="no_of_person"
-              type="number"
+              type="text"
               value={packageData.no_of_person}
               onChange={handleChange}
               required={true}
@@ -550,7 +554,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             <FormNumberInput
               label="No. of day & Night"
               name="days_and_night"
-              type="number"
+              type="text"
               value={packageData.days_and_night}
               onChange={handleChange}
               required={true}
@@ -564,7 +568,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           <FormNumberInput
             label="Offer"
             name="offer"
-            type="number"
+            type="text"
             value={packageData.offer}
             onChange={handleChange}
             required={false}

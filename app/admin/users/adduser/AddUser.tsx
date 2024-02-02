@@ -65,7 +65,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   );
 
   let [file, setFile] = useState<File | string>();
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const [errors, setErrors] = useState({
+    img:"",
     first_name: "",
     last_name: "",
     email: "",
@@ -301,9 +304,18 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     }
   }
 
-  function handleImageChange(event: any) {
-    setFile(event.target.files[0]);
-  }
+  const handleImageChange = (event:any) => {
+    const file = event.target.files[0];
+
+    // Check if the selected file is an image
+    if (file && file.type.startsWith('image/')) {
+      setSelectedFile(file);
+    } else {
+      // Reset the selected file if it's not an image
+      setSelectedFile(null);
+      alert('Please select a valid image file.');
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -432,18 +444,18 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               type="file"
               className="border-[1px] py-2 h-[50px] border-gray-200 rounded-lg w-full grid grid-cols-1 mr-4 mb- pl-2 mt-2 custom-file-input"
               name="image"
-              accept="image/*"
+              accept="Image/*"
               id="file-input"
               onChange={handleImageChange}
               alt=""
             />
             <label htmlFor="file-input">
-              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
+              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)] text-[#232323] ">
                 Choose file{" "}
               </span>{" "}
-              <span className="bg-white relative top-[-36px] pl-4">
+              {/* <span className="bg-white relative top-[-36px]  z-10">
                 No file chosen
-              </span>
+              </span> */}
             </label>
           </span>
         </div>
@@ -612,16 +624,16 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         )}
         <div className="flex justify-center pt-3">
           <button
-            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-[#ffc107] mt-3"
+            className="bg-[#029e9d] text-white py-3 pr-4 pl-[18px] rounded-lg hover:bg-[#ffc107] mt-3"
             type="submit"
           >
             <div className="flex">
               <div className="">
                 {" "}
-                <LuPlus className="text-[26px] pr-1   " />
+                <LuPlus className="text-[28px] pr-1   " />
 
               </div>
-              <div> {isEditMode ? "Update User" : "Add User"}</div>
+              <div className="mt-[3px]"> {isEditMode ? "Update User" : "Add User"}</div>
             </div>
           </button>
         </div>

@@ -56,7 +56,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
   return (
     <div className={`relative w-full mb-2 `}>
       <div
-        className={`border-[1px] ${isOpen ? "border-[#babcbe]" : "border-gray-200"}  focus:outline-none focus:border-gray-400 h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-[#7987a1] relative`}
+        className={`border-[1px] ${isOpen ? "border-[#babcbe]" : "border-gray-200"}  focus:outline-none focus:border-[#cbced3] h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-[#7987a1] relative`}
 
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -85,7 +85,7 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#6e6d6d] shadow-md  rounded-none entries-style  "  onMouseEnter={() => setIsHovered(false)}
+  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#cbced3]!important shadow-md  rounded-none entries-style  "  onMouseEnter={() => setIsHovered(false)}
   onMouseLeave={() => setIsHovered(true)}>
     {options.map((option, index) => (
  <div
