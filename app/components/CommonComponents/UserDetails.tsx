@@ -9,6 +9,12 @@ import { FiEdit } from "react-icons/fi";
 import { FiRepeat } from "react-icons/fi";
 import { MdOutlineLogout } from "react-icons/md";
 import { signOut } from "next-auth/react";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Card } from "@mui/material";
+
+import Modal from 'react-modal';
+
+
+
 
 type UserData = {
   first_name: string;
@@ -54,12 +60,86 @@ const UserDetailsForm = () => {
 
     fetchData();
   }, [decoded.userId, token]);
+
+  const handleLogout = async () => {
+    setLogoutDialogOpen(true);
+  };
+  const handleLogOutClick=()=>{
+    setIsVisible(false)
+    setViewFormVisible(true)
+  }
+
+  const confirmLogout = async () => {
+    await signOut()
+      .then(() => {
+        // Additional logout logic here
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        setIsVisible(false);
+        window.location.replace("/");
+      })
+      .catch((error) => {
+        console.error("Error during logout:", error);
+      });
+  };
+
+  const handleCloseLogoutDialog = () => {
+    setLogoutDialogOpen(false);
+  };
+  function closeModal() {
+    setViewFormVisible(false);
+  }
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    setViewFormVisible(true)
+  }
+
+  const customStyles = {
+    overlay: {
+      background: 'rgba(0, 0, 0, 0.4)', 
+      zIndex:"8000"
+    },
+    content: {
+     
+      
+      bottom: '0',
+      marginLeft: '35%',
+      marginTop:'15%',
+      border: 'none',
+      background: 'white', 
+      overflow: 'auto',
+      borderRadius: '10px',
+      outline: 'none',
+      padding: '40px', 
+      boxShadow: "",
+      maxWidth: '550px', 
+      height:'260px',
+      // transform: 'translate(-50%, -60%)',
+      
+      
+    },
+  };
+
   const [isVisible, setIsVisible] = useState(true);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const [viewFormVisible,setViewFormVisible]=useState(false);
+
 
   return (
     <>
+    
+    {/* <Dialog open={logoutDialogOpen} >
+        <DialogTitle>Confirm Logout</DialogTitle>
+        <DialogContent>
+          <p>Are you sure you want to logout?</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseLogoutDialog}>Cancel</Button>
+          <Button onClick={confirmLogout}>Logout</Button>
+        </DialogActions>
+      </Dialog> */}
       {isVisible && (
-        <div className=" rounded-xl bg-white flex-col justify-center w-60 py-2 z-50">
+        <div className=" rounded-xl bg-white flex-col justify-center w-60 py-2 z-40">
           <div className="triangle-outline"></div>
           <div className="px-5 pt-2 pb-4 flex-col justify-center">
             <div className="flex justify-center">
@@ -128,30 +208,64 @@ const UserDetailsForm = () => {
               </li>
 
               <li>
-                <div className="flex flex-row py-2">
-                  <div className="mt-[2px]  hover:text-[#029e9d] iconuser text-[16px]">
+                <div className="flex flex-row py-2" onClick={handleLogOutClick }>
+                  <div className="mt-[2px]  hover:text-[#029e9d] iconuser text-[16px]" >
                     <MdOutlineLogout className="text-[16px]" />
                   </div>
-                  <div
-                    className="pl-3 userdetail text-[12.992px]"
-                    onClick={async () => {
-                      localStorage.removeItem("accessToken");
-                      alert("You are signed out successfully!");
-                      await signOut();
-                      localStorage.removeItem("refreshToken");
-                      window.location.replace("/");
-                    }}
-                  >
+                  <div className="pl-3 userdetail text-[12.992px]" >
+
                     Log Out
                   </div>
                 </div>
               </li>
             </ul>
           </div>
+
+
+          
         </div>
+
+
+
       )}
+
+{viewFormVisible && (
+            <Modal
+            isOpen={viewFormVisible}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={()=>setViewFormVisible(false)}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+ 
+           
+               
+               <div className="flex flex-col  bg-white  "    >
+                   
+                     <div className="text-[18px] text-[#232323] font-bold pb-3 py-5   text-center border-white cursor-not-allowed" >
+                     <u> Confirm Logout</u>
+                     </div>
+                     <div className="text-[16px] text-[#232323] font-bold mt-2 py-1 text-center">Are you sure you want to logout?</div>
+                     <div className="flex justify-center  gap-10 pt-6 ">
+                       <div className=" bg-blue-500 text-[16px] font-bold px-5 py-3 rounded-lg text-white cursor-pointer" onClick={()=>setViewFormVisible(false)}>Cancel</div>
+           
+                       <div className="bg-blue-500 text-[16px] font-bold px-5 py-3 rounded-lg text-white cursor-pointer" onClick={confirmLogout}>Logout</div>
+                       </div>
+           
+                     </div>
+                 
+                 
+                 </Modal>
+            
+           )}
+           
+
+
+
+
     </>
   );
 };
 
 export default UserDetailsForm;
+

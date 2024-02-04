@@ -203,10 +203,10 @@ const AllBookingLists = () => {
               placeholder="Search by email"
             />
           </div>
-          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] z-20 ">
+          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] ">
             <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
           </div>
-          <div className="w-[100%] relative top-[-7px] text-[16px] z-20">
+          <div className="w-[100%] relative top-[-7px] text-[16px] ">
             {" "}
             <SelectInput
               label=""

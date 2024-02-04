@@ -43,6 +43,7 @@ const AllPackageLists = () => {
   const [viewFormVisible, setViewFormVisible] = useState(false);
 const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
 
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -239,6 +240,28 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
     setCategory(event.target.value);
   };
 
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [entries, filteredData, currentPage, totalPages]);
+
+  useEffect(() => {
+    if (filteredData.length === 0 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [filteredData, currentPage]);
+
+  useEffect(() => {
+    if (filteredData.length === 0 && currentPage > 1) {
+      let previousPage = currentPage - 1;
+      while (previousPage > 1 && filteredData.slice((previousPage - 1) * entries, previousPage * entries).length === 0) {
+        previousPage--;
+      }
+      setCurrentPage(previousPage);
+    }
+  }, [filteredData, currentPage, entries]);
+
   return (
     <div className="px-4 lg:pl-6 pr-5">
       <div className=" mt-[13px] md:flex justify-between   ">
@@ -282,10 +305,10 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
               placeholder="Search by slider title"
             />
           </div>
-          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] z-20 ">
+          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px]  ">
             <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
           </div>
-          <div className="w-[100%] relative top-[-7px] text-[16px] z-20">
+          <div className="w-[100%] relative top-[-7px] text-[16px] ">
             {" "}
             <SelectInput
               label=""
@@ -306,7 +329,7 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
         >
           <Table className="gap-6 table">
             <TableHead className="text-gray-800 ">
-              <TableRow className="table-head">
+              <TableRow className="table-head ">
                 <th>ID</th>
                 <th>START DATE</th>
                 <th>IMAGE</th>
@@ -371,7 +394,7 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
                     <td className="">
                       {" "}
                       <label
-                        className={`switch ${
+                        className={`switch  ${
                           list.published ? "published-on" : "published-off"
                         }`}
                       >

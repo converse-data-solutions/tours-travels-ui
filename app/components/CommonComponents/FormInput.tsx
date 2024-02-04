@@ -22,7 +22,7 @@ const FormInput: React.FC<FormInputProps> = ({
   required,
 }) => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full  text-[#232323]">
       <label>
         {label}
         {required && (

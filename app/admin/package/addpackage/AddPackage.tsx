@@ -598,37 +598,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
         </div>
 
 
-        
-
-
-        {/* <CustomCountryDropdown
-              classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-gray-400 ${
-                errors.country ? "border-red-500" : "border-gray-200"
-              }`}
-              value={packageData.country}
-              onChange={(val: any) => {
-                setPackageData({ ...packageData, country: val });
-              }}
-            >
-              {Country.getAllCountries().map((country:any) => (
-                <option key={country.isoCode} value={country.name}>
-                  {country.name}
-                </option>
-              ))}
-            </CustomCountryDropdown>
-            {errors.country && (
-              <div className="text-red-500 text-sm mt-[2px]">
-                {errors.country}
-              </div>
-            )} */}
-        
-
-
-
-
-
-
-
         <div className="">
           <label className="">Description</label>
 
