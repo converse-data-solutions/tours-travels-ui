@@ -15,6 +15,9 @@ import { FiBell } from "react-icons/fi";
 import { useRef } from "react";
 import BellIconDetails from "../components/CommonComponents/BellIconDetails";
 import { FaRegHeart } from "react-icons/fa";
+import Modal from 'react-modal';
+
+
 
 type ListDetails = {
   category: string;
@@ -51,6 +54,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
 
   const [parent, setParent] = useState<ListDetails | null>(null);
   const [ischildren, setChildren] = useState<ListDetails[]>([]);
+ 
   const handleMouseEnter = () => {
     setTimeout(() => {
       setIsDetailsVisible(true);
@@ -166,16 +170,45 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
     setParent(listDetails.category);
     setChildren(listDetails.subcategory);
   };
+  const customStyles = {
+    overlay: {
+      background: 'rgba(0, 0, 0, 0.0)', 
+      zIndex:'3000'
+    },
+    content: {
+      top: '-9.3%',
+      left: '84.7%',
+      right: '-15%',
+      bottom: '0',
+      margin: 'auto',
+      border: 'none',
+      background: 'transparent', 
+      overflow: 'auto',
+      borderRadius: '4px',
+      outline: 'none',
+      padding: '', 
+      boxShadow: "",
+      maxWidth: '250px', 
+      paddingTop:'10px',
+      height:'350px',
+      transform: 'translate(-50%, -60%)',
+      zIndex:'3000'
+      
+      
+    },
+  };
+  
+
 
   return (
     <html lang="en">
       <body>
         <div className="h-screen  ">
           {/****  Nav bar started****/}
-          <div className="sticky top-0 flex border-b-[1px] border-gray-200 h-[60px] z-10  ">
+          <div className="sticky top-0 flex border-b-[1px] border-gray-200 h-[60px]  ">
             {/**** largescreen icon with nav ****/}
             {!navVisible ? (
-              <div className=" hidden  nav-img-icon lg: bg-white z-10 border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between ">
+              <div className=" hidden  nav-img-icon lg: bg-white  border-r-[1px] border-gray-200 lg:flex items-center   min-w-[240px] lg:min-w-[240px] pl-6 pr-2 justify-between ">
                 <div className="">
                   {" "}
                   <Image
@@ -213,7 +246,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
             )}
             {/**** Small screen ****/}
             {!navMenuvisible ? (
-              <div className="  lg:hidden min-w-[72px] text-center z-10 border-r-[1px] bg-white border-gray-200 p-5 ">
+              <div className="  lg:hidden min-w-[72px] text-center  border-r-[1px] bg-white border-gray-200 p-5 ">
                 <FontAwesomeIcon
                   icon={faBars}
                   className="text-[#696767] text-lg"
@@ -378,13 +411,25 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                 </div>
               </div>
               {imgClick && (
+               
+                <Modal
+                isOpen={imgClick}
+                onAfterOpen={() => {
+                  document.body.style.overflow = 'hidden';
+                }}              
+                  onRequestClose={()=>setImgClick(false)}
+                style={customStyles}
+                contentLabel="Example Modal"
+              >
                 <div
-                  className="z-50 absolute right-[10px] mt-[2px]  rounded-lg profile-card" style={{ boxShadow: '0 5px 10px 0 rgba(183, 192, 206, 0.20)' }}
-                  ref={ref}
+                  className=" absolute right-[10px]  z-50  rounded-lg profile-card" style={{ boxShadow: '0 5px 10px 0 rgba(183, 192, 206, 0.20)' }}
+                  
                 >
                   {" "}
                   <UserDetailsForm />
                 </div>
+                </Modal>
+              
               )}
 
               {bellClick && (

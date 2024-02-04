@@ -333,12 +333,11 @@ input[type="radio"] {
 .table th {
   position: sticky;
   top: 0;
-  z-index: 2;
   background-color: white;
   font-family: "Roboto", Helvetica, sans-serif !important;
   font-weight: 550 !important;
   font-size: 14px !important;
-
+   z-index: 1;
   line-height: 21px !important;
   letter-spacing: -0.3px !important;
 }
@@ -518,11 +517,12 @@ select {
   list-style-type: none;
 }
 .switch {
-  z-index: 0;
+  z-index: 0 !important;
   position: relative;
   display: inline-block;
   width: 34px;
   height: 20px;
+  overflow: hidden;
 }
 
 .switch input {
@@ -541,6 +541,9 @@ select {
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  z-index: 0 !important;
+
+
 }
 
 .slider:before {
@@ -554,6 +557,8 @@ select {
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  z-index: 0 !important;
+
 }
 
 input:checked + .slider {
@@ -975,11 +980,27 @@ body {
   transform: rotate(45deg);
   width: 10px;
   height: 10px;
-  z-index: 10;
+  z-index: 50;
   background-color: white;
   border-left: 1px solid rgb(233, 231, 231);
   border-top: 1px solid rgb(233, 231, 231);
-  box-shadow: gray;
+  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.20)
+ 
+}
+
+.triangle-outline1 {
+  position: absolute;
+  top: -6px;
+  right: 25px;
+  transform: rotate(45deg);
+  width: 10px;
+  height: 10px;
+  z-index: 10;
+  background-color: white;
+  border-left: 1px solid rgb(168, 14, 14);
+  border-top: 1px solid rgb(78, 182, 30);
+  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.20)
+ 
 }
 
 .custom-ul {

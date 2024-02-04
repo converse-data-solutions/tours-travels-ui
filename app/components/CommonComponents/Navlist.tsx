@@ -204,6 +204,14 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
         subcategory:""
       });
     }
+    else if (pathname.startsWith("/admin/users/profile/") && dynamicSegment) {
+      // Handle dynamic segment case
+      setNavActive({
+        category: "User Management",
+        subcategory:""
+      });
+    }
+   
    
     
     else {

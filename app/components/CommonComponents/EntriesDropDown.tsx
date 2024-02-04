@@ -85,12 +85,12 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#cbced3]!important shadow-md  rounded-none entries-style  "  onMouseEnter={() => setIsHovered(false)}
+  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#cbced3]!important shadow-md z-10 rounded-none entries-style  "  onMouseEnter={() => setIsHovered(false)}
   onMouseLeave={() => setIsHovered(true)}>
     {options.map((option, index) => (
  <div
  key={option}
- className={`cursor-pointer px-3 ${
+ className={`cursor-pointer px-3  ${
    index === 0 && selectionMode
      ? "cursor-not-allowed entries-first "
      : selectedValue === option 

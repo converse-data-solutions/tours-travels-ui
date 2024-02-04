@@ -186,7 +186,7 @@ const Userlistpage = () => {
           </h5>
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-6 lg:w-9/12 text-[16px] pt-[9px] z-30">
+        <div className="flex flex-col md:flex-row md:gap-6 lg:w-9/12 text-[16px] pt-[9px] ">
           <TableSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -202,7 +202,7 @@ const Userlistpage = () => {
           sx={{ maxHeight: "450px", width: "100%" }}
         >
           <Table className="gap-6 table">
-            <TableHead className="text-[#232323]  font-bold">
+            <TableHead className="text-[#232323]  font-bold ">
               <TableRow className="table-head">
                 <th className="">ID</th>
                 <th>IMAGE</th>
