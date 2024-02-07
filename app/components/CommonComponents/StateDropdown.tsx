@@ -94,7 +94,7 @@ const SelectStateInput: React.FC<SelectStateInputProps> = ({
               </div>
             </div>
             {isOpenState && (
-              <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#cbced3] shadow-md z-10 entries-style overflow-scroll max-h-[200px] min-h-[30px] pr-[20%] country-style ">
+              <div className="absolute top-full left-0 w-full mt-[2px] bg-white border-[1px] border-[#cbced3] shadow-md z-20 entries-style overflow-scroll max-h-[200px] min-h-[30px] pr-[20%] country-style ">
                 {currentStateOptions.map((option, index) => (
                   <div
                     key={index}

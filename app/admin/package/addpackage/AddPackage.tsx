@@ -548,7 +548,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             minValue={0}
             maxValue={50}
           />{" "}
-          <span className="w-full z-30">
+          <span className="w-full z-10">
             <SelectInput
               label="Category"
               name="category"
