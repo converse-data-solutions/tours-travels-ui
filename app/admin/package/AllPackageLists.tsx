@@ -19,8 +19,6 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import Excel from 'exceljs';
-import { PdfExport, useGeneratePdf } from "@garage-panda/react-pdf-export";
-import { PDFExport, PDFMargin } from '@progress/kendo-react-pdf';
 
 
 
@@ -49,7 +47,6 @@ const AllPackageLists = () => {
   const [category, setCategory] = useState("Category");
   const [viewFormVisible, setViewFormVisible] = useState(false);
 const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
-const { generatePdf, containerRef } = useGeneratePdf();
 
 const pdfExportComponent = useRef(null);
   useEffect(() => {
