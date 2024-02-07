@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import FormInput from "@/app/components/CommonComponents/FormInput";
 import "draft-js/dist/Draft.css";
 import DraftEditing from "./DraftEditing";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import Image from "next/image";
 import AlternateImg from "../../../../public/alternative.png";
 import SelectInput from "@/app/components/CommonComponents/SelectedInput";
@@ -16,11 +15,12 @@ import { LuCalendar, LuPlus } from "react-icons/lu";
 import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
 import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
-// import { Country, State, City }  from 'country-state-city';
-// import { ICountry, IState, ICity } from 'country-state-city'
-
-
-
+import { Country, State, City } from "country-state-city";
+import { ICountry, IState, ICity } from "country-state-city";
+import SelectCountryInput from "@/app/components/CommonComponents/CountryAndState";
+import SelectCountry from "@/app/components/CommonComponents/CountryDropDown";
+import SelectStateInput from "@/app/components/CommonComponents/StateDropdown";
+import * as isoCountries from "i18n-iso-countries";
 
 interface PackageDataType {
   title: string;
@@ -44,21 +44,15 @@ interface AddUserProps {
 interface CustomCountryDropdownProps {
   onChange?: (value: string) => void;
 }
-// const CustomCountryDropdown = styled(
-//   CountryDropdown
-// )<CustomCountryDropdownProps>`
-//   padding: 10px;
-//   background-color: #029e9d;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   width: 100%;
-//   box-sizing: border-box;
-// `;
 
+isoCountries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   const { id } = useParams<{ id: string }>();
   const [successMessage, setSuccessMessage] = useState("");
+  const [isoCode, setIsoCode] = useState("");
+  const [countryError, setCountryError] = useState(false);
+  const [stateError, setStateError] = useState(false);
 
   let [packageData, setPackageData] = useState<PackageDataType>(
     initialPackageData || {
@@ -74,7 +68,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       description: "",
       offer: "",
       category: "",
-    },
+    }
   );
 
   interface ErrorType {
@@ -84,13 +78,10 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     state: string;
   }
 
-//   let Country = require('country-state-city').Country;
-// let State = require('country-state-city').State;
+  let Country = require("country-state-city").Country;
+  let State = require("country-state-city").State;
 
-// console.log( "country",Country.getAllCountries());
-// console.log("state",State.getAllStates());
-// console.log("hello")
-
+  const countryValue = Country.getAllCountries();
   let [file, setFile] = useState<File | string>();
 
   const [errors, setErrors] = useState<ErrorType>({
@@ -125,10 +116,12 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     }
     if (packageData.country.trim() === "") {
       newErrors.country = "Please select a country";
+      setCountryError(true);
       isValid = false;
     }
     if (packageData.state.trim() === "") {
       newErrors.state = "Please select a state";
+      setStateError(true);
       isValid = false;
     }
     setErrors(newErrors);
@@ -161,6 +154,15 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           setPackageData({
             ...getApiData.data,
           });
+
+          const stateCode = isoCountries.getAlpha2Code(
+            getApiData.data.country,
+            "en"
+          );
+
+          if (stateCode) {
+            setIsoCode(stateCode);
+          }
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -193,13 +195,11 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(userDataWithoutFilename),
-          },
+          }
         );
 
         if (response.status === 200) {
           const newPackage = await response.json();
-
-          console.log("User updated successfully");
 
           if (file) {
             const formData = new FormData();
@@ -210,7 +210,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               {
                 method: "POST",
                 body: formData,
-              },
+              }
             );
 
             if (uploadImageResponse.status === 201) {
@@ -237,7 +237,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     } else {
       try {
         const { file_name, ...userDataWithoutFilename } = packageData;
-        console.log(userDataWithoutFilename);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/create`,
           {
@@ -246,13 +245,11 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(userDataWithoutFilename),
-          },
+          }
         );
 
         if (response.status === 200) {
-          console.log("Package added successfully");
           const newPackage = await response.json();
-          console.log(newPackage);
           const formData = new FormData();
           if (file instanceof File) {
             formData.append("file", file);
@@ -264,12 +261,11 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               method: "POST",
 
               body: formData,
-            },
+            }
           );
 
           if (uploadImageResponse.status === 201) {
             setSuccessMessage("Package added successfully!");
-            console.log("Image uploaded successfully");
             setTimeout(() => {
               setSuccessMessage("");
             }, 5000);
@@ -300,7 +296,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   function handleInput(event: any) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?",
+        "You are not signed in to your account. Do you want to sign in your account?"
       );
 
       if (userConfirmed) {
@@ -328,14 +324,14 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     setPackageData({ ...packageData, [name]: value });
   };
   const handleSelectCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
     setPackageData({ ...packageData, [name]: value });
   };
 
   const handleTextareaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
 
@@ -355,12 +351,14 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               Dashboard
             </span>{" "}
             <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
-              <span className="text-[#029e9d] duration-200 hover:text-[#6f42c1]">
-                Package Management
-              </span>{" "}
-              <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
-           
-           <span className="text-[#7987a1]"> {isEditMode ? "Update Package" : " Add Packages"}</span>
+            <span className="text-[#029e9d] duration-200 hover:text-[#6f42c1]">
+              Package Management
+            </span>{" "}
+            <span className="text-[#7987a1] pl-[2px] pr-[2px]">/</span>{" "}
+            <span className="text-[#7987a1]">
+              {" "}
+              {isEditMode ? "Update Package" : " Add Packages"}
+            </span>
           </h2>
         </div>
 
@@ -375,7 +373,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 <FiArrowLeft className="text-[24px] " />
               </div>{" "}
               <div className="text-[15px]">Back To List</div>
-
             </div>
           </button>
         </div>
@@ -425,7 +422,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                 <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
                   Choose file{" "}
                 </span>{" "}
-                
               </label>
             </span>
           </div>
@@ -450,7 +446,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
                   inputProps={{
                     className:
                       "py-3 border-[1px] border-gray-200 rounded-l-lg h-[48px]  mt-2  pr-5 px-3 focus:outline-none focus:border-[#cbced3]  z-30  custom-datetime-picker  ",
-
                   }}
                   className="absolute z-30 border-gray-200 rounded-lg h-[48px]  w-[95.5%] focus:outline-none "
                   timeFormat={false}
@@ -477,58 +472,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               error={errors.title}
             />
 
-            <div className="lg:w-full">
-              <label>
-                <span>Country</span>
-                <span className="text-red-500 ml-1">*</span>
-              </label>
-              <br />
-              
-              <CountryDropdown
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white focus:outline-none focus:border-[#cbced3] ${
-
-                  errors.country ? "border-red-500" : "border-gray-200"
-                }`}
-                value={packageData.country}
-                onChange={(val: any) => {
-                  setPackageData({ ...packageData, country: val });
-                }}
-
-
-              />
-              {errors.country && (
-                <div className="text-red-500 text-sm mt-[2px]">
-                  {errors.country}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="lg:flex gap-6 mb-4">
-            <div className="lg:w-full">
-              <label>
-                <span>State</span>
-                <span className="text-red-500 ml-1">*</span>
-              </label>
-
-              <RegionDropdown
-                country={packageData.country}
-                value={packageData.state}
-                onChange={(val) =>
-                  setPackageData({ ...packageData, state: val })
-                }
-                classes={`border-[1px] rounded-lg h-[50px] w-full pl-2 mt-2 bg-white  focus:outline-none focus:border-[#cbced3]  ${
-
-                  errors.state ? "border-red-500" : "border-gray-200"
-                }`}
-              />
-              {errors.state && (
-                <div className="text-red-500 text-sm mt-[2px]">
-                  {errors.state}
-                </div>
-              )}
-            </div>
-
             <FormNumberInput
               label="Price"
               type="text"
@@ -539,6 +482,42 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               required={true}
             />
           </div>
+
+          <div className="lg:flex gap-6  mb-4">
+          <div className="w-[100%] ">
+            <SelectCountryInput
+              label="Country "
+              name="country"
+              value={packageData.country}
+              error={countryError}
+              onChange={(event: any) => {
+                setIsoCode(event.target.countryInfo.isoCode);
+                setCountryError(false);
+                setPackageData({
+                  ...packageData,
+                  country: event.target.countryInfo.name,
+                });
+              }}
+            />
+          </div>
+          <div className="w-[100%]">
+            <SelectStateInput
+              label=" State "
+              name="stateInput"
+              isocode={isoCode}
+              country={packageData.country}
+              state={packageData.state}
+              error={stateError}
+              onChange={(event) => {
+                setStateError(false);
+                setPackageData({
+                  ...packageData,
+                  state: event.target.value,
+                });
+              }}
+            />
+          </div>
+        </div>
           <div className="lg:flex gap-6  mb-4">
             <FormNumberInput
               label="No.Of Person"
@@ -597,26 +576,22 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           </span>
         </div>
 
+       
 
         <div className="">
           <label className="">Description</label>
 
-          <div className="mt-2 ">
+          <div className="mt-2">
             <DraftEditing
-              name="description"
               value={packageData.description}
               onEditorChange={handleEditorChange}
-              customValue={
-                initialPackageData ? initialPackageData.description : ""
-              }
-              
             />
           </div>
         </div>
 
         <div className="flex justify-center pt-3">
           <button
-            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-3"
+            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-yellow-400 mt-1 mb-1"
             type="submit"
           >
             <div className="flex">

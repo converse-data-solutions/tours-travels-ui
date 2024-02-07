@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import Link from "next/link";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -18,6 +18,11 @@ import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
+import Excel from 'exceljs';
+import { PdfExport, useGeneratePdf } from "@garage-panda/react-pdf-export";
+import { PDFExport, PDFMargin } from '@progress/kendo-react-pdf';
+
+
 
 interface UserData {
   id: number;
@@ -34,6 +39,8 @@ interface UserData {
   offer: string;
   category: string;
 }
+
+
 const AllPackageLists = () => {
   const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,8 +49,9 @@ const AllPackageLists = () => {
   const [category, setCategory] = useState("Category");
   const [viewFormVisible, setViewFormVisible] = useState(false);
 const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
+const { generatePdf, containerRef } = useGeneratePdf();
 
-
+const pdfExportComponent = useRef(null);
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -232,6 +240,8 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
+  console.log("totalPage",totalPages);
+
 
 
   const handleCategoryChange = (
@@ -242,28 +252,29 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
 
   useEffect(() => {
     if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
+      
+      setCurrentPage(1);
+      
     }
   }, [entries, filteredData, currentPage, totalPages]);
 
-  useEffect(() => {
-    if (filteredData.length === 0 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }, [filteredData, currentPage]);
-
-  useEffect(() => {
-    if (filteredData.length === 0 && currentPage > 1) {
-      let previousPage = currentPage - 1;
-      while (previousPage > 1 && filteredData.slice((previousPage - 1) * entries, previousPage * entries).length === 0) {
-        previousPage--;
-      }
-      setCurrentPage(previousPage);
-    }
-  }, [filteredData, currentPage, entries]);
+  
 
   return (
+
+    
+
     <div className="px-4 lg:pl-6 pr-5">
+
+    
+
+     {/* <PDFExport
+        paperSize="a4"
+        margin={40}
+        fileName={`Report_${new Date().getFullYear()}.pdf`}
+        author="Your Name"
+      > */}
+
       <div className=" mt-[13px] md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5 lg:mt-6 text-[14px]">
@@ -290,6 +301,7 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
       </div>
 
       <div>
+
         <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
@@ -433,7 +445,12 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
             </TableBody>
           </Table>
         </TableContainer>
+
+
+
+        
       </div>
+      
 
 
       {viewFormVisible && (
@@ -559,6 +576,8 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
         </Modal>
       )}
 
+     
+
 
       <div className="mb-8  flex justify-center lg:justify-start flex-row">
         <PaginationBar
@@ -567,7 +586,11 @@ const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
           setCurrentPage={setCurrentPage}
         />
       </div>
+
     </div>
+
   );
 };
 export default AllPackageLists;
+
+

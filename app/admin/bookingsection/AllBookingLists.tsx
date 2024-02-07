@@ -153,10 +153,17 @@ const AllBookingLists = () => {
       item.email &&
       item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
-  console.log("data", filteredData);
-  console.log("detailedData", detailedBookingData);
+ 
 
   const totalPages = Math.ceil(filteredData.length / entries);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      
+      setCurrentPage(1);
+      
+    }
+  }, [entries, filteredData, currentPage, totalPages]);
 
   return (
     <div className="px-4 lg:px-6">
