@@ -13,11 +13,12 @@ import PaginationBar from "../../components/CommonComponents/PaginationBar";
 import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import Image from "next/image";
 import AlternateImg from "../../../public/alternative.png";
-import { FiPlus } from "react-icons/fi";
-import { CgMathPlus } from "react-icons/cg";
 import { LuPlus } from "react-icons/lu";
 import { LuPenSquare } from "react-icons/lu";
 import { FiDelete } from "react-icons/fi";
+// import jsPDF from "jspdf";
+// import "jspdf-autotable";
+// import { ExcelFile, ExcelSheet } from "react-data-export";
 
 interface UserData {
   id: number;
@@ -150,6 +151,13 @@ const Userlistpage = () => {
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+      
+    }
+  }, [entries, filteredData, currentPage, totalPages]);
 
   return (
     <div className="px-4 lg:px-6">

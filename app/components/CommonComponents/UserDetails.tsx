@@ -72,7 +72,6 @@ const UserDetailsForm = () => {
   const confirmLogout = async () => {
     await signOut()
       .then(() => {
-        // Additional logout logic here
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         setIsVisible(false);
@@ -90,7 +89,6 @@ const UserDetailsForm = () => {
     setViewFormVisible(false);
   }
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
     setViewFormVisible(true)
   }
 
@@ -114,7 +112,6 @@ const UserDetailsForm = () => {
       boxShadow: "",
       maxWidth: '550px', 
       height:'260px',
-      // transform: 'translate(-50%, -60%)',
       
       
     },
@@ -128,16 +125,7 @@ const UserDetailsForm = () => {
   return (
     <>
     
-    {/* <Dialog open={logoutDialogOpen} >
-        <DialogTitle>Confirm Logout</DialogTitle>
-        <DialogContent>
-          <p>Are you sure you want to logout?</p>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseLogoutDialog}>Cancel</Button>
-          <Button onClick={confirmLogout}>Logout</Button>
-        </DialogActions>
-      </Dialog> */}
+
       {isVisible && (
         <div className=" rounded-xl bg-white flex-col justify-center w-60 py-2 z-40">
           <div className="triangle-outline"></div>
