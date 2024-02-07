@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import FormInput from "@/app/components/CommonComponents/FormInput";
 import "draft-js/dist/Draft.css";
@@ -13,12 +11,8 @@ import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import { LuCalendar, LuPlus } from "react-icons/lu";
 import FormNumberInput from "@/app/components/CommonComponents/FormNumberInput";
-import styled from "styled-components";
 import { FiArrowLeft } from "react-icons/fi";
-import { Country, State, City } from "country-state-city";
-import { ICountry, IState, ICity } from "country-state-city";
 import SelectCountryInput from "@/app/components/CommonComponents/CountryAndState";
-import SelectCountry from "@/app/components/CommonComponents/CountryDropDown";
 import SelectStateInput from "@/app/components/CommonComponents/StateDropdown";
 import * as isoCountries from "i18n-iso-countries";
 
