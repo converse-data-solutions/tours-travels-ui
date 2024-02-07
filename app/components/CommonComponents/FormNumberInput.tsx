@@ -43,7 +43,7 @@ const FormNumberInput: React.FC<FormInputProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full text-[#232323]">
       <label>
         {label}
         {required && (
@@ -54,7 +54,7 @@ const FormNumberInput: React.FC<FormInputProps> = ({
       </label>{" "}
       <input
         type={type}
-        className={`border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1  focus:border-gray-400 focus:outline-none ${
+        className={`border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1  focus:border-[#cbced3] focus:outline-none ${
 
           error ? "border-red-500" : ""
         }`}

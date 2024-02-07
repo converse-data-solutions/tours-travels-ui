@@ -1,38 +1,52 @@
 import React from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface DraftEditingProps {
-  name: string;
   value: string;
-  customValue: string;
-  onEditorChange: (initialValue: string) => void;
+  onEditorChange: (content: string) => void;
 }
 
 export default function DraftEditing({
   value,
   onEditorChange,
 }: DraftEditingProps) {
-  const handleEditorChange = (content: any, editor: any) => {
-    console.log("Content was updated:", content);
+  const handleChange = (content: string) => {
     onEditorChange(content);
   };
 
   return (
-    <Editor
-      apiKey={"azqt4vmow77bdh7mzzwm60rxbt26j893pjd86wik5qa1069g"}
+    <ReactQuill
       value={value}
-      init={{
-        height: 300,
-        menubar: true,
-        plugins: [
-          "advlist autolink lists link image charmap print preview anchor",
-          "searchreplace visualblocks code fullscreen",
-          "insertdatetime media table paste code help wordcount",
+      onChange={handleChange}
+      className="rounded-lg border-[1px]  border-gray-200 focus:outline-none focus:border-gray-400  h-[150px] "
+      modules={{
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image"],
+          ["clean"],
         ],
-        toolbar:
-          "undo redo | formatselect | bold italic underline strikethrough bullist numlist | help",
       }}
-      onEditorChange={handleEditorChange}
+      formats={[
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "link",
+        "image",
+      ]}
     />
   );
 }

@@ -333,12 +333,11 @@ input[type="radio"] {
 .table th {
   position: sticky;
   top: 0;
-  z-index: 2;
   background-color: white;
   font-family: "Roboto", Helvetica, sans-serif !important;
   font-weight: 550 !important;
   font-size: 14px !important;
-
+   z-index: 1;
   line-height: 21px !important;
   letter-spacing: -0.3px !important;
 }
@@ -374,16 +373,16 @@ li {
 .custom-file-input-button,
 .custom-file-input-button2 {
   background-color: #f8f9fa;
-  border-right: 1px solid #f0f1f1;
+  border-right: 1px solid #e9ecec;
   color: #232323;
-  padding: 10px 10px 13px 10px;
+  padding: 10px 10px 13px 18px;
   cursor: pointer;
   position: relative;
   z-index: 1;
   top: -36px;
   left: 3px;
 }
-.custom-file-input {
+.custom-file-input,.custom-file-input-button  {
   position: relative;
   overflow: hidden;
 }
@@ -402,11 +401,33 @@ li {
 .custom-file-input-button:hover,
 .custom-file-input-button2:hover {
   background-color: #c3c2c4;
+  
 }
 .custom-file-input-button2 {
   left: 1px;
   padding: 10px 7px;
 }
+
+
+input[type="file"] {
+  padding: 10px 15px;
+  background-color: white !important; /* Add padding */
+  cursor: pointer;
+   /* Change cursor style */
+}
+
+/* Hide/show button */
+input[type="file"]::webkit-file-upload-button {
+  cursor:  pointer !important; /* Hide button */
+}
+
+/* Change text */
+input[type="file"]::-webkit-file-upload-button:before {
+  content: "Upload"; /* Change text */
+}
+
+
+
 
 select {
   &:focus,
@@ -496,11 +517,12 @@ select {
   list-style-type: none;
 }
 .switch {
-  z-index: 0;
+  z-index: 0 !important;
   position: relative;
   display: inline-block;
   width: 34px;
   height: 20px;
+  overflow: hidden;
 }
 
 .switch input {
@@ -519,6 +541,9 @@ select {
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  z-index: 0 !important;
+
+
 }
 
 .slider:before {
@@ -532,6 +557,8 @@ select {
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  z-index: 0 !important;
+
 }
 
 input:checked + .slider {
@@ -953,11 +980,27 @@ body {
   transform: rotate(45deg);
   width: 10px;
   height: 10px;
-  z-index: 10;
+  z-index: 50;
   background-color: white;
   border-left: 1px solid rgb(233, 231, 231);
   border-top: 1px solid rgb(233, 231, 231);
-  box-shadow: gray;
+  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.20)
+ 
+}
+
+.triangle-outline1 {
+  position: absolute;
+  top: -6px;
+  right: 25px;
+  transform: rotate(45deg);
+  width: 10px;
+  height: 10px;
+  z-index: 10;
+  background-color: white;
+  border-left: 1px solid rgb(168, 14, 14);
+  border-top: 1px solid rgb(78, 182, 30);
+  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.20)
+ 
 }
 
 .custom-ul {
@@ -1120,6 +1163,7 @@ body {
   animation-duration: 0.5s;
 }
 
+
 @keyframes bookingcard {
   from {
     top: 500px;
@@ -1130,3 +1174,70 @@ body {
   }
 }
 
+.booking-card2 {
+  z-index: 10;
+  animation-name: bookingcard2;
+  animation-duration: 0.5s;
+}
+@keyframes bookingcard2 {
+  from {
+    top: 500px;
+  }
+  to {
+    top: 150px;
+    background-color: white;
+  }
+}
+.profile-card{
+  z-index: 50;
+  animation-name: profilecard;
+  animation-duration: 0.2s;
+}
+@keyframes profilecard{
+  from{
+    top:100px;
+  }to{
+    top:70px;
+  }
+}
+
+.entries-style  {
+
+  border-radius: 10px !important;
+    z-index: index 20;
+    overflow-x:hidden;
+    border: 1px solid #cbced3 !important;
+    margin-top: 8px !important;
+    
+    
+   
+    .entries-first-index{
+      background-color: #029e9d !important;
+    }
+    .entries-first-index1:hover{
+      background-color: #029e9d !important;
+
+    }
+
+  
+}
+
+.rdtPicker td.rdtToday {
+  position: relative;
+  color: #029e9d;
+  background-color: rgba(101,113,255,.3);
+  border-radius: 5px;
+}
+
+.ql-toolbar.ql-snow {
+  border-bottom: 1px solid #dddada !important;
+  border-top: none !important;
+  border-left:none !important;
+  border-right: none !important;;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  padding: 8px;
+}
+.ql-container.ql-snow {
+  border:none !important;
+}

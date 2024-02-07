@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiUser } from "react-icons/fi";
@@ -38,7 +39,9 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   const [activeList, setActiveList] = useState<ListDetails | null>(null);
   const [subCategoryColor, setSubCategoryColor] = useState<string>("#029e9d");
 
+   const router=useRouter();
   const pathname = usePathname();
+  
 
   const userManagement1 = () => {
     setIsListVisible(true);
@@ -159,7 +162,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   }, [navActive]);
 
   useEffect(() => {
-    const [, category, subcategory] = pathname.split("/");
+    const [ category, subcategory,dynamicSegment] = pathname.split("/");
 
     if (pathname === "/admin/package") {
       setNavActive({
@@ -186,7 +189,32 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
         category: "Booking Section",
         subcategory: "All Booking List",
       });
-    } else {
+    } 
+    else if (pathname.startsWith("/admin/users/adduser/") && dynamicSegment) {
+      // Handle dynamic segment case
+      setNavActive({
+        category: "User Management",
+        subcategory:""
+      });
+    }
+    else if (pathname.startsWith("/admin/package/addpackage/") && dynamicSegment) {
+      // Handle dynamic segment case
+      setNavActive({
+        category: "Package Management",
+        subcategory:""
+      });
+    }
+    else if (pathname.startsWith("/admin/users/profile/") && dynamicSegment) {
+      // Handle dynamic segment case
+      setNavActive({
+        category: "User Management",
+        subcategory:""
+      });
+    }
+   
+   
+    
+    else {
       setNavActive({ category, subcategory });
     }
   }, [pathname]);
@@ -220,7 +248,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                   <FiUser className="text-[18px]" />
                 </div>
                 <div className="w-full flex  bg-white ">
-                  <span className="font-semibold hover:pl-1  transition-all duration-300  ">
+                  <span className="font-semibold hover:pl-[2px]  transition-all duration-300  ">
                     User Management
                   </span>
                 </div>
@@ -239,7 +267,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
               {isListVisible && (
                 <ul className="list-part pb-4">
                   <li
-                    className={`hover:pl-4 text-[#232323] ${
+                    className={`hover:pl-[10px] duration-300 text-[#232323] ${
                       navActive?.subcategory === "All User Lists"
                         ? "active-list"
                         : ""
@@ -249,7 +277,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                     <Link href="/admin/users">All User Lists</Link>
                   </li>
                   <li
-                    className={`hover:pl-4 text-[#232323] ${
+                    className={`hover:pl-[10px] duration-300 text-[#232323] ${
                       navActive?.subcategory === "Add User" ? "active-list" : ""
                     }`}
                     onClick={userManagement2}
@@ -358,7 +386,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
                 </span>
                 <div className="w-full flex justify-between ">
                   <span
-                    className="font-bold hover:pl-1 transition-all duration-300  "
+                    className="font-bold hover:pl-[2px] transition-all duration-300  "
                     onClick={bookingSection}
                   >
                     <Link href="/admin/bookingsection"> Booking Section </Link>

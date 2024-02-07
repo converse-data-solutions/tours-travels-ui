@@ -65,7 +65,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   );
 
   let [file, setFile] = useState<File | string>();
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const [errors, setErrors] = useState({
+    img:"",
     first_name: "",
     last_name: "",
     email: "",
@@ -78,6 +81,8 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
 
     const nameRegex = /^[A-Za-z]+$/;
     const mobileNumberRegex = /^[6-9]\d{9}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (fieldName === "first_name") {
       if (value.trim() === "") {
         errorMessage = "First Name is required";
@@ -92,7 +97,24 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       } else if (!/\d/.test(value)) {
         errorMessage = "Password must contain at least one number";
       }
-    } else if (fieldName === "mobile_number") {
+
+    } 
+    else if (fieldName === "email") {
+      if (value.trim() === "") {
+        errorMessage = "Email is required";
+      } else if (!emailRegex.test(value)) {
+        errorMessage = "Invalid email format";
+      } else if (!value.includes("@")) {
+        
+
+        errorMessage = "Email must contain '@'";
+      } else if (/[A-Z]/.test(value)) {
+
+        errorMessage = "Email should not contain uppercase letters";
+      } else if (/[!#$%^&*()+={}\[\]:;<>,?~\\/]/.test(value)) {
+
+        errorMessage = "Email should not contain unwanted symbols";
+      }}else if (fieldName === "mobile_number") {
       if (value.trim() === "") {
         errorMessage = "Mobile Number is required";
       } else if (!mobileNumberRegex.test(value)) {
@@ -211,7 +233,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               );
 
               if (uploadImageResponse.status === 201) {
-                console.log("Image uploaded successfully");
+                setSuccessMessage("User updated successfully!");
+              setTimeout(() => {
+                setSuccessMessage("");
+              }, 5000);
               } else {
                 console.error(
                   "Error uploading image:",
@@ -220,6 +245,10 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
                 window.location.reload();
               }
             }
+            setSuccessMessage("User updated successfully!");
+              setTimeout(() => {
+                setSuccessMessage("");
+              }, 5000);
             window.location.reload();
           } else {
             console.error("Error updating user:", response.status);
@@ -301,9 +330,16 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     }
   }
 
-  function handleImageChange(event: any) {
-    setFile(event.target.files[0]);
-  }
+  const handleImageChange = (event:any) => {
+    const file = event.target.files[0];
+
+    if (file && file.type.startsWith('image/')) {
+      setSelectedFile(file);
+    } else {
+      setSelectedFile(null);
+      alert('Please select a valid image file.');
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -402,7 +438,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           User Setup
         </h4>
         <br />
-        <label>Upload Category Icon</label>
+        <label className="text-[#232323]">Upload Category Icon</label>
         <br />
         {isEditMode ? (
           userData.file_name !== null && userData.file_name !== undefined ? (
@@ -430,20 +466,20 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           <span>
             <input
               type="file"
-              className="border-[1px] py-2 h-[50px] border-gray-200 rounded-lg w-full grid grid-cols-1 mr-4 mb- pl-2 mt-2 custom-file-input"
+              className="border-[1px] py-2 h-[50px] border-gray-200 rounded-lg w-full  grid grid-cols-1 mr-4 mb- pl-2 mt-2 custom-file-input"
               name="image"
-              accept="image/*"
+              accept="Image/*"
               id="file-input"
               onChange={handleImageChange}
               alt=""
             />
             <label htmlFor="file-input">
-              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
+              <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)] text-[#232323] ">
                 Choose file{" "}
               </span>{" "}
-              <span className="bg-white relative top-[-36px] pl-4">
+              {/* <span className="bg-white relative top-[-36px]  z-10">
                 No file chosen
-              </span>
+              </span> */}
             </label>
           </span>
         </div>
@@ -473,6 +509,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               name="email"
               value={userData.email}
               onChange={handleChange}
+              error={errors.email}
               required
             />
 
@@ -498,7 +535,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
             />
 
             <div className="flex flex-col w-full">
-              <label>Gender</label>
+              <label className="text-[#232323]">Gender</label>
               <div
                 className="w-full gap-3 lg:gap-4 pt-4 green-radio "
                 style={{ display: "flex" }}
@@ -612,16 +649,16 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         )}
         <div className="flex justify-center pt-3">
           <button
-            className="bg-[#029e9d] text-white py-3 px-4 rounded-lg hover:bg-[#ffc107] mt-3"
+            className="bg-[#029e9d] text-white py-3 pr-4 pl-[18px] rounded-lg hover:bg-[#ffc107] mt-3"
             type="submit"
           >
             <div className="flex">
               <div className="">
                 {" "}
-                <LuPlus className="text-[26px] pr-1   " />
+                <LuPlus className="text-[28px] pr-1   " />
 
               </div>
-              <div> {isEditMode ? "Update User" : "Add User"}</div>
+              <div className="mt-[3px]"> {isEditMode ? "Update User" : "Add User"}</div>
             </div>
           </button>
         </div>

@@ -15,7 +15,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 }) => {
   return (
     <div className="flex flex-col w-full mb-2">
-      <label>{label}</label>
+      <label className="text-[#232323]">{label}</label>
       <textarea
         className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 focus:border-gray-400 focus:outline-none"
 

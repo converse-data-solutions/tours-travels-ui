@@ -153,10 +153,17 @@ const AllBookingLists = () => {
       item.email &&
       item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
-  console.log("data", filteredData);
-  console.log("detailedData", detailedBookingData);
+ 
 
   const totalPages = Math.ceil(filteredData.length / entries);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      
+      setCurrentPage(1);
+      
+    }
+  }, [entries, filteredData, currentPage, totalPages]);
 
   return (
     <div className="px-4 lg:px-6">
@@ -188,7 +195,7 @@ const AllBookingLists = () => {
 
       <div>
 
-        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
+        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
             <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">
@@ -203,10 +210,10 @@ const AllBookingLists = () => {
               placeholder="Search by email"
             />
           </div>
-          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] z-20 ">
+          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] ">
             <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
           </div>
-          <div className="w-[100%] relative top-[-7px] text-[16px] z-20">
+          <div className="w-[100%] relative top-[-7px] text-[16px] ">
             {" "}
             <SelectInput
               label=""

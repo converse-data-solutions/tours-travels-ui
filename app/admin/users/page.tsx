@@ -13,11 +13,12 @@ import PaginationBar from "../../components/CommonComponents/PaginationBar";
 import ShowEntriesDropdown from "../../components/CommonComponents/EntriesDropDown";
 import Image from "next/image";
 import AlternateImg from "../../../public/alternative.png";
-import { FiPlus } from "react-icons/fi";
-import { CgMathPlus } from "react-icons/cg";
 import { LuPlus } from "react-icons/lu";
 import { LuPenSquare } from "react-icons/lu";
 import { FiDelete } from "react-icons/fi";
+// import jsPDF from "jspdf";
+// import "jspdf-autotable";
+// import { ExcelFile, ExcelSheet } from "react-data-export";
 
 interface UserData {
   id: number;
@@ -151,6 +152,13 @@ const Userlistpage = () => {
 
   const totalPages = Math.ceil(filteredData.length / entries);
 
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+      
+    }
+  }, [entries, filteredData, currentPage, totalPages]);
+
   return (
     <div className="px-4 lg:px-6">
       <div className=" pt-6 md:flex justify-between mb-[15px]  ">
@@ -178,7 +186,7 @@ const Userlistpage = () => {
         </div>
       </div>
 
-      <div className=" bg-white px-4 py-4 rounded-[10px] shadow-sm lg:flex lg:flex-row lg:justify-between ">
+      <div className=" bg-white px-4 py-4 rounded-[10px]  lg:flex lg:flex-row lg:justify-between " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
         <div className="pt-6  ">
           <h5 className="flex justify-center md:justify-start   w-full px-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px]  font-semibold  text-[#232323]   ">
             {" "}
@@ -186,7 +194,7 @@ const Userlistpage = () => {
           </h5>
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-6 lg:w-9/12 text-[16px] pt-[9px] z-30">
+        <div className="flex flex-col md:flex-row md:gap-6 lg:w-9/12 text-[16px] pt-[9px] ">
           <TableSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -202,7 +210,7 @@ const Userlistpage = () => {
           sx={{ maxHeight: "450px", width: "100%" }}
         >
           <Table className="gap-6 table">
-            <TableHead className="text-[#232323]  font-bold">
+            <TableHead className="text-[#232323]  font-bold ">
               <TableRow className="table-head">
                 <th className="">ID</th>
                 <th>IMAGE</th>
@@ -239,7 +247,7 @@ const Userlistpage = () => {
                         />
                       ) : (
                         <Image
-                          src={list.file_name}
+                          src={AlternateImg||list.file_name}
                           className="rounded-md h-10 w-10"
                           alt="img"
                           height={30}

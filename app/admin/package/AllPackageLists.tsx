@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import Link from "next/link";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -13,8 +13,16 @@ import { LuPlus } from "react-icons/lu";
 import AlternateImg from "../../../public/alternative.png";
 import SelectInput from "@/app/components/CommonComponents/SelectedInput";
 import { LuPenSquare } from "react-icons/lu";
-import { FiDelete } from "react-icons/fi";
+import { FiDelete, FiEye } from "react-icons/fi";
 import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import Excel from 'exceljs';
+import { PdfExport, useGeneratePdf } from "@garage-panda/react-pdf-export";
+import { PDFExport, PDFMargin } from '@progress/kendo-react-pdf';
+
+
 
 interface UserData {
   id: number;
@@ -31,13 +39,19 @@ interface UserData {
   offer: string;
   category: string;
 }
+
+
 const AllPackageLists = () => {
   const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("Category");
+  const [viewFormVisible, setViewFormVisible] = useState(false);
+const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
+const { generatePdf, containerRef } = useGeneratePdf();
 
+const pdfExportComponent = useRef(null);
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -173,6 +187,39 @@ const AllPackageLists = () => {
     window.location.replace("/admin/package/addpackage");
   }
 
+  const handleViewAction = (id: number) => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      return;
+    }
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        const detailedPackageDate = responseData.data;
+        console.log(detailedPackageDate);
+
+        setDetailedPackageDate(detailedPackageDate);
+      })
+      .catch((error) => {
+        console.error("Error fetching detailed booking data:", error);
+      });
+
+    setViewFormVisible(true);
+  };
+
   function handleEditAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
@@ -193,6 +240,8 @@ const AllPackageLists = () => {
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
+  console.log("totalPage",totalPages);
+
 
 
   const handleCategoryChange = (
@@ -201,8 +250,31 @@ const AllPackageLists = () => {
     setCategory(event.target.value);
   };
 
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      
+      setCurrentPage(1);
+      
+    }
+  }, [entries, filteredData, currentPage, totalPages]);
+
+  
+
   return (
+
+    
+
     <div className="px-4 lg:pl-6 pr-5">
+
+    
+
+     {/* <PDFExport
+        paperSize="a4"
+        margin={40}
+        fileName={`Report_${new Date().getFullYear()}.pdf`}
+        author="Your Name"
+      > */}
+
       <div className=" mt-[13px] md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5 lg:mt-6 text-[14px]">
@@ -229,7 +301,8 @@ const AllPackageLists = () => {
       </div>
 
       <div>
-        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px] shadow-sm  lg:flex lg:gap-6 pr-5 ">
+
+        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
             <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">
@@ -244,10 +317,10 @@ const AllPackageLists = () => {
               placeholder="Search by slider title"
             />
           </div>
-          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px] z-20 ">
+          <div className=" w-[100%] lg:w-[65%] lg:relative lg:top-[2px]  ">
             <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
           </div>
-          <div className="w-[100%] relative top-[-7px] text-[16px] z-20">
+          <div className="w-[100%] relative top-[-7px] text-[16px] ">
             {" "}
             <SelectInput
               label=""
@@ -268,7 +341,7 @@ const AllPackageLists = () => {
         >
           <Table className="gap-6 table">
             <TableHead className="text-gray-800 ">
-              <TableRow className="table-head">
+              <TableRow className="table-head ">
                 <th>ID</th>
                 <th>START DATE</th>
                 <th>IMAGE</th>
@@ -333,7 +406,7 @@ const AllPackageLists = () => {
                     <td className="">
                       {" "}
                       <label
-                        className={`switch ${
+                        className={`switch  ${
                           list.published ? "published-on" : "published-off"
                         }`}
                       >
@@ -348,6 +421,12 @@ const AllPackageLists = () => {
 
                     <td>
                       <span className="flex gap-2 text-[#029e9d] justify-center">
+                   
+                      <FiEye
+                          onClick={() => handleViewAction(list.id)}
+                          className="flex  text-[#029e9d] mt-[1px]  text-[24px] hover:text-[#6f42c1]"
+                        />
+
                         <Link href={"/admin/package/addpackage/" + list.id}>
                           <LuPenSquare
                             className="text-[24px] hover:text-[#6f42c1]"
@@ -366,7 +445,139 @@ const AllPackageLists = () => {
             </TableBody>
           </Table>
         </TableContainer>
+
+
+
+        
       </div>
+      
+
+
+      {viewFormVisible && (
+        <Modal
+          open={viewFormVisible}
+          onClose={() => setViewFormVisible(false)}
+          aria-labelledby=""
+          aria-describedby=""
+          closeAfterTransition
+          BackdropComponent={(props) => (
+            <Backdrop {...props} style={{ borderRadius: "0px" }} />
+          )}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={viewFormVisible}>
+            <div className="flex flex-col">
+              <div
+                className="z-50 absolute top-[15%] mx-[35%] px-5   flex-col lg:w-4/12 h-auto  booking-card2  bg-white  py-4 rounded-xl shadow-md flex justify-center items-center"
+                onClick={() => setViewFormVisible(true)}
+                style={{ borderRadius: "20px !important" }}
+              >
+                <div className="text-[16px] text-[#232323] font-bold pb-3 pt-5  border-b-gray-200 border-[1px] w-[106%]  text-center border-white">
+                  Package Details
+                </div>
+
+
+                <table className="w-full ">
+                  <tbody className="">   
+                    {detailedPackageDate?.title && (
+                      <tr className="">
+                        <td className="w-[50%] ">Title</td>
+                        <td>{detailedPackageDate?.title}</td>
+                      </tr>
+                    )}
+
+{detailedPackageDate?.start_date && (
+                      <tr>
+                        <td>Start Date</td>
+                        <td>
+  {detailedPackageDate?.start_date &&
+    new Date(detailedPackageDate.start_date).toLocaleDateString('en-GB')}
+</td>
+
+                      </tr>
+                    )}
+
+                    {detailedPackageDate?.country && (
+                      <tr>
+                        <td>Country</td>
+                        <td>{detailedPackageDate?.country }</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.state && (
+                      <tr>
+                        <td>State</td>
+                        <td>{detailedPackageDate?.state}</td>
+                      </tr>
+                    )}
+                   {detailedPackageDate?.description && (
+  <tr>
+    <td>Description</td>
+    <td dangerouslySetInnerHTML={{ __html: detailedPackageDate.description }} />
+  </tr>
+)}
+                    {detailedPackageDate?.price && (
+                      <tr>
+                        <td>Price</td>
+                        <td>{detailedPackageDate?.price}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.no_of_person && (
+                      <tr>
+                        <td>No of person</td>
+                        <td>{detailedPackageDate?.no_of_person}</td>
+                      </tr>
+                    )}
+                    
+                    {detailedPackageDate?.country && (
+                      <tr>
+                        <td>Country</td>
+                        <td>{detailedPackageDate?.country}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.state && (
+                      <tr>
+                        <td>State</td>
+                        <td>{detailedPackageDate?.state}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.days_and_night&& (
+                      <tr>
+                        <td>No of days</td>
+                        <td>{detailedPackageDate?.days_and_night}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.category && (
+                      <tr>
+                        <td>Category</td>
+                        <td>{detailedPackageDate?.category}</td>
+                      </tr>
+                    )}
+
+{detailedPackageDate?.offer && (
+                      <tr>
+                        <td>Offer</td>
+                        <td>{detailedPackageDate?.offer}%</td>
+                      </tr>
+                    )}
+
+{detailedPackageDate?.published !== undefined && (
+  <tr>
+    <td>Publish Status</td>
+    <td>{detailedPackageDate.published === 1 ? "Published" : detailedPackageDate.published === 0 ? "Not Published" : ""}</td>
+  </tr>
+)}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Fade>
+        </Modal>
+      )}
+
+     
+
 
       <div className="mb-8  flex justify-center lg:justify-start flex-row">
         <PaginationBar
@@ -375,7 +586,11 @@ const AllPackageLists = () => {
           setCurrentPage={setCurrentPage}
         />
       </div>
+
     </div>
+
   );
 };
 export default AllPackageLists;
+
+
