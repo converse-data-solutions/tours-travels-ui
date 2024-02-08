@@ -14,22 +14,20 @@ import PartnersHeading from "../homepage/OurPartners";
 import FooterPart from "../components/CommonComponents/FooterPart";
 import { GetServerSideProps } from "next";
 
-
 const playFair = Playfair_Display({
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
   adjustFontFallback: false,
 });
 
 const poppins = Poppins({
-   weight: "400",
+  weight: "400",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
   adjustFontFallback: false,
 });
 
-
-const Page= () => {
+const Page = () => {
   return (
     <>
       <div className="Destination-part  ">
@@ -120,5 +118,3 @@ const Page= () => {
 };
 
 export default Page;
-
-

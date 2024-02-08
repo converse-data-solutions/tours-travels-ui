@@ -66,9 +66,13 @@ const CustomDropdown: React.FC<SelectInputProps> = ({
 
   return (
     <div className={`relative w-full mb-2  `}>
-      <label htmlFor={name} className="text-[#232323]">{label}</label>
+      <label htmlFor={name} className="text-[#232323]">
+        {label}
+      </label>
       <div
-        className={`border-[1px] ${isOpen ? "border-[#cbced3]" : "border-gray-200"}  rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative`}
+        className={`border-[1px] ${
+          isOpen ? "border-[#cbced3]" : "border-gray-200"
+        }  rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-gray-500 bg-white relative`}
         onClick={() => setIsOpen(!isOpen)}
         ref={dropdownRef}
       >

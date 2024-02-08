@@ -14,9 +14,8 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
   const [initialRender, setInitialRender] = useState(true);
-  const [selectionMode, setSelectionMode] = useState(false); 
+  const [selectionMode, setSelectionMode] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-
 
   const dropdownRef3 = useRef<HTMLDivElement>(null);
 
@@ -27,10 +26,8 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
     setCurrentOptions((prevOptions) =>
       prevOptions.filter((option) => option !== selectedValue),
     );
-    setSelectionMode(true); 
+    setSelectionMode(true);
   };
-
-  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,25 +48,22 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
   useEffect(() => {
     setInitialRender(false);
   }, []);
-  
 
   return (
     <div className={`relative w-full mb-2 `}>
       <div
-        className={`border-[1px] ${isOpen ? "border-[#babcbe]" : "border-gray-200"}  focus:outline-none focus:border-[#cbced3] h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-[#7987a1] relative`}
-
+        className={`border-[1px] ${
+          isOpen ? "border-[#babcbe]" : "border-gray-200"
+        }  focus:outline-none focus:border-[#cbced3] h-[48px] w-full px-4 py-3 mb-2 rounded-lg outline-none md:w-[100%] lg:w-full bg-white text-base text-[#7987a1] relative`}
         onClick={() => setIsOpen(!isOpen)}
         style={{
           WebkitAppearance: "none",
           MozAppearance: "none",
           appearance: "none",
           paddingRight: "2rem",
-          
         }}
         ref={dropdownRef3}
       >
-
-        
         <div className="flex items-center justify-between">
           <div>{selectedValue}</div>
           <div className="ml-2 mr-[-15px]">
@@ -85,24 +79,26 @@ const ShowEntriesDropdown: React.FC<ShowEntriesDropdownProps> = ({
           </div>
         </div>
         {isOpen && (
-  <div className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#cbced3]!important shadow-md z-10 rounded-none entries-style  "  onMouseEnter={() => setIsHovered(false)}
-  onMouseLeave={() => setIsHovered(true)}>
-    {options.map((option, index) => (
- <div
- key={option}
- className={`cursor-pointer px-3  ${
-   index === 0 && selectionMode
-     ? "cursor-not-allowed entries-first "
-     : selectedValue === option 
-     ? "bg-[#029e9d] text-white"  : "bg-white hover:text-white entries-first-index1"
-    
- }`}
- onClick={() => index !== 0 && handleOptionClick(option)}
->
-        {option}
-      </div>
-    ))}
-  
+          <div
+            className="absolute top-full left-0 w-full mt-[1px] bg-white border-[1px] border-[#cbced3]!important shadow-md z-10 rounded-none entries-style  "
+            onMouseEnter={() => setIsHovered(false)}
+            onMouseLeave={() => setIsHovered(true)}
+          >
+            {options.map((option, index) => (
+              <div
+                key={option}
+                className={`cursor-pointer px-3  ${
+                  index === 0 && selectionMode
+                    ? "cursor-not-allowed entries-first "
+                    : selectedValue === option
+                      ? "bg-[#029e9d] text-white"
+                      : "bg-white hover:text-white entries-first-index1"
+                }`}
+                onClick={() => index !== 0 && handleOptionClick(option)}
+              >
+                {option}
+              </div>
+            ))}
           </div>
         )}
       </div>

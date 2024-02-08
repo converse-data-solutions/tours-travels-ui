@@ -5,7 +5,7 @@ import { Iso } from "@mui/icons-material";
 interface SelectInputProps {
   label: string;
   name: string;
-  value:string;
+  value: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   error?: boolean;
 }
@@ -29,7 +29,7 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
 }) => {
   const [isOpenCountry, setIsOpenCountry] = useState(false);
   const [isOpenState, setIsOpenState] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(value||"");
+  const [selectedCountry, setSelectedCountry] = useState(value || "");
   const [selectedState, setSelectedState] = useState("");
   const [isoCode, setIsoCode] = useState("");
   const [countries, setCountries] = useState<CountryInterFace[]>([]);
@@ -49,7 +49,7 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
     console.log(selectedValue);
 
     const selectedCountryInfo: any = Country.getCountryByCode(
-      selectedValue.isoCode
+      selectedValue.isoCode,
     );
 
     setSelectedCountry(selectedCountryInfo.name);
@@ -58,10 +58,10 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
     setSelectedState("");
 
     const statesOfCountry: any = State.getStatesOfCountry(
-      selectedValue.isoCode
+      selectedValue.isoCode,
     );
     const stateNames: string[] = statesOfCountry.map(
-      (state: any) => state.name
+      (state: any) => state.name,
     );
     setCurrentStateOptions(stateNames);
 
@@ -75,12 +75,10 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
     } as unknown as React.ChangeEvent<HTMLSelectElement>);
 
     setCurrentCountryOptions((prevOptions) =>
-      prevOptions.filter((option) => option !== selectedValue.isoCode)
+      prevOptions.filter((option) => option !== selectedValue.isoCode),
     );
     setSelectionMode(true);
   };
-
- 
 
   useEffect(() => {
     const countryList: any = Country.getAllCountries();
@@ -110,13 +108,11 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
     };
   }, [dropdownRefCountry, dropdownRefState]);
 
-  
-
   useEffect(() => {
     if (isoCode) {
       const statesOfCountry: any = State.getStatesOfCountry(isoCode);
       const stateNames: string[] = statesOfCountry.map(
-        (state: any) => state.name
+        (state: any) => state.name,
       );
       setCurrentStateOptions(stateNames);
     }
@@ -125,18 +121,19 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
   return (
     <div className={`relative w-full mb-2 `}>
       <label htmlFor={name} className="text-[#232323]">
-        {label}         <span className="text-red-500">*</span>
-
+        {label} <span className="text-red-500">*</span>
       </label>
       <div
         className={`border-[1px] ${
           isOpenCountry ? "border-[#cbced3]" : "border-gray-200"
-        }   ${error ? 'border-red-500' : 'border-gray-200'} rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-[#7987a1]  bg-white relative `}
+        }   ${
+          error ? "border-red-500" : "border-gray-200"
+        } rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-[#7987a1]  bg-white relative `}
         onClick={() => setIsOpenCountry(!isOpenCountry)}
         ref={dropdownRefCountry}
       >
         <div className="flex items-center justify-between">
-          <div>{value|| "select a country"}</div>
+          <div>{value || "select a country"}</div>
           <div className="ml-2 mr-3">
             <svg
               className={`fill-current text-black h-3 w-3 transform ${
@@ -168,11 +165,8 @@ const SelectCountryInput: React.FC<SelectInputProps> = ({
         )}
       </div>
       {error && (
-        <p className="text-red-500 text-sm mt-2">
-          Please select a country 
-        </p>
+        <p className="text-red-500 text-sm mt-2">Please select a country</p>
       )}
-      
     </div>
   );
 };

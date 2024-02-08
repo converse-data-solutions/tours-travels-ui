@@ -39,9 +39,8 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   const [activeList, setActiveList] = useState<ListDetails | null>(null);
   const [subCategoryColor, setSubCategoryColor] = useState<string>("#029e9d");
 
-   const router=useRouter();
+  const router = useRouter();
   const pathname = usePathname();
-  
 
   const userManagement1 = () => {
     setIsListVisible(true);
@@ -162,7 +161,7 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
   }, [navActive]);
 
   useEffect(() => {
-    const [ category, subcategory,dynamicSegment] = pathname.split("/");
+    const [category, subcategory, dynamicSegment] = pathname.split("/");
 
     if (pathname === "/admin/package") {
       setNavActive({
@@ -189,32 +188,28 @@ const NavListDetails: React.FC<NavListDetailsProps> = ({
         category: "Booking Section",
         subcategory: "All Booking List",
       });
-    } 
-    else if (pathname.startsWith("/admin/users/adduser/") && dynamicSegment) {
+    } else if (pathname.startsWith("/admin/users/adduser/") && dynamicSegment) {
       // Handle dynamic segment case
       setNavActive({
         category: "User Management",
-        subcategory:""
+        subcategory: "",
       });
-    }
-    else if (pathname.startsWith("/admin/package/addpackage/") && dynamicSegment) {
+    } else if (
+      pathname.startsWith("/admin/package/addpackage/") &&
+      dynamicSegment
+    ) {
       // Handle dynamic segment case
       setNavActive({
         category: "Package Management",
-        subcategory:""
+        subcategory: "",
       });
-    }
-    else if (pathname.startsWith("/admin/users/profile/") && dynamicSegment) {
+    } else if (pathname.startsWith("/admin/users/profile/") && dynamicSegment) {
       // Handle dynamic segment case
       setNavActive({
         category: "User Management",
-        subcategory:""
+        subcategory: "",
       });
-    }
-   
-   
-    
-    else {
+    } else {
       setNavActive({ category, subcategory });
     }
   }, [pathname]);

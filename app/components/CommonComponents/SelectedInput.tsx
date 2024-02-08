@@ -20,7 +20,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [currentOptions, setCurrentOptions] = useState(options);
-  const [selectionMode, setSelectionMode] = useState(false); 
+  const [selectionMode, setSelectionMode] = useState(false);
 
   const dropdownRef2 = useRef<HTMLDivElement>(null);
 
@@ -35,8 +35,6 @@ const SelectInput: React.FC<SelectInputProps> = ({
     );
     setSelectionMode(true);
   };
-
-  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -54,13 +52,16 @@ const SelectInput: React.FC<SelectInputProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef2]);
-  
 
   return (
     <div className="relative w-full mb-2">
-      <label htmlFor={name} className="text-[#232323]">{label}</label>
+      <label htmlFor={name} className="text-[#232323]">
+        {label}
+      </label>
       <div
-        className={`border-[1px]  ${isOpen?"border-[#cbced3]":"border-gray-200"}  rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-[#7987a1]  bg-white relative `}
+        className={`border-[1px]  ${
+          isOpen ? "border-[#cbced3]" : "border-gray-200"
+        }  rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 pt-3 text-[#7987a1]  bg-white relative `}
         onClick={() => setIsOpen(!isOpen)}
         ref={dropdownRef2}
       >
@@ -84,7 +85,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
               <div
                 key={option}
                 className={`cursor-pointer px-3 ${
-                  index === 0  && selectionMode
+                  index === 0 && selectionMode
                     ? "cursor-not-allowed "
                     : value === option
                       ? "bg-[#029e9d] text-white"

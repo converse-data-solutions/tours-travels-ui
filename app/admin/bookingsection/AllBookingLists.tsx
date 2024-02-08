@@ -17,7 +17,6 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import Link from "next/link";
 
-
 interface BookingData {
   id: number;
   title: string;
@@ -153,15 +152,12 @@ const AllBookingLists = () => {
       item.email &&
       item.email.toLowerCase().startsWith(searchQuery.toLowerCase()),
   );
- 
 
   const totalPages = Math.ceil(filteredData.length / entries);
 
   useEffect(() => {
     if (currentPage > totalPages) {
-      
       setCurrentPage(1);
-      
     }
   }, [entries, filteredData, currentPage, totalPages]);
 
@@ -174,7 +170,6 @@ const AllBookingLists = () => {
               Dashboard
             </span>
             &nbsp; / &nbsp; Booking Lists
-
           </h2>
         </div>
         <div className="flex-row mt-3 text-center">
@@ -187,15 +182,16 @@ const AllBookingLists = () => {
               <div>
                 <Link href={"/destination-list"}>Back To List</Link>
               </div>
-
             </div>
           </button>
         </div>
       </div>
 
       <div>
-
-        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
+        <div
+          className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 "
+          style={{ boxShadow: "0 0 10px 0 rgba(183, 192, 206, 0.20)" }}
+        >
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
             <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">
@@ -221,7 +217,6 @@ const AllBookingLists = () => {
               value={category || "Category"}
               options={["Category", "One", "Two", "Three"]}
               onChange={(e) => setCategory(e.target.value)}
-
               disabledValue="Show Entries"
             />
           </div>
@@ -292,7 +287,6 @@ const AllBookingLists = () => {
                             onClick={() => handleDeleteAction(list.id)}
                             className="text-[25px] font-bold hover:text-[#6f42c1]"
                           />
-
                         </span>{" "}
                       </div>
                     </td>
@@ -326,7 +320,6 @@ const AllBookingLists = () => {
                 <div className="text-[16px] text-[#232323] font-bold pb-3 pt-5  border-b-gray-200 border-[1px] w-[106%]  text-center border-white">
                   Booking Details
                 </div>
-
 
                 <table className="w-full ">
                   <tbody className="">

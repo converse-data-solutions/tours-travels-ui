@@ -108,8 +108,11 @@ const ProfileEditingPage = () => {
   }, []);
 
   return (
-    <div className=" rounded-lg  flex-col justify-center w-full px-5 py-2 shadow-md bg-[#f9fafb]" >
-      <div className="flex justify-start py-5 px-10 gap-10 w-full h-[7vh] rounded-lg mt-4  sticky z-10 bg-white" style={{ boxShadow: '0 0 10px 3px rgba(183, 192, 206, 0.20)' }}>
+    <div className=" rounded-lg  flex-col justify-center w-full px-5 py-2 shadow-md bg-[#f9fafb]">
+      <div
+        className="flex justify-start py-5 px-10 gap-10 w-full h-[7vh] rounded-lg mt-4  sticky z-10 bg-white"
+        style={{ boxShadow: "0 0 10px 3px rgba(183, 192, 206, 0.20)" }}
+      >
         {userData.file_name === null || userData.file_name === undefined ? (
           <Image
             src={AlternateImg}
@@ -131,8 +134,11 @@ const ProfileEditingPage = () => {
         <div>{userData.first_name}</div>
         <div>{userData.email}</div>
       </div>
-      <div className=" justify-between  py-5 lg:flex flex-row lg:gap-0 " >
-        <div className="w-full lg:w-6/12 pt-10 px-5 rounded-lg mt-4 mb-[2.9%]" style={{ boxShadow: '0 0 10px 3px rgba(183, 192, 206, 0.20)' }}>
+      <div className=" justify-between  py-5 lg:flex flex-row lg:gap-0 ">
+        <div
+          className="w-full lg:w-6/12 pt-10 px-5 rounded-lg mt-4 mb-[2.9%]"
+          style={{ boxShadow: "0 0 10px 3px rgba(183, 192, 206, 0.20)" }}
+        >
           {userData.created_at && (
             <div>
               <div className="font-bold">JOINED:</div>
@@ -170,26 +176,25 @@ const ProfileEditingPage = () => {
             </div>
           )}
         </div>
-      
 
         <div className=" w-full lg:w-[120%]  rounded-lg   ml-2  mr-[-1.3%] ">
-          <div className=" bg-white px-[-50px] " >
+          <div className=" bg-white px-[-50px] ">
             <AddUser isEditMode={true} isHeadpart={false} />
           </div>
         </div>
       </div>
 
       <div className="h-20 absolute right-28 top-4 flex gap-5 z-30 px-2 ">
-          <div className="hidden md:inline-block text-[14px] text-[#232323] hover:text-[#029e9d] mt-[2px]">
-            English
-          </div>
-          <div>
-            <FiGrid className="hover:text-[#029e9d] text-[20px] mt-[2px]" />
-          </div>
-          <div className="">
-            <MdOutlineEmail className="hover:text-[#029e9d] text-[24px]  " />
-          </div>
+        <div className="hidden md:inline-block text-[14px] text-[#232323] hover:text-[#029e9d] mt-[2px]">
+          English
         </div>
+        <div>
+          <FiGrid className="hover:text-[#029e9d] text-[20px] mt-[2px]" />
+        </div>
+        <div className="">
+          <MdOutlineEmail className="hover:text-[#029e9d] text-[24px]  " />
+        </div>
+      </div>
     </div>
   );
 };
