@@ -21,7 +21,8 @@ const VideoPart = () => {
   const [videoElement, setVideoElement] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
-  const videoUrl = "https://assets-travels-ui.s3.ap-south-1.amazonaws.com/travelvideo.mp4";
+  const videoUrl =
+    "https://assets-travels-ui.s3.ap-south-1.amazonaws.com/travelvideo.mp4";
   const titleFontStyle: CSSProperties = {
     fontFamily: "Playfair Display, serif",
   };

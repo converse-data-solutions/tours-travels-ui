@@ -55,7 +55,6 @@ const FormNumberInput: React.FC<FormInputProps> = ({
       <input
         type={type}
         className={`border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1  focus:border-[#cbced3] focus:outline-none ${
-
           error ? "border-red-500" : ""
         }`}
         name={name}

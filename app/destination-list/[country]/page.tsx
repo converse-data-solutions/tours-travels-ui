@@ -45,13 +45,16 @@ interface UserData {
   category: string;
 }
 
-
-const CountryCardAndGridDetails = ({params}: {params: { country: string };}) => {
+const CountryCardAndGridDetails = ({
+  params,
+}: {
+  params: { country: string };
+}) => {
   const [data, setData] = useState<UserData[]>([]);
   const countryName = params.country;
 
   const [currentView, setCurrentView] = useState("bars");
-  
+
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const Duration = searchParams.get("duration");

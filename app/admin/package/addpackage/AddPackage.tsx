@@ -62,7 +62,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
       description: "",
       offer: "",
       category: "",
-    }
+    },
   );
 
   interface ErrorType {
@@ -151,7 +151,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
 
           const stateCode = isoCountries.getAlpha2Code(
             getApiData.data.country,
-            "en"
+            "en",
           );
 
           if (stateCode) {
@@ -189,7 +189,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(userDataWithoutFilename),
-          }
+          },
         );
 
         if (response.status === 200) {
@@ -204,7 +204,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               {
                 method: "POST",
                 body: formData,
-              }
+              },
             );
 
             if (uploadImageResponse.status === 201) {
@@ -239,7 +239,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(userDataWithoutFilename),
-          }
+          },
         );
 
         if (response.status === 200) {
@@ -255,7 +255,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
               method: "POST",
 
               body: formData,
-            }
+            },
           );
 
           if (uploadImageResponse.status === 201) {
@@ -290,7 +290,7 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
   function handleInput(event: any) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?"
+        "You are not signed in to your account. Do you want to sign in your account?",
       );
 
       if (userConfirmed) {
@@ -318,14 +318,14 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
     setPackageData({ ...packageData, [name]: value });
   };
   const handleSelectCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
     setPackageData({ ...packageData, [name]: value });
   };
 
   const handleTextareaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
 
@@ -478,40 +478,40 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
           </div>
 
           <div className="lg:flex gap-6  mb-4">
-          <div className="w-[100%] ">
-            <SelectCountryInput
-              label="Country "
-              name="country"
-              value={packageData.country}
-              error={countryError}
-              onChange={(event: any) => {
-                setIsoCode(event.target.countryInfo.isoCode);
-                setCountryError(false);
-                setPackageData({
-                  ...packageData,
-                  country: event.target.countryInfo.name,
-                });
-              }}
-            />
+            <div className="w-[100%] ">
+              <SelectCountryInput
+                label="Country "
+                name="country"
+                value={packageData.country}
+                error={countryError}
+                onChange={(event: any) => {
+                  setIsoCode(event.target.countryInfo.isoCode);
+                  setCountryError(false);
+                  setPackageData({
+                    ...packageData,
+                    country: event.target.countryInfo.name,
+                  });
+                }}
+              />
+            </div>
+            <div className="w-[100%]">
+              <SelectStateInput
+                label=" State "
+                name="stateInput"
+                isocode={isoCode}
+                country={packageData.country}
+                state={packageData.state}
+                error={stateError}
+                onChange={(event) => {
+                  setStateError(false);
+                  setPackageData({
+                    ...packageData,
+                    state: event.target.value,
+                  });
+                }}
+              />
+            </div>
           </div>
-          <div className="w-[100%]">
-            <SelectStateInput
-              label=" State "
-              name="stateInput"
-              isocode={isoCode}
-              country={packageData.country}
-              state={packageData.state}
-              error={stateError}
-              onChange={(event) => {
-                setStateError(false);
-                setPackageData({
-                  ...packageData,
-                  state: event.target.value,
-                });
-              }}
-            />
-          </div>
-        </div>
           <div className="lg:flex gap-6  mb-4">
             <FormNumberInput
               label="No.Of Person"
@@ -569,8 +569,6 @@ const AddPackage = ({ isEditMode, initialPackageData }: AddUserProps) => {
             />
           </span>
         </div>
-
-       
 
         <div className="">
           <label className="">Description</label>

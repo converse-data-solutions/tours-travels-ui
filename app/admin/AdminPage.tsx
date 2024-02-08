@@ -15,9 +15,7 @@ import { FiBell } from "react-icons/fi";
 import { useRef } from "react";
 import BellIconDetails from "../components/CommonComponents/BellIconDetails";
 import { FaRegHeart } from "react-icons/fa";
-import Modal from 'react-modal';
-
-
+import Modal from "react-modal";
 
 type ListDetails = {
   category: string;
@@ -54,7 +52,7 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
 
   const [parent, setParent] = useState<ListDetails | null>(null);
   const [ischildren, setChildren] = useState<ListDetails[]>([]);
- 
+
   const handleMouseEnter = () => {
     setTimeout(() => {
       setIsDetailsVisible(true);
@@ -172,33 +170,29 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
   };
   const customStyles = {
     overlay: {
-      background: 'rgba(0, 0, 0, 0.0)', 
-      zIndex:'3000'
+      background: "rgba(0, 0, 0, 0.0)",
+      zIndex: "3000",
     },
     content: {
-      top: '-9.3%',
-      left: '84.7%',
-      right: '-15%',
-      bottom: '0',
-      margin: 'auto',
-      border: 'none',
-      background: 'transparent', 
-      overflow: 'auto',
-      borderRadius: '4px',
-      outline: 'none',
-      padding: '', 
+      top: "-9.3%",
+      left: "84.7%",
+      right: "-15%",
+      bottom: "0",
+      margin: "auto",
+      border: "none",
+      background: "transparent",
+      overflow: "auto",
+      borderRadius: "4px",
+      outline: "none",
+      padding: "",
       boxShadow: "",
-      maxWidth: '250px', 
-      paddingTop:'10px',
-      height:'350px',
-      transform: 'translate(-50%, -60%)',
-      zIndex:'3000'
-      
-      
+      maxWidth: "250px",
+      paddingTop: "10px",
+      height: "350px",
+      transform: "translate(-50%, -60%)",
+      zIndex: "3000",
     },
   };
-  
-
 
   return (
     <html lang="en">
@@ -407,35 +401,36 @@ export default function AdminPage({ children }: React.PropsWithChildren<{}>) {
                   </div>
 
                   <div>Converse Data Solutions</div>
-
                 </div>
               </div>
               {imgClick && (
-               
                 <Modal
-                isOpen={imgClick}
-                onAfterOpen={() => {
-                  document.body.style.overflow = 'hidden';
-                }}              
-                  onRequestClose={()=>setImgClick(false)}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                <div
-                  className=" absolute right-[10px]  z-50  rounded-lg profile-card" style={{ boxShadow: '0 5px 10px 0 rgba(183, 192, 206, 0.20)' }}
-                  
+                  isOpen={imgClick}
+                  onAfterOpen={() => {
+                    document.body.style.overflow = "hidden";
+                  }}
+                  onRequestClose={() => setImgClick(false)}
+                  style={customStyles}
+                  contentLabel="Example Modal"
                 >
-                  {" "}
-                  <UserDetailsForm />
-                </div>
+                  <div
+                    className=" absolute right-[10px]  z-50  rounded-lg profile-card"
+                    style={{
+                      boxShadow: "0 5px 10px 0 rgba(183, 192, 206, 0.20)",
+                    }}
+                  >
+                    {" "}
+                    <UserDetailsForm />
+                  </div>
                 </Modal>
-              
               )}
 
               {bellClick && (
                 <div
                   className="z-50 absolute right-[55px] mt-[2px]  rounded-lg "
-                  style={{ boxShadow: '0 5px 10px 0 rgba(183, 192, 206, 0.20)' }}
+                  style={{
+                    boxShadow: "0 5px 10px 0 rgba(183, 192, 206, 0.20)",
+                  }}
                   ref={ref}
                 >
                   <div>

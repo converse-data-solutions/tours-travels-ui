@@ -155,7 +155,6 @@ const Userlistpage = () => {
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(1);
-      
     }
   }, [entries, filteredData, currentPage, totalPages]);
 
@@ -186,7 +185,10 @@ const Userlistpage = () => {
         </div>
       </div>
 
-      <div className=" bg-white px-4 py-4 rounded-[10px]  lg:flex lg:flex-row lg:justify-between " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
+      <div
+        className=" bg-white px-4 py-4 rounded-[10px]  lg:flex lg:flex-row lg:justify-between "
+        style={{ boxShadow: "0 0 10px 0 rgba(183, 192, 206, 0.20)" }}
+      >
         <div className="pt-6  ">
           <h5 className="flex justify-center md:justify-start   w-full px-4  text-[16px] lg:w-[190px] xl:w-full lg:text-[16px]  font-semibold  text-[#232323]   ">
             {" "}
@@ -247,7 +249,7 @@ const Userlistpage = () => {
                         />
                       ) : (
                         <Image
-                          src={AlternateImg||list.file_name}
+                          src={AlternateImg || list.file_name}
                           className="rounded-md h-10 w-10"
                           alt="img"
                           height={30}

@@ -68,7 +68,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [errors, setErrors] = useState({
-    img:"",
+    img: "",
     first_name: "",
     last_name: "",
     email: "",
@@ -97,24 +97,19 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       } else if (!/\d/.test(value)) {
         errorMessage = "Password must contain at least one number";
       }
-
-    } 
-    else if (fieldName === "email") {
+    } else if (fieldName === "email") {
       if (value.trim() === "") {
         errorMessage = "Email is required";
       } else if (!emailRegex.test(value)) {
         errorMessage = "Invalid email format";
       } else if (!value.includes("@")) {
-        
-
         errorMessage = "Email must contain '@'";
       } else if (/[A-Z]/.test(value)) {
-
         errorMessage = "Email should not contain uppercase letters";
       } else if (/[!#$%^&*()+={}\[\]:;<>,?~\\/]/.test(value)) {
-
         errorMessage = "Email should not contain unwanted symbols";
-      }}else if (fieldName === "mobile_number") {
+      }
+    } else if (fieldName === "mobile_number") {
       if (value.trim() === "") {
         errorMessage = "Mobile Number is required";
       } else if (!mobileNumberRegex.test(value)) {
@@ -169,7 +164,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
       const errorMessage = validateInput(fieldName, userData[fieldName]);
       if (errorMessage) {
         errors[fieldName as keyof FormErrors] = errorMessage;
-
       }
     });
 
@@ -190,7 +184,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     });
 
     if (hasErrors) {
-
       return false;
     }
 
@@ -234,9 +227,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
 
               if (uploadImageResponse.status === 201) {
                 setSuccessMessage("User updated successfully!");
-              setTimeout(() => {
-                setSuccessMessage("");
-              }, 5000);
+                setTimeout(() => {
+                  setSuccessMessage("");
+                }, 5000);
               } else {
                 console.error(
                   "Error uploading image:",
@@ -246,9 +239,9 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               }
             }
             setSuccessMessage("User updated successfully!");
-              setTimeout(() => {
-                setSuccessMessage("");
-              }, 5000);
+            setTimeout(() => {
+              setSuccessMessage("");
+            }, 5000);
             window.location.reload();
           } else {
             console.error("Error updating user:", response.status);
@@ -330,14 +323,14 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
     }
   }
 
-  const handleImageChange = (event:any) => {
+  const handleImageChange = (event: any) => {
     const file = event.target.files[0];
 
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
       setSelectedFile(file);
     } else {
       setSelectedFile(null);
-      alert('Please select a valid image file.');
+      alert("Please select a valid image file.");
     }
   };
 
@@ -413,7 +406,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </div>
           <div className="flex-row mt-3 text-center ">
             <button
-
               className="bg-[#029e9d] text-white py-[13px] pl-[17px] pr-[14px] w-[141px] rounded-lg  hover:bg-yellow-400 gap-1"
               onClick={handleInput}
             >
@@ -477,16 +469,12 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)] text-[#232323] ">
                 Choose file{" "}
               </span>{" "}
-              {/* <span className="bg-white relative top-[-36px]  z-10">
-                No file chosen
-              </span> */}
             </label>
           </span>
         </div>
         <div className="w-full grid grid-cols-1">
           <div className="lg:flex gap-6 mb-2">
             <FormInput
-
               label="First Name"
               name="first_name"
               value={userData.first_name}
@@ -630,7 +618,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
           </span>
         </div>
 
-
         {showAdditionalDropdown && (
           <SelectInput
             label="Additional Role"
@@ -656,9 +643,11 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               <div className="">
                 {" "}
                 <LuPlus className="text-[28px] pr-1   " />
-
               </div>
-              <div className="mt-[3px]"> {isEditMode ? "Update User" : "Add User"}</div>
+              <div className="mt-[3px]">
+                {" "}
+                {isEditMode ? "Update User" : "Add User"}
+              </div>
             </div>
           </button>
         </div>

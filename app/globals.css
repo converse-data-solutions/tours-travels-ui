@@ -337,7 +337,7 @@ input[type="radio"] {
   font-family: "Roboto", Helvetica, sans-serif !important;
   font-weight: 550 !important;
   font-size: 14px !important;
-   z-index: 1;
+  z-index: 1;
   line-height: 21px !important;
   letter-spacing: -0.3px !important;
 }
@@ -382,7 +382,8 @@ li {
   top: -36px;
   left: 3px;
 }
-.custom-file-input,.custom-file-input-button  {
+.custom-file-input,
+.custom-file-input-button {
   position: relative;
   overflow: hidden;
 }
@@ -401,33 +402,28 @@ li {
 .custom-file-input-button:hover,
 .custom-file-input-button2:hover {
   background-color: #c3c2c4;
-  
 }
 .custom-file-input-button2 {
   left: 1px;
   padding: 10px 7px;
 }
 
-
 input[type="file"] {
   padding: 10px 15px;
   background-color: white !important; /* Add padding */
   cursor: pointer;
-   /* Change cursor style */
+  /* Change cursor style */
 }
 
 /* Hide/show button */
 input[type="file"]::webkit-file-upload-button {
-  cursor:  pointer !important; /* Hide button */
+  cursor: pointer !important; /* Hide button */
 }
 
 /* Change text */
 input[type="file"]::-webkit-file-upload-button:before {
   content: "Upload"; /* Change text */
 }
-
-
-
 
 select {
   &:focus,
@@ -542,8 +538,6 @@ select {
   -webkit-transition: 0.4s;
   transition: 0.4s;
   z-index: 0 !important;
-
-
 }
 
 .slider:before {
@@ -558,7 +552,6 @@ select {
   -webkit-transition: 0.4s;
   transition: 0.4s;
   z-index: 0 !important;
-
 }
 
 input:checked + .slider {
@@ -984,8 +977,7 @@ body {
   background-color: white;
   border-left: 1px solid rgb(233, 231, 231);
   border-top: 1px solid rgb(233, 231, 231);
-  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.20)
- 
+  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.2);
 }
 
 .triangle-outline1 {
@@ -999,8 +991,7 @@ body {
   background-color: white;
   border-left: 1px solid rgb(168, 14, 14);
   border-top: 1px solid rgb(78, 182, 30);
-  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.20)
- 
+  box-shadow: 0 5px 10px 0 rgba(183, 192, 206, 0.2);
 }
 
 .custom-ul {
@@ -1163,7 +1154,6 @@ body {
   animation-duration: 0.5s;
 }
 
-
 @keyframes bookingcard {
   from {
     top: 500px;
@@ -1188,56 +1178,51 @@ body {
     background-color: white;
   }
 }
-.profile-card{
+.profile-card {
   z-index: 50;
   animation-name: profilecard;
   animation-duration: 0.2s;
 }
-@keyframes profilecard{
-  from{
-    top:100px;
-  }to{
-    top:70px;
+@keyframes profilecard {
+  from {
+    top: 100px;
+  }
+  to {
+    top: 70px;
   }
 }
 
-.entries-style  {
-
+.entries-style {
   border-radius: 10px !important;
-    z-index: index 20;
-    overflow-x:hidden;
-    border: 1px solid #cbced3 !important;
-    margin-top: 8px !important;
-    
-    
-   
-    .entries-first-index{
-      background-color: #029e9d !important;
-    }
-    .entries-first-index1:hover{
-      background-color: #029e9d !important;
+  z-index: index 20;
+  overflow-x: hidden;
+  border: 1px solid #cbced3 !important;
+  margin-top: 8px !important;
 
-    }
-
-  
+  .entries-first-index {
+    background-color: #029e9d !important;
+  }
+  .entries-first-index1:hover {
+    background-color: #029e9d !important;
+  }
 }
 
 .rdtPicker td.rdtToday {
   position: relative;
   color: #029e9d;
-  background-color: rgba(101,113,255,.3);
+  background-color: rgba(101, 113, 255, 0.3);
   border-radius: 5px;
 }
 
 .ql-toolbar.ql-snow {
   border-bottom: 1px solid #dddada !important;
   border-top: none !important;
-  border-left:none !important;
-  border-right: none !important;;
+  border-left: none !important;
+  border-right: none !important;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   padding: 8px;
 }
 .ql-container.ql-snow {
-  border:none !important;
+  border: none !important;
 }

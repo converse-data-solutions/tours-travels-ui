@@ -18,7 +18,6 @@ const TextArea: React.FC<TextAreaProps> = ({
       <label className="text-[#232323]">{label}</label>
       <textarea
         className="border-[1px] border-gray-200 rounded-lg h-[48px] w-full pl-2 mt-2 mb-1 focus:border-gray-400 focus:outline-none"
-
         name={name}
         value={value}
         onChange={onChange}
