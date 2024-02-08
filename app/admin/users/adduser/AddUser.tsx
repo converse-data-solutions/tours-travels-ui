@@ -443,7 +443,7 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
         {isEditMode ? (
           userData.file_name !== null && userData.file_name !== undefined ? (
             <Image
-              src={userData.file_name}
+              src={AlternateImg}
               className="h-20 w-20"
               height={20}
               width={20}
