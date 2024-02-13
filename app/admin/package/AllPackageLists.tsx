@@ -27,6 +27,7 @@ import {
 } from "react-icons/fa6";
 import * as XLSX from "xlsx";
 
+
 interface UserData {
   id: number;
   title: string;
@@ -61,6 +62,8 @@ const AllPackageLists = () => {
   const [successExcelMessage, setSuccessExcelMessage] = useState<string | null>(null);
 
 
+
+  const pdfExportComponent = useRef(null);
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -446,6 +449,7 @@ const AllPackageLists = () => {
 
   const totalPages = Math.ceil(filteredData.length / entries);
 
+
   const handleCategoryChange = (
     event: React.ChangeEvent<{ value: string }>
   ) => {
@@ -460,6 +464,14 @@ const AllPackageLists = () => {
 
   return (
     <div className="px-4 lg:pl-6 pr-5">
+
+      {/* <PDFExport
+        paperSize="a4"
+        margin={40}
+        fileName={`Report_${new Date().getFullYear()}.pdf`}
+        author="Your Name"
+      > */}
+
       <div className=" mt-[13px] md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5 lg:mt-6 text-[14px]">
@@ -673,7 +685,9 @@ const AllPackageLists = () => {
                         <td>
                           {detailedPackageDate?.start_date &&
                             new Date(
+
                               detailedPackageDate.start_date
+
                             ).toLocaleDateString("en-GB")}
                         </td>
                       </tr>
@@ -755,6 +769,7 @@ const AllPackageLists = () => {
                             : detailedPackageDate.published === 0
                             ? "Not Published"
                             : ""}
+
                         </td>
                       </tr>
                     )}
@@ -767,6 +782,7 @@ const AllPackageLists = () => {
       )}
 
       <div className="  flex justify-center lg:justify-start flex-row">
+
         <PaginationBar
           currentPage={currentPage}
           totalPages={totalPages}

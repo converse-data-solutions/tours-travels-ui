@@ -469,9 +469,6 @@ const AddUser = ({ isEditMode, initialUserData, isHeadpart }: AddUserProps) => {
               <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)] text-[#232323] ">
                 Choose file{" "}
               </span>{" "}
-              {/* <span className="bg-white relative top-[-36px]  z-10">
-                No file chosen
-              </span> */}
             </label>
           </span>
         </div>
