@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -18,8 +18,14 @@ import PackageSearchBar from "@/app/components/CommonComponents/PackageSearchBar
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
-
-
+import { FaRegFile } from "react-icons/fa";
+import { BsFiletypeCsv } from "react-icons/bs";
+import Papa from "papaparse";
+import {
+  FaArrowRight,
+  
+} from "react-icons/fa6";
+import * as XLSX from "xlsx";
 
 interface UserData {
   id: number;
@@ -37,7 +43,6 @@ interface UserData {
   category: string;
 }
 
-
 const AllPackageLists = () => {
   const [entries, setEntries] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,9 +50,17 @@ const AllPackageLists = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("Category");
   const [viewFormVisible, setViewFormVisible] = useState(false);
-const [detailedPackageDate,setDetailedPackageDate]=useState<UserData>();
+  const [detailedPackageDate, setDetailedPackageDate] = useState<UserData>();
+  let [file, setFile] = useState<File | string>();
+  const [parsedCsvData, setParsedCsvData] = useState<any[]>([]);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [excelFile, setExcelFile] = useState<File | string>();
+  const [excelData, setExcelData] = useState<any[]>([]);
+  const [uploadExcelError, setUploadExcelError] = useState<string | null>(null);
+  const [successExcelMessage, setSuccessExcelMessage] = useState<string | null>(null);
 
-const pdfExportComponent = useRef(null);
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -69,7 +82,6 @@ const pdfExportComponent = useRef(null);
       })
       .then((responseData) => {
         const userDataArray = responseData.data;
-        console.log(userDataArray);
 
         setData(userDataArray);
       })
@@ -82,7 +94,7 @@ const pdfExportComponent = useRef(null);
     try {
       if (localStorage.getItem("accessToken") === null) {
         const userConfirmed = window.confirm(
-          "You are not signed in to your account. Do you want to sign in your account?",
+          "You are not signed in to your account. Do you want to sign in your account?"
         );
         if (userConfirmed) {
           window.location.replace("/signin");
@@ -97,9 +109,7 @@ const pdfExportComponent = useRef(null);
         }
 
         const updatedData = data.map((item) =>
-          item.id === id
-            ? { ...item, published: item.published ? 0 : 1 }
-            : item,
+          item.id === id ? { ...item, published: item.published ? 0 : 1 } : item
         );
         setData(updatedData);
 
@@ -114,12 +124,12 @@ const pdfExportComponent = useRef(null);
             body: JSON.stringify({
               published: updatedData.find((item) => item.id === id)?.published,
             }),
-          },
+          }
         );
 
         if (!response.ok) {
           console.error(
-            `Failed to update published status for package with ID ${id}.`,
+            `Failed to update published status for package with ID ${id}.`
           );
         }
       }
@@ -127,11 +137,166 @@ const pdfExportComponent = useRef(null);
       console.error("Error toggling published status:", error);
     }
   };
+  const handleFileChange = (event: any) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+    setUploadError(" ");
+
+    Papa.parse(selectedFile, {
+      skipEmptyLines: true,
+      header: true,
+      complete: function (results) {
+
+        setParsedCsvData(results.data);
+      },
+    });
+  };
+
+  const handleExcelFileChange = (event: any) => {
+    setUploadExcelError(" ");
+
+    const selectedExcelFile = event.target.files[0];
+    setExcelFile(selectedExcelFile);
+    if (selectedExcelFile) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: "array" });
+
+          const sheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[sheetName];
+
+          const jsonData = XLSX.utils.sheet_to_json(sheet);
+          setExcelData(jsonData);
+
+        } catch (error) {
+          console.error("Error reading Excel file:", error);
+        }
+      };
+
+      reader.readAsArrayBuffer(selectedExcelFile);
+    }
+  };
+
+  const handleExcelSubmit = async (event: any) => {
+    event.preventDefault();
+    if(!excelFile){
+      setUploadExcelError("Select a file to import ");
+      return;
+    }
+
+  
+    try {
+      const formData = new FormData();
+
+      if (file instanceof File) {
+        formData.append("file", file);
+
+      }
+      formData.append("excelData", JSON.stringify(excelData));
+
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/importcsv`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(excelData),
+        }
+      );
+      if (response.status == 200) {
+        const successResponse=await response.json();
+        window.location.reload();
+        setSuccessExcelMessage(successResponse.message || "file submitted successfully")
+        setUploadExcelError(null)
+
+      } else {
+        const errorResponse = await response.json();
+        console.error("File upload failed:", errorResponse);
+        setUploadExcelError(errorResponse.message || "File upload failed");
+
+      }
+    } catch (error) {
+      console.error("Error during file upload:", error);
+    }
+  };
+
+  const generateExcel = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/excelxlsx/xlsx?title=${searchQuery}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch CSV. Status: ${response.status}`);
+      }
+
+      const excelBlob = await response.blob();
+      const csvUrl = URL.createObjectURL(excelBlob);
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = csvUrl;
+      downloadLink.download = "exported-packagedata.xlsx";
+
+      document.body.appendChild(downloadLink);
+
+      downloadLink.click();
+
+      document.body.removeChild(downloadLink);
+    } catch (error) {
+      console.error("Error toggling published status:", error);
+    }
+  };
+
+  const handleCsvSubmit = async (event: any) => {
+    event.preventDefault();
+    if (!file) {
+      setUploadError("Please select a file to import.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+
+      if (file instanceof File) {
+        formData.append("file", file);
+      }
+      formData.append("csvData", JSON.stringify(parsedCsvData));
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/package/importcsv`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(parsedCsvData),
+        }
+      );
+      if (response.status === 200) {
+        setSuccessMessage("CSV file imported successfully");
+        setUploadError(null);
+
+        window.location.reload();
+      } else {
+        const errorResponse = await response.json();
+        console.error("File upload failed:", errorResponse);
+        setUploadError(errorResponse.message || "File upload failed");
+      }
+    } catch (error) {
+      console.error("Error during file upload:", error);
+    }
+  };
 
   function handleDeleteAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?",
+        "You are not signed in to your account. Do you want to sign in your account?"
       );
       if (userConfirmed) {
         window.location.replace("/signin");
@@ -142,7 +307,7 @@ const pdfExportComponent = useRef(null);
       if (window.confirm("Are you sure you want to delete this user?")) {
         if (localStorage.getItem("accessToken") === null) {
           const userConfirmed = window.confirm(
-            "You are not signed in to your account. Do you want to sign in your account?",
+            "You are not signed in to your account. Do you want to sign in your account?"
           );
           if (userConfirmed) {
             window.location.replace("/signin");
@@ -205,7 +370,6 @@ const pdfExportComponent = useRef(null);
       })
       .then((responseData) => {
         const detailedPackageDate = responseData.data;
-        console.log(detailedPackageDate);
 
         setDetailedPackageDate(detailedPackageDate);
       })
@@ -215,11 +379,56 @@ const pdfExportComponent = useRef(null);
 
     setViewFormVisible(true);
   };
+  const generatePdf = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/index/packagepdf?title=${searchQuery}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch PDF. Status: ${response.status}`);
+      }
+
+      const pdfBlob = await response.blob();
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      window.open(pdfUrl, "_blank");
+    } catch (error) {
+      console.error("Error generating or opening PDF:", error);
+    }
+  };
+
+  const generateCSV = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/excel/csv?title=${searchQuery}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch CSV. Status: ${response.status}`);
+      }
+
+      const csvBlob = await response.blob();
+      const csvUrl = URL.createObjectURL(csvBlob);
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = csvUrl;
+      downloadLink.download = "exported-data.csv";
+
+      document.body.appendChild(downloadLink);
+
+      downloadLink.click();
+
+      document.body.removeChild(downloadLink);
+    } catch (error) {
+      console.error("Error generating or opening CSV:", error);
+    }
+  };
 
   function handleEditAction(id: number) {
     if (localStorage.getItem("accessToken") === null) {
       const userConfirmed = window.confirm(
-        "You are not signed in to your account. Do you want to sign in your account?",
+        "You are not signed in to your account. Do you want to sign in your account?"
       );
       if (userConfirmed) {
         window.location.replace("/signin");
@@ -232,45 +441,25 @@ const pdfExportComponent = useRef(null);
   }
 
   const filteredData = data.filter((item) =>
-    item.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
+    item.title.toLowerCase().startsWith(searchQuery.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredData.length / entries);
-  console.log("totalPage",totalPages);
-
-
 
   const handleCategoryChange = (
-    event: React.ChangeEvent<{ value: string }>,
+    event: React.ChangeEvent<{ value: string }>
   ) => {
     setCategory(event.target.value);
   };
 
   useEffect(() => {
     if (currentPage > totalPages) {
-      
       setCurrentPage(1);
-      
     }
   }, [entries, filteredData, currentPage, totalPages]);
 
-  
-
   return (
-
-    
-
     <div className="px-4 lg:pl-6 pr-5">
-
-    
-
-     {/* <PDFExport
-        paperSize="a4"
-        margin={40}
-        fileName={`Report_${new Date().getFullYear()}.pdf`}
-        author="Your Name"
-      > */}
-
       <div className=" mt-[13px] md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
           <h2 className="text-gray-500 md:mt-5 lg:mt-6 text-[14px]">
@@ -297,8 +486,10 @@ const pdfExportComponent = useRef(null);
       </div>
 
       <div>
-
-        <div className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 " style={{ boxShadow: '0 0 10px 0 rgba(183, 192, 206, 0.20)' }}>
+        <div
+          className="w-[100%] bg-white pl-4 pt-6 pb-3 mt-[14px] rounded-[10px]   lg:flex lg:gap-6 pr-5 "
+          style={{ boxShadow: "0 0 10px 0 rgba(183, 192, 206, 0.20)" }}
+        >
           {" "}
           <div className="items-center lg:text-start w-[100%]  ">
             <h5 className="flex    w-full py-4 px-2 text-[16px]   lg:text-[16px] md:py-0 font-semibold  text-[#232323]   xl:pt-3">
@@ -417,8 +608,7 @@ const pdfExportComponent = useRef(null);
 
                     <td>
                       <span className="flex gap-2 text-[#029e9d] justify-center">
-                   
-                      <FiEye
+                        <FiEye
                           onClick={() => handleViewAction(list.id)}
                           className="flex  text-[#029e9d] mt-[1px]  text-[24px] hover:text-[#6f42c1]"
                         />
@@ -441,13 +631,7 @@ const pdfExportComponent = useRef(null);
             </TableBody>
           </Table>
         </TableContainer>
-
-
-
-        
       </div>
-      
-
 
       {viewFormVisible && (
         <Modal
@@ -474,9 +658,8 @@ const pdfExportComponent = useRef(null);
                   Package Details
                 </div>
 
-
                 <table className="w-full ">
-                  <tbody className="">   
+                  <tbody className="">
                     {detailedPackageDate?.title && (
                       <tr className="">
                         <td className="w-[50%] ">Title</td>
@@ -484,48 +667,18 @@ const pdfExportComponent = useRef(null);
                       </tr>
                     )}
 
-{detailedPackageDate?.start_date && (
+                    {detailedPackageDate?.start_date && (
                       <tr>
                         <td>Start Date</td>
                         <td>
-  {detailedPackageDate?.start_date &&
-    new Date(detailedPackageDate.start_date).toLocaleDateString('en-GB')}
-</td>
-
+                          {detailedPackageDate?.start_date &&
+                            new Date(
+                              detailedPackageDate.start_date
+                            ).toLocaleDateString("en-GB")}
+                        </td>
                       </tr>
                     )}
 
-                    {detailedPackageDate?.country && (
-                      <tr>
-                        <td>Country</td>
-                        <td>{detailedPackageDate?.country }</td>
-                      </tr>
-                    )}
-                    {detailedPackageDate?.state && (
-                      <tr>
-                        <td>State</td>
-                        <td>{detailedPackageDate?.state}</td>
-                      </tr>
-                    )}
-                   {detailedPackageDate?.description && (
-  <tr>
-    <td>Description</td>
-    <td dangerouslySetInnerHTML={{ __html: detailedPackageDate.description }} />
-  </tr>
-)}
-                    {detailedPackageDate?.price && (
-                      <tr>
-                        <td>Price</td>
-                        <td>{detailedPackageDate?.price}</td>
-                      </tr>
-                    )}
-                    {detailedPackageDate?.no_of_person && (
-                      <tr>
-                        <td>No of person</td>
-                        <td>{detailedPackageDate?.no_of_person}</td>
-                      </tr>
-                    )}
-                    
                     {detailedPackageDate?.country && (
                       <tr>
                         <td>Country</td>
@@ -538,7 +691,42 @@ const pdfExportComponent = useRef(null);
                         <td>{detailedPackageDate?.state}</td>
                       </tr>
                     )}
-                    {detailedPackageDate?.days_and_night&& (
+                    {detailedPackageDate?.description && (
+                      <tr>
+                        <td>Description</td>
+                        <td
+                          dangerouslySetInnerHTML={{
+                            __html: detailedPackageDate.description,
+                          }}
+                        />
+                      </tr>
+                    )}
+                    {detailedPackageDate?.price && (
+                      <tr>
+                        <td>Price</td>
+                        <td>{detailedPackageDate?.price}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.no_of_person && (
+                      <tr>
+                        <td>No of person</td>
+                        <td>{detailedPackageDate?.no_of_person}</td>
+                      </tr>
+                    )}
+
+                    {detailedPackageDate?.country && (
+                      <tr>
+                        <td>Country</td>
+                        <td>{detailedPackageDate?.country}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.state && (
+                      <tr>
+                        <td>State</td>
+                        <td>{detailedPackageDate?.state}</td>
+                      </tr>
+                    )}
+                    {detailedPackageDate?.days_and_night && (
                       <tr>
                         <td>No of days</td>
                         <td>{detailedPackageDate?.days_and_night}</td>
@@ -551,19 +739,25 @@ const pdfExportComponent = useRef(null);
                       </tr>
                     )}
 
-{detailedPackageDate?.offer && (
+                    {detailedPackageDate?.offer && (
                       <tr>
                         <td>Offer</td>
                         <td>{detailedPackageDate?.offer}%</td>
                       </tr>
                     )}
 
-{detailedPackageDate?.published !== undefined && (
-  <tr>
-    <td>Publish Status</td>
-    <td>{detailedPackageDate.published === 1 ? "Published" : detailedPackageDate.published === 0 ? "Not Published" : ""}</td>
-  </tr>
-)}
+                    {detailedPackageDate?.published !== undefined && (
+                      <tr>
+                        <td>Publish Status</td>
+                        <td>
+                          {detailedPackageDate.published === 1
+                            ? "Published"
+                            : detailedPackageDate.published === 0
+                            ? "Not Published"
+                            : ""}
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -572,21 +766,150 @@ const pdfExportComponent = useRef(null);
         </Modal>
       )}
 
-     
-
-
-      <div className="mb-8  flex justify-center lg:justify-start flex-row">
+      <div className="  flex justify-center lg:justify-start flex-row">
         <PaginationBar
           currentPage={currentPage}
           totalPages={totalPages}
           setCurrentPage={setCurrentPage}
         />
       </div>
+      <div className="flex justify-end gap-7">
+        <div>
+          <form onSubmit={handleCsvSubmit} encType="multipart/form-data">
+            <div className="flex gap-7">
+              <div className="file-input-container col-span-1 ">
+                <span>
+                  <input
+                    type="file"
+                    className="py-3 border-[1px] border-gray-200 rounded-lg h-[48px] w-full   custom-file-input grid"
+                    name="file"
+                    accept=".csv,.xlsx, text/csv, application/vnd.ms-excel"
+                    id="file-input"
+                    onChange={handleFileChange}
+                    alt=""
+                  />
 
+                  <label htmlFor="file-input">
+                    <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
+                      Choose file{" "}
+                    </span>{" "}
+                  </label>
+                </span>
+                {uploadError && (
+                  <div className="text-red-500 mt-[-5%]">{uploadError}</div>
+                )}
+                {successMessage && (
+                  <div className="text-[#029e9d] mt-[-5%]">
+                    {successMessage}
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-1   ">
+                <button
+                  className="bg-[#029e9d] text-white py-[1px]  h-[48px] !important pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
+                  type="submit"
+                >
+                  <div className="flex gap-1  ">
+                    <div>Import CSV </div>{" "}
+                    <div>
+                      <FaArrowRight className="mt-1"/>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className="w-100% items-end  ">
+          <button
+            className="bg-[#029e9d] text-white py-[13px]   pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
+            onClick={generatePdf}
+          >
+            {" "}
+            <div className="flex gap-1">
+              {" "}
+              <div>Generate PDF </div>{" "}
+              <div>
+                <FaArrowRight className="mt-1"/>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        <div className="w-100% items-end  ">
+          <button
+            className="bg-[#029e9d] text-white py-[13px]   pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
+            onClick={generateCSV}
+          >
+            {" "}
+            <div className="flex gap-1  ">
+              <div>Generate CSV </div>{" "}
+              <div className="mt-1">
+                <FaArrowRight />
+              </div>
+            </div>
+          </button>
+        </div>
+        <div>
+          <button
+            className="bg-[#029e9d] text-white py-[13px]   pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
+            onClick={generateExcel}
+          >
+            {" "}
+            <div className="flex gap-1  ">
+              <div>Generate Excel </div>{" "}
+              <div className="mt-1">
+                <FaArrowRight />
+              </div>
+            </div>
+          </button>
+        </div>
+        <div>
+          <form onSubmit={handleExcelSubmit}>
+            <div className="flex gap-6">
+            <div className="file-input-container col-span-1 ">
+              <span>
+                <input
+                  type="file"
+                  className="py-3 border-[1px] border-gray-200 rounded-lg h-[48px] w-full   custom-file-input grid"
+                  name="file"
+                  accept=".xlsx, application/vnd.ms-excel"
+                  id="file-inputExcel"
+                  onChange={handleExcelFileChange}
+                  alt=""
+                />
+
+                <label htmlFor="file-inputExcel">
+                  <span className="custom-file-input-button font-thin  hover:bg-[hsl(0,0%,95%)]">
+                    Choose file{" "}
+                  </span>{" "}
+                </label>
+              </span>
+              {uploadExcelError && (
+                <div className="text-red-500 mt-[-5%]">{uploadExcelError}</div>
+              )}
+              {successExcelMessage && (
+                <div className="text-[#029e9d] mt-[-5%]">{successExcelMessage}</div>
+              )}
+            </div>
+            <div className="flex gap-1   ">
+              <button
+                className="bg-[#029e9d] text-white py-[1px]  h-[48px] !important pl-5 pr-4 rounded-lg mr-1 hover:bg-yellow-400 "
+                type="submit"
+              >
+                <div className="flex gap-1  ">
+                  <div>Import Excel </div>{" "}
+                  <div className="mt-1">
+                    <FaArrowRight />
+                  </div>
+                </div>
+              </button>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-
   );
 };
 export default AllPackageLists;
-
-

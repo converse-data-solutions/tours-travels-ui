@@ -15,7 +15,9 @@ const CountryDropdown: React.FC<CountryDropdownProps> = ({
 }) => {
   const [isOpenCountry, setIsOpenCountry] = useState(false);
   const [countries, setCountries] = useState<ICountry[]>([]);
-  const [currentCountryOptions, setCurrentCountryOptions] = useState<string[]>([]);
+  const [currentCountryOptions, setCurrentCountryOptions] = useState<string[]>(
+    [],
+  );
 
   const dropdownRefCountry = useRef<HTMLDivElement>(null);
 

@@ -18,8 +18,12 @@ const BellIconDetails = () => {
               <LuGift className="text-white " />
             </div>
             <div>
-              <div className="order-head text-[12.992px]">New Order.Received</div>
-              <div className="order-time text-[12px] text-[#7987a1]">30 min ago</div>
+              <div className="order-head text-[12.992px]">
+                New Order.Received
+              </div>
+              <div className="order-time text-[12px] text-[#7987a1]">
+                30 min ago
+              </div>
             </div>
           </div>
           <div className="order-fullbox flex  gap-4">
@@ -30,12 +34,16 @@ const BellIconDetails = () => {
               <div className="order-head text-[12px]">
                 Server Limit Reached!
               </div>
-              <div className="order-time text-[12px] text-[#7987a1]">1 hrs ago</div>
+              <div className="order-time text-[12px] text-[#7987a1]">
+                1 hrs ago
+              </div>
             </div>
           </div>
         </div>
         <hr></hr>
-        <div className="items-center text-center pt-[8px] pb-[2px] text-[#232323] text-[14px] font-medium">View all</div>
+        <div className="items-center text-center pt-[8px] pb-[2px] text-[#232323] text-[14px] font-medium">
+          View all
+        </div>
       </div>
     </div>
   );

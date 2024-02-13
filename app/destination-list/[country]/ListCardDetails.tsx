@@ -42,10 +42,7 @@ interface DetailsPageProps {
   };
 }
 
-const CountryDetailsPage: React.FC<DetailsPageProps> = ({
-  params,
-  query,
-}) => {
+const CountryDetailsPage: React.FC<DetailsPageProps> = ({ params, query }) => {
   const [data, setData] = useState<UserData[]>([]);
   const countryName = params.country;
 
