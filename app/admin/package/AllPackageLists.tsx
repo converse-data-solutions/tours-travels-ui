@@ -465,12 +465,7 @@ const AllPackageLists = () => {
   return (
     <div className="px-4 lg:pl-6 pr-5">
 
-      {/* <PDFExport
-        paperSize="a4"
-        margin={40}
-        fileName={`Report_${new Date().getFullYear()}.pdf`}
-        author="Your Name"
-      > */}
+      
 
       <div className=" mt-[13px] md:flex justify-between   ">
         <div className="flex-row text-center  2xl:mr">
@@ -799,7 +794,7 @@ const AllPackageLists = () => {
                     type="file"
                     className="py-3 border-[1px] border-gray-200 rounded-lg h-[48px] w-full   custom-file-input grid"
                     name="file"
-                    accept=".csv,.xlsx, text/csv, application/vnd.ms-excel"
+                    accept=".csv"
                     id="file-input"
                     onChange={handleFileChange}
                     alt=""
