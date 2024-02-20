@@ -18,7 +18,7 @@ const BellIconDetails = () => {
               <LuGift className="text-white " />
             </div>
             <div>
-              <div className="order-head text-[12.992px]">
+              <div className="order-head text-[12.992px] text-[#232323]">
                 New Order.Received
               </div>
               <div className="order-time text-[12px] text-[#7987a1]">
@@ -31,7 +31,7 @@ const BellIconDetails = () => {
               <AiOutlineExclamationCircle className="text-white " />
             </div>
             <div>
-              <div className="order-head text-[12px]">
+              <div className="order-head text-[12px] text-[#232323]">
                 Server Limit Reached!
               </div>
               <div className="order-time text-[12px] text-[#7987a1]">

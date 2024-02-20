@@ -107,7 +107,7 @@ const UserDetailsForm = () => {
       marginTop: "15%",
       border: "none",
       background: "white",
-      overflow: "auto",
+      overflow: "hidden",
       borderRadius: "10px",
       outline: "none",
       padding: "40px",
@@ -151,7 +151,7 @@ const UserDetailsForm = () => {
             <div className="flex justify-center text-[16px] font-bold">
               {userData.first_name}
             </div>
-            <div className="flex justify-center text-[12px]">
+            <div className="flex justify-center text-[12px] text-[#7987a1]">
               {userData.email}
             </div>
           </div>

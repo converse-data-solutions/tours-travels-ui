@@ -1181,14 +1181,14 @@ body {
 .profile-card {
   z-index: 50;
   animation-name: profilecard;
-  animation-duration: 0.2s;
+  animation-duration: 0.07s;
 }
 @keyframes profilecard {
   from {
     top: 100px;
   }
   to {
-    top: 70px;
+    top: 90px;
   }
 }
 
